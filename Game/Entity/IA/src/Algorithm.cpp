@@ -12,7 +12,7 @@ static const t_choice dir[] = {{1, 0},
 			       {0, 1},
 			       {0, -1}};
 
-std::pair<int, int> Algorithm::find_nearest_safe_point(std::vector<std::string> &positionMap,
+std::pair<int, int> Algorithm::findNearestSafePoint(std::vector<std::string> &positionMap,
                                   std::vector<std::string> &dynamicMap,
 						       std::pair<int, int> &posPlayer, std::pair<int, int> &current)
 {
@@ -30,7 +30,7 @@ std::pair<int, int> Algorithm::find_nearest_safe_point(std::vector<std::string> 
 		if (positionMap[current.first + dir[i].first][current.second + dir[i].second] == 0) {
 			current.first += dir[i].first;
                         current.second += dir[i].second;
-			return (find_nearest_safe_point(positionMap, dynamicMap, posPlayer, current));
+			return (findNearestSafePoint(positionMap, dynamicMap, posPlayer, current));
 		}
 	}
 	return (current);
@@ -40,5 +40,5 @@ std::pair<int, int> Algorithm::defensiveMove(std::vector<std::string> &positionM
 				  std::vector<std::string> &dynamicMap,
 				  std::pair<int, int> &posPlayer)
 {
-	std::pair<int, int> safe_pos = find_nearest_safe_point(positionMap, dynamicMap, posPlayer, posPlayer);
+	std::pair<int, int> safe_pos = findNearestSafePoint(positionMap, dynamicMap, posPlayer, posPlayer);
 }

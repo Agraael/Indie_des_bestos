@@ -5,12 +5,12 @@
 ** source
 */
 
-#include "Bonuses.hpp"
+#include "Menu.hpp"
 
-Bonuses::Bonuses()
+Menu::Menu()
 {
 }
 
-Bonuses::~Bonuses()
+Menu::~Menu()
 {
 }
