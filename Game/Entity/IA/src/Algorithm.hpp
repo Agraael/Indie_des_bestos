@@ -21,7 +21,7 @@ public:
 	std::pair<int, int> defensiveMove(std::vector<std::string> &,
 					   std::vector<std::string> &,
 					   std::pair<int, int> &);
-	std::pair<int, int> find_nearest_safe_point(std::vector<std::string> &,
+	std::pair<int, int> findNearestSafePoint(std::vector<std::string> &,
                                            std::vector<std::string> &,
 						    std::pair<int, int> &,
 						    std::pair<int, int> &);
