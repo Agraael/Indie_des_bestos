@@ -7,10 +7,10 @@
 
 #include "Menu.hpp"
 
-Menu::Menu()
+graphic::Menu::Menu()
 {
 }
 
-Menu::~Menu()
+graphic::Menu::~Menu()
 {
 }
