@@ -5,12 +5,12 @@
 ** source
 */
 
-#include "Bonuses.hpp"
+#include "Entity.hpp"
 
-Bonuses::Bonuses()
+Entity::Entity()
 {
 }
 
-Bonuses::~Bonuses()
+Entity::~Entity()
 {
 }
