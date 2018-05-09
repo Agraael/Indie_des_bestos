@@ -4,13 +4,3 @@
 ** File description:
 ** source
 */
-
-#include "Menu.hpp"
-
-Menu::Menu()
-{
-}
-
-Menu::~Menu()
-{
-}

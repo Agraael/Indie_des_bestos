@@ -42,8 +42,9 @@ Ia::Ia(std::vector<std::string> &position_map, std::vector<std::string> &dynamic
 	while (1) {
 		if (checkIfDead(_positionMap, _pos) == 0)
 			return ;
-		if (isInDangerousPosition(_dynamicMap, _pos) == 0)
+		if (isInDangerousPosition(_dynamicMap, _pos) == 0) {
 			std::pair<int, int> pos_to_go =
 				iaAlgo->defensiveMove(_positionMap, _dynamicMap, _pos);
+		}
 	}
 }

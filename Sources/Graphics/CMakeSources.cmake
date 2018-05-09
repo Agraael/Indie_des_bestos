@@ -1,0 +1,15 @@
+set( GRAPHICS_ROOT_DIR Graphics)
+
+include(${GRAPHICS_ROOT_DIR}/Menu/CMakeSources.cmake)
+
+set(GRAPHICS_INC_DIR
+  ${MENU_INC_DIR})
+
+set(GRAPHICS_SRC_DIR
+  ${MENU_SRC_DIR})
+
+set(GRAPHICS_INC
+  ${MENU_INC})
+
+set(GRAPHICS_SRC
+  ${MENU_SRC})

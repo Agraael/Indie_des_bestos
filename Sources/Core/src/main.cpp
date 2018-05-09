@@ -1,14 +1,14 @@
 /*
 ** EPITECH PROJECT, 2018
-**
+** indie
 ** File description:
-**
+** source
 */
 
 #include <iostream>
 
-int main(void)
+int main()
 {
-	std::cout << "hello world" << std::endl;
+	std::cout << "Hello Indie !!" << std::endl;
 	return 0;
 }
