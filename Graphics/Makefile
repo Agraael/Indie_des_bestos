@@ -7,7 +7,7 @@
 
 CC		=	g++ -dynamic
 
-CPPFLAGS	+=	-W -Wall -Wextra -I./include/ -I./lib/src/
+CPPFLAGS	+=	-W -Wall -Wextra -I./lib/src/ -I./Menu/src/
 
 CPPFLAGS	+=	-std=c++14
 
@@ -16,6 +16,7 @@ IRRLICHTFLAGS += -I/usr/include/irrlicht/ -L/usr/X11R6/lib -L../../lib/Linux -lI
 NAME		=	grph
 
 SRCS		=	lib/src/IrrlichtLib.cpp        \
+                lib/src/LibEventManager.cpp \
 			    Menu/src/Menu.cpp        \
 			    main.cpp
 

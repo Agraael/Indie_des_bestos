@@ -39,9 +39,9 @@ void    driverChoiceConsole(irr::video::E_DRIVER_TYPE &driverType)
     switch(i)
     {
         case 'a': driverType = irr::video::EDT_OPENGL;   break;
-        case 'b': driverType = irr::video::EDT_DIRECT3D9;break;
+        case 'b': driverType = irr::video::EDT_DIRECT3D9; break;
         case 'c': driverType = irr::video::EDT_DIRECT3D8; break;
-        case 'd': driverType = irr::video::EDT_BURNINGSVIDEO;break;
+        case 'd': driverType = irr::video::EDT_BURNINGSVIDEO; break;
         case 'e': driverType = irr::video::EDT_SOFTWARE; break;
         case 'f': driverType = irr::video::EDT_NULL;     break;
         default: break;

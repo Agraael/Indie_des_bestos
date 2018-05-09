@@ -6,13 +6,14 @@
 
 //deviceType: Type of the device, windowSize,
 //bits: Amount of color bits per pixel. This should be 16 or 32, fullscreen,
-// stencilbuffer: Specifies if we want to use the stencil buffer (for drawing shadows).
+// stencil buffer: Specifies if we want to use the stencil buffer (for drawing shadows).
 //vsync: Specifies if we want to have vsync enabled, this is only useful in fullscreen mode.
 //eventReceiver: An object to receive events. We do not want to use this parameter here, and set it to 0.
+
 graphic::IrrlichtLib::IrrlichtLib() {
     irr::video::E_DRIVER_TYPE driverType;
     graphic::driverChoiceConsole(driverType);
-    _device = irr::createDevice( irr::video::EDT_SOFTWARE, irr::core::dimension2d<irr::u32>(640, 480), 16, false, false, false, 0);
+    _device = irr::createDevice(driverType, irr::core::dimension2d<irr::u32>(640, 480), 16, false, false, false, 0);
     if (!_device)
         std::cout << "error device" << std::endl;
     _device->setWindowCaption(L"INDIE DES BESTOS");
@@ -32,6 +33,13 @@ void    graphic::IrrlichtLib::displayAll()
     _managerScene->drawAll();
     _guiEnv->drawAll();
     _driver->endScene();
+}
+
+void    graphic::IrrlichtLib::drawText(size_t x, size_t y, size_t fontSize, const std::string &text)
+{
+    std::wstring wideStr = std::wstring(text.begin(), text.end());
+    const wchar_t* wideCStr = wideStr.c_str();
+    _guiEnv->addStaticText(wideCStr, irr::core::rect<irr::s32>(x,y, 100,22), true); //position (x,y) as top left corner and (260,22) as lower right corner.
 }
 
 int     graphic::IrrlichtLib::setMesh()
