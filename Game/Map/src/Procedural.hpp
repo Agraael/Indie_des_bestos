@@ -9,11 +9,11 @@
 	#define PROCEDURAL_HPP_
 
 #include <random>
-#include <cstdlib>
+#include "Gen.hpp"
 
 struct data_vec_t {
-	vec_t	pos;
-	vec_t	prec;
+	Vector_t pos;
+	Vector_t prec;
 };
 
 class Procedural {
@@ -23,8 +23,8 @@ class Procedural {
 		void	placeUnDestWall1On2(char **&);
 		void	placeDestWall(char **&, std::size_t);
 		void	placeBonus(char **&, char, std::size_t);
-		void	placeSpawnPointCorner(char **&, char, vec_t);
-		void	placeBlock(char **&, char, vec_t);
+		void	placeSpawnPointCorner(char **&, char, Vector_t);
+		void	placeBlock(char **&, char, Vector_t);
 	private:
 		int	randomize();
 		bool	placeWall(char **map, data_vec_t, char);
