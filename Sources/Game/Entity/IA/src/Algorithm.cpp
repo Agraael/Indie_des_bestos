@@ -41,4 +41,5 @@ std::pair<int, int> Algorithm::defensiveMove(std::vector<std::string> &positionM
 				  std::pair<int, int> &posPlayer)
 {
 	std::pair<int, int> safe_pos = findNearestSafePoint(positionMap, dynamicMap, posPlayer, posPlayer);
+	return safe_pos;
 }

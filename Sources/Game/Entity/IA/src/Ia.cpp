@@ -5,6 +5,7 @@
 // 
 //
 
+#include <string>
 #include "Algorithm.hpp"
 #include "Ia.hpp"
 
@@ -45,6 +46,7 @@ Ia::Ia(std::vector<std::string> &position_map, std::vector<std::string> &dynamic
 		if (isInDangerousPosition(_dynamicMap, _pos) == 0) {
 			std::pair<int, int> pos_to_go =
 				iaAlgo->defensiveMove(_positionMap, _dynamicMap, _pos);
+			(void)(pos_to_go);
 		}
 	}
 }
