@@ -2,10 +2,20 @@ include(CMakeSources.cmake)
 
 set(INDIE_BIN_NAME bomberman)
 
-if(UNIX)
-  set(IRRLICHT_INC_DIR ../irrlicht-1.8.4/include /usr/X11R6/include)
+set(IRRLICHT_INC_DIR ../irrlicht-1.8.4/include)
 
-  set(IRRLICHT_LIB_DIR ../irrlicht-1.8.4/lib/Linux /usr/X11R6/lib)
+if(UNIX)
+  	set(IRRLICHT_LIB_DIR ${IRRLICHT_LIB_DIR} /usr/X11R6/lib)
+	set(IRRLICHT_INC_DIR ../irrlicht-1.8.4/lib/Linux /usr/X11R6/include)
+  	FIND_PACKAGE(X11)
+	FIND_PACKAGE(GLUT)
+	FIND_PACKAGE(ZLIB)
+
+elseif(WIN32)
+	set(IRRLICHT_LIB_DIR ../irrlicht-1.8.4/lib/Win32-visualstudio ../irrlicht-1.8.4/lib/Linux)
+elseif(WIN64)
+	set(IRRLICHT_LIB_DIR ../irrlicht-1.8.4/lib/Win64-visualstudio ../irrlicht-1.8.4/lib/Linux)
+
 endif()
 
 include_directories(
@@ -18,4 +28,8 @@ link_directories(
 add_executable( ${INDIE_BIN_NAME}
   ${INDIE_SRC})
 
-target_link_libraries(${INDIE_BIN_NAME} Irrlicht GL Xxf86vm Xext X11 Xcursor)
+if(UNIX)
+	target_link_libraries(${INDIE_BIN_NAME} Irrlicht ${X11_LIBRARIES} ${GLUT_LIBRARIES} ${ZLIB_LIBRARIES})
+endif()
+
+#target_link_libraries(${INDIE_BIN_NAME} Irrlicht GL Xxf86vm Xext X11 Xcursor)
