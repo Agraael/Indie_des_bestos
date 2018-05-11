@@ -5,12 +5,12 @@
 ** source
 */
 
-#include "Walls.hpp"
+#include "Bonus.hpp"
 
-Walls::Walls()
+Bonus::Bonus()
 {
 }
 
-Walls::~Walls()
+Bonus::~Bonus()
 {
 }
