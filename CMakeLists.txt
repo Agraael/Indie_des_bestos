@@ -5,7 +5,7 @@ project( IndieStudio CXX)
 set(CMAKE_CONFIGURATION_TYPES build)
 
 if (UNIX)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -pedantic -fno-builtin")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -pedantic -fno-builtin -ffast-math")
 endif()
 
 set(CMAKE_CXX_STANDARD 14)
