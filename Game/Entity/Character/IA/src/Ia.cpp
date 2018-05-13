@@ -8,7 +8,7 @@
 #include "Algorithm.hpp"
 #include "Ia.hpp"
 
-void Ia::printMap(std::vector<std::string> &map)
+/* void Ia::printMap(std::vector<std::string> &map)
 {
 	for (auto i : map)
 		std::cout << i << std::endl;
@@ -47,3 +47,4 @@ Ia::Ia(std::vector<std::string> &position_map, std::vector<std::string> &dynamic
 				iaAlgo->defensiveMove(_positionMap, _dynamicMap, _pos);
 	}
 }
+ */

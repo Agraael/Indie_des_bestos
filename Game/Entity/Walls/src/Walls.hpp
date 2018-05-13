@@ -8,13 +8,15 @@
 #ifndef WALLS_HPP_
 	#define WALLS_HPP_
 
-class Walls {
+#include "../../Entity.hpp"
+
+class Walls : public entities::Entity {
 	public:
-		Walls();
-		~Walls();
+		Walls(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
+		Entity(pos, iskinematic, layout) {}
+		~Walls() {};
 
 	protected:
-	private:
 };
 
 #endif /* !WALLS_HPP_ */

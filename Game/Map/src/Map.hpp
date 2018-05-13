@@ -8,13 +8,16 @@
 #ifndef MAP_HPP_
 	#define MAP_HPP_
 
+#include "Gen.hpp"
+#include "InterpreteGeneration.hpp"
+
 class Map {
 	public:
 		Map();
 		~Map();
-
-	protected:
+		void 	InitMap(GameMap &map);
 	private:
+		GameMap	&_map;
 };
 
 #endif /* !MAP_HPP_ */
