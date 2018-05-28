@@ -11,23 +11,31 @@
 #include <iostream>
 #include <utility>
 #include <functional>
+#include <memory>
+//#include "../Map/src/Map.hpp"
 
-class Entity {
-	public:
-		Entity();
-		~Entity();
-		std::pair<int, int>	getPos() { return _pos; }
-		bool			getIsKinematic() { return _iskinematic; }
-		bool			getIsRegidBody() { return _isregidBody; }
-		bool			getDeath() { return _isDead; }
-		void			die(bool die) { _isDead = true; }
-	protected:
-		std::pair<int, int>     _pos;
-		bool			_iskinematic;
-		bool			_isregidBody;
-		bool			_isDead;
-		int			_layout;
-		// textures
-};
+namespace entities {
 
+	using entityPosition = std::pair<float, float>;
+
+	class Entity {
+		public:
+			Entity(entityPosition pos, bool iskinematic, std::size_t layout) : _pos(pos), _iskinematic(iskinematic), _layout(layout) {}
+			std::pair<int, int>					getPos() const noexcept { return _pos; }
+			bool							getIsKinematic() const noexcept { return _iskinematic; }
+			bool							getDeath() const noexcept { return _isDead; }
+			void							die(bool die) { _isDead = true; }
+			void							displayType() {std::cout << _type << std::endl;};
+		protected:
+//			std::unique_ptr<Map>	_map;
+			std::string		_type;
+			entityPosition		_pos;
+			bool			_iskinematic;
+			bool			_isDead;
+			std::size_t		_layout;
+			//bool			_isregidBody;
+			// textures
+			//bool			getIsRegidBody() { return _isregidBody; }
+	};
+}
 #endif /* !ENTITY_HPP_ */

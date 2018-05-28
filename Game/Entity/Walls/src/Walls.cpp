@@ -6,11 +6,3 @@
 */
 
 #include "Walls.hpp"
-
-Walls::Walls()
-{
-}
-
-Walls::~Walls()
-{
-}

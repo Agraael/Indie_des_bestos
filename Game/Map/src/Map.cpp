@@ -6,11 +6,9 @@
 */
 
 #include "Map.hpp"
+#include "../../Entity/Bombs/src/Bombs.hpp"
 
-Map::Map()
+void    Map::placeBomb(entities::entityPosition pos)
 {
-}
-
-Map::~Map()
-{
+	_map[pos.first][pos.second].push_back(std::make_shared<entities::Entity>(Bombs(pos, false, 0)));
 }

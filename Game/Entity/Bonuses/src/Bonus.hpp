@@ -8,20 +8,24 @@
 #ifndef BONUSES_HPP_
 	#define BONUSES_HPP_
 
+#include "../../Entity.hpp"
+
 namespace BonusSpace {
 
 	enum BonusesTypes {
-		BOMB,
-		SPEED,
-		FIRE,
-		WALL
+		NO_BONUS,
+		BOMBUP,
+		SPEEDUP,
+		FIREUP,
+		WALLPASS
 	};
-
-	class Bonus {
+ 
+	class Bonus : public entities::Entity {
 		public:
-			Bonus();
-			~Bonus();
-		private:
+			Bonus(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
+			entities::Entity(pos, iskinematic, layout) {}
+			~Bonus() {};
+		protected:
 			
 	};
 }

@@ -8,6 +8,7 @@
 #ifndef GEN_HPP_
 	#define GEN_HPP_
 
+#include "../../Entity/Entity.hpp"
 #include <cstdlib>
 
 # define BOMB_UP	'B'
@@ -40,5 +41,10 @@ enum GenerationMod {
 	Standard,
 	FullDest
 };
+
+using	SharedEntity = std::vector<std::shared_ptr<entities::Entity>>;
+using	EntitiesVec = std::vector<SharedEntity>;
+using	GameMap = std::vector<EntitiesVec>;
+using	RefGameMap = GameMap &;
 
 #endif /* !GEN_HPP_ */

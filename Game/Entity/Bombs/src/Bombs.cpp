@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2018
-** indie
+** Bombs
 ** File description:
 ** source
 */
 
-#include "Bonus.hpp"
+#include "Bombs.hpp"
