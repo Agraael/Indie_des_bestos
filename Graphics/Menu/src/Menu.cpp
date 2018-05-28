@@ -24,12 +24,13 @@ void    graphic::Menu::drawChoiceButtons()
 
 void    graphic::Menu::drawDirigible()
 {
-    /*irr::gui::IGUIImage *dirigible = _guiEnv->addImage(_driver->getTexture("./media/dirigible.png"), irr::core::position2d<int>(0,100));
+    irr::gui::IGUIImage *dirigible = _guiEnv->addImage(_driver->getTexture("./media/dirigible.png"), irr::core::position2d<int>(0,50));
     dirigible->setScaleImage(true);
-    dirigible->setMinSize(irr::core::dimension2du(300,300));
-    dirigible->setMaxSize(irr::core::dimension2du(400,400));
-    for (size_t i; i < 640; i += 50) {
-        dirigible->setRelativePosition(irr::core::rect<irr::s32>(irr::core::position2d<int>(i,100)),irr::core::dimension2d<irr::s32>(300,300));
+    dirigible->setMinSize(irr::core::dimension2du(50,50));
+    dirigible->setMaxSize(irr::core::dimension2du(100,100));
+    /*for (size_t i = 0; i < 640; i += 50) {
+        auto corePosition = irr::core::position2d<int>(i,50);
+        dirigible->setRelativePosition(corePosition);
     }*/
 }
 
