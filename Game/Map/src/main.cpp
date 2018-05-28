@@ -30,17 +30,16 @@ int main()
 			}			
 		}
 	}
-	ThreeDMap->placeBomb(std::make_pair(0, 1), 3);
+	ThreeDMap->placeBomb(std::make_pair(1, 1), 3);
 	map = ThreeDMap->get3dMap();
-	std::cout << charMap[0][1] << std::endl;
 	for (auto line : map) {
 		for (auto tab : line) {
 			for (auto shared : tab) {
- 				if (static_cast<IndestructibleWalls *>(shared.get()) == nullptr)
-					std::cout << "G";
-				else
-					std::cout << " ";
+				shared.get()->displayType();
 			}
+			if (tab.empty())
+				std::cout << " ";
+			std::cout << " ";
 		}
 		std::cout << std::endl;
 	}

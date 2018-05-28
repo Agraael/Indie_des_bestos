@@ -13,7 +13,7 @@
 class Bombs : public entities::Entity {
 	public:
                 Bombs(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
-		entities::Entity(pos, iskinematic, layout) {}
+		entities::Entity(pos, iskinematic, layout, "b") {}
 };
 
 #endif /* !BOMBS_HPP_ */

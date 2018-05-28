@@ -21,12 +21,12 @@ namespace entities {
 
 	class Entity {
 		public:
-			Entity(entityPosition pos, bool iskinematic, std::size_t layout) : _pos(pos), _iskinematic(iskinematic), _layout(layout) {}
+			Entity(entityPosition pos, bool iskinematic, std::size_t layout, std::string type) : _pos(pos), _iskinematic(iskinematic), _layout(layout), _type(type) {}
 			std::pair<int, int>					getPos() const noexcept { return _pos; }
 			bool							getIsKinematic() const noexcept { return _iskinematic; }
 			bool							getDeath() const noexcept { return _isDead; }
 			void							die(bool die) { _isDead = true; }
-			void							displayType() {std::cout << _type << std::endl;};
+			void							displayType() {std::cout << _type;};
 			void							setMap(std::shared_ptr<Map> map) {_map = map; };
 		protected:
 			std::shared_ptr<Map>	_map;
