@@ -19,14 +19,12 @@ namespace BonusSpace {
 		FIREUP,
 		WALLPASS
 	};
- 
+
 	class Bonus : public entities::Entity {
 		public:
 			Bonus(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
 			entities::Entity(pos, iskinematic, layout) {}
 			~Bonus() {};
-		protected:
-			
 	};
 }
 

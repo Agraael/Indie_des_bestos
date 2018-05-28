@@ -25,5 +25,4 @@ class Ia : public Character {
 public:
 	Ia(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
 		Character(pos, true, 3) {}
-private:
 };

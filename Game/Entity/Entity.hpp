@@ -13,6 +13,7 @@
 #include <functional>
 #include <memory>
 //#include "../Map/src/Map.hpp"
+class Map;
 
 namespace entities {
 
@@ -26,8 +27,9 @@ namespace entities {
 			bool							getDeath() const noexcept { return _isDead; }
 			void							die(bool die) { _isDead = true; }
 			void							displayType() {std::cout << _type << std::endl;};
+			void							setMap(std::shared_ptr<Map> map) {_map = map; };
 		protected:
-//			std::unique_ptr<Map>	_map;
+			std::shared_ptr<Map>	_map;
 			std::string		_type;
 			entityPosition		_pos;
 			bool			_iskinematic;
