@@ -1,6 +1,9 @@
 #include "InterpreteGeneration.hpp"
 #include "MapGenerator.hpp"
 #include "Gen.hpp"
+#include "../../Entity/Bombs/src/Bombs.hpp"
+#include "Map.hpp"
+#include "../../Entity/Walls/src/IndestructibleWalls.hpp"
 
 int main()
 {
@@ -11,18 +14,33 @@ int main()
 	int x = 0;
 	int y = 0;
 
-	generator->runGeneration(GenerationSize::Big, GenerationMod::Standard);
+	generator->runGeneration(GenerationSize::Big, GenerationMod::FullDest);
 	charMap = generator->getMap();
-	map = interpret->createMap(generator->getMap());
+	for (int i = 0; charMap[i] != NULL; ++i)
+	{
+		std::cout << charMap[i] << std::endl;
+	}
+	Map *ThreeDMap = new Map(interpret->createMap(generator->getMap()));
+	map = ThreeDMap->get3dMap();
 	for (auto line : map) {
 		y = 0;
 		for (auto tab : line) {
-			std::cout << charMap[x][y] << std::endl;
-			for (auto elem : tab) {
-				std::cout << elem.get()->getPos().first << ", " << elem.get()->getPos().second << std::endl;
-			}
+			if (!(tab.empty()))
+				std::cout << "M";
 			++y;
 		}
+		std::cout << std::endl;
 		++x;
+	}
+	ThreeDMap->placeBomb(std::make_pair(0, 1));
+	map = ThreeDMap->get3dMap();
+	std::cout << charMap[0][1] << std::endl;
+	for (auto entity : map[0][1])
+	{
+		std::cout << "elem" << std::endl;
+		if (static_cast<Bombs *>(entity.get()) == nullptr)
+			std::cout << "oui" << std::endl;
+		if (static_cast<IndestructibleWalls *>(entity.get()) == nullptr)
+			std::cout << "oui" << std::endl;
 	}
 }

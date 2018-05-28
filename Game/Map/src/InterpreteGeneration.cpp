@@ -8,26 +8,26 @@
 #include "InterpreteGeneration.hpp"
 #include <algorithm>
 
-std::vector<std::shared_ptr<entities::Entity>>	InterpreteGeneration::InitIndestructible(std::size_t x, std::size_t y)
+SharedEntity	InterpreteGeneration::InitIndestructible(std::size_t x, std::size_t y)
 {
-	std::vector<std::shared_ptr<entities::Entity>>	tempLine;
+	SharedEntity	tempLine;
 
 	tempLine.push_back(std::make_shared<entities::Entity>(IndestructibleWalls(
 		std::make_pair(x,y), false, 0, nullptr, BonusSpace::BonusesTypes::NO_BONUS)));
 	return tempLine;
 }
 
-std::vector<std::shared_ptr<entities::Entity>>	InterpreteGeneration::InitDestructible(std::size_t x, std::size_t y)
+SharedEntity	InterpreteGeneration::InitDestructible(std::size_t x, std::size_t y)
 {
-	std::vector<std::shared_ptr<entities::Entity>>	tempLine;
+	SharedEntity	tempLine;
 
 	tempLine.push_back(std::make_shared<entities::Entity>(DestructibleWalls(std::make_pair(x,y), false, 0)));
 	return tempLine;
 }
 
-std::vector<std::shared_ptr<entities::Entity>>	InterpreteGeneration::InitBombUp(std::size_t x, std::size_t y)
+SharedEntity	InterpreteGeneration::InitBombUp(std::size_t x, std::size_t y)
 {
-	std::vector<std::shared_ptr<entities::Entity>>	tempLine;
+	SharedEntity	tempLine;
 	std::shared_ptr<BonusSpace::Bonus>		bonus;
 
 	bonus = std::make_shared<BonusSpace::Bonus>(BombUp(std::make_pair(x,y), true, 1));
@@ -37,9 +37,9 @@ std::vector<std::shared_ptr<entities::Entity>>	InterpreteGeneration::InitBombUp(
 	return tempLine;
 }
 
-std::vector<std::shared_ptr<entities::Entity>>	InterpreteGeneration::InitSpeedUp(std::size_t x, std::size_t y)
+SharedEntity	InterpreteGeneration::InitSpeedUp(std::size_t x, std::size_t y)
 {
-	std::vector<std::shared_ptr<entities::Entity>>	tempLine;
+	SharedEntity	tempLine;
 	std::shared_ptr<BonusSpace::Bonus>		bonus;
 
 	bonus = std::make_shared<BonusSpace::Bonus>(SpeedUp(std::make_pair(x,y), true, 1));
@@ -49,9 +49,9 @@ std::vector<std::shared_ptr<entities::Entity>>	InterpreteGeneration::InitSpeedUp
 	return tempLine;
 }
 
-std::vector<std::shared_ptr<entities::Entity>>	InterpreteGeneration::InitFireUp(std::size_t x, std::size_t y)
+SharedEntity	InterpreteGeneration::InitFireUp(std::size_t x, std::size_t y)
 {
-	std::vector<std::shared_ptr<entities::Entity>>	tempLine;
+	SharedEntity	tempLine;
 	std::shared_ptr<BonusSpace::Bonus>		bonus;
 
 	bonus = std::make_shared<BonusSpace::Bonus>(FireUp(std::make_pair(x,y), true, 1));
@@ -61,9 +61,9 @@ std::vector<std::shared_ptr<entities::Entity>>	InterpreteGeneration::InitFireUp(
 	return tempLine;
 }
 
-std::vector<std::shared_ptr<entities::Entity>>	InterpreteGeneration::InitWallPass(std::size_t x, std::size_t y)
+SharedEntity	InterpreteGeneration::InitWallPass(std::size_t x, std::size_t y)
 {
-	std::vector<std::shared_ptr<entities::Entity>>	tempLine;
+	SharedEntity	tempLine;
 	std::shared_ptr<BonusSpace::Bonus>		bonus;
 
 	bonus = std::make_shared<BonusSpace::Bonus>(WallPass(std::make_pair(x,y), true, 1));
@@ -73,9 +73,9 @@ std::vector<std::shared_ptr<entities::Entity>>	InterpreteGeneration::InitWallPas
 	return tempLine;
 }
 
-std::vector<std::shared_ptr<entities::Entity>>	InterpreteGeneration::InitCharacter(std::size_t x, std::size_t y)
+SharedEntity	InterpreteGeneration::InitCharacter(std::size_t x, std::size_t y)
 {
-	std::vector<std::shared_ptr<entities::Entity>>	tempLine;
+	SharedEntity	tempLine;
 
 	tempLine.push_back(std::make_shared<entities::Entity>(Player(std::make_pair(x,y), false, 0)));
 	return tempLine;
@@ -102,7 +102,7 @@ std::size_t	InterpreteGeneration::findWidth(char **map)
 
 GameMap	InterpreteGeneration::createMap(char **map)
 {
-	return (Fill(findWidth(map), findHeight(map), map));
+	return (std::move(Fill(findWidth(map), findHeight(map), map)));
 }
 
 GameMap	InterpreteGeneration::Fill(const std::size_t &width, const std::size_t &height, char **charMap)

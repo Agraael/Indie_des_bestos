@@ -44,16 +44,16 @@ class InterpreteGeneration {
 		GameMap		Fill(const std::size_t &, const std::size_t &, char **);
 		std::size_t	findHeight(char **);
 		std::size_t	findWidth(char **);
-		std::vector<std::shared_ptr<entities::Entity>>	InitIndestructible(std::size_t, std::size_t);
-		std::vector<std::shared_ptr<entities::Entity>>	InitDestructible(std::size_t, std::size_t);
-		std::vector<std::shared_ptr<entities::Entity>>	InitBombUp(std::size_t, std::size_t);
-		std::vector<std::shared_ptr<entities::Entity>>	InitSpeedUp(std::size_t, std::size_t);
-		std::vector<std::shared_ptr<entities::Entity>>	InitFireUp(std::size_t, std::size_t);
-		std::vector<std::shared_ptr<entities::Entity>>	InitWallPass(std::size_t, std::size_t);
-		std::vector<std::shared_ptr<entities::Entity>>	InitCharacter(std::size_t, std::size_t);
+		SharedEntity	InitIndestructible(std::size_t, std::size_t);
+		SharedEntity	InitDestructible(std::size_t, std::size_t);
+		SharedEntity	InitBombUp(std::size_t, std::size_t);
+		SharedEntity	InitSpeedUp(std::size_t, std::size_t);
+		SharedEntity	InitFireUp(std::size_t, std::size_t);
+		SharedEntity	InitWallPass(std::size_t, std::size_t);
+		SharedEntity	InitCharacter(std::size_t, std::size_t);
 		
 
-		using	EntitiesInitialization = std::function<std::vector<std::shared_ptr<entities::Entity>>(std::size_t, std::size_t)>;
+		using	EntitiesInitialization = std::function<SharedEntity(std::size_t, std::size_t)>;
 		using	ptrMapFunc = std::map<entityType, EntitiesInitialization>;
 		ptrMapFunc _initFuncsPtr {
 			{InterpreteGeneration::entityType::INDESTRUCTIBLE_TYPE, [this](std::size_t x, std::size_t y) { return this->InitIndestructible(x, y); }},

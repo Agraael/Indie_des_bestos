@@ -11,13 +11,12 @@
 #include "../../Character.hpp"
 
 class Player : public Character {
-	public:
-		Player(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
-		Character(pos, iskinematic, layout) {}
-		~Player() {};
-
-	protected:
-	private:
+public:
+	Player(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
+	Character(pos, iskinematic, layout) {}
+	~Player() {};
+private:
+	
 };
 
 #endif /* !PLAYER_HPP_ */
