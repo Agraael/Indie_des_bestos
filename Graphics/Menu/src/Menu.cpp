@@ -5,68 +5,76 @@
 ** source
 */
 
+#include <chrono>
+#include <thread>
 #include "Menu.hpp"
 
 graphic::Menu::Menu()
 {
-    _device = _lib.getDevice();
-    _guiEnv = _lib.getGuiEnv();
-    _driver = _lib.getDriver();
-    _managerScene = _lib.getManagerScene();
 }
 
 void    graphic::Menu::drawChoiceButtons()
 {
-    _guiEnv->addButton(irr::core::rect<irr::s32>(200,240,400,280), 0, graphic::GUI_ID_QUIT_BUTTON, L"Quit", L"Exits game");
-    _guiEnv->addButton(irr::core::rect<irr::s32>(200,300,400,340), 0, graphic::GUI_ID_NEW_WINDOW_BUTTON,
-                   L"Play Game", L"Launches a new game");
+    graphic::infos_t buttonExit;
+    buttonExit._x = 200;
+    buttonExit._y = 240;
+    buttonExit._w = 400;
+    buttonExit._h = 280;
+    buttonExit._path = "./media/button_menu.png";
+    buttonExit._desc = "Exit the game";
+    buttonExit._name = "Quit";
+    buttonExit._type = graphic::GUI_ID_QUIT_BUTTON;
+    _lib.printButton(buttonExit);
+
+    /*graphic::Button settingButton("Settings", "Settings of game", 200, 300);
+    settingButton.setHeight(340);
+    settingButton.setType(graphic::GUI_ID_QUIT_BUTTON);
+    _lib.printButton(settingButton, "./media/button_menu.png");*/
 }
 
-void    graphic::Menu::drawDirigible()
+irr::gui::IGUIImage *graphic::Menu::drawDirigible()
 {
-    irr::gui::IGUIImage *dirigible = _guiEnv->addImage(_driver->getTexture("./media/dirigible.png"), irr::core::position2d<int>(0,50));
-    dirigible->setScaleImage(true);
-    dirigible->setMinSize(irr::core::dimension2du(50,50));
-    dirigible->setMaxSize(irr::core::dimension2du(100,100));
-    /*for (size_t i = 0; i < 640; i += 50) {
-        auto corePosition = irr::core::position2d<int>(i,50);
-        dirigible->setRelativePosition(corePosition);
-    }*/
+    irr::gui::IGUIImage *dirigible = _lib.drawImage(-30, 50, 50, 50, "./media/dirigible.png");
+    return (dirigible);
+}
+
+void    graphic::Menu::startDirigible(irr::gui::IGUIImage *dirigible, size_t &i)
+{
+    if (i < 700) {
+        auto rect = irr::core::position2d<int>(i, 50);
+        dirigible->setRelativePosition(rect);
+    }
+    if (i == 700)
+        i = -30;
 }
 
 void    graphic::Menu::printLogo()
 {
-    irr::gui::IGUIImage *image = _guiEnv->addImage(_driver->getTexture("./media/Neo_Bomberman_Logo.png"), irr::core::position2d<int>(150,5));
-    image->setScaleImage(true);
-    image->setMinSize(irr::core::dimension2du(200,200));
-    image->setMaxSize(irr::core::dimension2du(600,600));
+    _lib.drawImage(150, 5, 200, 200, "./media/Neo_Bomberman_Logo.png");
 }
 
 void graphic::Menu::printBackground()
 {
-    irr::gui::IGUIImage *background = _guiEnv->addImage(_driver->getTexture("./media/pixel_skyline.png"), irr::core::position2d<int>(0,0));
-    background->setScaleImage(true);
-    background->setMinSize(irr::core::dimension2du(640,480));
-    background->setMaxSize(irr::core::dimension2du(640,480));
+    _lib.drawImage(0, 0, 640, 480, "./media/pixel_skyline.png");
 }
 
 void    graphic::Menu::printUserName()
 {
-    _guiEnv->addEditBox(L"your bomberName", irr::core::rect<irr::s32>(200, 200, 400, 230));
+    //_guiEnv->addEditBox(L"your bomberName", irr::core::rect<irr::s32>(200, 200, 400, 230));
 }
 
 void    graphic::Menu::display()
 {
     printBackground();
-    drawDirigible();
-    printLogo();
     printUserName();
     drawChoiceButtons();
-    while (_device->run()) {
+    irr::gui::IGUIImage *dirigible = drawDirigible();
+    size_t i = -30;
+    while (_lib.getDevice()->run()) {
+         startDirigible(dirigible, i);
+        printLogo();
         _lib.displayAll();
+        i += 10;
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
-}
-
-graphic::Menu::~Menu()
-{
 }
