@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2018
-** indie
+** FireUp
 ** File description:
 ** source
 */
 
-#include "Walls.hpp"
+#include "FireUp.hpp"

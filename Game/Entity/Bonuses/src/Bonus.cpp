@@ -5,12 +5,4 @@
 ** source
 */
 
-#include "Bonuses.hpp"
-
-Bonuses::Bonuses()
-{
-}
-
-Bonuses::~Bonuses()
-{
-}
+#include "Bonus.hpp"

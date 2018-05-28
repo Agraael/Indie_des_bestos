@@ -5,4 +5,12 @@
 ** source
 */
 
-#include "Walls.hpp"
+#include "MoveTo.hpp"
+
+MoveTo::MoveTo()
+{
+}
+
+MoveTo::~MoveTo()
+{
+}
