@@ -89,7 +89,7 @@ using namespace gui;
 */
 #ifdef _IRR_WINDOWS_
 #pragma comment(lib, "Irrlicht.lib")
-#pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
+// #pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
 #endif
 
 
@@ -175,7 +175,7 @@ int main()
 	  other supported file format. By the way, that cool Quake 2 model
 	  called sydney was modelled by Brian Collins.
 	*/
-	IAnimatedMesh* mesh = smgr->getMesh("../../media/sydney.md2");
+	IAnimatedMesh* mesh = smgr->getMesh("irrlicht-1.8.4/media/sydney.md2");
 	if (!mesh)
 	{
 		device->drop();
@@ -195,7 +195,7 @@ int main()
 	{
 		node->setMaterialFlag(EMF_LIGHTING, false);
 		node->setMD2Animation(scene::EMAT_STAND);
-		node->setMaterialTexture( 0, driver->getTexture("../../media/sydney.bmp") );
+		node->setMaterialTexture( 0, driver->getTexture("irrlicht-1.8.4/media/sydney.bmp") );
 	}
 
 	/*

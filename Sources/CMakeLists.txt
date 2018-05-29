@@ -28,7 +28,5 @@ add_executable( ${INDIE_BIN_NAME}
   ${INDIE_SRC})
 
 if(UNIX)
-  target_link_libraries(${INDIE_BIN_NAME} Irrlicht ${X11_LIBRARIES} ${GLUT_LIBRARIES} ${ZLIB_LIBRARIES})
+  target_link_libraries(${INDIE_BIN_NAME} Irrlicht GL Xxf86vm Xext X11 Xcursor)
 endif()
-
-#target_link_libraries(${INDIE_BIN_NAME} Irrlicht GL Xxf86vm Xext X11 Xcursor)

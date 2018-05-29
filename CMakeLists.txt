@@ -6,7 +6,7 @@ set(CMAKE_CONFIGURATION_TYPES build)
 
 option(NAZI "Use NAZI cpp flags for unix" OFF) #OFF by default : use -DNAZI
 if (UNIX)
-  # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -pedantic -Wextra -fno-builtin -ffast-math")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -pedantic -Wextra -fno-builtin -ffast-math")
 
   if(NAZI)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wfloat-equal -Wshadow \
