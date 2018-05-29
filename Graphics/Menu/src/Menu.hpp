@@ -10,19 +10,17 @@
 
 namespace graphic
 {
+
     class Menu
     {
-        irr::IrrlichtDevice *_device;
-        irr::video::IVideoDriver* _driver;
-        irr::gui::IGUIEnvironment* _guiEnv;
-        irr::scene::ISceneManager* _managerScene;
         graphic::IrrlichtLib _lib;
     public:
         Menu();
-        ~Menu();
+        ~Menu() = default;
         void printLogo();
+        void startDirigible(irr::gui::IGUIImage *dirigible, size_t &i);
         void drawChoiceButtons();
-        void drawDirigible();
+        irr::gui::IGUIImage *drawDirigible();
         void printBackground();
         void printUserName();
         void display();
