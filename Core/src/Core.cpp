@@ -8,9 +8,15 @@
 #include "Core.hpp"
 
 Core::Core()
+: _events(new IndieEvents::EventManager())
 {
 }
 
 Core::~Core()
 {
+}
+
+int	Core::run()
+{
+
 }

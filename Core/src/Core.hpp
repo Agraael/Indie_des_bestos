@@ -8,13 +8,16 @@
 #ifndef CORE_HPP_
 	#define CORE_HPP_
 
-class Core {
+#include "EventManager.hpp"
+
+class Core
+{
 	public:
 		Core();
 		~Core();
-
-	protected:
+		int	run();
 	private:
+		IndieEvents::EventManager	*_events;
 };
 
 #endif /* !CORE_HPP_ */
