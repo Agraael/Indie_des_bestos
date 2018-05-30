@@ -10,6 +10,14 @@
 
 #include "EventManager.hpp"
 
+enum	CoreState {
+	IN_MENU,
+	IN_SOLO,
+	IN_LOCAL,
+	IN_LOCAL_GAME,
+	IN_SETTINGS
+};
+
 class Core
 {
 	public:
@@ -17,6 +25,7 @@ class Core
 		~Core();
 		int	run();
 	private:
+		CoreState			_state;
 		IndieEvents::EventManager	*_events;
 };
 

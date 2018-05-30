@@ -8,7 +8,7 @@
 #include "Core.hpp"
 
 Core::Core()
-: _events(new IndieEvents::EventManager())
+: _events(new IndieEvents::EventManager()), _state(CoreState::IN_MENU)
 {
 }
 
