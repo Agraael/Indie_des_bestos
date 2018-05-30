@@ -33,7 +33,7 @@ SharedEntity	InterpreteGeneration::InitBombUp(std::size_t x, std::size_t y)
 	bonus = std::make_shared<BonusSpace::Bonus>(BombUp(std::make_pair(x,y), true, 1));
 	tempLine.push_back(std::make_shared<entities::Entity>(DestructibleWalls(
 		std::make_pair(x,y), false, 0, bonus, BonusSpace::BonusesTypes::BOMBUP)));
-	tempLine.push_back(std::move(bonus));
+	tempLine.push_back(bonus);
 	return tempLine;
 }
 
@@ -78,6 +78,38 @@ SharedEntity	InterpreteGeneration::InitCharacter(std::size_t x, std::size_t y)
 	SharedEntity	tempLine;
 
 	tempLine.push_back(std::make_shared<entities::Entity>(Ia(std::make_pair(x,y), false, 0)));
+	return tempLine;
+}
+
+SharedEntity	InterpreteGeneration::InitSoloBombUp(std::size_t x, std::size_t y)
+{
+	SharedEntity	tempLine;
+
+	tempLine.push_back(std::make_shared<entities::Entity>(BombUp(std::make_pair(x,y), true, 1)));
+	return tempLine;
+}
+
+SharedEntity	InterpreteGeneration::InitSoloSpeedUp(std::size_t x, std::size_t y)
+{
+	SharedEntity	tempLine;
+
+	tempLine.push_back(std::make_shared<entities::Entity>(SpeedUp(std::make_pair(x,y), false, 0)));
+	return tempLine;
+}
+
+SharedEntity	InterpreteGeneration::InitSoloFireUp(std::size_t x, std::size_t y)
+{
+	SharedEntity	tempLine;
+
+	tempLine.push_back(std::make_shared<entities::Entity>(FireUp(std::make_pair(x,y), false, 0)));
+	return tempLine;
+}
+
+SharedEntity	InterpreteGeneration::InitSoloWallPass(std::size_t x, std::size_t y)
+{
+	SharedEntity	tempLine;
+
+	tempLine.push_back(std::make_shared<entities::Entity>(WallPass(std::make_pair(x,y), false, 0)));
 	return tempLine;
 }
 

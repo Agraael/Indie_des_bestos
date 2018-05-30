@@ -23,3 +23,8 @@ void    Map::placeBomb(entities::entityPosition pos, std::size_t shining)
 			_map[pos.first][pos.second + i].push_back(std::make_shared<entities::Entity>(GonnaExplose(pos, false, 0)));
 	}
 }
+
+void	Map::updatePos()
+{
+
+}

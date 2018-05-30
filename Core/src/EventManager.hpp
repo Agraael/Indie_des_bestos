@@ -55,16 +55,11 @@ namespace IndieEvents
 	{
 		public:
 			EventManager() {}
-
-			void	setIndieKey(IndieKeys key) {
-				_keys.push(key);
-			}
-
+			void	setIndieKey(IndieKeys key) {_keys.push(key); }
 			void	resetKey() noexcept {
 				while (!_keys.empty())
 					_keys.pop();
 			}
-
 			std::queue<IndieKeys>	&getKey() noexcept { return _keys; }
 		private:
 			std::queue<IndieKeys>	_keys;
