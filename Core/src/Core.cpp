@@ -18,5 +18,4 @@ Core::~Core()
 
 int	Core::run()
 {
-
 }
