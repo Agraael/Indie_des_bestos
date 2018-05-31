@@ -5,20 +5,18 @@
 ** header
 */
 
-#ifndef INDESTRUCTIBLEWALLS_HPP_
-	#define INDESTRUCTIBLEWALLS_HPP_
+#ifndef DESTRUCTIBLEWALLS_HPP_
+	#define DESTRUCTIBLEWALLS_HPP_
 
 #include "Walls.hpp"
-#include "../Bonuses/BombUp.hpp"
 
 class IndestructibleWalls : public Walls {
-public:
-	IndestructibleWalls(entities::entityPosition pos, bool iskinematic,
-			    std::size_t layout, std::shared_ptr<BonusSpace::Bonus>, BonusSpace::BonusesTypes) :
-		Walls(pos, iskinematic, layout) {}
+	public:
+		IndestructibleWalls(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
+			Walls(pos, iskinematic, layout, "I") {}
 	~IndestructibleWalls() {};
 
 private:
 };
 
-#endif /* !INDESTRUCTIBLEWALLS_HPP_ */
+#endif /* !DESTRUCTIBLEWALLS_HPP_ */

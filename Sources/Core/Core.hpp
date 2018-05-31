@@ -8,13 +8,25 @@
 #ifndef CORE_HPP_
 	#define CORE_HPP_
 
-class Core {
+#include "EventManager.hpp"
+
+enum	CoreState {
+	IN_MENU,
+	IN_SOLO,
+	IN_LOCAL,
+	IN_LOCAL_GAME,
+	IN_SETTINGS
+};
+
+class Core
+{
 	public:
 		Core();
 		~Core();
-
-	protected:
+		int	run();
 	private:
+		IndieEvents::EventManager	*_events;
+		CoreState			_state;
 };
 
 #endif /* !CORE_HPP_ */

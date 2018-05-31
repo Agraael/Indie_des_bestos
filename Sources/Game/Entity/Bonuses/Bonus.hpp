@@ -8,7 +8,7 @@
 #ifndef BONUSES_HPP_
 	#define BONUSES_HPP_
 
-#include "../Entity.hpp"
+#include "../../Entity.hpp"
 
 namespace BonusSpace {
 
@@ -21,10 +21,10 @@ namespace BonusSpace {
 	};
 
 	class Bonus : public entities::Entity {
-	public:
-		Bonus(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
-			entities::Entity(pos, iskinematic, layout) {}
-		~Bonus() {};
+		public:
+			Bonus(entities::entityPosition pos, bool iskinematic, std::size_t layout, std::string type) :
+			entities::Entity(pos, iskinematic, layout, type) {}
+			~Bonus() {};
 	};
 }
 

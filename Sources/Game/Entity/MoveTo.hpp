@@ -9,7 +9,7 @@
 	#define MOTETO_HPP_
 
 class MoveTo {
-	public:
+public:
 	MoveTo();
 	~MoveTo();
 	void MoveRight() {};

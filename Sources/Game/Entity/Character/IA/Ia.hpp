@@ -9,7 +9,7 @@
 #include <iostream>
 #include <utility>
 #include <functional>
-#include "../Character.hpp"
+#include "Character.hpp"
 
 /* class Ia : public Character {
    public:
@@ -24,5 +24,5 @@
 class Ia : public Character {
 public:
 	Ia(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
-		Character(pos, iskinematic, layout) {}
+		Character(pos, iskinematic, layout, "i") {}
 };

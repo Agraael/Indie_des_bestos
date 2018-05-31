@@ -12,8 +12,8 @@
 
 class BombUp : public BonusSpace::Bonus {
 	public:
-	BombUp(std::pair<float, float> pos, bool iskinematic, std::size_t layout) :
-		BonusSpace::Bonus(pos, iskinematic, layout) {}
+		BombUp(std::pair<float, float> pos, bool iskinematic, std::size_t layout) :
+			BonusSpace::Bonus(pos, iskinematic, layout, "") {}
 	~BombUp() {};
 private:
 };

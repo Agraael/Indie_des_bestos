@@ -8,8 +8,7 @@
 #ifndef GEN_HPP_
 	#define GEN_HPP_
 
-#include <vector>
-#include "../Entity/Entity.hpp"
+#include "../../Entity/Entity.hpp"
 #include <cstdlib>
 
 # define BOMB_UP	'B'

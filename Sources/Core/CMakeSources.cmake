@@ -7,10 +7,12 @@ set( CORE_SRC_DIR
   ${CORE_ROOT_DIR})
 
 set( CORE_INC
-  ${CORE_SRC_DIR}/Core.hpp
-  ${CORE_SRC_DIR}/EventManager.hpp)
+  ${CORE_INC_DIR}/Core.hpp
+  ${CORE_INC_DIR}/EventManager.hpp
+  ${CORE_INC_DIR}/HandleGame.hpp)
 
 set( CORE_SRC
   ${CORE_SRC_DIR}/Core.cpp
-  ${CORE_SRC_DIR}/main.cpp)
+  ${CORE_SRC_DIR}/main.cpp
+  ${CORE_SRC_DIR}/HandleGame.cpp)
 # -----

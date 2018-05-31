@@ -34,7 +34,7 @@ void	Procedural::placeDestWall(char **&map, std::size_t remp)
 {
 	for (int y = 1; map[y] != nullptr; y++) {
 		for (int x = 1; map[y][x] != '\0'; x++) {
-			if (map[y][x] == PASS && remp >= static_cast<std::size_t>(randomize()))
+			if (map[y][x] == PASS && remp >= randomize())
 				map[y][x] = DESTRUCTIBLE;
 		}
 	}
@@ -45,7 +45,7 @@ void	Procedural::placeBonus(char **&map, char bonus, std::size_t remp)
 {
 	for (int y = 1; map[y] != nullptr; y++) {
 		for (int x = 1; map[y][x] != '\0'; x++) {
-			if (map[y][x] == DESTRUCTIBLE && remp >= static_cast<std::size_t>(randomize()))
+			if (map[y][x] == DESTRUCTIBLE && remp >= randomize())
 				map[y][x] = bonus;
 		}
 	}
@@ -114,8 +114,8 @@ int	Procedural::checkChar(char **map, data_vec_t data, char block)
 	Vector_t	start = {data.pos.x - data.prec.x, data.pos.y - data.prec.y};
 	Vector_t	end = {data.pos.x + data.prec.x, data.pos.y + data.prec.y};
 
-	for (std::size_t y = start.y; y < end.y + 1; y++) {
-		for (std::size_t x = start.x; x < end.x + 1; x++) {
+	for (int y = start.y; y < end.y + 1; y++) {
+		for (int x = start.x; x < end.x + 1; x++) {
 			if (map[y][x] == block)
 				total++;
 		}

@@ -4,7 +4,8 @@ project( IndieStudio CXX)
 
 set(CMAKE_CONFIGURATION_TYPES build)
 
-option(NAZI "Use NAZI cpp flags for unix" OFF) #OFF by default : use -DNAZI
+option(NAZI "Use NAZI cpp flags for unix" OFF) #OFF by default : use -DNAZ
+option(MDR "Use MDR for no flags" OFF)
 if (UNIX)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -pedantic -Wextra -fno-builtin -ffast-math")
 
@@ -14,8 +15,12 @@ if (UNIX)
       -Wuninitialized -Wuseless-cast -Wold-style-cast -Wnon-virtual-dtor")
   endif(NAZI)
 
+  if(MDR)
+    set(CMAKE_CXX_FLAGS "")
+  endif(MDR)
 endif()
 unset(NAZI CACHE)
+unset(MDR CACHE)
 
 set(CMAKE_CXX_STANDARD 14)
 

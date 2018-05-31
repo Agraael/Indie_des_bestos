@@ -12,8 +12,8 @@
 
 class FireUp : public BonusSpace::Bonus {
 	public:
-	FireUp(std::pair<float, float> pos, bool iskinematic, std::size_t layout) :
-		BonusSpace::Bonus(pos, iskinematic, layout) {}
+                FireUp(std::pair<float, float> pos, bool iskinematic, std::size_t layout) :
+			BonusSpace::Bonus(pos, iskinematic, layout, "") {}
 
 protected:
 private:

@@ -8,15 +8,15 @@
 #ifndef WALLS_HPP_
 	#define WALLS_HPP_
 
-#include "../Entity.hpp"
+#include "../../Entity.hpp"
 
 class Walls : public entities::Entity {
-public:
-	Walls(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
-		Entity(pos, iskinematic, layout) {}
-	~Walls() {};
+	public:
+		Walls(entities::entityPosition pos, bool iskinematic, std::size_t layout, std::string type) :
+		Entity(pos, iskinematic, layout, type) {}
+		~Walls() {};
 
-protected:
+	protected:
 };
 
 #endif /* !WALLS_HPP_ */
