@@ -33,18 +33,14 @@ void Ia::placeIa(std::vector<std::string> &map)
 	map[1][1] = 'J';
 	_pos = std::make_pair(1, 1);
 }
-
-Ia::Ia(std::vector<std::string> &position_map, std::vector<std::string> &dynamic_map) : Character(position_map, dynamic_map)
+*/
+Ia::Ia(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
+                Character(pos, iskinematic, layout, "i")
 {
-	placeIa(_positionMap);
-	printMap(_positionMap);
-	Algorithm *iaAlgo = new Algorithm;
-	while (1) {
-		if (checkIfDead(_positionMap, _pos) == 0)
-			return ;
-		if (isInDangerousPosition(_dynamicMap, _pos) == 0)
-			std::pair<int, int> pos_to_go =
-				iaAlgo->defensiveMove(_positionMap, _dynamicMap, _pos);
-	}
+	Algorithm *algo = new Algorithm;
+	std::pair<int, int> move;
+	std::pair<int, int> pos_player = {0, 0};
+
+	//GameMap map = _map.get3dmap();
+	//move = algo->defensiveMove(map, pos_player);
 }
- */
