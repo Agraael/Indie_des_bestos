@@ -16,10 +16,11 @@
 class Map {
 public:
 	Map(GameMap map) : _map(map) {};
-	std::vector<std::vector<std::vector<std::shared_ptr<entities::Entity>>>>	get3dMap() { return _map; }
-	void										placeBomb(entities::entityPosition, std::size_t);
+	GameMap	get3dMap() const noexcept { return _map; }
+	void	placeBomb(entities::entityPosition, std::size_t);
+	void	updatePos();
 private:
-	std::vector<std::vector<std::vector<std::shared_ptr<entities::Entity>>>> _map;
+	GameMap _map;
 };
 
 #endif /* !MAP_HPP_ */

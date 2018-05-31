@@ -64,7 +64,7 @@ namespace IndieEvents
 				if (!_keys.empty())
 					_keys.clear();
 			}
-
+    
 			std::list<IndieKeys>	&getKey() noexcept { return _keys; }
 		private:
 			std::list<IndieKeys>	_keys;

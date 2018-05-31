@@ -71,3 +71,4 @@ int	Core::exitCore()
 {
 	return 0;
 }
+

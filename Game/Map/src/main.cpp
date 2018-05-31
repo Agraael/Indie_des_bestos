@@ -17,25 +17,13 @@ int main()
 
 	generator->runGeneration(GenerationSize::Big, GenerationMod::FullDest);
 	charMap = generator->getMap();
-	for (int i = 0; charMap[i] != NULL; ++i)
-	{
-		std::cout << charMap[i] << std::endl;
-	}
 	std::shared_ptr<Map>		ThreeDMap = std::make_shared<Map>(Map(interpret->createMap(generator->getMap())));
-	map = ThreeDMap->get3dMap();
-	for (auto line : map) {
-		for (auto tab : line) {
-			for (auto shared : tab) {
-				shared->setMap(ThreeDMap);
-			}			
-		}
-	}
 	ThreeDMap->placeBomb(std::make_pair(1, 1), 3);
 	map = ThreeDMap->get3dMap();
 	for (auto line : map) {
 		for (auto tab : line) {
 			for (auto shared : tab) {
-				shared.get()->displayType();
+				shared.get()->setMap(ThreeDMap);
 			}
 			if (tab.empty())
 				std::cout << " ";
