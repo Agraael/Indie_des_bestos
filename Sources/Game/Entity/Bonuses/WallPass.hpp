@@ -13,10 +13,10 @@
 class WallPass : public BonusSpace::Bonus {
 	public:
                 WallPass(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
-			BonusSpace::Bonus(pos, iskinematic, layout, "") {}
+		BonusSpace::Bonus(pos, iskinematic, layout, "") {}
 
-protected:
-private:
+	protected:
+	private:
 };
 
 #endif /* !WALLPASS_HPP_ */

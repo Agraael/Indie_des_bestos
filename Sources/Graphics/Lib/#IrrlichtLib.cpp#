@@ -68,7 +68,6 @@ irr::gui::IGUIButton *graphic::IrrlichtLib::printButton(const infos_t &infos)
     butCustom->setImage(_driver->getTexture(infos._path.c_str()));
     butCustom->setUseAlphaChannel(true);
     return (butCustom);
-
 }
 
 void graphic::IrrlichtLib::setCamera(irr::scene::ISceneNode * child)

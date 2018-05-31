@@ -11,21 +11,25 @@
 namespace graphic
 {
 
-    class Menu
-    {
-        graphic::IrrlichtLib _lib;
-    public:
-        Menu();
-        ~Menu() = default;
-        void printLogo();
-        void startDirigible(irr::gui::IGUIImage *dirigible, size_t &i);
-        void drawChoiceButtons();
-        irr::gui::IGUIImage *drawDirigible();
-        void printBackground();
-        void printUserName();
-        void display();
-        void drawChoice();
-    };
+	class Menu
+	{
+	public:
+		Menu(graphic::IrrlichtLib *lib);
+		~Menu() = default;
+		void printLogo();
+		void startDirigible();
+		void drawChoiceButtons();
+		irr::gui::IGUIImage *drawDirigible();
+		void printBackground();
+		void printUserName();
+		void display();
+		void updateDisplay();
+		void drawChoice();
+	private:
+		graphic::IrrlichtLib *_lib;
+		irr::gui::IGUIImage *_dirigible;
+		size_t _count;
+	};
 }
 
 #endif //MENU_HPP

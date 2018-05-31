@@ -7,4 +7,3 @@
 
 #include "Entity.hpp"
 
-std::size_t entities::Entity::_id = _id + 1;

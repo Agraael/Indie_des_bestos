@@ -8,25 +8,41 @@
 #ifndef CORE_HPP_
 	#define CORE_HPP_
 
+#include <unordered_map>
+#include <functional>
+#include "EventCore.hpp"
+#include "Menu.hpp"
+#include "IrrlichtLib.hpp"
 #include "EventManager.hpp"
-
-enum	CoreState {
-	IN_MENU,
-	IN_SOLO,
-	IN_LOCAL,
-	IN_LOCAL_GAME,
-	IN_SETTINGS
-};
 
 class Core
 {
-	public:
-		Core();
-		~Core();
-		int	run();
-	private:
-		IndieEvents::EventManager	*_events;
-		CoreState			_state;
+public:
+	Core();
+	~Core();
+	int	run();
+private:
+	void	chooseCorePart(const CoreState &);
+	void	menu(const CoreState &);
+	void	game_local(const CoreState &);
+	void	game_solo(const CoreState &);
+	void	menu_setting(const CoreState &);
+	void	menu_local(const CoreState &);
+	int	exitCore();
+
+	CoreState			_state;
+	IndieEvents::EventManager	*_events;
+	graphic::IrrlichtLib		*_lib;
+	EventCore			_eventCore;
+	graphic::Menu			*_menu;
+	//using ptr = void	(Core::*)(const CoreState &);
+	//const std::unordered_map<CoreState, ptr>	_fcnTab = {
+	//	{CoreState::IN_MENU, &menu},
+	//	{CoreState::IN_SETTINGS, &menu_setting},
+	//	{CoreState::IN_LOCAL, &menu_local},
+	//	{CoreState:: IN_SOLO, &game_solo},
+	//	{CoreState::IN_LOCAL_GAME, &game_local}
+	//};
 };
 
 #endif /* !CORE_HPP_ */

@@ -9,7 +9,7 @@
 	#define MAP_HPP_
 
 #include "InterpreteGeneration.hpp"
-#include "../../Entity/Entity.hpp"
+#include "Entity.hpp"
 
 //namespace entities;
 

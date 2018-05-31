@@ -14,10 +14,11 @@ void    HandleGame::InitGame()
 {
 	InterpreteGeneration    *interpret = new InterpreteGeneration;
 	MapGenerator            *generator = new MapGenerator;
-	char			**charMap;
 
-	(void)(charMap);
 	generator->runGeneration(GenerationSize::Big, GenerationMod::FullDest);
-	charMap = generator->getMap();
 	_threeDMap = std::make_shared<Map>(Map(interpret->createMap(generator->getMap())));
+	for (auto line : _threeDMap->get3dMap())
+		for (auto tab : line)
+			for (auto shared : tab)
+				shared.get()->setMap(_threeDMap);
 }

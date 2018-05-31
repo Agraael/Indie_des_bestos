@@ -134,7 +134,7 @@ std::size_t	InterpreteGeneration::findWidth(char **map)
 
 GameMap	InterpreteGeneration::createMap(char **map)
 {
-	return (std::move(Fill(findWidth(map), findHeight(map), map)));
+	return (Fill(findWidth(map), findHeight(map), map));
 }
 
 GameMap	InterpreteGeneration::Fill(const std::size_t &width, const std::size_t &height, char **charMap)

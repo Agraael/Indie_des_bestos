@@ -1,13 +1,26 @@
-//
-// Created by Ludovica Pagliarani on 09/05/2018.
-//
+/*
+** EPITECH PROJECT, 2018
+** indie
+** File description:
+** main
+*/
 
-#include "Menu.hpp"
+#include <iostream>
+#include <exception>
+#include "Core.hpp"
 
-int main()
+int	main(int ac, char **av)
 {
+	Core	core;
 
-    graphic::Menu menu;
-    menu.display();
-    return (0);
+	(void)ac;
+	(void)av;
+	try
+	{
+	if (core.run() == 84)
+		return (84);
+	} catch(std::exception ex) {
+		std::cout << ex.what() << std::endl;
+	}
+	return (0);
 }

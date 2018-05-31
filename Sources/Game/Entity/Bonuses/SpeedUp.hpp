@@ -13,9 +13,9 @@
 class SpeedUp : public BonusSpace::Bonus {
 	public:
                 SpeedUp(std::pair<float, float> pos, bool iskinematic, std::size_t layout) :
-			BonusSpace::Bonus(pos, iskinematic, layout, "") {}
+		BonusSpace::Bonus(pos, iskinematic, layout, "") {}
 
-protected:
+	protected:
 };
 
 #endif /* !SPEEDUP_HPP_ */

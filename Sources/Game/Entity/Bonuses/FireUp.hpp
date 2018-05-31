@@ -13,10 +13,10 @@
 class FireUp : public BonusSpace::Bonus {
 	public:
                 FireUp(std::pair<float, float> pos, bool iskinematic, std::size_t layout) :
-			BonusSpace::Bonus(pos, iskinematic, layout, "") {}
+		BonusSpace::Bonus(pos, iskinematic, layout, "") {}
 
-protected:
-private:
+	protected:
+	private:
 };
 
 #endif /* !FIREUP_HPP_ */

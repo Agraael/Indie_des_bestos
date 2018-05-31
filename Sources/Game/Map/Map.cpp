@@ -12,7 +12,7 @@
 void    Map::placeBomb(entities::entityPosition pos, std::size_t shining)
 {
 	_map[pos.first][pos.second].push_back(std::make_shared<entities::Entity>(Bombs(pos, false, 0)));
-	for (std::size_t i = 1; i <= shining; ++i) {
+	for (int i = 1; i <= static_cast<int>(shining); ++i) {
 		if ((pos.first - i) >= 0)
 			_map[pos.first - i][pos.second].push_back(std::make_shared<entities::Entity>(GonnaExplose(pos, false, 0)));
 		if ((pos.first + i) >= 0)
