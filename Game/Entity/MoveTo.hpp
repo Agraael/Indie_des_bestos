@@ -19,7 +19,7 @@ class MoveTo {
 public:
 	MoveTo();
 	~MoveTo();
-	std::pair<int, int> move_to_pos(Entity *player, std::pair<int, int> pos_character,
+	std::pair<int, int> move_to_pos(entities::Entity *player, std::pair<int, int> pos_character,
 					std::pair<int, int> pos_to_go, std::shared_ptr<Map> shared_map);
 	std::pair<int, int> try_move_up(std::vector<std::vector<std::vector<std::shared_ptr<entities::Entity>>>> &map,
 					std::pair<int, int> pos_character);
