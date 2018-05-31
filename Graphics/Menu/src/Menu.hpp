@@ -5,8 +5,8 @@
 #ifndef MENU_HPP
 #define MENU_HPP
 
-#include "IrrlichtLib.hpp"
-#include "LibEventManager.hpp"
+#include "../../lib/src/IrrlichtLib.hpp"
+#include "../../lib/src/LibEventManager.hpp"
 
 namespace graphic
 {
