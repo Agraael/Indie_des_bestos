@@ -8,7 +8,7 @@
 #ifndef EVENTMANAGER_HPP_
 	#define EVENTMANAGER_HPP_
 
-#include <queue>
+#include <list>
 
 namespace IndieEvents
 {
@@ -57,17 +57,17 @@ namespace IndieEvents
 			EventManager() {}
 
 			void	setIndieKey(IndieKeys key) {
-				_keys.push(key);
+				_keys.push_back(key);
 			}
 
 			void	resetKey() noexcept {
-				while (!_keys.empty())
-					_keys.pop();
+				if (!_keys.empty())
+					_keys.clear();
 			}
 
-			std::queue<IndieKeys>	&getKey() noexcept { return _keys; }
+			std::list<IndieKeys>	&getKey() noexcept { return _keys; }
 		private:
-			std::queue<IndieKeys>	_keys;
+			std::list<IndieKeys>	_keys;
 	};
 };
 
