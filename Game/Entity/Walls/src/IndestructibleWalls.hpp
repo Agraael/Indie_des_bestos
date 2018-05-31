@@ -13,9 +13,8 @@
 class IndestructibleWalls : public Walls {
 	public:
 		IndestructibleWalls(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
-		Walls(pos, true, 3, "I") {}
+		Walls(pos, iskinematic, layout, "I") {}
 		~IndestructibleWalls() {};
-
 	private:
 };
 
