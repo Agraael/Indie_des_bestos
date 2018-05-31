@@ -21,7 +21,7 @@ void    graphic::Menu::drawChoiceButtons()
     buttonPlay._y = 250;
     buttonPlay._w = 400;
     buttonPlay._h = 280;
-    buttonPlay._path = "./media/button_menu.png";
+    buttonPlay._path = "./Graphics/media/button_menu.png";
     buttonPlay._desc = "Play the game";
     buttonPlay._name = "Play";
     buttonPlay._type = graphic::GUI_ID_QUIT_BUTTON;
@@ -32,7 +32,7 @@ void    graphic::Menu::drawChoiceButtons()
     buttonChoise._y = 310;
     buttonChoise._w = 400;
     buttonChoise._h = 340;
-    buttonChoise._path = "./media/button_menu.png";
+    buttonChoise._path = "./Graphics/media/button_menu.png";
     buttonChoise._desc = "Change settings game";
     buttonChoise._name = "Settings";
     buttonChoise._type = graphic::GUI_ID_QUIT_BUTTON;
@@ -43,7 +43,7 @@ void    graphic::Menu::drawChoiceButtons()
     buttonExit._y = 360;
     buttonExit._w = 400;
     buttonExit._h = 390;
-    buttonExit._path = "./media/button_menu.png";
+    buttonExit._path = "./Graphics/media/button_menu.png";
     buttonExit._desc = "Exit the game";
     buttonExit._name = "Quit";
     buttonExit._type = graphic::GUI_ID_QUIT_BUTTON;
@@ -52,7 +52,7 @@ void    graphic::Menu::drawChoiceButtons()
 
 irr::gui::IGUIImage *graphic::Menu::drawDirigible()
 {
-    irr::gui::IGUIImage *dirigible =  _lib->drawImage(0, 0, 50, 50, "./media/dirigible.png");
+    irr::gui::IGUIImage *dirigible =  _lib->drawImage(0, 0, 50, 50, "./Graphics/media/dirigible.png");
     return (dirigible);
 }
 
@@ -68,12 +68,12 @@ void    graphic::Menu::startDirigible()
 
 void    graphic::Menu::printLogo()
 {
-    _lib->drawImage(150, 5, 200, 200, "./media/Neo_Bomberman_Logo.png");
+    _lib->drawImage(150, 5, 200, 200, "./Graphics/media/Neo_Bomberman_Logo.png");
 }
 
 void graphic::Menu::printBackground()
 {
-    _lib->drawImage(0, 0, 640, 480, "./media/pixel_skyline.png");
+    _lib->drawImage(0, 0, 640, 480, "./Graphics/media/pixel_skyline.png");
 }
 
 void    graphic::Menu::printUserName()
