@@ -69,6 +69,6 @@ namespace IndieEvents
 		private:
 			std::list<IndieKeys>	_keys;
 	};
-};
+}
 
 #endif /* !EVENTMANAGER_HPP_ */
