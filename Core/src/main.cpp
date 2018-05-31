@@ -9,7 +9,7 @@
 #include <exception>
 #include "Core.hpp"
 
-int	main(int, char **)
+int	main(int ac, char **av)
 {
 	Core	core;
 
