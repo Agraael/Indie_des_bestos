@@ -5,11 +5,16 @@
 // 
 //
 
+#ifndef IA_HPP_
+#define IA_HPP_
+
 #include <vector>
 #include <iostream>
 #include <utility>
 #include <functional>
-#include "../../Character.hpp"
+#include "Gen.hpp"
+#include "Map.hpp"
+#include "Character.hpp"
 
 /* class Ia : public Character {
 public:
@@ -23,6 +28,7 @@ private:
 
 class Ia : public Character {
 public:
-	Ia(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
-		Character(pos, true, 3, "i") {}
+	Ia(entities::entityPosition pos, bool iskinematic, std::size_t layout);
 };
+
+#endif /* !ia */
