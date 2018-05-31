@@ -13,18 +13,22 @@ namespace graphic
 
     class Menu
     {
-        graphic::IrrlichtLib _lib;
     public:
-        Menu();
+        Menu(graphic::IrrlichtLib *lib);
         ~Menu() = default;
         void printLogo();
-        void startDirigible(irr::gui::IGUIImage *dirigible, size_t &i);
+        void startDirigible();
         void drawChoiceButtons();
         irr::gui::IGUIImage *drawDirigible();
         void printBackground();
         void printUserName();
         void display();
+        void updateDisplay();
         void drawChoice();
+    private:
+        graphic::IrrlichtLib *_lib;
+        irr::gui::IGUIImage *_dirigible;
+        size_t _count;
     };
 }
 
