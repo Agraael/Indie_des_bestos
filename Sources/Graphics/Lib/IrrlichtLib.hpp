@@ -7,11 +7,12 @@
 
 #include <iostream>
 #include <map>
-#include <irrlicht.h>
+#include <irrlicht/irrlicht.h>
 #include "LibEventManager.hpp"
 
 #ifdef _IRR_WINDOWS_
 #pragma comment(lib, "Irrlicht.lib")
+#include "irrlicht.h"
 #endif
 
 
