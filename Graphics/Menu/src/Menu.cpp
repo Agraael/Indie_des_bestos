@@ -93,15 +93,6 @@ void    graphic::Menu::display()
     printUserName();
     drawChoiceButtons();
     _dirigible = drawDirigible();
-    //_dirigible = drawDirigible();
-    //size_t i = -30;
-    /*while (_lib->getDevice()->run()) {
-         startDirigible(dirigible, i);
-        printLogo();
-        _lib->displayAll();
-        i += 10;
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    }*/
 }
 
 void graphic::Menu::updateDisplay()

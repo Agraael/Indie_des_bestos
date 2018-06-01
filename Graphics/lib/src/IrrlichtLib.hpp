@@ -35,6 +35,7 @@ namespace graphic {
         irr::scene::ISceneNode *createSphere();
         void setCamera(irr::scene::ISceneNode *parent);
         void drawEditBox(graphic::infos_t infos);
+        irr::gui::IGUIScrollBar *scrollBarButton(const infos_t &infos);
         irr::gui::IGUIButton *printButton(const infos_t &infos);
         void drawText(size_t x, size_t y, size_t fontSize, std::string const&);
     private:

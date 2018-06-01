@@ -71,6 +71,17 @@ irr::gui::IGUIButton *graphic::IrrlichtLib::printButton(const infos_t &infos)
 
 }
 
+irr::gui::IGUIScrollBar *graphic::IrrlichtLib::scrollBarButton(const infos_t &infos)
+{
+   drawText(200, 200, 30, "Brightness Control");
+    irr::gui::IGUIScrollBar* scrollbar = _guiEnv->addScrollBar(true,
+                                                           irr::core::rect<irr::s32>(150, 55, 350, 60), 0, infos._type);
+    scrollbar->setMax(255);
+    // met la position de la barre de défilement à la valeur alpha d'un élément choisi arbitrairement
+    scrollbar->setPos(_guiEnv->getSkin()->getColor(irr::gui::EGDC_WINDOW).getAlpha());
+    return (scrollbar);
+}
+
 void graphic::IrrlichtLib::setCamera(irr::scene::ISceneNode * child)
 {
     irr::scene::ICameraSceneNode *cam= _managerScene->addCameraSceneNode();
@@ -111,6 +122,7 @@ irr::scene::ISceneNode  *graphic::IrrlichtLib::createSphere()
 
 void    graphic::IrrlichtLib::drawText(size_t x, size_t y, size_t fontSize, const std::string &text)
 {
-    const wchar_t* wideCStr = graphic::convertStringToWString(text);
-    _guiEnv->addStaticText(wideCStr, irr::core::rect<irr::s32>(x,y, 100,22), true);
+    std::wstring wideStr = std::wstring(text.begin(), text.end());
+    const wchar_t *wideCStr = wideStr.c_str();
+    _guiEnv->addStaticText(wideCStr, irr::core::rect<irr::s32>(x,y, x + 100, y + 100), true);
 }
