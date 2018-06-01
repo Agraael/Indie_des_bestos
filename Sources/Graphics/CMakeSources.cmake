@@ -1,0 +1,27 @@
+set( GRAPHICS_ROOT_DIR Graphics)
+
+include(${GRAPHICS_ROOT_DIR}/Menu/CMakeSources.cmake)
+include(${GRAPHICS_ROOT_DIR}/SettingsMenu/CMakeSources.cmake)
+include(${GRAPHICS_ROOT_DIR}/Lib/CMakeSources.cmake)
+
+set(GRAPHICS_INC_DIR
+  ${MENU_INC_DIR}
+  ${SETTINGSMENU_INC_DIR}
+  ${LIB_INC_DIR}
+  ${GRAPHICS_ROOT_DIR})
+
+set(GRAPHICS_SRC_DIR
+  ${MENU_SRC_DIR}
+  ${SETTINGSMENU_SRC_DIR}
+  ${LIB_SRC_DIR}
+  ${GRAPHICS_ROOT_DIR})
+
+set(GRAPHICS_INC
+  ${SETTINGSMENU_INC}
+  ${MENU_INC}
+  ${LIB_INC})
+
+set(GRAPHICS_SRC
+  ${SETTINGSMENU_SRC}
+  ${MENU_SRC}
+  ${LIB_SRC})
