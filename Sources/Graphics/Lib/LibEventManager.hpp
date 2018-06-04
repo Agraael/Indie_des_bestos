@@ -9,30 +9,32 @@
 
 namespace graphic
 {
-    typedef struct s_contextRecEvnt
-    {
-        irr::IrrlichtDevice *device;
-        irr::s32             counter;
-        irr::gui::IGUIListBox*    listbox;
-    }             t_contextRecEvnt;
-    enum controllerUser
-    {
-        GUI_ID_QUIT_BUTTON = 101,
-        GUI_ID_NEW_WINDOW_BUTTON,
-        GUI_ID_FILE_OPEN_BUTTON,
-        GUI_ID_TRANSPARENCY_SCROLL_BAR
-    };
-    class LibEventManager : public irr::IEventReceiver
-    {
-    public:
-        LibEventManager(t_contextRecEvnt const& context);
-        ~LibEventManager() = default;
-        virtual bool OnEvent(const irr::SEvent& event);
-        virtual bool IsKeyDown(irr::EKEY_CODE keyCode) const;
-        bool eventGetter();
-    private:
-        bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
-        t_contextRecEvnt _context;
+	typedef struct s_contextRecEvnt
+	{
+		irr::IrrlichtDevice *device;
+		irr::s32             counter;
+		irr::gui::IGUIListBox*    listbox;
+	}             t_contextRecEvnt;
+	enum controllerUser
+	{
+		GUI_ID_QUIT_BUTTON = 101,
+		GUI_ID_TEST_BUTTON = 99,
+		GUI_ID_NO_BUTTON = 100,
+	};
+
+	class LibEventManager
+		: public irr::IEventReceiver
+	{
+	public:
+		explicit LibEventManager(t_contextRecEvnt const& context);
+		~LibEventManager() override = default;
+		bool OnEvent(const irr::SEvent& event) override;
+		virtual bool IsKeyDown(irr::EKEY_CODE keyCode) const;
+		bool IsButtonClicked(graphic::controllerUser) const;
+	private:
+		bool KeyIsDown[irr::KEY_KEY_CODES_COUNT]{};
+		mutable irr::s32 _pressedButton{GUI_ID_NO_BUTTON};
+		t_contextRecEvnt _context;
     };
 }
 
