@@ -32,7 +32,6 @@ private:
 	int	exitCore();
 
 	CoreState			_state;
-	IndieEvents::EventManager	*_events;
 	graphic::IrrlichtLib		*_lib;
 	EventCore			_eventCore;
 	graphic::Menu			*_menu;

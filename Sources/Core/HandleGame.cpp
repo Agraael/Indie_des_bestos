@@ -50,9 +50,9 @@ void	HandleGame::addCubeToMap(const entities::Entity &entity)
 	}
 }
 
-void	HandleGame::updateGame()
+void	HandleGame::quitGame()
 {
-	
+	_disp.clear();
 }
 
 void	HandleGame::updtaeGameForanatole()

@@ -11,13 +11,12 @@
 #include "Core.hpp"
 
 Core::Core()
-	: _state(CoreState::IN_MENU), _events(new IndieEvents::EventManager()), _lib(new graphic::IrrlichtLib()), _eventCore(_events), _menu(new graphic::Menu(_lib)), hGame(_lib)
+	: _state(CoreState::IN_MENU), _lib(new graphic::IrrlichtLib()), _eventCore(_lib), _menu(new graphic::Menu(_lib)), hGame(_lib)
 {
 }
 
 Core::~Core()
 {
-	delete _events;
 	delete _lib;
 }
 
@@ -62,6 +61,11 @@ void	Core::game_local(const CoreState &state)
 
 void	Core::game_solo(const CoreState &state)
 {
+	if (_lib->getEventManager()->IsKeyDown(irr::EKEY_CODE::KEY_ESCAPE) == true) {
+		hGame.quitGame();
+		_menu->display();
+		return;
+	}
 	hGame.updateMap();
 	(void)(state);
 }
