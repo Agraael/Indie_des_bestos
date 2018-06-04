@@ -49,15 +49,15 @@ irr::video::ITexture *graphic::IrrlichtLib::findTextureOrCreate(const std::strin
 
 }
 
-irr::gui::IGUIImage *graphic::IrrlichtLib::drawImage(int posx, int posy, int w, int h, const std::string &path)
+irr::gui::IGUIImage *graphic::IrrlichtLib::drawImage(const infos_t &infos)
 {
-	auto texture = findTextureOrCreate(path);
-	_driver->enableMaterial2D();
-	irr::gui::IGUIImage *img = _guiEnv->addImage(texture, irr::core::position2d<int>(posx,posy));
-	img->setScaleImage(true);
-	img->setMinSize(irr::core::dimension2du(w, h));
-	img->setMaxSize(irr::core::dimension2du(w + 100, h + 100));
-	return (img);
+    auto texture = findTextureOrCreate(infos._path);
+    _driver->enableMaterial2D();
+    irr::gui::IGUIImage *img = _guiEnv->addImage(texture, irr::core::position2d<int>(infos._x, infos._y));
+    img->setScaleImage(true);
+    img->setMinSize(irr::core::dimension2du(infos._w, infos._h));
+    img->setMaxSize(irr::core::dimension2du(infos._maxW, infos._maxH));
+    return (img);
 }
 
 irr::gui::IGUIButton *graphic::IrrlichtLib::printButton(const infos_t &infos)
@@ -71,6 +71,17 @@ irr::gui::IGUIButton *graphic::IrrlichtLib::printButton(const infos_t &infos)
 	butCustom->setUseAlphaChannel(true);
 	return (butCustom);
 
+}
+
+irr::gui::IGUIScrollBar *graphic::IrrlichtLib::scrollBarButton(const infos_t &infos)
+{
+   drawText(200, 200, 30, "Brightness Control");
+    irr::gui::IGUIScrollBar* scrollbar = _guiEnv->addScrollBar(true,
+                                                           irr::core::rect<irr::s32>(150, 55, 350, 60), 0, infos._type);
+    scrollbar->setMax(255);
+    // met la position de la barre de défilement à la valeur alpha d'un élément choisi arbitrairement
+    scrollbar->setPos(_guiEnv->getSkin()->getColor(irr::gui::EGDC_WINDOW).getAlpha());
+    return (scrollbar);
 }
 
 void graphic::IrrlichtLib::setCamera(irr::scene::ISceneNode * child)
@@ -121,9 +132,10 @@ irr::scene::ISceneNode  *graphic::IrrlichtLib::createSphere()
 
 void    graphic::IrrlichtLib::drawText(size_t x, size_t y, size_t fontSize, const std::string &text)
 {
-	const wchar_t* wideCStr = graphic::convertStringToWString(text);
-	_guiEnv->addStaticText(wideCStr, irr::core::rect<irr::s32>(x,y, 100,22), true);
-	(void)(fontSize);
+    std::wstring wideStr = std::wstring(text.begin(), text.end());
+    const wchar_t *wideCStr = wideStr.c_str();
+    _guiEnv->addStaticText(wideCStr, irr::core::rect<irr::s32>(x,y, x + 100, y + 100), true);
+    (void)(fontSize);
 }
 
 std::shared_ptr<graphic::LibEventManager> const& graphic::IrrlichtLib::getEventManager() const
