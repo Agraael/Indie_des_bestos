@@ -6,5 +6,10 @@
 */
 
 #include "Player.hpp"
-		//if(_lib->getEventManager()->IsKeyDown(irr::KEY_KEY_Z))
-		//	std::cout << "M D R" << std::endl;
+
+void	Player::interpretEvent()
+{
+        
+}
+//if(_lib->getEventManager()->IsKeyDown(irr::KEY_KEY_Z))
+//	std::cout << "M D R" << std::endl;

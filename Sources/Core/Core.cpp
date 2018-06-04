@@ -25,14 +25,15 @@ int	Core::run()
 	CoreState	newState;
 
 	_menu->display();
-	//hGame.InitGame(GenerationSize::Big, GenerationMod::FullDest, _lib);
-	//hGame.updtaeGameForanatole();
 	while (_lib->getDevice()->run()) {
 		newState = _eventCore.updateCore(_state);
 		if (newState == CoreState::EXIT)
 			return exitCore();
 		chooseCorePart(newState);
-		_lib->displayAll();
+		if (newState == CoreState::IN_SOLO || newState == CoreState::IN_LOCAL_GAME)
+			_lib->displayAll(false);
+		else
+			_lib->displayAll(true);
 	}
 	return 0;
 }
@@ -43,15 +44,19 @@ void	Core::chooseCorePart(const CoreState &state)
 	// 	_fcnTab.at(_state)(state);
 	if (_state == CoreState::IN_MENU)
 		menu(state);
-	_state = state;
+	if (_state == CoreState::IN_SOLO)
+		game_solo(state);
 }
 
 void	Core::menu(const CoreState &state)
 {
 	(void)(state);
 	_menu->updateDisplay();
-	if (state == CoreState::IN_SOLO)
+	if (state == CoreState::IN_SOLO) {
 		hGame.InitGame(GenerationSize::Medium, GenerationMod::Standard, _lib);
+		_state = state;
+		return;
+	}
 }
 
 void	Core::game_local(const CoreState &state)
@@ -63,7 +68,8 @@ void	Core::game_solo(const CoreState &state)
 {
 	if (_lib->getEventManager()->IsKeyDown(irr::EKEY_CODE::KEY_ESCAPE) == true) {
 		hGame.quitGame();
-		_menu->display();
+		_menu->updateDisplay();
+		_state = CoreState::IN_MENU;
 		return;
 	}
 	hGame.updateMap();

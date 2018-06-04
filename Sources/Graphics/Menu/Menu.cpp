@@ -94,9 +94,9 @@ void graphic::Menu::printBackground()
     background._y = 0;
     background._w = 640;
     background._h = 480;
-    background._maxH = 740;
-    background._maxW = 580;
-    background._path = "Assets/media/Neo_Bomberman_Logo.png";
+    background._maxW = 740;
+    background._maxH = 580;
+    background._path = "Assets/media/pixel_skyline.png";
 	_lib->drawImage(background);
 }
 
