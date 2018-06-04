@@ -13,7 +13,7 @@
 class BombUp : public BonusSpace::Bonus {
 	public:
 		BombUp(std::pair<float, float> pos, bool iskinematic, std::size_t layout) :
-		BonusSpace::Bonus(pos, iskinematic, layout, "") {}
+		BonusSpace::Bonus(pos, iskinematic, layout, entities::entityType::BOMB_UP_TYPE) {}
 		~BombUp() {};
 	private:
 };
