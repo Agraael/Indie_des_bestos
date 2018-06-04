@@ -17,8 +17,8 @@ namespace graphic
 		Menu(graphic::IrrlichtLib *lib);
 		~Menu() = default;
 		void printLogo();
-		void startDirigible();
 		void drawChoiceButtons();
+		void startDirigible();
 		irr::gui::IGUIImage *drawDirigible();
 		void printBackground();
 		void printUserName();
