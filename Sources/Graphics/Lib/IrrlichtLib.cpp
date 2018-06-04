@@ -49,14 +49,14 @@ irr::video::ITexture *graphic::IrrlichtLib::findTextureOrCreate(const std::strin
 
 }
 
-irr::gui::IGUIImage *graphic::IrrlichtLib::drawImage(int posx, int posy, int w, int h, const std::string &path)
+irr::gui::IGUIImage *graphic::IrrlichtLib::drawImage(const infos_t &infos)
 {
-    auto texture = findTextureOrCreate(path);
+    auto texture = findTextureOrCreate(infos._path);
     _driver->enableMaterial2D();
-    irr::gui::IGUIImage *img = _guiEnv->addImage(texture, irr::core::position2d<int>(posx,posy));
+    irr::gui::IGUIImage *img = _guiEnv->addImage(texture, irr::core::position2d<int>(infos._x, infos._y));
     img->setScaleImage(true);
-    img->setMinSize(irr::core::dimension2du(w, h));
-    img->setMaxSize(irr::core::dimension2du(w, h));
+    img->setMinSize(irr::core::dimension2du(infos._w, infos._h));
+    img->setMaxSize(irr::core::dimension2du(infos._maxW, infos._maxH));
     return (img);
 }
 

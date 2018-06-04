@@ -13,12 +13,28 @@ graphic::settingsMenu::settingsMenu(graphic::IrrlichtLib *lib) : _lib(lib)
 
 void    graphic::settingsMenu::printLogo()
 {
-    _lib->drawImage(10, 5, 50, 50, "../../../Assets/media/Neo_Bomberman_Logo.png");
+    graphic::infos_t logo;
+    logo._x = 10;
+    logo._y = 5;
+    logo._w = 50;
+    logo._h = 50;
+    logo._maxH = 50;
+    logo._maxW = 50;
+    logo._path = "Assets/media/Neo_Bomberman_Logo.png";
+    _lib->drawImage(logo);
 }
 
 void graphic::settingsMenu::printBackground()
 {
-    _lib->drawImage(0, 0, 640, 480, "../../../Assets/media/pixel_skyline.png");
+    graphic::infos_t background;
+    background._x = 0;
+    background._y = 0;
+    background._w = 640;
+    background._h = 480;
+    background._maxH = 740;
+    background._maxW = 580;
+    background._path = "Assets/media/Neo_Bomberman_Logo.png";
+    _lib->drawImage(background);
 }
 
 void graphic::settingsMenu::brightnessBar()
@@ -36,23 +52,35 @@ void graphic::settingsMenu::printSound()
 {
     graphic::infos_t moins;
     moins._x = 200;
-    moins._y = 250;
-    moins._w = 400;
-    moins._h = 300;
-    moins._type = IndieEvents::SOUND_UP;
-    moins._path = "../../../Assets/media/moins.png";
-    _lib->drawImage(200, 150, 30, 30, "../../../Assets/media/moins.png");
+    moins._y = 150;
+    moins._w = 30;
+    moins._h = 30;
+    moins._maxW = 30;
+    moins._maxH = 30;
+    moins._type = graphic::SOUND_DOWN;
+    moins._path = "./Assets/media/moins.png";
+    _lib->drawImage(moins);
 
-    _lib->drawImage(240, 130, 100, 80, "../../../Assets/media/formation-au-son-1.png");
+    graphic::infos_t sound;
+    sound._x = 240;
+    sound._y = 130;
+    sound._w = 100;
+    sound._h = 80;
+    sound._maxW = 100;
+    sound._maxH = 80;
+    sound._path = "../../../Assets/media/moins.png";
+    _lib->drawImage(sound);
 
     graphic::infos_t plus;
-    plus._x = 200;
-    plus._y = 250;
-    plus._w = 400;
-    plus._h = 300;
-    plus._type = IndieEvents::SOUND_UP;
+    plus._x = 350;
+    plus._y = 150;
+    plus._w = 30;
+    plus._h = 30;
+    plus._maxW = 30;
+    plus._maxW = 30;
+    plus._type = graphic::SOUND_UP;
     plus._path = "../../../Assets/media/plus.png";
-    _lib->drawImage(350, 150, 30, 30, "../../../Assets/media/plus.png");
+    _lib->drawImage(plus);
 }
 
 void    graphic::settingsMenu::display()
