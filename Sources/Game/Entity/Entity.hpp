@@ -39,8 +39,9 @@ namespace entities {
 		bool			isDead() const noexcept { return _isDead; }
 		bool			IsKinematic() const noexcept { return _iskinematic; }
 		graphicEntityPosition	getGraphcPos() const noexcept { return _graphicPos; }
-		std::string		getTextrue() const noexcept { return _texture; };
-		entities::entityType	getType() const noexcept {return _typeEnum;};
+		std::string		getTextrue() const noexcept { return _texture; }
+		entities::entityType	getType() const noexcept { return _typeEnum; }
+		std::size_t		getLayout() const noexcept { return _layout; }
 		void			die(bool state) { _isDead = state; }
 		void			setMap(std::shared_ptr<Map> &map) {_map = map; };
 		void			setTexture(std::string texture) { _texture = texture; }

@@ -27,14 +27,9 @@ const std::unordered_map<IndieEvents::IndieKeys, CoreState>	EventCore::_statesTa
 
 CoreState	EventCore::updateCore(CoreState currentState) const noexcept
 {
-	CoreState	state;
-
-	(void)(state);
-	std::list<IndieEvents::IndieKeys>	keys = _events->getKey();
-
-	for (auto key = keys.begin(); key != keys.end(); key++) {
-		if (_statesTab.find(*key) != _statesTab.end())
-			return _statesTab.at(*key);
+	for (auto button = _statesTab.begin(); button != _statesTab.end(); button++) {
+		if (_lib->getEventManager()->IsButtonClicked(static_cast<graphic::controllerUser>(button->first)) == true)
+			return button->second;
 	}
 	return currentState;
 }

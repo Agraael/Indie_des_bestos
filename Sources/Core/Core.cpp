@@ -7,16 +7,16 @@
 
 #include <iostream>
 #include <string>
+#include "Gen.hpp"
 #include "Core.hpp"
 
 Core::Core()
-	: _state(CoreState::IN_MENU), _events(new IndieEvents::EventManager()), _lib(new graphic::IrrlichtLib()), _eventCore(_events), _menu(new graphic::Menu(_lib)), hGame(_lib)
+	: _state(CoreState::IN_MENU), _lib(new graphic::IrrlichtLib()), _eventCore(_lib), _menu(new graphic::Menu(_lib)), hGame(_lib)
 {
 }
 
 Core::~Core()
 {
-	delete _events;
 	delete _lib;
 }
 
@@ -24,14 +24,14 @@ int	Core::run()
 {
 	CoreState	newState;
 
-	//_menu->display();
-	hGame.InitGame();
-	hGame.updtaeGameForanatole();
+	_menu->display();
+	//hGame.InitGame(GenerationSize::Big, GenerationMod::FullDest);
+	//hGame.updtaeGameForanatole();
 	while (_lib->getDevice()->run()) {
 		newState = _eventCore.updateCore(_state);
 		if (newState == CoreState::EXIT)
 			return exitCore();
-		//chooseCorePart(newState);
+		chooseCorePart(newState);
 		_lib->displayAll();
 	}
 	return 0;
@@ -51,7 +51,7 @@ void	Core::menu(const CoreState &state)
 	(void)(state);
 	_menu->updateDisplay();
 	if (state == CoreState::IN_SOLO)
-		hGame.InitGame();
+		hGame.InitGame(GenerationSize::Medium, GenerationMod::Standard);
 }
 
 void	Core::game_local(const CoreState &state)
@@ -61,6 +61,11 @@ void	Core::game_local(const CoreState &state)
 
 void	Core::game_solo(const CoreState &state)
 {
+	if (_lib->getEventManager()->IsKeyDown(irr::EKEY_CODE::KEY_ESCAPE) == true) {
+		hGame.quitGame();
+		_menu->display();
+		return;
+	}
 	hGame.updateMap();
 	(void)(state);
 }
