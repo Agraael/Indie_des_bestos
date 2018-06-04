@@ -35,7 +35,7 @@ void Ia::placeIa(std::vector<std::string> &map)
 }
 */
 Ia::Ia(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
-                Character(pos, iskinematic, layout, "i")
+                Character(pos, iskinematic, layout, entities::entityType::IA_TYPE)
 {
 	// Algorithm *algo = new Algorithm;
 	// std::pair<int, int> move;
