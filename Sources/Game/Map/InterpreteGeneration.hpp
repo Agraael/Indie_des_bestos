@@ -23,6 +23,7 @@
 #include "Player.hpp"
 #include "Ia.hpp"
 #include "Map.hpp"
+#include "IrrlichtLib.hpp"
 
 class Entity;
 
@@ -30,7 +31,7 @@ class InterpreteGeneration {
 public:
 	InterpreteGeneration() {}
 	GameMap	createMap(char **);
-private:		
+private:
 	enum entityType {
 		NOTHING = ' ',
 		INDESTRUCTIBLE_TYPE = 'I',

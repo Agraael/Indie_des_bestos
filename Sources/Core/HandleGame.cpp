@@ -25,6 +25,7 @@ void    HandleGame::InitGame(const GenerationSize &size, const GenerationMod &mo
 				entities::Entity *entity = shared.get();
 				entity->setMap(_threeDMap);
 				addCubeToMap(*entity);
+				if ()
 			}
 		}
 	}
