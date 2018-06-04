@@ -165,7 +165,7 @@ int main()
 	other supported file format. By the way, that cool Quake 2 model
 	called sydney was modelled by Brian Collins.
 	*/
-	IAnimatedMesh* mesh = smgr->getMesh("../../media/sydney.md2");
+	IAnimatedMesh* mesh = smgr->getMesh("../../media/perso.obj");
 	if (!mesh)
 	{
 		device->drop();
@@ -185,7 +185,7 @@ int main()
 	{
 		node->setMaterialFlag(EMF_LIGHTING, false);
 		node->setMD2Animation(scene::EMAT_STAND);
-		node->setMaterialTexture( 0, driver->getTexture("../../media/sydney.bmp") );
+		//node->setMaterialTexture( 0, driver->getTexture("../../media/caisse.jpg") );
 	}
 
 	/*
@@ -193,7 +193,7 @@ int main()
 	(0, 30, -40). The camera looks from there to (0,5,0), which is
 	approximately the place where our md2 model is.
 	*/
-	smgr->addCameraSceneNode(0, vector3df(0,30,-40), vector3df(0,5,0));
+	smgr->addCameraSceneNode(0, vector3df(-5,50,-50), vector3df(0,5,0));
 
 	/*
 	Ok, now we have set up the scene, lets draw everything: We run the

@@ -6,7 +6,7 @@
 */
 
 #ifndef EVENTMANAGER_HPP_
-	#define EVENTMANAGER_HPP_
+#define EVENTMANAGER_HPP_
 
 #include <list>
 
