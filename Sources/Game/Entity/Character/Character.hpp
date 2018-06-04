@@ -26,7 +26,7 @@ protected:
 
 class Character : public entities::Entity {
 public:
-	Character(entities::entityPosition pos, bool iskinematic, std::size_t layout, std::string type) :
+	Character(entities::entityPosition pos, bool iskinematic, std::size_t layout, entities::entityType type) :
 	Entity(pos, iskinematic, layout, type) {}
 protected:
 };
