@@ -29,11 +29,13 @@ graphic::IrrlichtLib::~IrrlichtLib()
 	_device->drop();
 }
 
-void    graphic::IrrlichtLib::displayAll()
+void    graphic::IrrlichtLib::displayAll(bool td)
 {
 	_driver->beginScene(true, true, irr::video::SColor(255,100,101,140));
-	_managerScene->drawAll();
-	_guiEnv->drawAll();
+	if (td == true)
+		_guiEnv->drawAll();
+	else
+		_managerScene->drawAll();
 	_driver->endScene();
 }
 

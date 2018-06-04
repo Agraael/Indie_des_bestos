@@ -46,7 +46,7 @@ namespace graphic {
 		irr::video::ITexture *findTextureOrCreate(const std::string &path);
 		irr::gui::IGUIImage *drawImage(const infos_t &infos);
 		irr::IrrlichtDevice *getDevice() { return _device; }
-		void displayAll();
+		void displayAll(bool);
 		irr::scene::ISceneNode *createCube(const vec3df &, const std::string &);
 		irr::scene::ISceneNode *createSphere();
 		void setCamera(irr::scene::ISceneNode *parent);
@@ -55,7 +55,7 @@ namespace graphic {
 		irr::gui::IGUIButton *printButton(const infos_t &infos);
 		void drawText(size_t x, size_t y, size_t fontSize, std::string const&);
         irr::gui::IGUIScrollBar *scrollBarButton(const infos_t &infos);
-		std::unique_ptr<LibEventManager> const& getEventManager() const;
+		std::shared_ptr<LibEventManager> const& getEventManager() const;
 	private:
 		irr::video::IVideoDriver* _driver;
 		irr::scene::ISceneManager* _managerScene;
