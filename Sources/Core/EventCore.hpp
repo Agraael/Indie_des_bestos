@@ -9,6 +9,7 @@
 	#define EVENTCORE_HPP_
 
 #include "EventManager.hpp"
+#include "IrrlichtLib.hpp"
 #include <unordered_map>
 
 enum	CoreState {
@@ -24,11 +25,11 @@ enum	CoreState {
 class EventCore
 {
 	public:
-		EventCore(IndieEvents::EventManager *&events) : _events(events) {}
+		EventCore(graphic::IrrlichtLib *lib) : _lib(lib) {}
 		~EventCore();
 		CoreState	updateCore(CoreState) const noexcept;
 	private:
-		IndieEvents::EventManager	*_events;
+		graphic::IrrlichtLib		*_lib;
 		static const std::unordered_map<IndieEvents::IndieKeys, CoreState>	_statesTab;
 };
 

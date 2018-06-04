@@ -27,7 +27,7 @@ class HandleGame
 		void	InitGame(const GenerationSize &, const GenerationMod &);
 		void	updateMap() {}
 		void	updtaeGameForanatole();
-		void	updateGame();
+		void	quitGame();
 		GameMap getGameMap() const noexcept { return (_threeDMap->get3dMap()); }
 	private:
 		void	initMapGround(const GenerationSize &);
