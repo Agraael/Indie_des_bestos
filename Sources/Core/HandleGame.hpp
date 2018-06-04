@@ -40,7 +40,7 @@ class HandleGame
 			{GenerationSize::Medium, {19, 13}},
 			{GenerationSize::Big, {25, 19}}
 		};
-		const std::unordered_map<entities::entityType, const std::string &>	_textureMap = {
+		const std::unordered_map<entities::entityType, const std::string>	_textureMap = {
 			{entities::entityType::INDESTRUCTIBLE_TYPE, "./Assets/media/brick_wall.jpg"},
 			{entities::entityType::DESTRUCTIBLE_TYPE, "./Assets/media/brick_wall.jpg"},
 			{entities::entityType::BOMB_UP_TYPE, "./Assets/media/brick_wall.jpg"},
