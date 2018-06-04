@@ -28,7 +28,7 @@ int main()
     return 0;
 }*/
 
-/*int main()
+int main()
 {
 
     graphic::IrrlichtLib *lib = new graphic::IrrlichtLib;
@@ -36,7 +36,9 @@ int main()
     menu.display();
     while (lib->getDevice()->run()) {
         menu.updateDisplay();
+        if (lib->getEventManager()->IsButtonClicked(graphic::BRIGTHNESS_DOWN) == true)
+            std::cout << "clicked" << std::endl;
         lib->displayAll();
     }
     return (0);
-}*/
+}

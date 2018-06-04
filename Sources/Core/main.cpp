@@ -9,7 +9,7 @@
 #include <exception>
 #include "Core.hpp"
 
-int	main(int ac, char **av)
+/*int	main(int ac, char **av)
 {
 	Core	core;
 
@@ -23,4 +23,4 @@ int	main(int ac, char **av)
 		std::cout << ex.what() << std::endl;
 	}
 	return (0);
-}
+}*/

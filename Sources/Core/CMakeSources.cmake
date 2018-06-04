@@ -14,7 +14,7 @@ set( CORE_INC
 
 set( CORE_SRC
   ${CORE_SRC_DIR}/Core.cpp
-  ${CORE_SRC_DIR}/main.cpp
+  #${CORE_SRC_DIR}/main.cpp
   ${CORE_SRC_DIR}/EventCore.cpp
   ${CORE_SRC_DIR}/HandleGame.cpp)
 # -----
