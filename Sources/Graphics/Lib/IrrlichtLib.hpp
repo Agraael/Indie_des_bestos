@@ -46,7 +46,7 @@ namespace graphic {
 		irr::video::ITexture *findTextureOrCreate(const std::string &path);
 		irr::gui::IGUIImage *drawImage(const infos_t &infos);
 		irr::IrrlichtDevice *getDevice() { return _device; }
-		void displayAll();
+		void displayAll(bool);
 		irr::scene::ISceneNode *createCube(const vec3df &, const std::string &);
 		irr::scene::ISceneNode *createSphere();
 		void setCamera(irr::scene::ISceneNode *parent);
