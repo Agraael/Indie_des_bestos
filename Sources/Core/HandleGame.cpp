@@ -9,8 +9,9 @@
 #include "InterpreteGeneration.hpp"
 #include "MapGenerator.hpp"
 #include "Gen.hpp"
+#include "IrrlichtLib.hpp"
 
-void    HandleGame::InitGame(const GenerationSize &size, const GenerationMod &mod)
+void    HandleGame::InitGame(const GenerationSize &size, const GenerationMod &mod, graphic::IrrlichtLib *)
 {
 	InterpreteGeneration	interpret;
 	MapGenerator		generator;

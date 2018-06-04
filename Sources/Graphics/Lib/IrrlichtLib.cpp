@@ -20,7 +20,7 @@ graphic::IrrlichtLib::IrrlichtLib() {
     _driver = _device->getVideoDriver();
     _managerScene = _device->getSceneManager();
     _guiEnv = _device->getGUIEnvironment();
-    _eventManager = std::make_unique<graphic::LibEventManager>(t_contextRecEvnt{_device, 0, nullptr});
+    _eventManager = std::make_shared<graphic::LibEventManager>(t_contextRecEvnt{_device, 0, nullptr});
 	_device->setEventReceiver(_eventManager.get());
 }
 
@@ -126,7 +126,7 @@ void    graphic::IrrlichtLib::drawText(size_t x, size_t y, size_t fontSize, cons
 	(void)(fontSize);
 }
 
-std::unique_ptr<graphic::LibEventManager> const& graphic::IrrlichtLib::getEventManager() const
+std::shared_ptr<graphic::LibEventManager> const& graphic::IrrlichtLib::getEventManager() const
 {
 		return _eventManager;
 }
