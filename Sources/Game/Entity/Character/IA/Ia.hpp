@@ -29,6 +29,7 @@ private:
 class Ia : public Character {
 public:
 	Ia(entities::entityPosition pos, bool iskinematic, std::size_t layout);
+	void turn();
 };
 
 #endif /* !ia */
