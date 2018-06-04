@@ -34,3 +34,8 @@ void	HandleGame::initMapGround(const GenerationSize &size)
 	}
 	_lib->setCamera({(static_cast<double>(max.x) / 2), - (static_cast<double>(max.y) / 2) + 4, -20}, {static_cast<double>(max.x) / 2, static_cast<double>(max.y) / 2, 0});
 }
+
+void	HandleGame::updtaeGameForanatole()
+{
+	
+}

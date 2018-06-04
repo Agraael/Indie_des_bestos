@@ -12,13 +12,11 @@
 #include "BombUp.hpp"
 
 class DestructibleWalls : public Walls {
-public:
-	DestructibleWalls(entities::entityPosition pos, bool iskinematic,
-			  std::size_t layout, std::shared_ptr<BonusSpace::Bonus>, BonusSpace::BonusesTypes) :
-		Walls(pos, iskinematic, layout, "D") {}
-	~DestructibleWalls() {};
-
-private:
+	public:
+		DestructibleWalls(entities::entityPosition pos, bool iskinematic,
+		std::size_t layout, std::shared_ptr<BonusSpace::Bonus>, BonusSpace::BonusesTypes) :
+		Walls(pos, iskinematic, layout, entities::entityType::DESTRUCTIBLE_TYPE) {}
+		~DestructibleWalls() {};
 };
 
 #endif /* !INDESTRUCTIBLEWALLS_HPP_ */

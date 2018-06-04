@@ -24,6 +24,7 @@ class HandleGame
 		HandleGame(graphic::IrrlichtLib *lib) : _lib(lib) {}
 		void	InitGame(const GenerationSize &, const GenerationMod &);
 		void	updateMap() {}
+		void	updtaeGameForanatole();
 		GameMap getGameMap() const noexcept { return (_threeDMap->get3dMap()); }
 	private:
 		void	initMapGround(const GenerationSize &);
@@ -35,6 +36,7 @@ class HandleGame
 			{GenerationSize::Medium, {19, 13}},
 			{GenerationSize::Big, {25, 19}}
 		};
+
 };
 
 #endif /* !HANDLEGAME_HPP_ */

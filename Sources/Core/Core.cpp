@@ -27,6 +27,7 @@ int	Core::run()
 
 	//_menu->display();
 	hGame.InitGame(GenerationSize::Big, GenerationMod::FullDest);
+	hGame.updtaeGameForanatole();
 	while (_lib->getDevice()->run()) {
 		newState = _eventCore.updateCore(_state);
 		if (newState == CoreState::EXIT)
