@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <string>
+#include "Gen.hpp"
 #include "Core.hpp"
 
 Core::Core()
@@ -25,7 +26,7 @@ int	Core::run()
 	CoreState	newState;
 
 	//_menu->display();
-	hGame.InitGame();
+	hGame.InitGame(GenerationSize::Big, GenerationMod::FullDest);
 	while (_lib->getDevice()->run()) {
 		newState = _eventCore.updateCore(_state);
 		if (newState == CoreState::EXIT)
@@ -50,7 +51,7 @@ void	Core::menu(const CoreState &state)
 	(void)(state);
 	_menu->updateDisplay();
 	if (state == CoreState::IN_SOLO)
-		hGame.InitGame();
+		hGame.InitGame(GenerationSize::Medium, GenerationMod::Standard);
 }
 
 void	Core::game_local(const CoreState &state)

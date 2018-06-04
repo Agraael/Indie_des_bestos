@@ -13,15 +13,28 @@
 #include "Map.hpp"
 #include "Gen.hpp"
 
-class HandleGame {
-public:
-	HandleGame(graphic::IrrlichtLib *lib) : _lib(lib) {}
-	void    InitGame(/* char ** */);
-	GameMap getGameMap() const noexcept { return (_threeDMap->get3dMap()); }
-	void    updateMap() {}
-private:
-	std::shared_ptr<Map>		_threeDMap;
-	graphic::IrrlichtLib		*_lib;
+#ifdef _IRR_WINDOWS_
+#pragma comment(lib, "Irrlicht.lib")
+#include "irrlicht.h"
+#endif
+
+class HandleGame
+{
+	public:
+		HandleGame(graphic::IrrlichtLib *lib) : _lib(lib) {}
+		void	InitGame(const GenerationSize &, const GenerationMod &);
+		void	updateMap() {}
+		GameMap getGameMap() const noexcept { return (_threeDMap->get3dMap()); }
+	private:
+		void	initMapGround(const GenerationSize &);
+		std::shared_ptr<Map>			_threeDMap;
+		graphic::IrrlichtLib			*_lib;
+		std::vector<irr::scene::ISceneNode *>	_disp;
+		const std::map<const GenerationSize, const Vector_t>	_hGameSizeTab = {
+			{GenerationSize::Small, {13, 7}},
+			{GenerationSize::Medium, {19, 13}},
+			{GenerationSize::Big, {25, 19}}
+		};
 };
 
 #endif /* !HANDLEGAME_HPP_ */
