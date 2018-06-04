@@ -19,7 +19,7 @@ public:
 	void	interpretEvent();
 	~Player() {};
 private:
-	std::unordered_map<int, std::vector<controllerUser>>
+	//std::unordered_map<int, std::vector<controllerUser>>
 	graphic::IrrlichtLib	*_lib;
 };
 

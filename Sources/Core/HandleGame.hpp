@@ -25,7 +25,7 @@ class HandleGame
 	public:
 		HandleGame(graphic::IrrlichtLib *lib) : _lib(lib) {}
 		void	InitGame(const GenerationSize &, const GenerationMod &, graphic::IrrlichtLib *);
-		void	updateMap() {}
+		void	updateMap();
 		void	updtaeGameForanatole();
 		void	quitGame();
 		GameMap getGameMap() const noexcept { return (_threeDMap->get3dMap()); }
