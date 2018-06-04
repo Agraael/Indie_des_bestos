@@ -28,7 +28,7 @@ int main()
     return 0;
 }*/
 
-int main()
+/*int main()
 {
 
     graphic::IrrlichtLib *lib = new graphic::IrrlichtLib;
@@ -39,4 +39,4 @@ int main()
         lib->displayAll();
     }
     return (0);
-}
+}*/
