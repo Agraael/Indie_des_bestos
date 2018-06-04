@@ -51,14 +51,14 @@ namespace graphic {
 		void drawEditBox(graphic::infos_t infos);
 		irr::gui::IGUIButton *printButton(const infos_t &infos);
 		void drawText(size_t x, size_t y, size_t fontSize, std::string const&);
-		std::unique_ptr<LibEventManager> const& getEventManager() const;
+		std::shared_ptr<LibEventManager> const& getEventManager() const;
 	private:
 		irr::video::IVideoDriver* _driver;
 		irr::scene::ISceneManager* _managerScene;
 		irr::IrrlichtDevice *_device;
 		irr::gui::IGUIEnvironment* _guiEnv;
 		std::map<std::string, irr::video::ITexture *> _mapTexture;
-		std::unique_ptr<graphic::LibEventManager> _eventManager{nullptr};
+		std::shared_ptr<graphic::LibEventManager> _eventManager{nullptr};
 	};
 	void driverChoiceConsole(irr::video::E_DRIVER_TYPE &);
 }
