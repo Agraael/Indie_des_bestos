@@ -24,7 +24,7 @@ void    graphic::Menu::drawChoiceButtons()
     buttonPlay._path = "Assets/media/button_menu.png";
     buttonPlay._desc = "Play the game";
     buttonPlay._name = "Play";
-    buttonPlay._type = graphic::GUI_ID_QUIT_BUTTON;
+    buttonPlay._type = graphic::START_SOLO;
     _lib->printButton(buttonPlay);
 
     graphic::infos_t buttonChoise;
@@ -35,7 +35,7 @@ void    graphic::Menu::drawChoiceButtons()
     buttonChoise._path = "Assets/media/button_menu.png";
     buttonChoise._desc = "Change settings game";
     buttonChoise._name = "Settings";
-    buttonChoise._type = graphic::GUI_ID_QUIT_BUTTON;
+    buttonChoise._type = graphic::SETTINGS;
     _lib->printButton(buttonChoise);
 
     graphic::infos_t buttonExit;
@@ -46,13 +46,21 @@ void    graphic::Menu::drawChoiceButtons()
     buttonExit._path = "Assets/media/button_menu.png";
     buttonExit._desc = "Exit the game";
     buttonExit._name = "Quit";
-    buttonExit._type = graphic::GUI_ID_QUIT_BUTTON;
+    buttonExit._type = graphic::EXIT_MAINMENU;
     _lib->printButton(buttonExit);
 }
 
 irr::gui::IGUIImage *graphic::Menu::drawDirigible()
 {
-	irr::gui::IGUIImage *dirigible =  _lib->drawImage(0, 0, 50, 50, "Assets/media/dirigible.png");
+    graphic::infos_t dirgInfos;
+    dirgInfos._x = 0;
+    dirgInfos._y = 0;
+    dirgInfos._w = 50;
+    dirgInfos._h = 50;
+    dirgInfos._maxH = 150;
+    dirgInfos._maxW = 150;
+    dirgInfos._path = "Assets/media/dirigible.png";
+	irr::gui::IGUIImage *dirigible =  _lib->drawImage(dirgInfos);
 	return (dirigible);
 }
 
@@ -68,12 +76,28 @@ void    graphic::Menu::startDirigible()
 
 void    graphic::Menu::printLogo()
 {
-	_lib->drawImage(150, 5, 200, 200, "Assets/media/Neo_Bomberman_Logo.png");
+    graphic::infos_t logo;
+    logo._x = 150;
+    logo._y = 5;
+    logo._w = 200;
+    logo._h = 200;
+    logo._maxH = 250;
+    logo._maxW = 250;
+    logo._path = "Assets/media/Neo_Bomberman_Logo.png";
+	_lib->drawImage(logo);
 }
 
 void graphic::Menu::printBackground()
 {
-	_lib->drawImage(0, 0, 640, 480, "Assets/media/pixel_skyline.png");
+    graphic::infos_t background;
+    background._x = 0;
+    background._y = 0;
+    background._w = 640;
+    background._h = 480;
+    background._maxW = 740;
+    background._maxH = 580;
+    background._path = "Assets/media/pixel_skyline.png";
+	_lib->drawImage(background);
 }
 
 void    graphic::Menu::printUserName()
@@ -93,15 +117,6 @@ void    graphic::Menu::display()
     printUserName();
     drawChoiceButtons();
     _dirigible = drawDirigible();
-    //_dirigible = drawDirigible();
-    //size_t i = -30;
-    /*while (_lib->getDevice()->run()) {
-         startDirigible(dirigible, i);
-        printLogo();
-        _lib->displayAll();
-        i += 10;
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    }*/
 }
 
 void graphic::Menu::updateDisplay()

@@ -27,7 +27,7 @@ bool graphic::LibEventManager::OnEvent(const irr::SEvent& event)
 			_pressedButton = id;
 			switch(id)
 			{
-			case graphic::GUI_ID_QUIT_BUTTON:
+			case graphic::EXIT_MAINMENU:
 				_context.device->closeDevice();
 				return true;
 			default:

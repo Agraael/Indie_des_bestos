@@ -11,8 +11,8 @@ CMakeFiles/
 Makefile
 irrlicht-1.8.4/lib/Linux/libIrrlicht.a
 *.d
+<<<<<<< HEAD
+irrlicht-1.8.4/source/Irrlicht/libIrrlicht.a
 \.idea/
-
 cmake-build-debug/
-
 irrlicht-1\.8\.4/
