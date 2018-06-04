@@ -26,6 +26,7 @@ int	Core::run()
 
 	//_menu->display();
 	hGame.InitGame();
+	hGame.updtaeGameForanatole();
 	while (_lib->getDevice()->run()) {
 		newState = _eventCore.updateCore(_state);
 		if (newState == CoreState::EXIT)

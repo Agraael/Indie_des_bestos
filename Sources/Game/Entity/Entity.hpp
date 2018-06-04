@@ -40,7 +40,6 @@ namespace entities {
 		bool			IsKinematic() const noexcept { return _iskinematic; }
 		graphicEntityPosition	getGraphcPos() const noexcept { return _graphicPos; }
 		std::string		getTextrue() const noexcept { return _texture; };
-		//std::size_t		getId() const noexcept { return entities::Entity::_id; };
 		entities::entityType	getType() const noexcept {return _typeEnum;};
 		void			die(bool state) { _isDead = state; }
 		void			setMap(std::shared_ptr<Map> &map) {_map = map; };
