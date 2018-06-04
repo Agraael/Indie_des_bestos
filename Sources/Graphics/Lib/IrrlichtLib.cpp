@@ -13,13 +13,15 @@ const wchar_t *graphic::convertStringToWString(const std::string &text)
 }
 
 graphic::IrrlichtLib::IrrlichtLib() {
-	_device = irr::createDevice(irr::video::EDT_OPENGL, irr::core::dimension2d<irr::u32>(640, 480), 16, false, false, false, 0);
-	if (!_device)
-		std::cout << "error device" << std::endl;
-	_device->setWindowCaption(L"INDIE DES BESTOS");
-	_driver = _device->getVideoDriver();
-	_managerScene = _device->getSceneManager();
-	_guiEnv = _device->getGUIEnvironment();
+    _device = irr::createDevice(irr::video::EDT_OPENGL, irr::core::dimension2d<irr::u32>(640, 480), 16, false, false, false, 0);
+    if (!_device)
+        std::cout << "error device" << std::endl;
+    _device->setWindowCaption(L"INDIE DES BESTOS");
+    _driver = _device->getVideoDriver();
+    _managerScene = _device->getSceneManager();
+    _guiEnv = _device->getGUIEnvironment();
+    _eventManager = std::make_unique<graphic::LibEventManager>(t_contextRecEvnt{_device, 0, nullptr});
+	_device->setEventReceiver(_eventManager.get());
 }
 
 graphic::IrrlichtLib::~IrrlichtLib()
@@ -122,4 +124,9 @@ void    graphic::IrrlichtLib::drawText(size_t x, size_t y, size_t fontSize, cons
 	const wchar_t* wideCStr = graphic::convertStringToWString(text);
 	_guiEnv->addStaticText(wideCStr, irr::core::rect<irr::s32>(x,y, 100,22), true);
 	(void)(fontSize);
+}
+
+std::unique_ptr<graphic::LibEventManager> const& graphic::IrrlichtLib::getEventManager() const
+{
+		return _eventManager;
 }
