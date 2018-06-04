@@ -62,7 +62,7 @@ namespace graphic {
 		irr::IrrlichtDevice *_device;
 		irr::gui::IGUIEnvironment* _guiEnv;
 		std::map<std::string, irr::video::ITexture *> _mapTexture;
-		std::unique_ptr<graphic::LibEventManager> _eventManager{nullptr};
+		std::shared_ptr<graphic::LibEventManager> _eventManager{nullptr};
 	};
 	void driverChoiceConsole(irr::video::E_DRIVER_TYPE &);
 }

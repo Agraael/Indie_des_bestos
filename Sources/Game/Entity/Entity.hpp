@@ -16,6 +16,7 @@
 class Map;
 
 namespace entities {
+
 	using graphicEntityPosition = std::pair<float, float>;
 	using entityPosition = std::pair<int, int>;
 
@@ -34,7 +35,7 @@ namespace entities {
 
 	class Entity {
 	public:
-		Entity(entityPosition pos, bool iskinematic, std::size_t layout, entities::entityType type) : _pos(pos), _iskinematic(iskinematic), _layout(layout), _typeEnum(type) {}
+		Entity(entityPosition pos, bool iskinematic, std::size_t layout, entities::entityType type) : _pos(pos), _iskinematic(iskinematic), _layout(layout), _typeEnum(type) { _graphicPos = std::make_pair(static_cast<float>(pos.first), static_cast<float>(pos.second)); }
 		entityPosition		getPos() const noexcept { return _pos; }
 		bool			isDead() const noexcept { return _isDead; }
 		bool			IsKinematic() const noexcept { return _iskinematic; }
@@ -48,13 +49,13 @@ namespace entities {
 	protected:
 	//	static std::size_t	_nb;
 	//	const std::size_t	_id;
+		graphicEntityPosition	_graphicPos;
 		entityPosition		_pos;
 		bool			_iskinematic;
 		std::size_t		_layout;
 		entities::entityType	_typeEnum;
 		std::string		_texture;
 		std::shared_ptr<Map>	_map;
-		graphicEntityPosition	_graphicPos;
 		bool			_isDead;
 		//bool			_isregidBody;
 		//bool			getIsRegidBody() { return _isregidBody; }
