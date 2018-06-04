@@ -17,6 +17,11 @@ struct vec3df {
 	double	z;
 };
 
+#ifdef _IRR_WINDOWS_
+#pragma comment(lib, "Irrlicht.lib")
+#include "irrlicht.h"
+#endif
+
 namespace graphic {
 	typedef struct infos_s
 	{
