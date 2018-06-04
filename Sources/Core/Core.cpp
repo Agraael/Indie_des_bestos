@@ -25,14 +25,14 @@ int	Core::run()
 {
 	CoreState	newState;
 
-	//_menu->display();
-	hGame.InitGame(GenerationSize::Big, GenerationMod::FullDest);
-	hGame.updtaeGameForanatole();
+	_menu->display();
+	//hGame.InitGame(GenerationSize::Big, GenerationMod::FullDest);
+	//hGame.updtaeGameForanatole();
 	while (_lib->getDevice()->run()) {
 		newState = _eventCore.updateCore(_state);
 		if (newState == CoreState::EXIT)
 			return exitCore();
-		//chooseCorePart(newState);
+		chooseCorePart(newState);
 		_lib->displayAll();
 	}
 	return 0;
