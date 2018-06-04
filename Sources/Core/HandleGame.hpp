@@ -17,6 +17,7 @@ class HandleGame {
 public:
 	HandleGame(graphic::IrrlichtLib *lib) : _lib(lib) {}
 	void    InitGame(/* char ** */);
+	void	updtaeGameForanatole();
 	GameMap getGameMap() const noexcept { return (_threeDMap->get3dMap()); }
 	void    updateMap() {}
 private:

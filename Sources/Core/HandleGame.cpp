@@ -42,3 +42,8 @@ void    HandleGame::InitGame()
 			for (auto shared : tab)
 				shared.get()->setMap(_threeDMap);
 }
+
+void	HandleGame::updtaeGameForanatole()
+{
+	
+}
