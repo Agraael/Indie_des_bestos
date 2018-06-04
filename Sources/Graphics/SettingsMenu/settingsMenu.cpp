@@ -9,6 +9,7 @@
 
 graphic::settingsMenu::settingsMenu(graphic::IrrlichtLib *lib) : _lib(lib)
 {
+    _count = -30;
 }
 
 void    graphic::settingsMenu::printLogo()
@@ -31,9 +32,9 @@ void graphic::settingsMenu::printBackground()
     background._y = 0;
     background._w = 640;
     background._h = 480;
-    background._maxH = 740;
-    background._maxW = 580;
-    background._path = "Assets/media/Neo_Bomberman_Logo.png";
+    background._maxW = 740;
+    background._maxH = 580;
+    background._path = "Assets/media/pixel_skyline.png";
     _lib->drawImage(background);
 }
 
@@ -68,7 +69,7 @@ void graphic::settingsMenu::printSound()
     sound._h = 80;
     sound._maxW = 100;
     sound._maxH = 80;
-    sound._path = "../../../Assets/media/moins.png";
+    sound._path = "./Assets/media/formation-au-son-1.png";
     _lib->drawImage(sound);
 
     graphic::infos_t plus;
@@ -77,24 +78,98 @@ void graphic::settingsMenu::printSound()
     plus._w = 30;
     plus._h = 30;
     plus._maxW = 30;
-    plus._maxW = 30;
+    plus._maxH = 30;
     plus._type = graphic::SOUND_UP;
-    plus._path = "../../../Assets/media/plus.png";
+    plus._path = "./Assets/media/plus.png";
     _lib->drawImage(plus);
+}
+
+void graphic::settingsMenu::printBrightness()
+{
+    graphic::infos_t moins;
+    moins._x = 200;
+    moins._y = 250;
+    moins._w = 30;
+    moins._h = 30;
+    moins._maxW = 30;
+    moins._maxH = 30;
+    moins._type = graphic::BRIGTHNESS_DOWN;
+    moins._path = "./Assets/media/moins.png";
+    _lib->drawImage(moins);
+
+    graphic::infos_t light;
+    light._x = 240;
+    light._y = 230;
+    light._w = 100;
+    light._h = 80;
+    light._maxW = 100;
+    light._maxH = 80;
+    light._path = "./Assets/media/lantern.png";
+    _lib->drawImage(light);
+
+    graphic::infos_t plus;
+    plus._x = 350;
+    plus._y = 250;
+    plus._w = 30;
+    plus._h = 30;
+    plus._maxW = 30;
+    plus._maxH = 30;
+    plus._type = graphic::BRIGTHNESS_UP;
+    plus._path = "./Assets/media/plus.png";
+    _lib->drawImage(plus);
+}
+
+void    graphic::settingsMenu::returnToMenu()
+{
+    graphic::infos_t buttonExit;
+    buttonExit._x = 200;
+    buttonExit._y = 330;
+    buttonExit._w = 380;
+    buttonExit._h = 360;
+    buttonExit._path = "Assets/media/button_menu.png";
+    buttonExit._desc = "Return to main menu";
+    buttonExit._name = "Quit";
+    buttonExit._type = graphic::EXIT_MAINMENU;
+    _lib->printButton(buttonExit);
+}
+
+irr::gui::IGUIImage *graphic::settingsMenu::printClouds()
+{
+    graphic::infos_t cloudsInfos;
+    cloudsInfos._x = 0;
+    cloudsInfos._y = 0;
+    cloudsInfos._w = 50;
+    cloudsInfos._h = 50;
+    cloudsInfos._maxH = 150;
+    cloudsInfos._maxW = 150;
+    cloudsInfos._path = "Assets/media/clouds.png";
+    irr::gui::IGUIImage *clouds =  _lib->drawImage(cloudsInfos);
+    return (clouds);
+}
+
+void    graphic::settingsMenu::startClouds()
+{
+    if (_count < 700) {
+        auto rect = irr::core::position2d<int>(_count, 50);
+        _clouds->setRelativePosition(rect);
+    }
+    if (_count == 700)
+        _count = -30;
 }
 
 void    graphic::settingsMenu::display()
 {
     printBackground();
+    _clouds = printClouds();
     printLogo();
-    printSound();
-    //printUserName();
-    //drawChoiceButtons();
-    //_dirigible = drawDirigible();
 }
 
 void graphic::settingsMenu::updateDisplay()
 {
-    brightnessBar();
-    //std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    startClouds();
+    printSound();
+    printBrightness();
+    returnToMenu();
+    _count += 10;
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }

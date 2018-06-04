@@ -18,13 +18,17 @@ namespace graphic
         ~settingsMenu() = default;
         void printLogo();
         void brightnessBar();
+        void startClouds();
+        irr::gui::IGUIImage *printClouds();
         void printBackground();
         void display();
+        void printBrightness();
+        void returnToMenu();
         void updateDisplay();
         void printSound();
     private:
         graphic::IrrlichtLib *_lib;
-        irr::gui::IGUIImage *_dirigible;
+        irr::gui::IGUIImage *_clouds;
         size_t _count;
     };
 }
