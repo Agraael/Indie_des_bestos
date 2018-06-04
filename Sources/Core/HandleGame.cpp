@@ -10,8 +10,9 @@
 #include "MapGenerator.hpp"
 #include "Gen.hpp"
 #include "IrrlichtLib.hpp"
+#include "Player.hpp"
 
-void    HandleGame::InitGame(const GenerationSize &size, const GenerationMod &mod, graphic::IrrlichtLib *)
+void    HandleGame::InitGame(const GenerationSize &size, const GenerationMod &mod, graphic::IrrlichtLib *lib)
 {
 	InterpreteGeneration	interpret;
 	MapGenerator		generator;
@@ -25,7 +26,8 @@ void    HandleGame::InitGame(const GenerationSize &size, const GenerationMod &mo
 				entities::Entity *entity = shared.get();
 				entity->setMap(_threeDMap);
 				addCubeToMap(*entity);
-				if ()
+				if (shared.get()->getType() == entities::entityType::PLAYER_TYPE)
+					std::static_pointer_cast<Player>(shared).get()->setLibEventManager(lib);
 			}
 		}
 	}

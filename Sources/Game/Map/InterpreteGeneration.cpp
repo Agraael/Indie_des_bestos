@@ -77,7 +77,7 @@ SharedEntity	InterpreteGeneration::InitCharacter(std::size_t x, std::size_t y)
 {
 	SharedEntity	tempLine;
 
-	tempLine.push_back(std::make_shared<entities::Entity>(Ia(std::make_pair(x,y), false, 0)));
+	tempLine.push_back(std::make_shared<entities::Entity>(Player(std::make_pair(x,y), false, 0)));
 	return tempLine;
 }
 

@@ -16,8 +16,10 @@ public:
 	Player(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
 	Character(pos, iskinematic, layout, entities::entityType::PLAYER_TYPE) {}
 	void	setLibEventManager(graphic::IrrlichtLib *lib) { _lib = lib; }
+	void	interpretEvent();
 	~Player() {};
 private:
+
 	graphic::IrrlichtLib	*_lib;
 };
 
