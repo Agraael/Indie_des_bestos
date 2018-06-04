@@ -10,7 +10,7 @@
 #include "Core.hpp"
 
 Core::Core()
-	: _state(CoreState::IN_MENU), _events(new IndieEvents::EventManager()), _lib(new graphic::IrrlichtLib()), _eventCore(_events), _menu(new graphic::Menu(_lib))
+	: _state(CoreState::IN_MENU), _events(new IndieEvents::EventManager()), _lib(new graphic::IrrlichtLib()), _eventCore(_events), _menu(new graphic::Menu(_lib)), hGame(_lib)
 {
 }
 
@@ -24,12 +24,14 @@ int	Core::run()
 {
 	CoreState	newState;
 
-	_menu->display();
+	//_menu->display();
+	hGame.InitGame();
+	hGame.updtaeGameForanatole();
 	while (_lib->getDevice()->run()) {
 		newState = _eventCore.updateCore(_state);
 		if (newState == CoreState::EXIT)
 			return exitCore();
-		chooseCorePart(newState);
+		//chooseCorePart(newState);
 		_lib->displayAll();
 	}
 	return 0;
@@ -48,6 +50,8 @@ void	Core::menu(const CoreState &state)
 {
 	(void)(state);
 	_menu->updateDisplay();
+	if (state == CoreState::IN_SOLO)
+		hGame.InitGame();
 }
 
 void	Core::game_local(const CoreState &state)
@@ -57,6 +61,7 @@ void	Core::game_local(const CoreState &state)
 
 void	Core::game_solo(const CoreState &state)
 {
+	hGame.updateMap();
 	(void)(state);
 }
 
