@@ -25,7 +25,7 @@ int	Core::run()
 	CoreState	newState;
 
 	_menu->display();
-	//hGame.InitGame(GenerationSize::Big, GenerationMod::FullDest);
+	//hGame.InitGame(GenerationSize::Big, GenerationMod::FullDest, _lib);
 	//hGame.updtaeGameForanatole();
 	while (_lib->getDevice()->run()) {
 		newState = _eventCore.updateCore(_state);
@@ -51,7 +51,7 @@ void	Core::menu(const CoreState &state)
 	(void)(state);
 	_menu->updateDisplay();
 	if (state == CoreState::IN_SOLO)
-		hGame.InitGame(GenerationSize::Medium, GenerationMod::Standard);
+		hGame.InitGame(GenerationSize::Medium, GenerationMod::Standard, _lib);
 }
 
 void	Core::game_local(const CoreState &state)
