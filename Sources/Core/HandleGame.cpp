@@ -42,9 +42,9 @@ void	HandleGame::initMapGround(const GenerationSize &size)
 
 	for (std::size_t y = 0; y < max.y; y++) {
 		for (std::size_t x = 0; x < max.x; x++)
-			_lib->createCube({static_cast<double>(x), static_cast<double>(y), 0}, "./Assets/media/brick_wall.jpg");
+			_lib->createCube({static_cast<double>(x), static_cast<double>(y), 0}, "./Assets/media/grass.png");
 	}
-	_lib->setCamera({(static_cast<double>(max.x) / 2), - (static_cast<double>(max.y) / 2) + 4, 20}, {static_cast<double>(max.x) / 2, static_cast<double>(max.y) / 2, 0});
+	_lib->setCamera({(static_cast<double>(max.x) / 2), - (static_cast<double>(max.y) / 2) + 4, 13}, {static_cast<double>(max.x) / 2, static_cast<double>(max.y) / 2, 0});
 }
 
 void	HandleGame::addCubeToMap(const entities::Entity &entity)
