@@ -15,7 +15,7 @@ class DestructibleWalls : public Walls {
 	public:
 		DestructibleWalls(entities::entityPosition pos, bool iskinematic,
 		std::size_t layout, std::shared_ptr<BonusSpace::Bonus>, BonusSpace::BonusesTypes) :
-		Walls(pos, iskinematic, layout, "D") {}
+		Walls(pos, iskinematic, layout, entities::entityType::DESTRUCTIBLE) {}
 		~DestructibleWalls() {};
 
 	private:

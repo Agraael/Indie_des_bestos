@@ -45,6 +45,7 @@ class InterpreteGeneration {
 			SOLO_WALL_PASS_TYPE = 'p',
 			CHARACTER_TYPE = 'C',
 		};
+
 		GameMap		Fill(const std::size_t &, const std::size_t &, char **);
 		std::size_t	findHeight(char **);
 		std::size_t	findWidth(char **);

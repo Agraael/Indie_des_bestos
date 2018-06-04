@@ -13,7 +13,7 @@
 class Player : public Character {
 public:
 	Player(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
-	Character(pos, iskinematic, layout, "p") {}
+	Character(pos, iskinematic, layout, entities::entityType::PLAYER) {}
 	~Player() {};
 private:
 	

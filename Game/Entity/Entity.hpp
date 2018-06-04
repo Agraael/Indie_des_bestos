@@ -18,9 +18,23 @@ class Map;
 namespace entities {
 	using graphicEntityPosition = std::pair<float, float>;
 	using entityPosition = std::pair<int, int>;
+
+	enum entityType {
+		INDESTRUCTIBLE,
+		DESTRUCTIBLE,
+		BOMB,
+		SPEED,
+		FIRE_UP,
+		WALL_PASS,
+		CHARACTER,
+		IA,
+		BOMBS,
+		GONNAEXPLOSE
+	};
+
 	class Entity {
 	public:
-		Entity(entityPosition pos, bool iskinematic, std::size_t layout, std::string type) : /* _id(0), */ _type(type), _pos(pos), _iskinematic(iskinematic), _layout(layout)
+		Entity(entityPosition pos, bool iskinematic, std::size_t layout, entities::entityPosition type) : /* _id(0), */ _typeEnum(type), _pos(pos), _iskinematic(iskinematic), _layout(layout)
 		{ 
 		}
 		entityPosition		getPos() const noexcept { return _pos; }
@@ -29,7 +43,7 @@ namespace entities {
 		graphicEntityPosition	getGraphcPos() const noexcept { return _graphicPos; }
 		std::string		getTextrue() const noexcept { return _texture; };
 		//std::size_t		getId() const noexcept { return entities::Entity::_id; };
-		void			displayType() const noexcept {std::cout << _type;};
+		entities::entityType	displayType() const noexcept {return _typeEnum;};
 		void			die(bool state) { _isDead = state; }
 		void			setMap(std::shared_ptr<Map> &map) {_map = map; };
 		void			setTexture(std::string texture) { _texture = texture; }
@@ -38,9 +52,9 @@ namespace entities {
 	//	const std::size_t	_id;
 		std::string		_texture;
 		std::shared_ptr<Map>	_map;
-		std::string		_type;
 		entityPosition		_pos;
 		graphicEntityPosition	_graphicPos;
+		entities::entityType	_typeEnum;
 		bool			_iskinematic;
 		bool			_isDead;
 		std::size_t		_layout;
