@@ -10,6 +10,7 @@
 
 #include <unordered_map>
 #include <functional>
+#include "HandleGame.hpp"
 #include "EventCore.hpp"
 #include "Menu.hpp"
 #include "IrrlichtLib.hpp"
@@ -31,10 +32,10 @@ private:
 	int	exitCore();
 
 	CoreState			_state;
-	IndieEvents::EventManager	*_events;
 	graphic::IrrlichtLib		*_lib;
 	EventCore			_eventCore;
 	graphic::Menu			*_menu;
+	HandleGame			hGame;
 	//using ptr = void	(Core::*)(const CoreState &);
 	//const std::unordered_map<CoreState, ptr>	_fcnTab = {
 	//	{CoreState::IN_MENU, &menu},

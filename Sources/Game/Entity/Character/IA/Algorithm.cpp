@@ -10,12 +10,19 @@
 bool Algorithm::check_if_dangerous_zone(std::vector<std::vector<std::vector<std::shared_ptr<entities::Entity>>>> &map, std::pair<int, int> &pos)
 {
 	for (auto &entity : map[pos.first][pos.second]) {
-		if (std::static_pointer_cast<GonnaExplose>(entity) != nullptr)
+		if (entity.get()->getType() == entities::entityType::GONNAEXPLOSE_TYPE || entity.get()->getType() == entities::entityType::BOMBS_TYPE)
 			return true;
-		//else if (std::static_pointer_cast<Bombs>(entity) != nullptr)
-		//	return true;
 	}
 	return false;
+}
+
+bool Algorithm::is_character_here(std::vector<std::vector<std::vector<std::shared_ptr<entities::Entity>>>> &map, std::pair<int, int> &pos)
+{
+	for (auto &entity : map[pos.first][pos.second]) {
+		if (entity.get()->getType() == entities::entityType::IA_TYPE || entity.get()->getType() == entities::entityType::PLAYER_TYPE)
+			return true;
+	}
+        return false;
 }
 
 std::pair<int, int> Algorithm::init_directions(std::vector<std::vector<std::vector<std::shared_ptr<entities::Entity>>>> &map, std::pair<int, int> current_pos)
@@ -117,4 +124,27 @@ std::pair<int, int> Algorithm::findNearestSafePoint(std::vector<std::vector<std:
 std::pair<int, int> Algorithm::defensiveMove(std::vector<std::vector<std::vector<std::shared_ptr<entities::Entity>>>> &map, std::pair<int, int> &posPlayer)
 {
 	return findNearestSafePoint(map, posPlayer);
+}
+
+std::pair<int, int> Algorithm::locate_enemy(std::vector<std::vector<std::vector<std::shared_ptr<entities::Entity>>>> &map, std::pair<int, int> &pos_ia)
+{
+	int max_pos = static_cast<int>(map.size());
+	std::pair<int, int> current_pos;
+
+	for (int pos_x = 0; pos_x < max_pos; pos_x++) {
+		for (int pos_y = 0; pos_y < max_pos; pos_y++) {
+			current_pos.first = pos_x;
+			current_pos.second = pos_y;
+			if (pos_ia != current_pos && is_character_here(map, current_pos) == true)
+				return (current_pos);
+		}
+	}
+	return (current_pos);
+}
+
+std::pair<int, int> Algorithm::offensiveMove(std::vector<std::vector<std::vector<std::shared_ptr<entities::Entity>>>> &map, std::pair<int, int> &posPlayer)
+{
+	std::pair<int, int> pos_enemy = locate_enemy(map, posPlayer);
+	std::cout << "pos:" << posPlayer.first << " " << posPlayer.second << "enemy in " << pos_enemy.first << " " << pos_enemy.second << std::endl;
+	return pos_enemy;
 }
