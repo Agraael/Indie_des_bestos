@@ -20,6 +20,8 @@ graphic::IrrlichtLib::IrrlichtLib() {
     _driver = _device->getVideoDriver();
     _managerScene = _device->getSceneManager();
     _guiEnv = _device->getGUIEnvironment();
+    _eventManager = std::make_unique<graphic::LibEventManager>(t_contextRecEvnt{_device, 0, nullptr});
+	_device->setEventReceiver(_eventManager.get());
 }
 
 graphic::IrrlichtLib::~IrrlichtLib()
@@ -114,4 +116,9 @@ void    graphic::IrrlichtLib::drawText(size_t x, size_t y, size_t fontSize, cons
     const wchar_t* wideCStr = graphic::convertStringToWString(text);
     _guiEnv->addStaticText(wideCStr, irr::core::rect<irr::s32>(x,y, 100,22), true);
     (void)(fontSize);
+}
+
+std::unique_ptr<graphic::LibEventManager> const& graphic::IrrlichtLib::getEventManager() const
+{
+		return _eventManager;
 }
