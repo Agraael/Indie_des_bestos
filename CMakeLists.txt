@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-#cmake_minimum_required( VERSION 3.9 )
-=======
-cmake_minimum_required(VERSION 3.9)
->>>>>>> e212652fb2ddff2c2c8cba5dce86443e9e5bd1ba
+#cmake_minimum_required(VERSION 3.9)
 
 project( IndieStudio CXX)
 

@@ -4,12 +4,12 @@
 
 #include <memory>
 #include "settingsMenu.hpp"
-
+#include "irrKlang.h"
 #include <string>
 #include <cstdio>
 #include <iostream>
 
-/*using namespace std;
+using namespace std;
 int main()
 {
 
@@ -26,9 +26,9 @@ int main()
 
     engine->drop(); // delete engine
     return 0;
-}*/
+}
 
-int main()
+/*int main()
 {
 
     graphic::IrrlichtLib *lib = new graphic::IrrlichtLib;
@@ -47,4 +47,4 @@ int main()
         lib->displayAll(true);
     }
     return (0);
-}
+}*/
