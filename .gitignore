@@ -16,3 +16,5 @@ irrlicht-1.8.4/source/Irrlicht/libIrrlicht.a
 \.idea/
 cmake-build-debug/
 irrlicht-1\.8\.4/
+
+IndieStudio\.cbp
