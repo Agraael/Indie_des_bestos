@@ -11,8 +11,10 @@
 #include "Gen.hpp"
 #include "IrrlichtLib.hpp"
 #include "Player.hpp"
+#include "Ia.hpp"
+#include "Bombs.hpp"
 
-void    HandleGame::InitGame(const GenerationSize &size, const GenerationMod &mod, graphic::IrrlichtLib *)
+void    HandleGame::InitGame(const GenerationSize &size, const GenerationMod &mod, graphic::IrrlichtLib * /* lib */)
 {
 	InterpreteGeneration	interpret;
 	MapGenerator		generator;
@@ -28,8 +30,8 @@ void    HandleGame::InitGame(const GenerationSize &size, const GenerationMod &mo
 				entity->setMap(_threeDMap);
 				entity->setId(id);
 				addCubeToMap(*entity);
-				if (shared.get()->getType() == entities::entityType::PLAYER_TYPE)
-					std::static_pointer_cast<Player>(shared).get()->setLibEventManager(lib);
+		//		if (shared.get()->getType() == entities::entityType::PLAYER_TYPE)
+		//			std::static_pointer_cast<Player>(shared).get()->setLibEventManager(lib);
 				++id;
 			}
 		}
@@ -62,5 +64,17 @@ void	HandleGame::quitGame()
 
 void	HandleGame::updateMap()
 {
+	for (auto line : _threeDMap->get3dMap()) {
+		for (auto tab : line) {
+			for (auto shared : tab) {
+		//		if (shared.get()->getType() == entities::entityType::PLAYER_TYPE)
+		//			std::static_pointer_cast<Player>(shared).get()->interpretEvent();
+				if (shared.get()->getType() == entities::entityType::IA_TYPE)
+					std::static_pointer_cast<Ia>(shared).get()->turn();
+				if (shared.get()->getType() == entities::entityType::BOMBS_TYPE)
+					std::static_pointer_cast<Bombs>(shared).get()->checkExplosion();
+			}
+		}
+	}
 
 }

@@ -9,6 +9,13 @@
 
 void	Player::interpretEvent()
 {
-	if (_lib->getEventManager()->IsKeyDown(irr::KEY_KEY_Z))
-		std::cout << "M D R" << std::endl;
+	std::size_t	index = 0;
+
+	for (auto event : _eventPlayer) {
+		++index;
+		if (_lib->getEventManager()->IsKeyDown(irr::KEY_KEY_Z)) {
+			std::cout << "oui" << std::endl;
+			std::cout << event << std::endl;
+		}
+	}
 }

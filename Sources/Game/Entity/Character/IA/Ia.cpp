@@ -36,16 +36,16 @@ void Ia::placeIa(std::vector<std::string> &map)
 */
 void Ia::turn()
 {
-	 std::cout << "bite\r\n" << std::endl;
+//	 std::cout << "bite\r\n" << std::endl;
         Algorithm *algo = new Algorithm;
         std::pair<int, int> move;
         std::pair<int, int> pos_player = {0, 0};
-        if (_map == nullptr)
-                std::cout << "nullptr" << std::endl;
         GameMap map = _map->get3dMap();
         move = algo->defensiveMove(map, pos_player);
 	move = algo->offensiveMove(map, pos_player);
+
 }
+
 Ia::Ia(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
                 Character(pos, iskinematic, layout, entities::entityType::IA_TYPE)
 {
