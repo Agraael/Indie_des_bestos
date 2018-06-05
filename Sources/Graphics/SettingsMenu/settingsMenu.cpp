@@ -89,13 +89,13 @@ void graphic::settingsMenu::printBrightness()
     graphic::infos_t moins;
     moins._x = 200;
     moins._y = 250;
-    moins._w = 30;
-    moins._h = 30;
-    moins._maxW = 30;
-    moins._maxH = 30;
+    moins._w = 230;
+    moins._h = 280;
     moins._type = graphic::BRIGTHNESS_DOWN;
+    moins._desc = "Light down";
+    moins._name = "";
     moins._path = "./Assets/media/moins.png";
-    _lib->drawImage(moins);
+    _lib->printButton(moins);
 
     graphic::infos_t light;
     light._x = 240;
@@ -110,13 +110,13 @@ void graphic::settingsMenu::printBrightness()
     graphic::infos_t plus;
     plus._x = 350;
     plus._y = 250;
-    plus._w = 30;
-    plus._h = 30;
-    plus._maxW = 30;
-    plus._maxH = 30;
-    plus._type = graphic::BRIGTHNESS_UP;
+    plus._w = 380;
+    plus._h = 280;
     plus._path = "./Assets/media/plus.png";
-    _lib->drawImage(plus);
+    plus._desc = "Light up";
+    plus._name = "";
+    plus._type = graphic::BRIGTHNESS_UP;
+    _lib->printButton(plus);
 }
 
 void    graphic::settingsMenu::returnToMenu()
@@ -155,6 +155,24 @@ void    graphic::settingsMenu::startClouds()
     }
     if (_count == 700)
         _count = -30;
+}
+
+void    graphic::settingsMenu::modifyBrightness(graphic::Action action)
+{
+    if (action == graphic::MORE)
+        _lib->modifyLight(10);
+    else if (action == graphic::LESS)
+        _lib->modifyLight(-10);
+}
+
+void    graphic::settingsMenu::modifySound(graphic::Action)
+{
+
+}
+
+void    graphic::settingsMenu::quitSettingsMenu(graphic::Action)
+{
+
 }
 
 void    graphic::settingsMenu::display()

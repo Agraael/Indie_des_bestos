@@ -22,6 +22,7 @@ graphic::IrrlichtLib::IrrlichtLib() {
     _guiEnv = _device->getGUIEnvironment();
     _eventManager = std::make_shared<graphic::LibEventManager>(t_contextRecEvnt{_device, 0, nullptr});
 	_device->setEventReceiver(_eventManager.get());
+	_light = 255;
 }
 
 graphic::IrrlichtLib::~IrrlichtLib()
@@ -69,7 +70,9 @@ irr::gui::IGUIButton *graphic::IrrlichtLib::printButton(const infos_t &infos)
 	std::wstring wideStrDesc = std::wstring(infos._desc.begin(), infos._desc.end());
 	const wchar_t *descriptionToPrint = wideStrDesc.c_str();
 	irr::gui::IGUIButton *butCustom = _guiEnv->addButton(irr::core::rect<irr::s32>(infos._x, infos._y, infos._w, infos._h), 0, infos._type, nameToPrint, descriptionToPrint);
+	butCustom->setDrawBorder(0);
 	butCustom->setImage(_driver->getTexture(infos._path.c_str()));
+	butCustom->setScaleImage(true);
 	butCustom->setUseAlphaChannel(true);
 	return (butCustom);
 
@@ -138,6 +141,27 @@ void    graphic::IrrlichtLib::drawText(size_t x, size_t y, size_t fontSize, cons
     const wchar_t *wideCStr = wideStr.c_str();
     _guiEnv->addStaticText(wideCStr, irr::core::rect<irr::s32>(x,y, x + 100, y + 100), true);
     (void)(fontSize);
+}
+
+void graphic::IrrlichtLib::setSkinTransparency(irr::s32 alpha, irr::gui::IGUISkin *skin)
+{
+    for (irr::s32 i=0; i < irr::gui::EGDC_COUNT ; ++i)
+    {
+        irr::video::SColor col = skin->getColor((irr::gui::EGUI_DEFAULT_COLOR)i);
+        col.setAlpha(alpha);
+        std::cout << "print Alpha " << alpha << std::endl;
+        skin->setColor((irr::gui::EGUI_DEFAULT_COLOR)i, col);
+    }
+}
+
+void    graphic::IrrlichtLib::modifyLight(int nbr)
+{
+    if (_light >= 0 && _light <= 255) {
+        _light = _light + nbr;
+        setSkinTransparency(_light, _guiEnv->getSkin());
+        std::cout << _light << std::endl;
+		_guiEnv->getSkin()->getColor(irr::gui::EGDC_WINDOW).getAlpha();
+    }
 }
 
 std::shared_ptr<graphic::LibEventManager> const& graphic::IrrlichtLib::getEventManager() const

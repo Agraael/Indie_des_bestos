@@ -56,7 +56,11 @@ namespace graphic {
 		void drawText(size_t x, size_t y, size_t fontSize, std::string const&);
         irr::gui::IGUIScrollBar *scrollBarButton(const infos_t &infos);
 		std::shared_ptr<LibEventManager> const& getEventManager() const;
+        void setSkinTransparency(irr::s32 alpha, irr::gui::IGUISkin *skin);
+        void modifyLight(int nbr);
+        irr::s32 getLight() { return _light; }
 	private:
+        irr::s32 _light;
 		irr::video::IVideoDriver* _driver;
 		irr::scene::ISceneManager* _managerScene;
 		irr::IrrlichtDevice *_device;
