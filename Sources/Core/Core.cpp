@@ -72,7 +72,6 @@ void	Core::game_solo(const CoreState &state)
 		_state = CoreState::IN_MENU;
 		return;
 	}
-	std::cout << "non" << std::endl;
 	hGame.updateMap();
 	(void)(state);
 }

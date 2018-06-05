@@ -46,7 +46,7 @@ private:
 		SOLO_FIRE_UP_TYPE = 'f',
 		WALL_PASS_TYPE = 'P',
 		SOLO_WALL_PASS_TYPE = 'p',
-		PLAYER_TYPE = 'C',
+		PLAYER_TYPE = 'l',
 		IA_TYPE = 'C',
 	};
 	GameMap		Fill(const std::size_t &, const std::size_t &, char **);

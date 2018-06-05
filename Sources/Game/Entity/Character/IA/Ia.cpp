@@ -8,32 +8,6 @@
 #include "Algorithm.hpp"
 #include "Ia.hpp"
 
-/* void Ia::printMap(std::vector<std::string> &map)
-{
-	for (auto i : map)
-		std::cout << i << std::endl;
-}
-
-int Ia::checkIfDead(const std::vector<std::string> &map, std::pair<int, int> &pos)
-{
-	if (map[pos.first][pos.second] != 'J')
-		return (0);
-	return (1);
-}
-
-int Ia::isInDangerousPosition(const std::vector<std::string> &dynamic_map, std::pair<int, int> &pos)
-{
-	if (dynamic_map[pos.first][pos.second] != '0')
-		return (0);
-	return (1);
-}
-
-void Ia::placeIa(std::vector<std::string> &map)
-{
-	map[1][1] = 'J';
-	_pos = std::make_pair(1, 1);
-}
-*/
 void Ia::turn()
 {
         Algorithm *algo = new Algorithm;
@@ -46,6 +20,9 @@ void Ia::turn()
 	else {
 		move = algo->offensiveMove(map, _pos, _map);
 	}
+	std::cout << _pos.first << " " << _pos.second << " -> " << move.first << " " << move.second << std::endl;
+	_map->updatePos(static_cast<std::shared_ptr<Entity>>(this), move);
+	_pos = move;
 }
 
 Ia::Ia(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
