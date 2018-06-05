@@ -54,7 +54,7 @@ namespace graphic {
 		void drawEditBox(graphic::infos_t infos);
 		irr::gui::IGUIButton *printButton(const infos_t &infos);
 		void drawText(size_t x, size_t y, size_t fontSize, std::string const&);
-        irr::gui::IGUIScrollBar *scrollBarButton(const infos_t &infos);
+	        irr::gui::IGUIScrollBar *scrollBarButton(const infos_t &infos);
 		std::shared_ptr<LibEventManager> const& getEventManager() const;
         void setSkinTransparency(irr::s32 alpha, irr::gui::IGUISkin *skin);
         void modifyLight(int nbr);

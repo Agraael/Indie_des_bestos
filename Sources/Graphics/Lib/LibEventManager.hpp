@@ -11,9 +11,9 @@ namespace graphic
 {
 	typedef struct s_contextRecEvnt
 	{
-		irr::IrrlichtDevice *device;
-		irr::s32             counter;
-		irr::gui::IGUIListBox*    listbox;
+		irr::IrrlichtDevice	*device;
+		irr::s32		counter;
+		irr::gui::IGUIListBox*	listbox;
 	}             t_contextRecEvnt;
 	enum controllerUser
 	{
@@ -40,12 +40,12 @@ namespace graphic
 		ARROW_UP,
 		ARROW_LEFT,
 		ARROW_RIGHT,
-		SPACEBAR,
+		ENTER,
 		KEY_Z,
 		KEY_Q,
 		KEY_S,
 		KEY_D,
-		ENTER,
+		SPACEBAR,
 		ECHAP,
 		RESTART,
 		CONTINUE,

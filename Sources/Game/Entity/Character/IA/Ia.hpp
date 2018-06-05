@@ -12,6 +12,7 @@
 #include <iostream>
 #include <utility>
 #include <functional>
+#include <memory>
 #include "Gen.hpp"
 #include "Map.hpp"
 #include "Character.hpp"
