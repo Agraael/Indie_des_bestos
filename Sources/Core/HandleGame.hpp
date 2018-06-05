@@ -25,16 +25,16 @@ class HandleGame
 	public:
 		HandleGame(graphic::IrrlichtLib *lib) : _lib(lib) {}
 		void	InitGame(const GenerationSize &, const GenerationMod &, graphic::IrrlichtLib *);
-		void	updateMap() {}
-		void	updtaeGameForanatole();
+		void	updateMap();
 		void	quitGame();
 		GameMap getGameMap() const noexcept { return (_threeDMap->get3dMap()); }
 	private:
+		void	changeDisp();
 		void	initMapGround(const GenerationSize &);
 		void	addCubeToMap(const entities::Entity &);
-		std::shared_ptr<Map>			_threeDMap;
-		graphic::IrrlichtLib			*_lib;
-		std::vector<irr::scene::ISceneNode *>	_disp;
+		std::shared_ptr<Map>					_threeDMap;
+		graphic::IrrlichtLib					*_lib;
+		std::vector<irr::scene::ISceneNode *>			_disp;
 		const std::map<const GenerationSize, const Vector_t>	_hGameSizeTab = {
 			{GenerationSize::Small, {13, 7}},
 			{GenerationSize::Medium, {19, 13}},

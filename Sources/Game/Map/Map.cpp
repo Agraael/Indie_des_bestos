@@ -24,7 +24,7 @@ void    Map::placeBomb(entities::entityPosition pos, std::size_t shining)
 	}
 }
 
-void	Map::updatePos()
+void	Map::updatePos(std::shared_ptr<entities::Entity>, entities::entityPosition)
 {
 
 }

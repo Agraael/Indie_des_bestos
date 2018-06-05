@@ -47,6 +47,7 @@ void Ia::turn()
 		move = algo->offensiveMove(map, _pos, _map);
 	}
 }
+
 Ia::Ia(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
                 Character(pos, iskinematic, layout, entities::entityType::IA_TYPE)
 {

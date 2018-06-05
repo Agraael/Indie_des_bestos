@@ -73,11 +73,21 @@ SharedEntity	InterpreteGeneration::InitWallPass(std::size_t x, std::size_t y)
 	return tempLine;
 }
 
-SharedEntity	InterpreteGeneration::InitCharacter(std::size_t x, std::size_t y)
+SharedEntity	InterpreteGeneration::InitIa(std::size_t x, std::size_t y)
 {
 	SharedEntity	tempLine;
 
 	tempLine.push_back(std::make_shared<entities::Entity>(Ia(std::make_pair(x,y), false, 0)));
+	return tempLine;
+}
+
+SharedEntity	InterpreteGeneration::InitPlayer(std::size_t x, std::size_t y)
+{
+	static	std::size_t	index = 1;
+	SharedEntity		tempLine;
+
+	tempLine.push_back(std::make_shared<entities::Entity>(Player(std::make_pair(x,y), false, 0, _eventPlayer[index])));
+	++index;
 	return tempLine;
 }
 
