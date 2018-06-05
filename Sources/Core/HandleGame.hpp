@@ -24,7 +24,7 @@ class HandleGame
 {
 	public:
 		HandleGame(graphic::IrrlichtLib *lib) : _lib(lib) {}
-		void	InitGame(const GenerationSize &, const GenerationMod &);
+		void	InitGame(const GenerationSize &, const GenerationMod &, graphic::IrrlichtLib *);
 		void	updateMap() {}
 		void	updtaeGameForanatole();
 		void	quitGame();
@@ -40,9 +40,9 @@ class HandleGame
 			{GenerationSize::Medium, {19, 13}},
 			{GenerationSize::Big, {25, 19}}
 		};
-		const std::unordered_map<entities::entityType, const std::string &>	_textureMap = {
+		const std::unordered_map<entities::entityType, const std::string>	_textureMap = {
 			{entities::entityType::INDESTRUCTIBLE_TYPE, "./Assets/media/brick_wall.jpg"},
-			{entities::entityType::DESTRUCTIBLE_TYPE, "./Assets/media/brick_wall.jpg"},
+			{entities::entityType::DESTRUCTIBLE_TYPE, "./Assets/media/wood_box.png"},
 			{entities::entityType::BOMB_UP_TYPE, "./Assets/media/brick_wall.jpg"},
 			{entities::entityType::BOMBS_TYPE, "./Assets/media/brick_wall.jpg"},
 			{entities::entityType::FIRE_UP_TYPE, "./Assets/media/brick_wall.jpg"},
