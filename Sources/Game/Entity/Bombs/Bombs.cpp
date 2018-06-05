@@ -9,5 +9,5 @@
 
 void	Bombs::checkExplosion()
 {
-        if ((_saveTime - std::time(nullptr)) > 3)
+        //if ((_saveTime - std::time(nullptr)) > 3)
 }

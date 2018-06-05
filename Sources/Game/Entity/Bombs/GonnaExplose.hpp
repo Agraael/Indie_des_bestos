@@ -12,7 +12,7 @@
 
 class GonnaExplose : public entities::Entity {
 	public:
-                GonnaExplose(entities::entityPosition pos, bool iskinematic, std::size_t layout, ) :
+                GonnaExplose(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
 		entities::Entity(pos, iskinematic, layout, entities::entityType::GONNAEXPLOSE_TYPE) {}
 };
 

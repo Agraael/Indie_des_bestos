@@ -24,7 +24,27 @@ void    Map::placeBomb(entities::entityPosition pos, std::size_t shining)
 	}
 }
 
-void	Map::updatePos(std::shared_ptr<entities::Entity>, entities::entityPosition)
+void	Map::deleteElem(std::shared_ptr<entities::Entity> entity)
 {
+	std::size_t	index = 0;
 
+	for (auto elem : _map[entity.get()->getPos().first][entity.get()->getPos().second]) {
+		++index;
+		if (elem == entity)
+			_map[entity.get()->getPos().first][entity.get()->getPos().second].erase(_map[entity.get()->getPos().first][entity.get()->getPos().second].begin()+index);
+	}
+}
+
+void	Map::updatePos(std::shared_ptr<entities::Entity> entity, entities::entityPosition pos)
+{
+	for (auto line : _map) {
+		for (auto tab : line) {
+			for (auto shared : tab) {
+				if (shared == entity) {
+					_map[pos.first][pos.second].push_back(entity);
+					deleteElem(entity);
+				}				
+			}
+		}
+	}
 }
