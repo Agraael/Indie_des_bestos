@@ -2,18 +2,18 @@ include(CMakeSources.cmake)
 
 set(INDIE_BIN_NAME bomberman)
 
-set(IRRLICHT_INC_DIR ../irrlicht-1.8.4/include)
+set(IRRLICHT_INC_DIR ../irrlicht-1.8.4/include ../irrKlang-64bit-1.6.0/include)
 
 if(UNIX)
-  set(IRRLICHT_LIB_DIR ${IRRLICHT_LIB_DIR} ../irrlicht-1.8.4/lib/Linux /usr/X11R6/lib)
+  set(IRRLICHT_LIB_DIR ${IRRLICHT_LIB_DIR} ../irrlicht-1.8.4/lib/Linux ../irrKlang-64bit-1.6.0/bin/linux-gcc-64 /usr/X11R6/lib)
   set(IRRLICHT_INC_DIR ${IRRLICHT_INC_DIR} /usr/X11R6/include)
   FIND_PACKAGE(X11)
   FIND_PACKAGE(GLUT)
   FIND_PACKAGE(ZLIB)
 elseif(WIN32)
-  set(IRRLICHT_LIB_DIR ../irrlicht-1.8.4/lib/Win32-visualstudio)
+  set(IRRLICHT_LIB_DIR ../irrlicht-1.8.4/lib/Win32-visualstudio ../irrKlang-64bit-1.6.0/lib/Winx64-visualStudio)
 elseif(WIN64)
-  set(IRRLICHT_LIB_DIR ../irrlicht-1.8.4/lib/Win64-visualstudio)
+  set(IRRLICHT_LIB_DIR ../irrlicht-1.8.4/lib/Win64-visualstudio ../irrKlang-64bit-1.6.0/lib/Winx64-visualStudio)
 
 endif()
 
@@ -25,8 +25,11 @@ link_directories(
   ${IRRLICHT_LIB_DIR})
 
 add_executable( ${INDIE_BIN_NAME}
-  ${INDIE_SRC})
+				${INDIE_SRC}
+				../irrKlang-64bit-1.6.0/bin/linux-gcc-64/libIrrKlang.so
+				../irrKlang-64bit-1.6.0/bin/linux-gcc-64/ikpFlac.so
+				../irrKlang-64bit-1.6.0/bin/linux-gcc-64/ikpMP3.so)
 
 if(UNIX)
-  target_link_libraries(${INDIE_BIN_NAME} Irrlicht GL Xxf86vm Xext X11 Xcursor)
+	target_link_libraries(${INDIE_BIN_NAME} Irrlicht GL Xxf86vm Xext X11 Xcursor pthread)
 endif()
