@@ -43,7 +43,7 @@ void	Map::updatePos(std::shared_ptr<entities::Entity> entity, entities::entityPo
 				if (shared == entity) {
 					_map[pos.first][pos.second].push_back(entity);
 					deleteElem(entity);
-				}				
+				}
 			}
 		}
 	}

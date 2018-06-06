@@ -53,7 +53,7 @@ void	Core::menu(const CoreState &state)
 	(void)(state);
 	_menu->updateDisplay();
 	if (state == CoreState::IN_SOLO) {
-		hGame.InitGame(GenerationSize::Medium, GenerationMod::Standard, _lib);
+		hGame.InitGame({GenerationSize::Medium, GenerationMod::Standard, 1, 3});
 		_state = state;
 		return;
 	}

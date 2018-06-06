@@ -101,7 +101,7 @@ void graphic::IrrlichtLib::setCamera(const vec3df &pos, const vec3df &target)
 }
 
 //"./media/red_brick.jpg"
-irr::scene::ISceneNode    *graphic::IrrlichtLib::createCube(const vec3df &pos, const std::string &path)
+irr::scene::ISceneNode    *graphic::IrrlichtLib::createCube(const vec3df &pos, const std::string &path, irr::s32 id)
 {
 	irr::scene::ISceneNode *n = _managerScene->addCubeSceneNode(1);
 
@@ -109,6 +109,7 @@ irr::scene::ISceneNode    *graphic::IrrlichtLib::createCube(const vec3df &pos, c
 		n->setPosition(irr::core::vector3df(pos.x, pos.y, pos.z));
 		n->setMaterialTexture(0, _driver->getTexture(path.c_str()));
 		n->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+		n->setID(id);
 	}
 	return (n);
 }
@@ -120,14 +121,15 @@ void  graphic::IrrlichtLib::drawEditBox(graphic::infos_t infos)
 	_guiEnv->addEditBox(nameToPrint, irr::core::rect<irr::s32>(infos._x, infos._y, infos._w, infos._h));
 }
 
-irr::scene::ISceneNode  *graphic::IrrlichtLib::createSphere()
+irr::scene::ISceneNode  *graphic::IrrlichtLib::createSphere(const vec3df &pos, const std::string &path, irr::s32 id)
 {
-	irr::scene::ISceneNode * node = _managerScene->addSphereSceneNode();
+	irr::scene::ISceneNode * node = _managerScene->addSphereSceneNode(0.5);
 	if (node)
 	{
-		node->setPosition(irr::core::vector3df(-10,-10,30));
-		node->setMaterialTexture(0, _driver->getTexture("./media/red_brick.jpg"));
+		node->setPosition(irr::core::vector3df(pos.x,pos.y, pos.z));
+		node->setMaterialTexture(0, _driver->getTexture(path.c_str()));
 		node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+		node->setID(id);
 	}
 	return (node);
 }

@@ -19,6 +19,7 @@ class MapGenerator
 		MapGenerator();
 		~MapGenerator();
 		void	runGeneration(const GenerationSize &, const GenerationMod &);
+		void	setPlayers(const int &, const int &);
 		char	**&getMap() { return _map; }
 	private:
 		char	**_map;

@@ -47,8 +47,8 @@ namespace graphic {
 		irr::gui::IGUIImage *drawImage(const infos_t &infos);
 		irr::IrrlichtDevice *getDevice() { return _device; }
 		void displayAll(bool);
-		irr::scene::ISceneNode *createCube(const vec3df &, const std::string &);
-		irr::scene::ISceneNode *createSphere();
+		irr::scene::ISceneNode *createCube(const vec3df &, const std::string &, irr::s32);
+		irr::scene::ISceneNode *createSphere(const vec3df &, const std::string &, irr::s32);
 		void setCamera(irr::scene::ISceneNode *parent);
 		void setCamera(const vec3df &pos, const vec3df &target);
 		void drawEditBox(graphic::infos_t infos);
