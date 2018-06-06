@@ -4,12 +4,14 @@
 
 #include <memory>
 #include "settingsMenu.hpp"
-#include "irrKlang.h"
+#include <irrKlang.h>
 #include <string>
 #include <cstdio>
 #include <iostream>
+#include "irrKlang.h"
 
 using namespace std;
+
 int main()
 {
 
