@@ -156,7 +156,7 @@ void graphic::IrrlichtLib::setSkinTransparency(irr::s32 alpha, irr::gui::IGUISki
 
 void    graphic::IrrlichtLib::modifyLight(int nbr)
 {
-    if (_light >= 0 && _light <= 255) {
+    if ((nbr == -10 && _light >= 10) || (nbr == 10 && _light <= 245)) {
         _light = _light + nbr;
         setSkinTransparency(_light, _guiEnv->getSkin());
         std::cout << _light << std::endl;

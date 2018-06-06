@@ -54,13 +54,13 @@ void graphic::settingsMenu::printSound()
     graphic::infos_t moins;
     moins._x = 200;
     moins._y = 150;
-    moins._w = 30;
-    moins._h = 30;
-    moins._maxW = 30;
-    moins._maxH = 30;
+    moins._w = 230;
+    moins._h = 180;
     moins._type = graphic::SOUND_DOWN;
+    moins._desc = "Sound down";
+    moins._name = "";
     moins._path = "./Assets/media/moins.png";
-    _lib->drawImage(moins);
+    _lib->printButton(moins);
 
     graphic::infos_t sound;
     sound._x = 240;
@@ -75,13 +75,13 @@ void graphic::settingsMenu::printSound()
     graphic::infos_t plus;
     plus._x = 350;
     plus._y = 150;
-    plus._w = 30;
-    plus._h = 30;
-    plus._maxW = 30;
-    plus._maxH = 30;
-    plus._type = graphic::SOUND_UP;
+    plus._w = 380;
+    plus._h = 180;
     plus._path = "./Assets/media/plus.png";
-    _lib->drawImage(plus);
+    plus._desc = "Sound up";
+    plus._name = "";
+    plus._type = graphic::SOUND_UP;
+    _lib->printButton(plus);
 }
 
 void graphic::settingsMenu::printBrightness()

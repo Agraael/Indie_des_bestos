@@ -3,7 +3,7 @@
 //
 
 #include <memory>
-#include "settingsMenu.hpp"
+#include "../LocalMenu/localMenu.hpp"
 #include <irrKlang.h>
 #include <string>
 #include <cstdio>
@@ -34,7 +34,7 @@ int main()
 {
 
     graphic::IrrlichtLib *lib = new graphic::IrrlichtLib;
-    graphic::settingsMenu menu(lib);
+    graphic::localMenu menu(lib);
     menu.display();
     std::unordered_map <graphic::controllerUser, std::function<void(graphic::IrrlichtLib&)>>eventTab = menu.getEventTab();
     while (lib->getDevice()->run()) {
