@@ -20,22 +20,30 @@
 #include "irrlicht.h"
 #endif
 
+struct	gameType_t {
+	GenerationSize	g_size;
+	GenerationMod	g_mod;
+	int		nb_player;
+	int		nb_ia;
+};
+
 class HandleGame
 {
 	public:
 		HandleGame(graphic::IrrlichtLib *lib) : _lib(lib) {}
-		void	InitGame(const GenerationSize &, const GenerationMod &, graphic::IrrlichtLib *);
+		void	InitGame(const gameType_t &);
 		void	updateMap();
 		void	quitGame();
 		GameMap getGameMap() const noexcept { return (_threeDMap->get3dMap()); }
 	private:
 		void	changeDisp();
-		void	initMapGround(const GenerationSize &);
-		void	addCubeToMap(const entities::Entity &);
+		void	initMapGround(const GenerationSize &, std::size_t &);
+		void	addCubeToMap(const entities::Entity &, std::size_t &);
+		void	updateEntity(const entities::Entity *);
 		std::shared_ptr<Map>					_threeDMap;
 		graphic::IrrlichtLib					*_lib;
 		std::vector<irr::scene::ISceneNode *>			_disp;
-		const std::map<const GenerationSize, const Vector_t>	_hGameSizeTab = {
+		const std::unordered_map<const GenerationSize, const Vector_t>	_hGameSizeTab = {
 			{GenerationSize::Small, {13, 7}},
 			{GenerationSize::Medium, {19, 13}},
 			{GenerationSize::Big, {25, 19}}
@@ -47,8 +55,8 @@ class HandleGame
 			{entities::entityType::BOMBS_TYPE, "./Assets/media/brick_wall.jpg"},
 			{entities::entityType::FIRE_UP_TYPE, "./Assets/media/brick_wall.jpg"},
 			{entities::entityType::GONNAEXPLOSE_TYPE, "./Assets/media/brick_wall.jpg"},
-			{entities::entityType::IA_TYPE, "./Assets/media/brick_wall.jpg"},
-			{entities::entityType::PLAYER_TYPE, "./Assets/media/brick_wall.jpg"},
+			{entities::entityType::IA_TYPE, "./Assets/media/bmbrmn.png"},
+			{entities::entityType::PLAYER_TYPE, "./Assets/media/bmbrmn.png"},
 			{entities::entityType::SPEED_UP_TYPE, "./Assets/media/brick_wall.jpg"},
 			{entities::entityType::WALL_PASS_TYPE, "./Assets/media/brick_wall.jpg"}
 		};

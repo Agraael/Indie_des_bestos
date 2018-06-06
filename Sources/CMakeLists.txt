@@ -25,11 +25,8 @@ link_directories(
   ${IRRLICHT_LIB_DIR})
 
 add_executable( ${INDIE_BIN_NAME}
-				${INDIE_SRC}
-				../irrKlang-64bit-1.6.0/bin/linux-gcc-64/libIrrKlang.so
-				../irrKlang-64bit-1.6.0/bin/linux-gcc-64/ikpFlac.so
-				../irrKlang-64bit-1.6.0/bin/linux-gcc-64/ikpMP3.so)
+				${INDIE_SRC} )
 
 if(UNIX)
-	target_link_libraries(${INDIE_BIN_NAME} Irrlicht GL Xxf86vm Xext X11 Xcursor pthread)
+	target_link_libraries(${INDIE_BIN_NAME} Irrlicht GL Xxf86vm Xext X11 Xcursor pthread IrrKlang ikpFlac ikpMP3)
 endif()
