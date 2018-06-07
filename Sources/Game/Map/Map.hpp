@@ -18,8 +18,12 @@ public:
 	Map(GameMap map) : _map(map) {};
 	GameMap	get3dMap() const noexcept { return _map; }
 	void	placeBomb(entities::entityPosition, std::size_t);
-	void	updatePos(std::shared_ptr<entities::Entity>, entities::entityPosition);
+	void	updatePos(entities::Entity*, entities::entityPosition);
 	void	deleteElem(std::shared_ptr<entities::Entity>);
+	void	displayMap();
+	void	checkAfterExplosion() {};
+	void	playerDeath() {};
+	std::shared_ptr<entities::Entity>	placeExplosion(entities::entityPosition pos);	
 private:
 	GameMap _map;
 };

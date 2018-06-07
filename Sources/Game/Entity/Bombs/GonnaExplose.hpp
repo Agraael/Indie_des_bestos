@@ -13,7 +13,7 @@
 class GonnaExplose : public entities::Entity {
 	public:
                 GonnaExplose(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
-		entities::Entity(pos, iskinematic, layout, entities::entityType::GONNAEXPLOSE_TYPE) {}
+		entities::Entity(pos, iskinematic, layout, entities::entityType::GONNAEXPLOSE_TYPE, "") {}
 };
 
 #endif /* !GONNAEXPLOSE_HPP_ */

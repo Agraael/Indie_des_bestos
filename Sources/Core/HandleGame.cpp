@@ -87,24 +87,30 @@ void	HandleGame::updateMap(bool &state)
 			for (auto shared : tab) {
 		//		if (shared.get()->getType() == entities::entityType::PLAYER_TYPE)
 		//			std::static_pointer_cast<Player>(shared).get()->interpretEvent();
-				if (shared.get()->getType() == entities::entityType::IA_TYPE) {
-					std::static_pointer_cast<Ia>(shared).get()->turn();
-					updateEntity(shared.get());
+				/* if (shared.get()->getType() == entities::entityType::PLAYER_TYPE) {
+					std::cout << "non" << std::endl;
+					std::static_pointer_cast<Player>(shared).get()->interpretEvent();
 				}
+				if (shared.get()->getType() == entities::entityType::IA_TYPE) {
+					std::cout << "oui" << std::endl;
+					std::static_pointer_cast<Ia>(shared).get()->turn();
+				} */ if (shared.get()->getType() == entities::entityType::BOMBS_TYPE)
+					std::static_pointer_cast<Bombs>(shared).get()->checkExplosion();
+//				if 
+				//	updateEntity(shared.get());
+			}
 				//if (shared.get()->getType() == entities::entityType::BOMBS_TYPE)
 				//	std::static_pointer_cast<Bombs>(shared).get()->checkExplosion();
-			}
 		}
 	}
 }
+
 
 void	HandleGame::updateEntity(const entities::Entity *entity)
 {
 	for (auto elem : _disp) {
 		if (elem->getID() == static_cast<irr::s32>(entity->getId())) {
 			elem->setPosition(irr::core::vector3df(entity->getPos().second, entity->getPos().first, 1));
-			//elem->setMaterialTexture(0, _lib->getDevice()->getTexture(entity->getTexture()));
-			//
 		}
 	}
 }

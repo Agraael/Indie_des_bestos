@@ -13,8 +13,8 @@
 
 class Player : public Character {
 public:
-	Player(entities::entityPosition pos, bool iskinematic, std::size_t layout, std::vector<graphic::controllerUser> eventPlayer) :
-	Character(pos, iskinematic, layout, entities::entityType::PLAYER_TYPE), _eventPlayer(eventPlayer) {}
+	Player(entities::entityPosition pos, bool iskinematic, std::size_t layout, std::vector<graphic::controllerUser> eventPlayer, std::string name) :
+	Character(pos, iskinematic, layout, entities::entityType::PLAYER_TYPE, name), _eventPlayer(eventPlayer) {}
 	void					setLibEventManager(graphic::IrrlichtLib *lib) { _lib = lib; }
 	void					interpretEvent();
 	~Player() {};
