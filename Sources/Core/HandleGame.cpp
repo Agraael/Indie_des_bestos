@@ -121,8 +121,7 @@ bool	HandleGame::gameEnd() noexcept
 					(ent->getType() == entities::entityType::IA_TYPE
 					|| ent->getType() == entities::entityType::PLAYER_TYPE)) {
 					count++;
-					//_winnerName = ent->getName();
-					_winnerName = "lol";
+					_winnerName = ent->getName();
 				}
 			}
 		}
