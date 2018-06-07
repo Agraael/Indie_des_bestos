@@ -11,7 +11,7 @@
 #include "Core.hpp"
 
 Core::Core()
-	: _state(CoreState::IN_MENU), _lib(new graphic::IrrlichtLib()), _eventCore(_lib), _menu(new graphic::Menu(_lib)), hGame(_lib)
+	: _state(CoreState::IN_MENU), _lib(new graphic::IrrlichtLib()), _eventCore(_lib), _menu(new graphic::Menu(_lib)), hGame(_lib), _playing(false)
 {
 }
 
@@ -30,10 +30,7 @@ int	Core::run()
 		if (newState == CoreState::EXIT)
 			return exitCore();
 		chooseCorePart(newState);
-		if (newState == CoreState::IN_SOLO || newState == CoreState::IN_LOCAL_GAME)
-			_lib->displayAll(false);
-		else
-			_lib->displayAll(true);
+		_lib->displayAll();
 	}
 	return 0;
 }
@@ -55,17 +52,30 @@ void	Core::chooseCorePart(const CoreState &state)
 
 void	Core::menu(const CoreState &state)
 {
-	(void)(state);
 	_menu->updateDisplay();
-	if (state == CoreState::IN_SOLO) {
-		hGame.InitGame({GenerationSize::Medium, GenerationMod::Standard, 1, 3});
-		_state = state;
+	if (state == _state)
 		return;
+	else if (state == CoreState::IN_SOLO) {
+		_playing = true;
+		hGame.InitGame({GenerationSize::Medium, GenerationMod::Standard, 1, 0});
+	} else if (state == CoreState::IN_SETTINGS) {
+		//init menu setting
+	} else if (state == CoreState::IN_LOCAL) {
 	}
+	_state = state;
+	_lib->clearGui();
 }
 
 void	Core::game_local(const CoreState &state)
 {
+	if (_lib->getEventManager()->IsKeyDown(irr::EKEY_CODE::KEY_ESCAPE) == true || !_playing) {
+		hGame.quitGame();
+		_lib->clearGui();
+		_menu->display();
+		_state = CoreState::IN_MENU;
+		return;
+	}
+	hGame.updateMap(_playing);
 	(void)(state);
 }
 
@@ -73,14 +83,16 @@ void	Core::game_solo(const CoreState &state)
 {
 	if (_lib->getEventManager()->IsKeyDown(irr::EKEY_CODE::KEY_ESCAPE) == true) {
 		hGame.quitGame();
-		_menu->updateDisplay();
+		_lib->clearGui();
+		_menu->display();
+//		_menu->updateDisplay();
 		_state = CoreState::IN_MENU;
 		return;
+	} else if (!_playing) {
+		hGame.dumpPlayerName();
+		return;
 	}
-	hGame.updateMap();
-	if (hGame.CheckEndGame() == true) {
-		_state = CoreState::IN_MENU;
-	}
+	hGame.updateMap(_playing);
 	(void)(state);
 }
 

@@ -20,6 +20,8 @@ void	HandleGame::InitGame(const gameType_t &game)
 	MapGenerator		generator;
 	std::size_t		id = 0;
 
+	_timeDispWinner = false;
+	_winnerName = std::string("");
 	generator.runGeneration(game.g_size, game.g_mod);
 	generator.setPlayers(game.nb_player, game.nb_ia);
 	if (_threeDMap)
@@ -51,7 +53,8 @@ void	HandleGame::initMapGround(const GenerationSize &size, std::size_t &id)
 			id++;
 		}
 	}
-	_lib->setCamera({(static_cast<double>(max.x) / 2), - (static_cast<double>(max.y) / 2) + 4, 13}, {static_cast<double>(max.x) / 2, static_cast<double>(max.y) / 2, 0});
+//	_lib->setCamera({(static_cast<double>(max.x) / 2), - (static_cast<double>(max.y) / 2) + 4, 13}, {static_cast<double>(max.x) / 2, static_cast<double>(max.y) / 2, 0});
+	_lib->setCamera({(static_cast<double>(max.x) / 2), (static_cast<double>(max.y) / 2), 13}, {static_cast<double>(max.x) / 2, static_cast<double>(max.y) / 2, 0});
 }
 
 void	HandleGame::addCubeToMap(const entities::Entity &entity, std::size_t &id)
@@ -73,8 +76,12 @@ void	HandleGame::quitGame()
 	_disp.clear();
 }
 
-void	HandleGame::updateMap()
+void	HandleGame::updateMap(bool &state)
 {
+	if (gameEnd()) {
+		state = false;
+		return;
+	}
 	for (auto line : _threeDMap->get3dMap()) {
 		for (auto tab : line) {
 			for (auto shared : tab) {
@@ -108,19 +115,33 @@ void	HandleGame::updateEntity(const entities::Entity *entity)
 	}
 }
 
-bool	HandleGame::CheckEndGame()
+bool	HandleGame::gameEnd() noexcept
 {
-	int	nbplayer = 0;
+	int	count = 0;
 
 	for (auto line : _threeDMap->get3dMap()) {
 		for (auto tab : line) {
 			for (auto shared : tab) {
-				if (shared.get()->getType() == entities::entityType::PLAYER_TYPE)
-					++nbplayer;
+				const entities::Entity	*ent = shared.get();
+				if (ent->getLayout() == 0 &&
+					(ent->getType() == entities::entityType::IA_TYPE
+					|| ent->getType() == entities::entityType::PLAYER_TYPE)) {
+					count++;
+					_winnerName = ent->getName();
+				}
 			}
 		}
 	}
-	if (nbplayer != 1)
-		return (true);
-	return (false);
+	if (count > 1)
+		return false;
+	return true;
+}
+
+void	HandleGame::dumpPlayerName()
+{
+	if (_timeDispWinner == false) {
+		//irr::core::dimension2d<irr::u32> size = _lib->getDevice()->getCurrentRenderTargetSize();
+		//_lib->drawText(size.width, size.Height, 0, std::string(_winnerName + " won the game !! " + "\n click on echap to leave."));
+		_timeDispWinner = true;
+	}
 }

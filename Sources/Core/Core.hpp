@@ -36,6 +36,7 @@ private:
 	EventCore			_eventCore;
 	graphic::Menu			*_menu;
 	HandleGame			hGame;
+	bool				_playing;
 	//using ptr = void	(Core::*)(const CoreState &);
 	//const std::unordered_map<CoreState, ptr>	_fcnTab = {
 	//	{CoreState::IN_MENU, &menu},
