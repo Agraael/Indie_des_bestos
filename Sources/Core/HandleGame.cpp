@@ -64,13 +64,18 @@ void	HandleGame::quitGame()
 
 void	HandleGame::updateMap()
 {
+	_threeDMap->displayMap();
 	for (auto line : _threeDMap->get3dMap()) {
 		for (auto tab : line) {
 			for (auto shared : tab) {
 		//		if (shared.get()->getType() == entities::entityType::PLAYER_TYPE)
 		//			std::static_pointer_cast<Player>(shared).get()->interpretEvent();
-				if (shared.get()->getType() == entities::entityType::IA_TYPE)
+				if (shared.get()->getType() == entities::entityType::IA_TYPE) {
+					std::cout << "oui" << std::endl;
 					std::static_pointer_cast<Ia>(shared).get()->turn();
+					std::cout << "caca" << std::endl;
+					_threeDMap->displayMap();					
+				}
 				if (shared.get()->getType() == entities::entityType::BOMBS_TYPE)
 					std::static_pointer_cast<Bombs>(shared).get()->checkExplosion();
 			}

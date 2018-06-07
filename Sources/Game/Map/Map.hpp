@@ -20,6 +20,8 @@ public:
 	void	placeBomb(entities::entityPosition, std::size_t);
 	void	updatePos(std::shared_ptr<entities::Entity>, entities::entityPosition);
 	void	deleteElem(std::shared_ptr<entities::Entity>);
+	void	displayMap();
+	std::shared_ptr<entities::Entity>	placeExplosion(entities::entityPosition pos);	
 private:
 	GameMap _map;
 };
