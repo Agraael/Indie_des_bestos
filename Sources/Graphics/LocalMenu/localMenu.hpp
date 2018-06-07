@@ -30,8 +30,8 @@ namespace graphic
         irr::gui::IGUIImage *printClouds();
         void printBackground();
         void display();
-        void getNbrPlayer(int nbr);
-        void getNbrIa(int nbr);
+        void setNbrPlayer(int nbr);
+        void setNbrIa(int nbr);
         void returnToMenu();
         void playGame();
         void choiceMap();
@@ -39,7 +39,11 @@ namespace graphic
         void updateDisplay();
         void printChoicePlayers();
         void printChoiceIA();
-        void printNbrChoice(int nbr, graphic::infos_t *nbrEntity);
+        size_t getIaNbr() { return _nbrIa; }
+        size_t getPlayersNbr() { return _nbrPlayers; }
+        graphic::sizeMap getMapSize() { return _sizeMap; }
+        graphic::entityMap getEntityMap() { return _entityMap; }
+        void printNbrChoice(int nbr, graphic::infos_t *nbrEntity, irr::gui::IGUIImage *img);
         std::unordered_map <graphic::controllerUser, std::function<void()>> getEventTab() { return _eventTab; };
     private:
         graphic::IrrlichtLib *_lib;
@@ -48,6 +52,8 @@ namespace graphic
         graphic::entityMap _entityMap;
         size_t _nbrIa;
         size_t _nbrPlayers;
+        irr::gui::IGUIImage *_iaNbrImg;
+        irr::gui::IGUIImage *_playerNbrImg;
         graphic::infos_t _infosPlayers;
         graphic::infos_t _infosIa;
 
@@ -58,11 +64,11 @@ namespace graphic
                         {graphic::MEDIUM_MAP, [this](){ _sizeMap = MEDIUM; }},
                         {graphic::DIST_MAP, [this](){ _entityMap = DISTRUCTIBLE; }},
                         {graphic::STAND_MAP, [this](){ _entityMap = STANDARD; }},
-                        {graphic::MORE_PLAYER, [this](){ getNbrPlayer(1); }},
-                        {graphic::LESS_PLAYER, [this](){ getNbrPlayer(-1); }},
-                        {graphic::MORE_IA, [this](){ getNbrIa(1); }},
-                        {graphic::LESS_IA, [this](){ getNbrIa(-1); }},
-                        //{graphic::EXIT_MAINMENU, [](graphic::IrrlichtLib &_lib){}},
+                        {graphic::MORE_PLAYER, [this](){ setNbrPlayer(1); }},
+                        {graphic::LESS_PLAYER, [this](){ setNbrPlayer(-1); }},
+                        {graphic::MORE_IA, [this](){ setNbrIa(1); }},
+                        {graphic::LESS_IA, [this](){ setNbrIa(-1); }},
+                        {graphic::EXIT_MAINMENU, [](){}},
         };
     };
 }

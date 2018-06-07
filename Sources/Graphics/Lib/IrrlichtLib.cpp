@@ -5,13 +5,6 @@
 #include "LibEventManager.hpp"
 #include "IrrlichtLib.hpp"
 
-const wchar_t *graphic::convertStringToWString(const std::string &text)
-{
-	std::wstring wideStr = std::wstring(text.begin(), text.end());
-	const wchar_t *stringConverted = wideStr.c_str();
-	return (stringConverted);
-}
-
 graphic::IrrlichtLib::IrrlichtLib() {
     _device = irr::createDevice(irr::video::EDT_OPENGL, irr::core::dimension2d<irr::u32>(640, 480), 16, false, false, false, 0);
     if (!_device)

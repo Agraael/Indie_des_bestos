@@ -9,6 +9,8 @@
 
 graphic::localMenu::localMenu(graphic::IrrlichtLib *lib) : _lib(lib)
 {
+    _nbrPlayers = 1;
+    _nbrIa = 1;
 }
 
 void    graphic::localMenu::printLogo()
@@ -55,7 +57,7 @@ void graphic::localMenu::printChoicePlayers()
     moins._w = 330;
     moins._h = 80;
     moins._type = graphic::LESS_PLAYER;
-    moins._desc = "Less players";
+    moins._desc = "oh less players.. play with Ia.. ";
     moins._name = "";
     moins._path = "./Assets/media/left_arrow.png";
     _lib->printButton(moins);
@@ -67,7 +69,7 @@ void graphic::localMenu::printChoicePlayers()
     _infosPlayers._maxW = 30;
     _infosPlayers._maxH = 30;
     _infosPlayers._path = "./Assets/media/one.png";
-    _lib->drawImage(_infosPlayers);
+    _playerNbrImg = _lib->drawImage(_infosPlayers);
 
     graphic::infos_t plus;
     plus._x = 390;
@@ -75,7 +77,7 @@ void graphic::localMenu::printChoicePlayers()
     plus._w = 420;
     plus._h = 80;
     plus._path = "./Assets/media/right_arrow.png";
-    plus._desc = "Sound up";
+    plus._desc = "Game Party, dude?";
     plus._name = "";
     plus._type = graphic::MORE_PLAYER;
     _lib->printButton(plus);
@@ -99,7 +101,7 @@ void graphic::localMenu::printChoiceIA()
     moins._w = 330;
     moins._h = 150;
     moins._type = graphic::LESS_IA;
-    moins._desc = "Less players";
+    moins._desc = "Yes men, play with your friends!";
     moins._name = "";
     moins._path = "./Assets/media/left_arrow.png";
     _lib->printButton(moins);
@@ -111,7 +113,7 @@ void graphic::localMenu::printChoiceIA()
     _infosIa._maxW = 30;
     _infosIa._maxH = 30;
     _infosIa._path = "./Assets/media/one.png";
-    _lib->drawImage(_infosIa);
+    _iaNbrImg = _lib->drawImage(_infosIa);
 
     graphic::infos_t plus;
     plus._x = 390;
@@ -119,7 +121,7 @@ void graphic::localMenu::printChoiceIA()
     plus._w = 420;
     plus._h = 150;
     plus._path = "./Assets/media/right_arrow.png";
-    plus._desc = "Sound up";
+    plus._desc = "More ia is like 'forever alone'!";
     plus._name = "";
     plus._type = graphic::MORE_IA;
     _lib->printButton(plus);
@@ -234,33 +236,42 @@ void    graphic::localMenu::returnToMenu()
     _lib->printButton(buttonExit);
 }
 
-void graphic::localMenu::printNbrChoice(int nbr, graphic::infos_t *nbrEntity)
+void graphic::localMenu::printNbrChoice(int nbr, graphic::infos_t *nbrEntity, irr::gui::IGUIImage *img)
 {
+    img->remove();
     if (nbr == 1)
         (*nbrEntity)._path = "./Assets/media/one.png";
     if (nbr == 2)
         (*nbrEntity)._path = "./Assets/media/two.png";
     if (nbr == 3)
         (*nbrEntity)._path = "./Assets/media/three.png";
+
 }
 
-void     graphic::localMenu::getNbrIa(int nbr) {
+void     graphic::localMenu::setNbrIa(int nbr) {
 
     if (nbr == 1 && _nbrPlayers < 3 && _nbrIa < 3)
         _nbrIa++;
-    if (nbr == -1 && _nbrIa > 0)
+    if (nbr == 1 && _nbrPlayers == 3 && _nbrIa == 1)
+        _nbrIa++;
+    if (nbr == -1 && _nbrIa > 1)
         _nbrIa--;
-    printNbrChoice(_nbrIa, &_infosIa);
+    printNbrChoice(_nbrIa, &_infosIa, _iaNbrImg);
+    _iaNbrImg = _lib->drawImage(_infosIa);
 }
 
-void     graphic::localMenu::getNbrPlayer(int nbr)
+void     graphic::localMenu::setNbrPlayer(int nbr)
 {
-
     if (nbr == 1 && _nbrPlayers < 3 && _nbrIa < 3)
         _nbrPlayers++;
-    if (nbr == -1 && _nbrPlayers > 0)
+    if (nbr == 1 && _nbrPlayers == 1 && _nbrIa == 3)
+        _nbrIa++;
+    if (nbr == -1 && _nbrPlayers > 1)
         _nbrPlayers--;
-    printNbrChoice(_nbrPlayers, &_infosPlayers);
+    printNbrChoice(_nbrPlayers, &_infosPlayers, _playerNbrImg);
+    std::cout << _infosPlayers._path << std::endl;
+    std::cout << _nbrPlayers << std::endl;
+    _playerNbrImg = _lib->drawImage(_infosPlayers);
 }
 
 void    graphic::localMenu::display()
@@ -277,7 +288,5 @@ void    graphic::localMenu::display()
 
 void graphic::localMenu::updateDisplay()
 {
-    _lib->drawImage(_infosIa);
-    _lib->drawImage(_infosPlayers);
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
