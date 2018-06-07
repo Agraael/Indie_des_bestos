@@ -19,12 +19,14 @@ void	HandleGame::InitGame(const gameType_t &game)
 	InterpreteGeneration	interpret;
 	MapGenerator		generator;
 	std::size_t		id = 0;
+	GameMap			threedmap;
 
 	generator.runGeneration(game.g_size, game.g_mod);
 	generator.setPlayers(game.nb_player, game.nb_ia);
 	if (_threeDMap)
 		_threeDMap.reset();
-	_threeDMap = std::make_shared<Map>(Map(interpret.createMap(generator.getMap())));
+	interpret.createMap(threedmap, generator.getMap());
+	_threeDMap = std::make_shared<Map>(Map(threedmap));
 	initMapGround(game.g_size, id);
 	for (auto line : _threeDMap->get3dMap()) {
 		for (auto tab : line) {
@@ -38,6 +40,7 @@ void	HandleGame::InitGame(const gameType_t &game)
 			}
 		}
 	}
+	std::cout << "appelé avant la destruction" << std::endl;
 }
 
 
@@ -80,15 +83,12 @@ void	HandleGame::updateMap()
 			for (auto shared : tab) {
 		//		if (shared.get()->getType() == entities::entityType::PLAYER_TYPE)
 		//			std::static_pointer_cast<Player>(shared).get()->interpretEvent();
-				/* if (shared.get()->getType() == entities::entityType::PLAYER_TYPE) {
-					std::cout << "non" << std::endl;
-					std::static_pointer_cast<Player>(shared).get()->interpretEvent();
-				}
-				if (shared.get()->getType() == entities::entityType::IA_TYPE) {
-					std::cout << "oui" << std::endl;
+				if (shared.get()->getType() == entities::entityType::PLAYER_TYPE)
+					reinterpret_cast<Player &>(*shared).update();
+/*				if (shared.get()->getType() == entities::entityType::IA_TYPE) {
 					std::static_pointer_cast<Ia>(shared).get()->turn();
-				} */ if (shared.get()->getType() == entities::entityType::BOMBS_TYPE)
-					std::static_pointer_cast<Bombs>(shared).get()->checkExplosion();
+				}*/ //if (shared.get()->getType() == entities::entityType::BOMBS_TYPE)
+					//std::dynamic_cast<Bombs>(shared).get()->checkExplosion();
 //				if 
 				//	updateEntity(shared.get());
 			}
@@ -121,6 +121,6 @@ bool	HandleGame::CheckEndGame()
 		}
 	}
 	if (nbplayer != 1)
-		return (true);
+		return (false);
 	return (false);
 }

@@ -16,8 +16,8 @@ public:
 	Player(entities::entityPosition pos, bool iskinematic, std::size_t layout, std::vector<graphic::controllerUser> eventPlayer, std::string name) :
 	Character(pos, iskinematic, layout, entities::entityType::PLAYER_TYPE, name), _eventPlayer(eventPlayer) {}
 	void					setLibEventManager(graphic::IrrlichtLib *lib) { _lib = lib; }
-	void					interpretEvent();
-	~Player() {};
+	void					update();
+	~Player() final = default;
 private:
 	graphic::IrrlichtLib			*_lib;
 	std::vector<graphic::controllerUser>	_eventPlayer;
