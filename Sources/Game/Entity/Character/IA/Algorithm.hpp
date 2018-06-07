@@ -5,6 +5,10 @@
 // 
 //
 
+
+#ifndef ALGORITHM_HPP_
+#define ALGORITHM_HPP_
+
 #include <iostream>
 #include <utility>
 #include <vector>
@@ -50,3 +54,5 @@ private:
 	int _dir;
 	int _offensive_tries;
 };
+
+#endif /* !ALGORITHM_HPP_ */
