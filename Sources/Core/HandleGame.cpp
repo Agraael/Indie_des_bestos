@@ -96,6 +96,7 @@ void	HandleGame::updateEntity(const entities::Entity *entity)
 	for (auto elem : _disp) {
 		if (elem->getID() == static_cast<irr::s32>(entity->getId())) {
 			elem->setPosition(irr::core::vector3df(entity->getPos().second, entity->getPos().first, 1));
+			elem->setMaterialTexture(0, _lib->getDevice()->getTexture(entity->getTexture()));
 			//
 		}
 	}
