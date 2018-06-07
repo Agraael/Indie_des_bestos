@@ -1,15 +1,16 @@
 cmake_minimum_required(VERSION 3.9)
 
 project( IndieStudio CXX)
+set(CMAKE_CXX_STANDARD 14)
 
 set(CMAKE_CONFIGURATION_TYPES build)
 
 option(NAZI "Use NAZI cpp flags for unix" OFF) #OFF by default : use -DNAZI
 option(MDR "Use MDR for no flags" OFF)
-option(MDR "Use CPPCHECK for cppckeck" OFF)
+option(CPPCHECK "Use CPPCHECK for cppckeck" OFF)
 
 if (UNIX)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -pedantic -Wextra -fno-builtin -ffast-math")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -pedantic -Wextra -fno-builtin -ffast-math -pthread")
 
   if(NAZI)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wfloat-equal -Wshadow \
@@ -18,7 +19,7 @@ if (UNIX)
   endif(NAZI)
 
   if(MDR)
-    set(CMAKE_CXX_FLAGS "")
+	  set(CMAKE_CXX_FLAGS "-pthread")
   endif(MDR)
 
   if(CPPCHECK)
@@ -33,8 +34,6 @@ endif()
 unset(NAZI CACHE)
 unset(MDR CACHE)
 unset(CPPCHECK CACHE)
-
-set(CMAKE_CXX_STANDARD 14)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
