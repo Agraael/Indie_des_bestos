@@ -32,17 +32,21 @@ class HandleGame
 	public:
 		HandleGame(graphic::IrrlichtLib *lib) : _lib(lib) {}
 		void	InitGame(const gameType_t &);
-		void	updateMap();
+		void	updateMap(bool &);
 		void	quitGame();
+		void	dumpPlayerName();
 		GameMap getGameMap() const noexcept { return (_threeDMap->get3dMap()); }
 	private:
 		void	changeDisp();
 		void	initMapGround(const GenerationSize &, std::size_t &);
 		void	addCubeToMap(const entities::Entity &, std::size_t &);
 		void	updateEntity(const entities::Entity *);
-		std::shared_ptr<Map>					_threeDMap;
-		graphic::IrrlichtLib					*_lib;
-		std::vector<irr::scene::ISceneNode *>			_disp;
+		bool	gameEnd() noexcept;
+		std::shared_ptr<Map>			_threeDMap;
+		graphic::IrrlichtLib			*_lib;
+		std::vector<irr::scene::ISceneNode *>	_disp;
+		std::string				_winnerName;
+		bool					_timeDispWinner;
 		const std::unordered_map<const GenerationSize, const Vector_t>	_hGameSizeTab = {
 			{GenerationSize::Small, {13, 7}},
 			{GenerationSize::Medium, {19, 13}},

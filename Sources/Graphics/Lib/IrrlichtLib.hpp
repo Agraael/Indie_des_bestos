@@ -20,6 +20,11 @@ struct vec3df {
 	double	z;
 };
 
+struct	vec2d {
+	int	x;
+	int	y;
+};
+
 #ifdef _IRR_WINDOWS_
 #pragma comment(lib, "Irrlicht.lib")
 #endif
@@ -39,30 +44,36 @@ namespace graphic {
 		graphic::controllerUser _type;
 	} infos_t;
 	const wchar_t *convertStringToWString(const std::string &);
-	class IrrlichtLib {
-	public:
-		IrrlichtLib();
-		~IrrlichtLib();
-		irr::video::ITexture *findTextureOrCreate(const std::string &path);
-		irr::gui::IGUIImage *drawImage(const infos_t &infos);
-		irr::IrrlichtDevice *getDevice() { return _device; }
-		void displayAll(bool);
-		irr::scene::ISceneNode *createCube(const vec3df &, const std::string &, irr::s32);
-		irr::scene::ISceneNode *createSphere(const vec3df &, const std::string &, irr::s32);
-		void setCamera(irr::scene::ISceneNode *parent);
-		void setCamera(const vec3df &pos, const vec3df &target);
-		void drawEditBox(graphic::infos_t infos);
-		irr::gui::IGUIButton *printButton(const infos_t &infos);
-		void drawText(size_t x, size_t y, size_t fontSize, std::string const&);
-	        irr::gui::IGUIScrollBar *scrollBarButton(const infos_t &infos);
-		std::shared_ptr<LibEventManager> const& getEventManager() const;
-	private:
-		irr::video::IVideoDriver* _driver;
-		irr::scene::ISceneManager* _managerScene;
-		irr::IrrlichtDevice *_device;
-		irr::gui::IGUIEnvironment* _guiEnv;
-		std::map<std::string, irr::video::ITexture *> _mapTexture;
-		std::shared_ptr<graphic::LibEventManager> _eventManager{nullptr};
+
+	class IrrlichtLib
+	{
+		public:
+			IrrlichtLib();
+			~IrrlichtLib();
+			irr::video::ITexture	*findTextureOrCreate(const std::string &);
+			irr::gui::IGUIImage	*drawImage(const infos_t &);
+			irr::IrrlichtDevice	*getDevice() const noexcept { return _device; }
+			void			displayAll();
+			void			clearGui() noexcept;
+			void			clearScene() noexcept;
+			irr::scene::ISceneNode	*createCube(const vec3df &, const std::string &, irr::s32);
+			irr::scene::ISceneNode	*createSphere(const vec3df &, const std::string &, irr::s32);
+			void			setCamera(irr::scene::ISceneNode *);
+			void			setCamera(const vec3df &, const vec3df &t);
+			void			drawEditBox(graphic::infos_t);
+			irr::gui::IGUIButton	*printButton(const infos_t &);
+			void			drawText(size_t, size_t, size_t, std::string const&);
+			irr::gui::IGUIScrollBar	*scrollBarButton(const infos_t &);
+			std::shared_ptr<LibEventManager> const& getEventManager() const noexcept { return _eventManager; }
+			vec2d const		&getScreenSize() const noexcept { return _screenSize; }
+		private:
+			vec2d						_screenSize;
+			irr::video::IVideoDriver			*_driver;
+			irr::scene::ISceneManager			*_sceneManager;
+			irr::IrrlichtDevice				*_device;
+			irr::gui::IGUIEnvironment			*_guiEnv;
+			std::map<std::string, irr::video::ITexture *>	_mapTexture;
+			std::shared_ptr<graphic::LibEventManager>	_eventManager{nullptr};
 	};
 	void driverChoiceConsole(irr::video::E_DRIVER_TYPE &);
 }
