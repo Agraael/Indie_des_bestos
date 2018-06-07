@@ -20,8 +20,13 @@ public:
 	void	placeBomb(entities::entityPosition, std::size_t);
 	void	updatePos(std::shared_ptr<entities::Entity>, entities::entityPosition);
 	void	deleteElem(std::shared_ptr<entities::Entity>);
+	void	checkCollision(std::shared_ptr<entities::Entity> entity, const entities::entityPosition &pos);
 private:
-	GameMap _map;
+	void	addBombs(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
+	void    addSpeed(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
+	void    addFire(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
+	void    allowWallpass(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
+	GameMap	_map;
 };
 
 #endif /* !MAP_HPP_ */

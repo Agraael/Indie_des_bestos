@@ -27,8 +27,17 @@ protected:
 class Character : public entities::Entity {
 public:
 	Character(entities::entityPosition pos, bool iskinematic, std::size_t layout, entities::entityType type) :
-	Entity(pos, iskinematic, layout, type) {}
+		Entity(pos, iskinematic, layout, type), _power(1), _bombs(1),  _speed(1), _wallpass(0) {}
+	void upgradeBombs() noexcept { _bombs += 1; }
+	void upgradeSpeed() noexcept { _speed += 1; }
+	void upgradePower() noexcept { _power += 1; }
+	void upgradeWallpass() noexcept { _wallpass += 1; }
+		
 protected:
+	int _power;
+	int _bombs;
+	int _speed;
+	int _wallpass;
 };
 
 #endif /* !CHARACTER_HPP */

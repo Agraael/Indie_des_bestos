@@ -35,6 +35,57 @@ void	Map::deleteElem(std::shared_ptr<entities::Entity> entity)
 	}
 }
 
+void Map::addBombs(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos)
+{
+	for (auto entity : _map[pos.first][pos.second])	{
+		if (entity == character) {
+			std::static_pointer_cast<Character>(entity).get()->upgradeBombs();
+		}
+	}
+}
+
+void Map::addSpeed(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos)
+{
+ 	for (auto entity : _map[pos.first][pos.second]) {
+                if (entity == character) {
+			std::static_pointer_cast<Character>(entity).get()->upgradeSpeed();
+		}
+	}
+}
+
+void Map::addFire(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos)
+{
+ 	for (auto entity : _map[pos.first][pos.second]) {
+                if (entity == character) {
+			std::static_pointer_cast<Character>(entity).get()->upgradePower();
+		}
+	}
+}
+
+void Map::allowWallpass(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos)
+{
+ 	for (auto entity : _map[pos.first][pos.second]) {
+                if (entity == character) {
+			std::static_pointer_cast<Character>(entity).get()->upgradeWallpass();
+		}
+	}
+}
+
+void Map::checkCollision(std::shared_ptr<entities::Entity> character, const entities::entityPosition &pos)
+{
+	for (auto entity : _map[pos.first][pos.second]) {
+		if (entity.get()->getType() == entities::entityType::BOMB_UP_TYPE) {
+			addBombs(character, pos);
+		} else if (entity.get()->getType() == entities::entityType::SPEED_UP_TYPE) {
+			addSpeed(character, pos);
+		} else if (entity.get()->getType() == entities::entityType::FIRE_UP_TYPE) {
+			addFire(character, pos);
+		} else if (entity.get()->getType() == entities::entityType::WALL_PASS_TYPE) {
+			allowWallpass(character, pos);
+		}
+	}
+}
+
 void	Map::updatePos(std::shared_ptr<entities::Entity> entity, entities::entityPosition pos)
 {
 	for (auto line : _map) {
