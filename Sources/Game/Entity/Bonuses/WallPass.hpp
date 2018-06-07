@@ -14,7 +14,8 @@ class WallPass : public BonusSpace::Bonus {
 	public:
                 WallPass(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
 		BonusSpace::Bonus(pos, iskinematic, layout, entities::entityType::WALL_PASS_TYPE) {}
-
+		~WallPass() final {};
+		void	update() {};
 	protected:
 	private:
 };
