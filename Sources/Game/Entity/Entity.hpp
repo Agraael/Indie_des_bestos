@@ -49,7 +49,7 @@ namespace entities {
 		void			die(bool state) { _isDead = state; }
 		void			setMap(std::shared_ptr<Map> &map) {_map = map; };
 		void			setTexture(std::string texture) { _texture = texture; }
-		std::string		getName() { return _name; }
+		std::string const	&getName() const noexcept { return _name; }
 	protected:
 		std::size_t		_id;
 		graphicEntityPosition	_graphicPos;

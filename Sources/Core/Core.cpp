@@ -92,10 +92,7 @@ void	Core::game_solo(const CoreState &state)
 		hGame.dumpPlayerName();
 		return;
 	}
-	hGame.updateMap();
-	if (hGame.CheckEndGame() == true) {
-		_state = CoreState::IN_MENU;
-	}
+	hGame.updateMap(_playing);
 	(void)(state);
 }
 
