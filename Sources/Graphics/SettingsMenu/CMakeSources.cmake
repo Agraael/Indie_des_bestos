@@ -10,3 +10,4 @@ set( SETTINGSMENU_INC
 
 set( SETTINGSMENU_SRC
   ${SETTINGSMENU_SRC_DIR}/settingsMenu.cpp )
+  #${SETTINGSMENU_INC_DIR}/main.cpp )

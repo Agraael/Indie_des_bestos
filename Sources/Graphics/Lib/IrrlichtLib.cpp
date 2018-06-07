@@ -5,13 +5,6 @@
 #include "LibEventManager.hpp"
 #include "IrrlichtLib.hpp"
 
-const wchar_t *graphic::convertStringToWString(const std::string &text)
-{
-	std::wstring wideStr = std::wstring(text.begin(), text.end());
-	const wchar_t *stringConverted = wideStr.c_str();
-	return (stringConverted);
-}
-
 graphic::IrrlichtLib::IrrlichtLib() {
 	_screenSize = {1080, 720};
 	_device = irr::createDevice(irr::video::EDT_OPENGL, irr::core::dimension2d<irr::u32>(_screenSize.x, _screenSize.y), 16, false, false, false, 0);
@@ -23,6 +16,7 @@ graphic::IrrlichtLib::IrrlichtLib() {
 	_guiEnv = _device->getGUIEnvironment();
 	_eventManager = std::make_shared<graphic::LibEventManager>(t_contextRecEvnt{_device, 0, nullptr});
 	_device->setEventReceiver(_eventManager.get());
+	_light = 255;
 }
 
 graphic::IrrlichtLib::~IrrlichtLib()
@@ -68,7 +62,9 @@ irr::gui::IGUIButton	*graphic::IrrlichtLib::printButton(const infos_t &infos)
 	std::wstring wideStrDesc = std::wstring(infos._desc.begin(), infos._desc.end());
 	const wchar_t *descriptionToPrint = wideStrDesc.c_str();
 	irr::gui::IGUIButton *butCustom = _guiEnv->addButton(irr::core::rect<irr::s32>(infos._x, infos._y, infos._w, infos._h), 0, infos._type, nameToPrint, descriptionToPrint);
+	butCustom->setDrawBorder(0);
 	butCustom->setImage(_driver->getTexture(infos._path.c_str()));
+	butCustom->setScaleImage(true);
 	butCustom->setUseAlphaChannel(true);
 	return (butCustom);
 
@@ -79,7 +75,6 @@ irr::gui::IGUIScrollBar	*graphic::IrrlichtLib::scrollBarButton(const infos_t &in
 	drawText(200, 200, 30, "Brightness Control");
 	irr::gui::IGUIScrollBar* scrollbar = _guiEnv->addScrollBar(true,irr::core::rect<irr::s32>(150, 55, 350, 60), 0, infos._type);
 	scrollbar->setMax(255);
-	// met la position de la barre de défilement à la valeur alpha d'un élément choisi arbitrairement
 	scrollbar->setPos(_guiEnv->getSkin()->getColor(irr::gui::EGDC_WINDOW).getAlpha());
 	return (scrollbar);
 }
@@ -98,7 +93,6 @@ void	graphic::IrrlichtLib::setCamera(const vec3df &pos, const vec3df &target)
 	cam->setTarget(irr::core::vector3df(target.x, target.y, target.z));
 }
 
-//"./media/red_brick.jpg"
 irr::scene::ISceneNode	*graphic::IrrlichtLib::createCube(const vec3df &pos, const std::string &path, irr::s32 id)
 {
 	irr::scene::ISceneNode *n = _sceneManager->addCubeSceneNode(1);
@@ -138,6 +132,27 @@ void	graphic::IrrlichtLib::drawText(size_t x, size_t y, size_t fontSize, const s
 	const wchar_t *wideCStr = wideStr.c_str();
 	_guiEnv->addStaticText(wideCStr, irr::core::rect<irr::s32>(x, y, x + 100, y + 100), true);
 	(void)(fontSize);
+}
+
+void graphic::IrrlichtLib::setSkinTransparency(irr::s32 alpha, irr::gui::IGUISkin *skin)
+{
+    for (irr::s32 i=0; i < irr::gui::EGDC_COUNT ; ++i)
+    {
+        irr::video::SColor col = skin->getColor((irr::gui::EGUI_DEFAULT_COLOR)i);
+        col.setAlpha(alpha);
+        std::cout << "print Alpha " << alpha << std::endl;
+        skin->setColor((irr::gui::EGUI_DEFAULT_COLOR)i, col);
+    }
+}
+
+void    graphic::IrrlichtLib::modifyLight(int nbr)
+{
+    if ((nbr == -10 && _light >= 10) || (nbr == 10 && _light <= 245)) {
+        _light = _light + nbr;
+        setSkinTransparency(_light, _guiEnv->getSkin());
+        std::cout << _light << std::endl;
+		_guiEnv->getSkin()->getColor(irr::gui::EGDC_WINDOW).getAlpha();
+    }
 }
 
 void	graphic::IrrlichtLib::clearGui() noexcept
