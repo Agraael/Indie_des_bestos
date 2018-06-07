@@ -13,7 +13,7 @@
 class Walls : public entities::Entity {
 	public:
 		Walls(entities::entityPosition pos, bool iskinematic, std::size_t layout, entities::entityType type) :
-		Entity(pos, iskinematic, layout, type) {}
+		Entity(pos, iskinematic, layout, type, "") {}
 		~Walls() {};
 	protected:
 };

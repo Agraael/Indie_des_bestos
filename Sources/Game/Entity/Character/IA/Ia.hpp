@@ -29,7 +29,7 @@ private:
 
 class Ia : public Character {
 public:
-	Ia(entities::entityPosition pos, bool iskinematic, std::size_t layout);
+	Ia(entities::entityPosition, bool, std::size_t, std::string);
 	void turn();
 	~Ia() { std::cout << "IA destroyed" << std::endl;}
 };

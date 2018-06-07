@@ -27,7 +27,7 @@ void Ia::turn()
 	_pos = move;
 }
 
-Ia::Ia(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
-                Character(pos, iskinematic, layout, entities::entityType::IA_TYPE)
+Ia::Ia(entities::entityPosition pos, bool iskinematic, std::size_t layout, std::string name) :
+                Character(pos, iskinematic, layout, entities::entityType::IA_TYPE, name)
 {
 }

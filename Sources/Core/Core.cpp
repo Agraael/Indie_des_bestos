@@ -47,7 +47,7 @@ void	Core::chooseCorePart(const CoreState &state)
 	if (_state == CoreState::IN_MENU)
 		menu(state);
 	if (_state == CoreState::IN_SOLO) {
-		sleep(2);
+//		sleep(2);
 		std::cout <<  "----------------------------------" << std::endl;
 		game_solo(state);
 	}
@@ -78,6 +78,9 @@ void	Core::game_solo(const CoreState &state)
 		return;
 	}
 	hGame.updateMap();
+	if (hGame.CheckEndGame() == true) {
+		_state = CoreState::IN_MENU;
+	}
 	(void)(state);
 }
 

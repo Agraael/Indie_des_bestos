@@ -35,6 +35,7 @@ class HandleGame
 		void	updateMap();
 		void	quitGame();
 		GameMap getGameMap() const noexcept { return (_threeDMap->get3dMap()); }
+		bool	CheckEndGame();
 	private:
 		void	changeDisp();
 		void	initMapGround(const GenerationSize &, std::size_t &);
