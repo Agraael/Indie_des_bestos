@@ -28,5 +28,5 @@ add_executable( ${INDIE_BIN_NAME}
 				${INDIE_SRC} )
 
 if(UNIX)
-	target_link_libraries(${INDIE_BIN_NAME} Irrlicht GL Xxf86vm Xext X11 Xcursor pthread IrrKlang ikpFlac ikpMP3)
+	target_link_libraries(${INDIE_BIN_NAME} Irrlicht GL Xxf86vm Xext X11 Xcursor)
 endif()

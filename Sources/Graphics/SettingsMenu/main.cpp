@@ -4,13 +4,11 @@
 
 #include <memory>
 #include "../LocalMenu/localMenu.hpp"
-#include <irrKlang.h>
 #include <string>
 #include <cstdio>
 #include <iostream>
-#include "irrKlang.h"
 
-using namespace std;
+/*using namespace std;
 
 int main()
 {
@@ -28,25 +26,25 @@ int main()
 
     engine->drop(); // delete engine
     return 0;
-}
+}*/
 
-/*int main()
+int main()
 {
 
     graphic::IrrlichtLib *lib = new graphic::IrrlichtLib;
     graphic::localMenu menu(lib);
     menu.display();
-    std::unordered_map <graphic::controllerUser, std::function<void(graphic::IrrlichtLib&)>>eventTab = menu.getEventTab();
+    //std::unordered_map <graphic::controllerUser, std::function<void(graphic::IrrlichtLib&)>>eventTab = menu.getEventTab();
     while (lib->getDevice()->run()) {
         menu.updateDisplay();
-        for (auto button = eventTab.begin(); button != eventTab.end(); button++) {
+        /*for (auto button = eventTab.begin(); button != eventTab.end(); button++) {
             if (lib->getEventManager()->IsButtonClicked(static_cast<graphic::controllerUser>(button->first)) == true) {
                 std::cout << button->first << std::endl;
                 button->second(*lib);
                 std::cout << lib->getLight() << std::endl;
             }
-        }
+        }*/
         lib->displayAll(true);
     }
     return (0);
-}*/
+}

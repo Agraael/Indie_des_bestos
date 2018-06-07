@@ -22,6 +22,9 @@ namespace graphic
         void printBackground();
         void display();
         void returnToMenu();
+        void playGame();
+        void choiceMap();
+        void choiceSizeMap();
         void updateDisplay();
         void printChoicePlayers();
         void printChoiceIA();
@@ -30,14 +33,14 @@ namespace graphic
         graphic::IrrlichtLib *_lib;
         irr::gui::IGUIImage *_clouds;
         size_t _count;
-        /*const std::unordered_map <graphic::controllerUser, std::function<void(graphic::IrrlichtLib&)>> _eventTab =
+        const std::unordered_map <graphic::controllerUser, std::function<void()>> _eventTab =
                 {
-                        {graphic::BRIGTHNESS_DOWN, [](graphic::IrrlichtLib &_lib){ _lib.modifyLight(-10); }},
-                        {graphic::BRIGTHNESS_UP, [](graphic::IrrlichtLib &_lib){ _lib.modifyLight(10); }},
-                        {graphic::SOUND_DOWN, [](graphic::IrrlichtLib &_lib){ _lib = _lib; }},
-                        {graphic::SOUND_UP, [](graphic::IrrlichtLib &_lib){ _lib = _lib; }},
+                        {graphic::LARGE_MAP, [this](){ _size = LARGE; }},
+                        {graphic::BRIGTHNESS_UP, [this](){ _size = SMALL; }},
+                        {graphic::SOUND_DOWN, [this](){ _size = MEDIUM; }},
+                        {graphic::SOUND_UP, [](){ }},
                         //{graphic::EXIT_MAINMENU, [](graphic::IrrlichtLib &_lib){}},
-        };*/
+        };
     };
 }
 

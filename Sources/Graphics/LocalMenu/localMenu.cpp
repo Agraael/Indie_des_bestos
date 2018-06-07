@@ -100,7 +100,7 @@ void graphic::localMenu::printChoiceIA()
     moins._y = 120;
     moins._w = 330;
     moins._h = 150;
-    moins._type = graphic::LESS_PLAYER;
+    moins._type = graphic::LESS_IA;
     moins._desc = "Less players";
     moins._name = "";
     moins._path = "./Assets/media/left_arrow.png";
@@ -124,11 +124,92 @@ void graphic::localMenu::printChoiceIA()
     plus._path = "./Assets/media/right_arrow.png";
     plus._desc = "Sound up";
     plus._name = "";
-    plus._type = graphic::MORE_PLAYER;
+    plus._type = graphic::MORE_IA;
     _lib->printButton(plus);
 }
 
-void    graphic::localMenu::returnToMenu()
+void graphic::localMenu::choiceMap()
+{
+    graphic::infos_t map;
+    map._x = 50;
+    map._y = 150;
+    map._w = 100;
+    map._h = 40;
+    map._maxW = 100;
+    map._maxH = 70;
+    map._path = "./Assets/media/map.png";
+    _lib->drawImage(map);
+
+    graphic::infos_t dist;
+    dist._x = 180;
+    dist._y = 180;
+    dist._w = 360;
+    dist._h = 210;
+    dist._type = graphic::DIST_MAP;
+    dist._desc = "only distructibles cubes";
+    dist._name = "FULL DISTRUCTIBLE";
+    dist._path = "./Assets/media/blue_button.png";
+    _lib->printButton(dist);
+
+    graphic::infos_t stand;
+    stand._x = 390;
+    stand._y = 180;
+    stand._w = 570;
+    stand._h = 210;
+    stand._path = "./Assets/media/blue_button.png";
+    stand._desc = "indistructibles and distructibles cubes";
+    stand._name = "STANDARD";
+    stand._type = graphic::STAND_MAP;
+    _lib->printButton(stand);
+}
+
+void graphic::localMenu::choiceSizeMap()
+{
+    graphic::infos_t map;
+    map._x = 50;
+    map._y = 210;
+    map._w = 100;
+    map._h = 40;
+    map._maxW = 100;
+    map._maxH = 70;
+    map._path = "./Assets/media/map_size.png";
+    _lib->drawImage(map);
+
+    graphic::infos_t small;
+    small._x = 180;
+    small._y = 240;
+    small._w = 300;
+    small._h = 270;
+    small._type = graphic::SMALL_MAP;
+    small._desc = "small map";
+    small._name = "SMALL";
+    small._path = "./Assets/media/blue_button.png";
+    _lib->printButton(small);
+
+    graphic::infos_t medium;
+    medium._x = 330;
+    medium._y = 240;
+    medium._w = 450;
+    medium._h = 270;
+    medium._path = "./Assets/media/blue_button.png";
+    medium._desc = "medium map";
+    medium._name = "MEDIUM";
+    medium._type = graphic::MEDIUM_MAP;
+    _lib->printButton(medium);
+
+    graphic::infos_t large;
+    large._x = 480;
+    large._y = 240;
+    large._w = 600;
+    large._h = 270;
+    large._path = "./Assets/media/blue_button.png";
+    large._desc = "large map";
+    large._name = "LARGE";
+    large._type = graphic::LARGE_MAP;
+    _lib->printButton(large);
+}
+
+void    graphic::localMenu::playGame()
 {
     graphic::infos_t buttonExit;
     buttonExit._x = 200;
@@ -136,8 +217,22 @@ void    graphic::localMenu::returnToMenu()
     buttonExit._w = 380;
     buttonExit._h = 360;
     buttonExit._path = "Assets/media/button_menu.png";
+    buttonExit._desc = "Play game";
+    buttonExit._name = "START";
+    buttonExit._type = graphic::EXIT_MAINMENU;
+    _lib->printButton(buttonExit);
+}
+
+void    graphic::localMenu::returnToMenu()
+{
+    graphic::infos_t buttonExit;
+    buttonExit._x = 200;
+    buttonExit._y = 390;
+    buttonExit._w = 380;
+    buttonExit._h = 420;
+    buttonExit._path = "Assets/media/button_menu.png";
     buttonExit._desc = "Return to main menu";
-    buttonExit._name = "Return to menu";
+    buttonExit._name = "RETURN TO MENU";
     buttonExit._type = graphic::EXIT_MAINMENU;
     _lib->printButton(buttonExit);
 }
@@ -147,7 +242,10 @@ void    graphic::localMenu::display()
     printBackground();
     printChoicePlayers();
     printChoiceIA();
+    choiceMap();
+    choiceSizeMap();
     printLogo();
+    playGame();
     returnToMenu();
 }
 
