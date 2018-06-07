@@ -11,19 +11,21 @@
 
 std::shared_ptr<entities::Entity>	Map::placeExplosion(entities::entityPosition pos)
 {
+	std::shared_ptr<entities::Entity>		newEntity;
+
 	newEntity = std::make_shared<entities::Entity>(GonnaExplose(pos, false, 1));
 	_map[pos.first][pos.second].push_back(newEntity);
+	return newEntity;
 }
 
-void    Map::placeBomb(entities::entityPosition pos, std::size_t shinning)
+void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
 {
-	std::shared_ptr<entities::Entity>		newEntity;
 	std::vector<std::shared_ptr<entities::Entity>>	exploseTab;
 
-	for (int i = 1; i <= static_cast<int>(shining); ++i) {
+	for (int i = 1; i <= static_cast<int>(power); ++i) {
 		if ((pos.first - i) >= 0)
 			exploseTab.push_back(placeExplosion(std::make_pair(pos.first - i, pos.second)));
-		else if ((pos.first + i) >= 0) {
+		else if ((pos.first + i) >= 0)
 			exploseTab.push_back(placeExplosion(std::make_pair(pos.first + i, pos.second)));			
 		else if ((pos.second - i) >= 0)
 			exploseTab.push_back(placeExplosion(std::make_pair(pos.first, pos.second - i)));
@@ -33,32 +35,24 @@ void    Map::placeBomb(entities::entityPosition pos, std::size_t shinning)
  	_map[pos.first][pos.second].push_back(std::make_shared<entities::Entity>(Bombs(pos, false, 0)));
 }
 
+#include <algorithm>
+
 void	Map::deleteElem(std::shared_ptr<entities::Entity> entity)
 {
-//	std::size_t	index;
 
-	std::cout << entity.get()->getPos().first << " " << entity.get()->getPos().second << std::endl;
-	//_map[entity.get()->getPos().first][entity.get()->getPos().second].pop_back();
-	for (auto elem : _map[3][4]) {
-		if (elem.get()->getType() == entity.get()->getType())
-			std::cout << elem.get()->getPos().first << " " << elem.get()->getPos().second << std::endl;
-//		++index;
-	}
-/*  	for (auto line : _map) {
-		for (auto tab : line) {
-			index = 0;
-			for (auto elem : tab) {
-				if (elem.get()->getType() == entity.get()->getType())
-					_map[entity.get()->getPos().first][entity.get()->getPos().second].erase((_map[entity.get()->getPos().first][entity.get()->getPos().second]).begin()+index);
-				++index;
-			}
-		}
-	} */
+	auto x = entity->getPos().first;
+	auto y = entity->getPos().second;
+	
+	auto find = std::find(std::begin(_map[x][y]), std::end(_map[x][y]), entity);
+	if (find == std::end(_map[x][y]))
+		std::cout << "no found" << std::endl;
+	else
+		_map[x][y].erase(find);
 }
 
 void	Map::displayMap()
 {
-	for (auto line : _map) {
+/*	for (auto line : _map) {
 		for (auto tab : line) {
 			for (std::size_t i = 0; i < tab.size(); ++i) {
 				if (tab[i].get()->getType() == entities::entityType::IA_TYPE)
@@ -70,23 +64,23 @@ void	Map::displayMap()
 				std::cout << " ";
 		}
 		std::cout << std::endl;
-	}
+	}*/
 }
 
-void	Map::updatePos(std::shared_ptr<entities::Entity> entity, entities::entityPosition pos)
+void	Map::updatePos(entities::Entity* entity, entities::entityPosition newPos)
 {
-	std::size_t 	index = 0;
+	std::cout << entity << std::endl;
+	auto x = entity->getPos().first;
+	auto y = entity->getPos().second;
+	auto find = std::find_if(std::begin(_map[x][y]), std::end(_map[x][y]), 
+				[entity](const std::shared_ptr<entities::Entity>& elem){return elem.get() == entity;});
 
-	for (auto line : _map) {
-		for (auto tab : line) {
-			for (auto shared : tab) {
-				if (shared.get()->getId() == entity.get()->getId() && index == 0) {
-					_map[pos.first][pos.second].push_back(entity);
-					deleteElem(entity);
-					displayMap();
-					++index;
-				}				
-			}
-		}
-	}	
+	std::cout << "entity nb : " << entity->getId() << std::endl;
+	std::cout << x << ":" << y << " -> " << newPos.first << ":" << newPos.second << std::endl;
+	if (find == std::end(_map[x][y]))
+		std::cout << "no found" << std::endl;
+	else {
+		//_map[newPos.first][newPos.second].push_back(*find);
+		//_map[x][y].erase(find);
+	}
 }

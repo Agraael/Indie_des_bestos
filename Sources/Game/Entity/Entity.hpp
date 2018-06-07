@@ -43,6 +43,7 @@ namespace entities {
 		std::string		getTextrue() const noexcept { return _texture; }
 		entities::entityType	getType() const noexcept { return _typeEnum; }
 		std::size_t		getLayout() const noexcept { return _layout; }
+		std::size_t		getId() const noexcept { return _id; }
 		void			setId(std::size_t id) { _id = id; }
 		std::size_t		getId() { return (_id); }
 		void			die(bool state) { _isDead = state; }

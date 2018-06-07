@@ -38,14 +38,19 @@ int	Core::run()
 	return 0;
 }
 
+#include <time.h>
+#include <unistd.h>
 void	Core::chooseCorePart(const CoreState &state)
 {
 	// if (_fcnTab.find(_state) != _fcnTab.end())
 	// 	_fcnTab.at(_state)(state);
 	if (_state == CoreState::IN_MENU)
 		menu(state);
-	if (_state == CoreState::IN_SOLO)
+	if (_state == CoreState::IN_SOLO) {
+		sleep(2);
+		std::cout <<  "----------------------------------" << std::endl;
 		game_solo(state);
+	}
 }
 
 void	Core::menu(const CoreState &state)
@@ -53,7 +58,7 @@ void	Core::menu(const CoreState &state)
 	(void)(state);
 	_menu->updateDisplay();
 	if (state == CoreState::IN_SOLO) {
-		hGame.InitGame(GenerationSize::Medium, GenerationMod::Standard, _lib);
+		hGame.InitGame({GenerationSize::Medium, GenerationMod::Standard, 1, 3});
 		_state = state;
 		return;
 	}

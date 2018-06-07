@@ -15,7 +15,7 @@ class Bombs : public entities::Entity {
 	public:
                 Bombs(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
 		entities::Entity(pos, iskinematic, layout, entities::entityType::BOMBS_TYPE), _saveTime(std::time(nullptr)) {}
-		void	checkExplosion();
+		bool	checkExplosion();
 	private:
 		time_t 	_saveTime;
 };

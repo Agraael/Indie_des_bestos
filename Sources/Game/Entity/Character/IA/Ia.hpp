@@ -31,6 +31,7 @@ class Ia : public Character {
 public:
 	Ia(entities::entityPosition pos, bool iskinematic, std::size_t layout);
 	void turn();
+	~Ia() { std::cout << "IA destroyed" << std::endl;}
 };
 
 #endif /* !ia */

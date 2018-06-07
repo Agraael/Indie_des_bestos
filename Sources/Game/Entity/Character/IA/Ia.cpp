@@ -10,19 +10,20 @@
 
 void Ia::turn()
 {
-        //Algorithm *algo = new Algorithm;
-        std::pair<int, int> move = _pos;
+        std::pair<int, int> move = std::make_pair<int, int>(1, 1);
         GameMap map = _map->get3dMap();
+	Algorithm *algo = new Algorithm;
 
-	/* if (algo->check_if_dangerous_zone(map, _pos) == true) {
+	(void)(algo);
+ 	/*if (algo->check_if_dangerous_zone(map, _pos) == true) {
 		move = algo->defensiveMove(map, _pos);
 	}
 	else {
 		move = algo->offensiveMove(map, _pos, _map);
-	} */
-	_map->updatePos(static_cast<std::shared_ptr<Entity>>(this), move);
-	std::cout << std::endl;
-	_map->displayMap();
+	}*/
+	//if (_pos != move) {
+		_map->updatePos(this, move);
+	//}
 	_pos = move;
 }
 

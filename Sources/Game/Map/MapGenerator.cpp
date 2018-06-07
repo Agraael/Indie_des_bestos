@@ -5,6 +5,7 @@
 ** Map Generator
 */
 
+#include <exception>
 #include <iostream>
 #include "Procedural.hpp"
 #include "MapGenerator.hpp"
@@ -28,6 +29,28 @@ void	MapGenerator::runGeneration(const GenerationSize &sizeType, const Generatio
 		genStandardMap(_GenSizeTab.at(sizeType));
 	else if (modType == GenerationMod::FullDest)
 		genFullDestMap(_GenSizeTab.at(sizeType));
+}
+
+void	MapGenerator::setPlayers(const int &nb_player, const int &nb_ia)
+{
+	int	p = 0;
+	int	ai = 0;
+
+	if (!_map)
+		throw std::exception();
+	for (int y = 0; _map[y]; y++) {
+		for (int x = 0; _map[y][x] != '\0'; x++) {
+			if (_map[y][x] == SPAWNPOINT) {
+				if (p < nb_player) {
+					_map[y][x] = 'l';
+					p++;
+				} else if (ai < nb_ia) {
+					_map[y][x] = 'C';
+					ai++;
+				}
+			}
+		}
+	}
 }
 
 void	MapGenerator::genStandardMap(const Vector_t &size)
