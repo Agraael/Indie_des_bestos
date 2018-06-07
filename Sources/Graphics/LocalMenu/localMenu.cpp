@@ -9,7 +9,6 @@
 
 graphic::localMenu::localMenu(graphic::IrrlichtLib *lib) : _lib(lib)
 {
-    _count = -30;
 }
 
 void    graphic::localMenu::printLogo()
@@ -61,15 +60,14 @@ void graphic::localMenu::printChoicePlayers()
     moins._path = "./Assets/media/left_arrow.png";
     _lib->printButton(moins);
 
-    graphic::infos_t nbrPlayers;
-    nbrPlayers._x = 340;
-    nbrPlayers._y = 50;
-    nbrPlayers._w = 30;
-    nbrPlayers._h = 30;
-    nbrPlayers._maxW = 30;
-    nbrPlayers._maxH = 30;
-    nbrPlayers._path = "./Assets/media/one.png";
-    _lib->drawImage(nbrPlayers);
+    _infosPlayers._x = 340;
+    _infosPlayers._y = 50;
+    _infosPlayers._w = 30;
+    _infosPlayers._h = 30;
+    _infosPlayers._maxW = 30;
+    _infosPlayers._maxH = 30;
+    _infosPlayers._path = "./Assets/media/one.png";
+    _lib->drawImage(_infosPlayers);
 
     graphic::infos_t plus;
     plus._x = 390;
@@ -106,15 +104,14 @@ void graphic::localMenu::printChoiceIA()
     moins._path = "./Assets/media/left_arrow.png";
     _lib->printButton(moins);
 
-    graphic::infos_t nbrPlayers;
-    nbrPlayers._x = 340;
-    nbrPlayers._y = 120;
-    nbrPlayers._w = 30;
-    nbrPlayers._h = 30;
-    nbrPlayers._maxW = 30;
-    nbrPlayers._maxH = 30;
-    nbrPlayers._path = "./Assets/media/one.png";
-    _lib->drawImage(nbrPlayers);
+    _infosIa._x = 340;
+    _infosIa._y = 120;
+    _infosIa._w = 30;
+    _infosIa._h = 30;
+    _infosIa._maxW = 30;
+    _infosIa._maxH = 30;
+    _infosIa._path = "./Assets/media/one.png";
+    _lib->drawImage(_infosIa);
 
     graphic::infos_t plus;
     plus._x = 390;
@@ -237,19 +234,50 @@ void    graphic::localMenu::returnToMenu()
     _lib->printButton(buttonExit);
 }
 
+void graphic::localMenu::printNbrChoice(int nbr, graphic::infos_t *nbrEntity)
+{
+    if (nbr == 1)
+        (*nbrEntity)._path = "./Assets/media/one.png";
+    if (nbr == 2)
+        (*nbrEntity)._path = "./Assets/media/two.png";
+    if (nbr == 3)
+        (*nbrEntity)._path = "./Assets/media/three.png";
+}
+
+void     graphic::localMenu::getNbrIa(int nbr) {
+
+    if (nbr == 1 && _nbrPlayers < 3 && _nbrIa < 3)
+        _nbrIa++;
+    if (nbr == -1 && _nbrIa > 0)
+        _nbrIa--;
+    printNbrChoice(_nbrIa, &_infosIa);
+}
+
+void     graphic::localMenu::getNbrPlayer(int nbr)
+{
+
+    if (nbr == 1 && _nbrPlayers < 3 && _nbrIa < 3)
+        _nbrPlayers++;
+    if (nbr == -1 && _nbrPlayers > 0)
+        _nbrPlayers--;
+    printNbrChoice(_nbrPlayers, &_infosPlayers);
+}
+
 void    graphic::localMenu::display()
 {
     printBackground();
-    printChoicePlayers();
-    printChoiceIA();
     choiceMap();
     choiceSizeMap();
     printLogo();
     playGame();
+    printChoicePlayers();
+    printChoiceIA();
     returnToMenu();
 }
 
 void graphic::localMenu::updateDisplay()
 {
+    _lib->drawImage(_infosIa);
+    _lib->drawImage(_infosPlayers);
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }

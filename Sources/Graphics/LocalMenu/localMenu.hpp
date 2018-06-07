@@ -12,6 +12,15 @@
 
 namespace graphic
 {
+    enum sizeMap {
+        SMALL,
+        MEDIUM,
+        LARGE
+    };
+    enum entityMap {
+        STANDARD,
+        DISTRUCTIBLE
+    };
     class localMenu {
     public:
         localMenu(graphic::IrrlichtLib *lib);
@@ -21,6 +30,8 @@ namespace graphic
         irr::gui::IGUIImage *printClouds();
         void printBackground();
         void display();
+        void getNbrPlayer(int nbr);
+        void getNbrIa(int nbr);
         void returnToMenu();
         void playGame();
         void choiceMap();
@@ -28,17 +39,29 @@ namespace graphic
         void updateDisplay();
         void printChoicePlayers();
         void printChoiceIA();
-        //std::unordered_map <graphic::controllerUser, std::function<void(graphic::IrrlichtLib&)>> getEventTab() { return _eventTab; };
+        void printNbrChoice(int nbr, graphic::infos_t *nbrEntity);
+        std::unordered_map <graphic::controllerUser, std::function<void()>> getEventTab() { return _eventTab; };
     private:
         graphic::IrrlichtLib *_lib;
         irr::gui::IGUIImage *_clouds;
-        size_t _count;
+        graphic::sizeMap _sizeMap;
+        graphic::entityMap _entityMap;
+        size_t _nbrIa;
+        size_t _nbrPlayers;
+        graphic::infos_t _infosPlayers;
+        graphic::infos_t _infosIa;
+
         const std::unordered_map <graphic::controllerUser, std::function<void()>> _eventTab =
                 {
-                        {graphic::LARGE_MAP, [this](){ _size = LARGE; }},
-                        {graphic::BRIGTHNESS_UP, [this](){ _size = SMALL; }},
-                        {graphic::SOUND_DOWN, [this](){ _size = MEDIUM; }},
-                        {graphic::SOUND_UP, [](){ }},
+                        {graphic::LARGE_MAP, [this](){ _sizeMap = LARGE; }},
+                        {graphic::SMALL_MAP, [this](){ _sizeMap = SMALL; }},
+                        {graphic::MEDIUM_MAP, [this](){ _sizeMap = MEDIUM; }},
+                        {graphic::DIST_MAP, [this](){ _entityMap = DISTRUCTIBLE; }},
+                        {graphic::STAND_MAP, [this](){ _entityMap = STANDARD; }},
+                        {graphic::MORE_PLAYER, [this](){ getNbrPlayer(1); }},
+                        {graphic::LESS_PLAYER, [this](){ getNbrPlayer(-1); }},
+                        {graphic::MORE_IA, [this](){ getNbrIa(1); }},
+                        {graphic::LESS_IA, [this](){ getNbrIa(-1); }},
                         //{graphic::EXIT_MAINMENU, [](graphic::IrrlichtLib &_lib){}},
         };
     };
