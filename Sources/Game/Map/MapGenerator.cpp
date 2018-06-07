@@ -47,7 +47,8 @@ void	MapGenerator::setPlayers(const int &nb_player, const int &nb_ia)
 				} else if (ai < nb_ia) {
 					_map[y][x] = 'C';
 					ai++;
-				}
+				} else
+					_map[y][x] = PASS;
 			}
 		}
 	}

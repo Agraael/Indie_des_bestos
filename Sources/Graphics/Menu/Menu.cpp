@@ -100,21 +100,9 @@ void graphic::Menu::printBackground()
 	_lib->drawImage(background);
 }
 
-void    graphic::Menu::printUserName()
-{
-    graphic::infos_t infos;
-    infos._name = "your bomberName";
-    infos._x = 200;
-    infos._y = 200;
-    infos._w = 400;
-    infos._h = 230;
-    _lib->drawEditBox(infos);
-}
-
 void    graphic::Menu::display()
 {
     printBackground();
-    printUserName();
     drawChoiceButtons();
     _dirigible = drawDirigible();
 }
