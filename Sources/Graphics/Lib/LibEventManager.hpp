@@ -60,10 +60,15 @@ namespace graphic
 		KEY_D,
 		SPACEBAR,
 		ECHAP,
-		RESTART,
+		SAVE,
 		CONTINUE,
 		MENU,
 		QUIT,
+		RESUME_GAME,
+		MAP_NEXT,
+		MAP_PREV,
+		MAP_SIZE_UP,
+		MAP_SIZE_DOWN,
 		GUI_ID_NO_BUTTON
 	};
 

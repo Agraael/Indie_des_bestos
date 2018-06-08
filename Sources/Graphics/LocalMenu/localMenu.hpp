@@ -5,72 +5,78 @@
 #ifndef LOCALSMENU_HPP
 #define LOCALSMENU_HPP
 
+#include <vector>
 #include <functional>
 #include <unordered_map>
 #include "IrrlichtLib.hpp"
 #include "EventManager.hpp"
+#include "Gen.hpp"
 
 namespace graphic
 {
-    enum sizeMap {
-        SMALL,
-        MEDIUM,
-        LARGE
-    };
-    enum entityMap {
-        STANDARD,
-        DISTRUCTIBLE
-    };
-    class localMenu {
-    public:
-        localMenu(graphic::IrrlichtLib *lib);
-        ~localMenu() = default;
-        void printLogo();
-        void startClouds();
-        irr::gui::IGUIImage *printClouds();
-        void printBackground();
-        void display();
-        void setNbrPlayer(int nbr);
-        void setNbrIa(int nbr);
-        void returnToMenu();
-        void playGame();
-        void choiceMap();
-        void choiceSizeMap();
-        void updateDisplay();
-        void printChoicePlayers();
-        void printChoiceIA();
-        size_t getIaNbr() { return _nbrIa; }
-        size_t getPlayersNbr() { return _nbrPlayers; }
-        graphic::sizeMap getMapSize() { return _sizeMap; }
-        graphic::entityMap getEntityMap() { return _entityMap; }
-        void printNbrChoice(int nbr, graphic::infos_t *nbrEntity, irr::gui::IGUIImage *img);
-        std::unordered_map <graphic::controllerUser, std::function<void()>> getEventTab() { return _eventTab; };
-    private:
-        graphic::IrrlichtLib *_lib;
-        irr::gui::IGUIImage *_clouds;
-        graphic::sizeMap _sizeMap;
-        graphic::entityMap _entityMap;
-        size_t _nbrIa;
-        size_t _nbrPlayers;
-        irr::gui::IGUIImage *_iaNbrImg;
-        irr::gui::IGUIImage *_playerNbrImg;
-        graphic::infos_t _infosPlayers;
-        graphic::infos_t _infosIa;
+	enum sizeMap {
+		SMALL,
+		MEDIUM,
+		LARGE
+	};
 
-        const std::unordered_map <graphic::controllerUser, std::function<void()>> _eventTab =
-                {
-                        {graphic::LARGE_MAP, [this](){ _sizeMap = LARGE; }},
-                        {graphic::SMALL_MAP, [this](){ _sizeMap = SMALL; }},
-                        {graphic::MEDIUM_MAP, [this](){ _sizeMap = MEDIUM; }},
-                        {graphic::DIST_MAP, [this](){ _entityMap = DISTRUCTIBLE; }},
-                        {graphic::STAND_MAP, [this](){ _entityMap = STANDARD; }},
-                        {graphic::MORE_PLAYER, [this](){ setNbrPlayer(1); }},
-                        {graphic::LESS_PLAYER, [this](){ setNbrPlayer(-1); }},
-                        {graphic::MORE_IA, [this](){ setNbrIa(1); }},
-                        {graphic::LESS_IA, [this](){ setNbrIa(-1); }},
-                        {graphic::EXIT_MAINMENU, [](){}},
-        };
-    };
+	enum entityMap {
+		STANDARD,
+		DISTRUCTIBLE
+	};
+
+	class localMenu
+	{
+		public:
+			localMenu(graphic::IrrlichtLib *&lib) : _lib(lib) {}
+			void					display();
+			void					updateDisplay();
+			std::string	const		&getMapName() const noexcept { return _name; }
+			GenerationSize const	&getGenSize() const noexcept { return _genSizeTab[_genSize]; }
+			GenerationMod const		&getGenMode() const noexcept { return _genModeTab[_genMode]; }
+			int	const				&getPlayerNb() const noexcept { return _playersNb; }
+			int	const				&getIaNb() const noexcept { return _aisNb; }
+		private:
+			graphic::IrrlichtLib	*_lib;
+			std::string		_name;
+			int	_genSize;
+			int	_genMode;
+			irr::gui::IGUIImage *_iaNbImg;
+			irr::gui::IGUIImage *_playerNbImg;
+			irr::gui::IGUIImage *_mapSizeImg;
+			irr::gui::IGUIImage *_mapModImg;
+			graphic::infos_t _iaNbInfos;
+			graphic::infos_t _playerNbInfos;
+			graphic::infos_t _mapSizeInfos;
+			graphic::infos_t _mapModInfos;
+			int				_playersNb;
+			int				_aisNb;
+
+			const std::unordered_map<graphic::controllerUser, std::function<void()>>	_updateNumberEntity = {
+				{graphic::controllerUser::PLAYER_DOWN, [this](){ (_playersNb == 1) ? _playersNb = 1 : _playersNb--; }},
+				{graphic::controllerUser::PLAYER_UP, [this](){ (_playersNb == 2) ? _playersNb = 2 : _playersNb++; }},
+				{graphic::controllerUser::IA_DOWN, [this](){ (_aisNb == 0) ? _aisNb = 0 : _aisNb--; }},
+				{graphic::controllerUser::IA_UP, [this](){ (_aisNb == 3) ? _aisNb = 3 : _aisNb++; }},
+				{graphic::controllerUser::MAP_NEXT, [this](){ (_genMode == 1) ? _genMode-- : _genMode++; }},
+				{graphic::controllerUser::MAP_PREV, [this](){ (_genMode == 0) ? _genMode++ : _genMode--; }},
+				{graphic::controllerUser::MAP_SIZE_UP, [this](){ (_genSize == 2) ? _genSize = 0 : _genSize++; }},
+				{graphic::controllerUser::MAP_SIZE_DOWN, [this](){ (_genSize == 0) ? _genSize = 2 : _genSize--; }}
+			};
+
+			const std::vector<GenerationSize>	_genSizeTab = {GenerationSize::Small, GenerationSize::Medium, GenerationSize::Big};
+			const std::vector<GenerationMod>	_genModeTab = {GenerationMod::FullDest, GenerationMod::Standard};
+
+			void	printNumber(graphic::infos_t &, irr::gui::IGUIImage *&, int);
+			void	printGoodOneMod();
+			void	printGoodOneSize();
+			void	printBackground();
+			void	printMenuTitle();
+			void	printMapName();
+			void	printButtonsPlayer();
+			void	printButtonsIa();
+			void	printButtonsChooseMap();
+			void	printCoreButtons();
+	};
 }
 
 #endif //LOCALMENU_HPP
