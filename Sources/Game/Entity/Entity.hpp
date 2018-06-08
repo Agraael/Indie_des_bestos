@@ -49,6 +49,7 @@ namespace entities {
 		std::size_t		getId() { return (_id); }
 		void			die(bool state) { _isDead = state; }
 		void			setMap(std::shared_ptr<Map> &map) {_map = map; };
+		void			setLayout(int i) noexcept { _layout = i;}
 		void			setTexture(std::string texture) { _texture = texture; }
 		std::string const	&getName() const noexcept { return _name; }
 	protected:
