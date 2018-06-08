@@ -6,6 +6,7 @@
 */
 
 #include "Map.hpp"
+#include <algorithm>
 #include "Bombs.hpp"
 #include "GonnaExplose.hpp"
 
@@ -33,8 +34,6 @@ void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
 	}
  	_map[pos.first][pos.second].push_back(std::make_shared<Bombs>(pos, false, 0, exploseTab));
 }
-
-#include <algorithm>
 
 void	Map::deleteElem(std::shared_ptr<entities::Entity> entity)
 {
@@ -85,7 +84,12 @@ void Map::allowWallpass(std::shared_ptr<entities::Entity> &character, const enti
         }
 }
 
-void Map::checkCollision(std::shared_ptr<entities::Entity> character, const entities::entityPosition &pos)
+void	Map::checkExplosioCollision(entities::entityPosition)
+{
+	for (auto _map[][])
+}
+
+void Map::checkBonusCollision(std::shared_ptr<entities::Entity> character, const entities::entityPosition &pos)
 {
         for (auto entity : _map[pos.first][pos.second]) {
                 if (entity.get()->getType() == entities::entityType::BOMB_UP_TYPE) {
@@ -100,22 +104,7 @@ void Map::checkCollision(std::shared_ptr<entities::Entity> character, const enti
         }
 }
 
-void	Map::displayMap()
-{
-/*	for (auto line : _map) {
-		for (auto tab : line) {
-			for (std::size_t i = 0; i < tab.size(); ++i) {
-				if (tab[i].get()->getType() == entities::entityType::IA_TYPE)
-					std::cout << "a";
-				else
-					std::cout << "l";
-			}
-			if (tab.empty())
-				std::cout << " ";
-		}
-		std::cout << std::endl;
-	}*/
-}
+
 
 void	Map::updatePos(entities::Entity* entity, entities::entityPosition newPos)
 {
