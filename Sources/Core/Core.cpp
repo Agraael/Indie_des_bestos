@@ -67,7 +67,7 @@ void	Core::menu(const CoreState &state)
 
 void	Core::game(const CoreState &)
 {
-	sleep (0.5);
+//	sleep (0.5);
 	if (_lib->getEventManager()->IsKeyDown(irr::EKEY_CODE::KEY_ESCAPE) == true) {
 		_menuPause->display();
 		_state = CoreState::GAME_PAUSE;

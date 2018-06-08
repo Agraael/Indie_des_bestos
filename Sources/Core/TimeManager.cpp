@@ -5,7 +5,6 @@
 ** Created by kraken, 08/06/18
 */
 
-#include <caca_conio.h>
 #include "TimeManager.hpp"
 
 Singleton::TimeManager Singleton::TimeManager::_instance = Singleton::TimeManager();
