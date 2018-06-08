@@ -66,12 +66,10 @@ private:
 	void		InitSoloBombUp(SharedEntity &, std::size_t, std::size_t);
 
 	EntitiesVec	_tempLine;
-	SharedEntity							_tempTab;	
-	std::unordered_map<std::size_t, std::vector<graphic::controllerUser>>	_eventPlayer = {
-		{1, {graphic::controllerUser::ARROW_DOWN, graphic::controllerUser::ARROW_UP, graphic::controllerUser::ARROW_LEFT, graphic::controllerUser::ARROW_RIGHT, graphic::controllerUser::ENTER}},
-		{2, {graphic::controllerUser::KEY_Z, graphic::controllerUser::KEY_Q, graphic::controllerUser::KEY_S, graphic::controllerUser::KEY_D, graphic::controllerUser::SPACEBAR}},
-		{3, {graphic::controllerUser::KEY_Z, graphic::controllerUser::KEY_Q, graphic::controllerUser::KEY_S, graphic::controllerUser::KEY_D, graphic::controllerUser::SPACEBAR}},
-		{4, {graphic::controllerUser::KEY_Z, graphic::controllerUser::KEY_Q, graphic::controllerUser::KEY_S, graphic::controllerUser::KEY_D, graphic::controllerUser::SPACEBAR}}
+	SharedEntity	_tempTab;	
+	std::unordered_map<std::size_t, std::vector<irr::EKEY_CODE>>	_eventPlayer = {
+		{1, {irr::KEY_KEY_Z, irr::KEY_KEY_Q, irr::KEY_KEY_S, irr::KEY_KEY_D, irr::KEY_SPACE}},
+		{2, {irr::KEY_UP, irr::KEY_RIGHT, irr::KEY_DOWN, irr::KEY_LEFT, irr::KEY_RETURN}},
 	};
 	using	EntitiesInitialization = std::function<void(SharedEntity &, std::size_t, std::size_t)>;
 	using	ptrMapFunc = std::unordered_map<entityType, EntitiesInitialization>;

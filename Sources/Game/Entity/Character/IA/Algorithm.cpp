@@ -159,15 +159,15 @@ std::pair<int, int> Algorithm::locate_enemy(GameMap &map, std::pair<int, int> &p
 	return {1, 1};
 }
 
-bool Algorithm::try_to_put_a_bomb(GameMap &map, std::pair<int, int> &posPlayer, std::shared_ptr<Map> _map)
+bool Algorithm::try_to_put_a_bomb(GameMap &map, std::pair<int, int> &posPlayer, std::shared_ptr<Map>/*  _map */)
 {
 	GameMap fake_map = map;
 	//auto new_map = _map;
-	Map *new_map = new Map(fake_map);
-	new_map->placeBomb(posPlayer, 3);
+//	Map *new_map = new Map(fake_map);
+//	new_map->placeBomb(posPlayer, 3);
 	findNearestSafePoint(fake_map, posPlayer);
 	if (_nbr_of_moves < 5) {
-		_map->placeBomb(posPlayer, 3);
+	//	_map->placeBomb(posPlayer, 3);
 		return true;
 	}
 	return false;

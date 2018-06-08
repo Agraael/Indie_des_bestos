@@ -38,12 +38,11 @@ void	HandleGame::InitGame(const gameType_t &game)
 				entity->setMap(_threeDMap);
 				entity->setId(id);
 				addCubeToMap(*entity, id);
-		//		if (shared.get()->getType() == entities::entityType::PLAYER_TYPE)
-		//			std::static_pointer_cast<Player>(shared).get()->setLibEventManager(lib);
+				if (shared.get()->getType() == entities::entityType::PLAYER_TYPE)
+					reinterpret_cast<Player &>(*shared).setLibEventManager(_lib);
 			}
 		}
 	}
-	std::cout << "appelé avant la destruction" << std::endl;
 }
 
 
@@ -89,19 +88,21 @@ void	HandleGame::updateMap(bool &state)
 	for (auto line : _threeDMap->get3dMap()) {
 		for (auto tab : line) {
 			for (auto shared : tab) {
-		//		if (shared.get()->getType() == entities::entityType::PLAYER_TYPE)
-		//			std::static_pointer_cast<Player>(shared).get()->interpretEvent();
-				if (shared.get()->getType() == entities::entityType::PLAYER_TYPE)
+				if (shared.get()->getType() == entities::entityType::PLAYER_TYPE) {
 					reinterpret_cast<Player &>(*shared).update();
-/*				if (shared.get()->getType() == entities::entityType::IA_TYPE) {
-					std::static_pointer_cast<Ia>(shared).get()->turn();
-				}*/ //if (shared.get()->getType() == entities::entityType::BOMBS_TYPE)
-					//std::dynamic_cast<Bombs>(shared).get()->checkExplosion();
-//				if 
-				//	updateEntity(shared.get());
+					updateEntity(shared.get());
+				}
+				if (shared.get()->getType() == entities::entityType::IA_TYPE) {
+					reinterpret_cast<Ia &>(*shared).update();
+					updateEntity(shared.get());
+				}
 			}
-				//if (shared.get()->getType() == entities::entityType::BOMBS_TYPE)
-				//	std::static_pointer_cast<Bombs>(shared).get()->checkExplosion();
+		}
+	}
+	for (auto line : _threeDMap->get3dMap()) {
+		for (auto tab : line) {
+			for (auto shared : tab)
+				shared->setMooved();
 		}
 	}
 }

@@ -40,7 +40,7 @@ std::pair<int, int> MoveTo::try_move_down(std::vector<std::vector<std::vector<st
 std::pair<int, int> MoveTo::try_move_right(std::vector<std::vector<std::vector<std::shared_ptr<entities::Entity>>>> &map,
                                   std::pair<int, int> pos_character)
 {
-	if (pos_character.first < 0 || pos_character.second <= 0)
+	if (pos_character.first <= 0 || pos_character.second <= 1)
 		return {};
 	for (auto &entity : map[pos_character.first][pos_character.second - 1]) {
 		if (entity.get()->IsKinematic() == true)
@@ -65,12 +65,4 @@ std::pair<int, int> MoveTo::try_move_left(std::vector<std::vector<std::vector<st
 	to_return.first = pos_character.first;
 	to_return.second = pos_character.second + 1;
 	return to_return;
-}
-
-MoveTo::MoveTo()
-{
-}
-
-MoveTo::~MoveTo()
-{
 }

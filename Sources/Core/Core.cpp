@@ -5,8 +5,6 @@
 ** source
 */
 
-#include <time.h>
-#include <unistd.h>
 #include <iostream>
 #include <string>
 #include "Gen.hpp"

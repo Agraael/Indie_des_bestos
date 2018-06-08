@@ -7,8 +7,12 @@
 
 #include "Bombs.hpp"
 
-bool	Bombs::checkExplosion()
+void	Bombs::update()
 {
-        return true;
-        //if ((_saveTime - std::time(nullptr)) > 3)
+        if ((std::time(nullptr) - _saveTime) > 1) {
+		for (auto entity : _exploseTab) {
+			entity->setLayout(0);
+			reinterpret_cast<GonnaExplose &>(*entity).update();;
+		}
+	}
 }
