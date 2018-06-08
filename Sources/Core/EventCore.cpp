@@ -15,6 +15,7 @@ EventCore::~EventCore()
 const std::unordered_map<graphic::controllerUser, CoreState>	EventCore::_statesTab = {
 	{graphic::controllerUser::SETTINGS, CoreState::IN_SETTINGS},
 	{graphic::controllerUser::EXIT_MAINMENU, CoreState::EXIT},
+	{graphic::controllerUser::EXIT_SETTINGS, CoreState::IN_MENU},
 	{graphic::controllerUser::START_LOCAL, CoreState::IN_LOCAL},
 	{graphic::controllerUser::START_SOLO, CoreState::IN_SOLO},
 	{graphic::controllerUser::EXIT_LOCAL, CoreState::IN_MENU},
