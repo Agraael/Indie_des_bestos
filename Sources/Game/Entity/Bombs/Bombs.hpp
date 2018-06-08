@@ -9,6 +9,7 @@
 	#define BOMBS_HPP_
 
 #include "Entity.hpp"
+#include <ctime>
 #include "GonnaExplose.hpp"
 #include <thread>
 
