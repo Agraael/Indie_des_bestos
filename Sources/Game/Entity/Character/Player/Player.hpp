@@ -17,7 +17,7 @@ public:
 	Character(pos, iskinematic, layout, entities::entityType::PLAYER_TYPE, name), _eventPlayer(eventPlayer) {}
 	void					setLibEventManager(graphic::IrrlichtLib *lib) { _lib = lib; }
 	void					update();
-	~Player() final = default;
+	~Player() final { std::cout << "player destroyed" << std::endl;};
 private:
 	graphic::IrrlichtLib			*_lib;
 	std::vector<graphic::controllerUser>	_eventPlayer;

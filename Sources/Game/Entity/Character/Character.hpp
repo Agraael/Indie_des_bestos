@@ -29,7 +29,7 @@ public:
 	Character(entities::entityPosition pos, bool iskinematic, std::size_t layout, entities::entityType type, std::string name) :
 	Entity(pos, iskinematic, layout, type, name), _power(1), _bombs(1),  _speed(1), _wallpass(0) {}
 	~Character() override = default;
-	virtual void	update() {};
+//	virtual void update() {};
 	void upgradeBombs() noexcept { _bombs += 1; }
         void upgradeSpeed() noexcept { _speed += 1; }
         void upgradePower() noexcept { _power += 1; }

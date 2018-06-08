@@ -90,8 +90,10 @@ void	HandleGame::updateMap(bool &state)
 			for (auto shared : tab) {
 		//		if (shared.get()->getType() == entities::entityType::PLAYER_TYPE)
 		//			std::static_pointer_cast<Player>(shared).get()->interpretEvent();
-				if (shared.get()->getType() == entities::entityType::PLAYER_TYPE)
+				if (shared.get()->getType() == entities::entityType::PLAYER_TYPE) {
+					std::cout << "oui" << std::endl;
 					reinterpret_cast<Player &>(*shared).update();
+				}
 /*				if (shared.get()->getType() == entities::entityType::IA_TYPE) {
 					std::static_pointer_cast<Ia>(shared).get()->turn();
 				}*/ //if (shared.get()->getType() == entities::entityType::BOMBS_TYPE)

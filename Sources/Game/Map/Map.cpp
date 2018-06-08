@@ -86,7 +86,7 @@ void Map::allowWallpass(std::shared_ptr<entities::Entity> &character, const enti
 
 void	Map::checkExplosioCollision(entities::entityPosition)
 {
-	for (auto _map[][])
+	//for (auto _map[][])
 }
 
 void Map::checkBonusCollision(std::shared_ptr<entities::Entity> character, const entities::entityPosition &pos)
@@ -104,11 +104,9 @@ void Map::checkBonusCollision(std::shared_ptr<entities::Entity> character, const
         }
 }
 
-
-
-void	Map::updatePos(entities::Entity* entity, entities::entityPosition newPos)
+void	Map::updatePos(entities::Entity*, entities::entityPosition)
 {
-	std::cout << entity << std::endl;
+/* 	std::cout << entity << std::endl;
 	auto x = entity->getPos().first;
 	auto y = entity->getPos().second;
 	auto find = std::find_if(std::begin(_map[x][y]), std::end(_map[x][y]), 
@@ -121,5 +119,5 @@ void	Map::updatePos(entities::Entity* entity, entities::entityPosition newPos)
 	else {
 		//_map[newPos.first][newPos.second].push_back(*find);
 		//_map[x][y].erase(find);
-	}
+	} */
 }
