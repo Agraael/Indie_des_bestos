@@ -1,3 +1,4 @@
+
 /*
 ** EPITECH PROJECT, 2018
 ** indie
@@ -24,7 +25,12 @@ public:
 	void	checkAfterExplosion() {};
 	void	playerDeath() {};
 	void	placeExplosion(std::shared_ptr<entities::Entity> &, entities::entityPosition pos);	
+	void    checkCollision(std::shared_ptr<entities::Entity> entity, const entities::entityPosition &pos);
 private:
+	void    addBombs(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
+        void    addSpeed(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
+        void    addFire(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
+        void    allowWallpass(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
 	GameMap _map;
 };
 
