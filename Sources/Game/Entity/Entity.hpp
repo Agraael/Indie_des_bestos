@@ -35,7 +35,8 @@ namespace entities {
 
 	class Entity {
 	public:
-		Entity(entityPosition pos, bool iskinematic, std::size_t layout, entities::entityType type, std::string name) : _pos(pos), _iskinematic(iskinematic), _layout(layout), _typeEnum(type), _name(name) { _graphicPos = std::make_pair(static_cast<float>(pos.first), static_cast<float>(pos.second)); }
+		Entity(entityPosition, bool, std::size_t, entities::entityType, std::string);
+		virtual	~Entity() = default;
 		entityPosition		getPos() const noexcept { return _pos; }
 		bool			isDead() const noexcept { return _isDead; }
 		bool			IsKinematic() const noexcept { return _iskinematic; }

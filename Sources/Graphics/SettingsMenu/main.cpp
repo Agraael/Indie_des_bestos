@@ -3,13 +3,13 @@
 //
 
 #include <memory>
-#include "settingsMenu.hpp"
-
+#include "../LocalMenu/localMenu.hpp"
 #include <string>
 #include <cstdio>
 #include <iostream>
 
 /*using namespace std;
+
 int main()
 {
 
@@ -28,15 +28,21 @@ int main()
     return 0;
 }*/
 
-/*int main()
+int main()
 {
 
     graphic::IrrlichtLib *lib = new graphic::IrrlichtLib;
-    graphic::settingsMenu menu(lib);
+    graphic::localMenu menu(lib);
     menu.display();
+    std::unordered_map <graphic::controllerUser, std::function<void()>>eventTab = menu.getEventTab();
     while (lib->getDevice()->run()) {
         menu.updateDisplay();
-        lib->displayAll();
+        for (auto button = eventTab.begin(); button != eventTab.end(); button++) {
+            if (lib->getEventManager()->IsButtonClicked(static_cast<graphic::controllerUser>(button->first)) == true) {
+                button->second();
+            }
+        }
+        lib->displayAll(true);
     }
     return (0);
-}*/
+}

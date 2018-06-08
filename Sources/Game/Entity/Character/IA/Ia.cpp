@@ -8,7 +8,7 @@
 #include "Algorithm.hpp"
 #include "Ia.hpp"
 
-void Ia::turn()
+void Ia::update()
 {
         std::pair<int, int> move = std::make_pair<int, int>(1, 1);
         GameMap map = _map->get3dMap();

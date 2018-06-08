@@ -5,6 +5,8 @@
 ** source
 */
 
+#include <time.h>
+#include <unistd.h>
 #include <iostream>
 #include <string>
 #include "Gen.hpp"
@@ -34,9 +36,6 @@ int	Core::run()
 	}
 	return 0;
 }
-
-#include <time.h>
-#include <unistd.h>
 void	Core::chooseCorePart(const CoreState &state)
 {
 	// if (_fcnTab.find(_state) != _fcnTab.end())
@@ -44,8 +43,7 @@ void	Core::chooseCorePart(const CoreState &state)
 	if (_state == CoreState::IN_MENU)
 		menu(state);
 	if (_state == CoreState::IN_SOLO) {
-//		sleep(2);
-		std::cout <<  "----------------------------------" << std::endl;
+		sleep(2);
 		game_solo(state);
 	}
 }
@@ -110,4 +108,3 @@ int	Core::exitCore()
 {
 	return 0;
 }
-

@@ -43,8 +43,6 @@ namespace graphic {
 		std::string _desc;
 		graphic::controllerUser _type;
 	} infos_t;
-	const wchar_t *convertStringToWString(const std::string &);
-
 	class IrrlichtLib
 	{
 		public:
@@ -56,6 +54,9 @@ namespace graphic {
 			void			displayAll();
 			void			clearGui() noexcept;
 			void			clearScene() noexcept;
+            void modifyLight(int nbr);
+            void setSkinTransparency(irr::s32 alpha, irr::gui::IGUISkin *skin);
+            irr::s32 getLight() { return _light; }
 			irr::scene::ISceneNode	*createCube(const vec3df &, const std::string &, irr::s32);
 			irr::scene::ISceneNode	*createSphere(const vec3df &, const std::string &, irr::s32);
 			void			setCamera(irr::scene::ISceneNode *);
@@ -74,6 +75,7 @@ namespace graphic {
 			irr::gui::IGUIEnvironment			*_guiEnv;
 			std::map<std::string, irr::video::ITexture *>	_mapTexture;
 			std::shared_ptr<graphic::LibEventManager>	_eventManager{nullptr};
+            irr::s32 _light;
 	};
 	void driverChoiceConsole(irr::video::E_DRIVER_TYPE &);
 }
