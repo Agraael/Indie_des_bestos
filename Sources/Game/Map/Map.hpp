@@ -26,7 +26,7 @@ public:
 	void	playerDeath() {};
 	void	placeExplosion(std::shared_ptr<entities::Entity> &, entities::entityPosition pos);	
 	void    checkBonusCollision(std::shared_ptr<entities::Entity>, const entities::entityPosition &);
-	void	checkExplosioCollision(entities::entityPosition _pos);
+	void	checkExplosionCollision(const entities::entityPosition &_pos);
 private:
 	void    addBombs(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
         void    addSpeed(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
