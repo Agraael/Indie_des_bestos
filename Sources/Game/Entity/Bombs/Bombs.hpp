@@ -13,13 +13,14 @@
 
 class Bombs : public entities::Entity {
 	public:
-                Bombs(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
-		entities::Entity(pos, iskinematic, layout, entities::entityType::BOMBS_TYPE, ""), _saveTime(std::time(nullptr)) {}
+                Bombs(entities::entityPosition pos, bool iskinematic, std::size_t layout, std::vector<std::shared_ptr<entities::Entity>> &exploseTab) :
+		entities::Entity(pos, iskinematic, layout, entities::entityType::BOMBS_TYPE, ""), _saveTime(std::time(nullptr)), _exploseTab(exploseTab) {}
 		~Bombs() final = default;
 		bool	checkExplosion();
 		void	update() {};
 	private:
 		time_t 	_saveTime;
+		std::vector<std::shared_ptr<entities::Entity>>	_exploseTab;
 };
 
 #endif /* !BOMBS_HPP_ */
