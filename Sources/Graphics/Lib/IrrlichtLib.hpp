@@ -14,7 +14,6 @@
 #endif
 //#include <EventManager.hpp>
 #include <string>
-#include <irrlicht/irrlicht.h>
 #include <memory>
 #include "LibEventManager.hpp"
 
