@@ -9,30 +9,29 @@
 #include "Bombs.hpp"
 #include "GonnaExplose.hpp"
 
-std::shared_ptr<entities::Entity>	Map::placeExplosion(entities::entityPosition pos)
+void	Map::placeExplosion(std::shared_ptr<entities::Entity> &newEntity, entities::entityPosition pos)
 {
-	std::shared_ptr<entities::Entity>		newEntity;
-
-	newEntity = std::make_shared<entities::Entity>(GonnaExplose(pos, false, 1));
+	newEntity = std::make_shared<GonnaExplose>(pos, false, 1);
 	_map[pos.first][pos.second].push_back(newEntity);
-	return newEntity;
 }
 
 void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
 {
 	std::vector<std::shared_ptr<entities::Entity>>	exploseTab;
+	std::shared_ptr<entities::Entity>		newEntity;
 
 	for (int i = 1; i <= static_cast<int>(power); ++i) {
 		if ((pos.first - i) >= 0)
-			exploseTab.push_back(placeExplosion(std::make_pair(pos.first - i, pos.second)));
+			placeExplosion(newEntity, std::make_pair(pos.first - i, pos.second));
 		else if ((pos.first + i) >= 0)
-			exploseTab.push_back(placeExplosion(std::make_pair(pos.first + i, pos.second)));			
+			placeExplosion(newEntity, std::make_pair(pos.first + i, pos.second));
 		else if ((pos.second - i) >= 0)
-			exploseTab.push_back(placeExplosion(std::make_pair(pos.first, pos.second - i)));
+			placeExplosion(newEntity, std::make_pair(pos.first, pos.second - i));
 		else if ((pos.second + i) >= 0)
-			exploseTab.push_back(placeExplosion(std::make_pair(pos.first, pos.second + i)));		
+			placeExplosion(newEntity, std::make_pair(pos.first, pos.second + i));
+		exploseTab.push_back(newEntity);
 	}
- 	_map[pos.first][pos.second].push_back(std::make_shared<entities::Entity>(Bombs(pos, false, 0)));
+ 	_map[pos.first][pos.second].push_back(std::make_shared<Bombs>(pos, false, 0, exploseTab));
 }
 
 #include <algorithm>

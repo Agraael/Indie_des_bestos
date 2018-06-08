@@ -24,7 +24,7 @@ public:
 	void	displayMap();
 	void	checkAfterExplosion() {};
 	void	playerDeath() {};
-	std::shared_ptr<entities::Entity>	placeExplosion(entities::entityPosition pos);
+	void	placeExplosion(std::shared_ptr<entities::Entity> &, entities::entityPosition pos);	
 	void    checkCollision(std::shared_ptr<entities::Entity> entity, const entities::entityPosition &pos);
 private:
 	void    addBombs(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
