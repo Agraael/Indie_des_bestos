@@ -86,40 +86,42 @@ void Map::allowWallpass(std::shared_ptr<entities::Entity> &character, const enti
 
 void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 {
-	int i = 0;
-
-	for (auto entity :_map[pos.first][pos.second]) {
-		if (!(entity.get()->getType() == entities::entityType::BOMB_UP_TYPE ||
-		      entity.get()->getType() == entities::entityType::SPEED_UP_TYPE ||
-		      entity.get()->getType() == entities::entityType::FIRE_UP_TYPE ||
-		      entity.get()->getType() == entities::entityType::WALL_PASS_TYPE)) {
-                        _map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
+	for (unsigned int i = 0; i < _map[pos.first][pos.second].size(); i++) {
+		for (auto entity :_map[pos.first][pos.second]) {
+			if (!(entity.get()->getType() == entities::entityType::BOMB_UP_TYPE ||
+			      entity.get()->getType() == entities::entityType::SPEED_UP_TYPE ||
+			      entity.get()->getType() == entities::entityType::FIRE_UP_TYPE ||
+			      entity.get()->getType() == entities::entityType::WALL_PASS_TYPE)) {
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
+				break;
+			}
 		}
-		else
-			i++;
 	}
 }
 
 void Map::checkBonusCollision(std::shared_ptr<entities::Entity> character, const entities::entityPosition &pos)
 {
-	int i = 0;
-        for (auto entity : _map[pos.first][pos.second]) {
-                if (entity.get()->getType() == entities::entityType::BOMB_UP_TYPE) {
-                        addBombs(character, pos);
-			_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
-                } else if (entity.get()->getType() == entities::entityType::SPEED_UP_TYPE) {
-                        addSpeed(character, pos);
-			_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
-                } else if (entity.get()->getType() == entities::entityType::FIRE_UP_TYPE) {
-                        addFire(character, pos);
-			_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
-                } else if (entity.get()->getType() == entities::entityType::WALL_PASS_TYPE) {
-                        allowWallpass(character, pos);
-			_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
-                }
-		else
-			i++;
-        }
+	for (unsigned int i = 0; i < _map[pos.first][pos.second].size(); i++) {
+		for (auto entity : _map[pos.first][pos.second]) {
+			if (entity.get()->getType() == entities::entityType::BOMB_UP_TYPE) {
+				addBombs(character, pos);
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
+				break;
+			} else if (entity.get()->getType() == entities::entityType::SPEED_UP_TYPE) {
+				addSpeed(character, pos);
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
+				break;
+			} else if (entity.get()->getType() == entities::entityType::FIRE_UP_TYPE) {
+				addFire(character, pos);
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
+				break;
+			} else if (entity.get()->getType() == entities::entityType::WALL_PASS_TYPE) {
+				allowWallpass(character, pos);
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
+				break;
+			}
+		}
+	}
 }
 
 void	Map::updatePos(entities::Entity* entity, entities::entityPosition newPos)
