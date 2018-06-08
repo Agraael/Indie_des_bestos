@@ -21,7 +21,6 @@ public:
 	void	setLibEventManager(graphic::IrrlichtLib *lib) { _lib = lib; }
 	void	update();
 	~Player() final {};
-
 private:
 	graphic::IrrlichtLib									*_lib;
 	std::vector<irr::EKEY_CODE>								_eventPlayer;

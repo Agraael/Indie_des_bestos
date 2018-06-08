@@ -19,7 +19,6 @@ public:
 	GameMap &get3dMap() { return _map; }
 	void	placeBomb(entities::entityPosition, std::size_t);
 	void	updatePos(entities::Entity *, entities::entityPosition);
-	void	deleteElem(std::shared_ptr<entities::Entity>);
 	void	displayMap();
 	void	checkAfterExplosion() {};
 	void	playerDeath() {};

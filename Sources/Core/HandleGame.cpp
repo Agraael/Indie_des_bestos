@@ -35,8 +35,7 @@ void	HandleGame::InitGame(const gameType_t &game)
 			for (auto shared : tab) {
 				entities::Entity *entity = shared.get();
 				entity->setMap(_threeDMap);
-				entity->setId(id);
-				addCubeToMap(*entity, id);
+				addCubeToMap(*entity, shared->getId());
 				if (shared.get()->getType() == entities::entityType::PLAYER_TYPE)
 					reinterpret_cast<Player &>(*shared).setLibEventManager(_lib);
 			}
@@ -67,7 +66,6 @@ void	HandleGame::addCubeToMap(const entities::Entity &entity, std::size_t &id)
 			_disp.push_back(_lib->createCube({static_cast<double>(pos.second), static_cast<double>(pos.first), 1}, _textureMap.at(entity.getType()), id));
 		else
 			_disp.push_back(_lib->createSphere({static_cast<double>(pos.second), static_cast<double>(pos.first), 1}, _textureMap.at(entity.getType()), id));
-		id++;
 	}
 }
 
@@ -88,6 +86,7 @@ void	HandleGame::updateMap(bool &state)
 		for (auto tab : line) {
 			for (auto shared : tab) {
 				if (shared.get()->getType() == entities::entityType::PLAYER_TYPE) {
+					std::cout << "oui" << std::endl;
 					reinterpret_cast<Player &>(*shared).update();
 					updateEntity(shared.get());
 				}

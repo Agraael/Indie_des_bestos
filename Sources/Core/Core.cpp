@@ -81,6 +81,7 @@ void	Core::gameLocal(const CoreState &state)
 
 void	Core::gameSolo(const CoreState &state)
 {
+	sleep (0.5);
 	if (_lib->getEventManager()->IsKeyDown(irr::EKEY_CODE::KEY_ESCAPE) == true) {
 		hGame.quitGame();
 		_lib->clearGui();
