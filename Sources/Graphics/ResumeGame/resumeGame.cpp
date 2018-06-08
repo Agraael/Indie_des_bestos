@@ -6,7 +6,7 @@
 */
 
 #include <string>
-#include <filesystem>
+#include <experimental/filesystem>
 #include <chrono>
 #include <thread>
 #include "resumeGame.hpp"
@@ -68,16 +68,54 @@ void    graphic::ResumeGame::printLogo()
 	_lib->drawImage(logo);
 }
 
+void    graphic::ResumeGame::saveFilesToVector()
+{
+    std::string path = "./gameMap/";
+    for (auto &p : std::experimental::filesystem::directory_iterator(path)) {
+        std::ostringstream str;
+        str << p;
+        std::string name = str.str();
+        name = name.substr(11, name.size());
+        _fileName.push_back(name);
+    }
+}
+
 void    graphic::ResumeGame::printListBox()
 {
+    graphic::infos_t mapImg;
+    mapImg._x = 200;
+    mapImg._y = 100;
+    mapImg._w = 300;
+    mapImg._h = 100;
+    mapImg._maxH = 100;
+    mapImg._maxW = 300;
+    mapImg._path = "Assets/media/load_your_map.png";
+    _lib->drawImage(mapImg);
 
-    namespace fs = std::filesystem;
-        std::string path = "./gameMap/";
-        for (auto & p : fs::directory_iterator(path))
-            std::cout << p << std::endl;
-    //_lib->getDevice()->getFileSystem()->changeWorkingDirectoryTo("./gameMap/");
-    //_lib->createListBox("CHOICE YOUR GAMEPLAY");
-    //_lib->getDevice()->getFileSystem()->changeWorkingDirectoryTo("../");
+    saveFilesToVector();
+    graphic::infos_t plus;
+    plus._x = (_size.x / 2) + 50;
+    plus._y = 100;
+    plus._w = (_size.x / 2) + 90;
+    plus._h = 150;
+    plus._type = graphic::controllerUser::PLAYER_UP;
+    plus._desc = "";
+    plus._name = "";
+    plus._path = "./Assets/media/right_arrow.png";
+    _lib->printButton(plus);
+
+    _lib->drawText((_size.x / 2) , 110, 30, _fileName[0]);
+
+    graphic::infos_t minus;
+    minus._x = (_size.x / 2) - 50;
+    minus._y = 100;
+    minus._w = (_size.x / 2) - 10;
+    minus._h = 150;
+    minus._type = graphic::controllerUser::PLAYER_DOWN;
+    minus._desc = "";
+    minus._name = "";
+    minus._path = "./Assets/media/left_arrow.png";
+    _lib->printButton(minus);
 }
 
 void graphic::ResumeGame::printBackground()

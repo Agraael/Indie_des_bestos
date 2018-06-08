@@ -25,11 +25,13 @@ namespace graphic
 		void printListBox();
 		void updateDisplay();
 		void drawChoice();
+		void saveFilesToVector();
 	private:
 		graphic::IrrlichtLib *_lib;
 		irr::gui::IGUIImage *_dirigible;
 		vec2d _size;
 		int _count;
+		std::vector<std::string> _fileName;
 	};
 }
 
