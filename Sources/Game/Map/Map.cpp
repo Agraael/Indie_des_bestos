@@ -95,7 +95,8 @@ void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 		      entity.get()->getType() == entities::entityType::WALL_PASS_TYPE)) {
                         _map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
 		}
-		i++;
+		else
+			i++;
 	}
 }
 
@@ -116,7 +117,8 @@ void Map::checkBonusCollision(std::shared_ptr<entities::Entity> character, const
                         allowWallpass(character, pos);
 			_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
                 }
-		i++;
+		else
+			i++;
         }
 }
 
