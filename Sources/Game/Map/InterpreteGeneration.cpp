@@ -122,13 +122,13 @@ void	InterpreteGeneration::Fill(GameMap &map, const std::size_t &width, const st
 			if (charMap[i][n] != ' ') {
 				func(_tempTab, i, n);
 				_tempLine.push_back(_tempTab);
-			//	_tempTab.clear();
+				_tempTab.clear();
 			}
 			else
 				_tempLine.push_back({});
 		}
 		map.push_back(_tempLine);
-	//	if (!(_tempLine.empty()))
-	//		_tempLine.clear();
+		if (!(_tempLine.empty()))
+			_tempLine.clear();
 	}
 }
