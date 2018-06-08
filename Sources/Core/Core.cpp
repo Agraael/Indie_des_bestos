@@ -5,8 +5,6 @@
 ** source
 */
 
-#include <time.h>
-#include <unistd.h>
 #include <iostream>
 #include <string>
 #include "Gen.hpp"
@@ -59,7 +57,7 @@ void	Core::menu(const CoreState &state)
 	_lib->clearGui();
 	if (state == CoreState::IN_SOLO) {
 		_playing = true;
-		hGame.InitGame({GenerationSize::Medium, GenerationMod::Standard, 1, 0});
+		hGame.InitGame({GenerationSize::Medium, GenerationMod::Standard, 1, 3});
 	} else if (state == CoreState::IN_SETTINGS) {
 		//init menu setting
 		_menuSetting->display();
