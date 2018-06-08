@@ -2,6 +2,7 @@ set( GRAPHICS_ROOT_DIR Graphics)
 
 include(${GRAPHICS_ROOT_DIR}/Menu/CMakeSources.cmake)
 include(${GRAPHICS_ROOT_DIR}/SettingsMenu/CMakeSources.cmake)
+include(${GRAPHICS_ROOT_DIR}/ResumeGame/CMakeSources.cmake)
 include(${GRAPHICS_ROOT_DIR}/LocalMenu/CMakeSources.cmake)
 include(${GRAPHICS_ROOT_DIR}/Lib/CMakeSources.cmake)
 
@@ -10,14 +11,16 @@ set(GRAPHICS_INC_DIR
   ${SETTINGSMENU_INC_DIR}
   ${LOCALMENU_INC_DIR}
   ${LIB_INC_DIR}
-  ${GRAPHICS_ROOT_DIR})
+  ${GRAPHICS_ROOT_DIR}
+  ${RESUMEGAME_INC_DIR})
 
 set(GRAPHICS_SRC_DIR
   ${MENU_SRC_DIR}
   ${LOCALMENU_SRC_DIR}
   ${SETTINGSMENU_SRC_DIR}
   ${LIB_SRC_DIR}
-  ${GRAPHICS_ROOT_DIR})
+  ${GRAPHICS_ROOT_DIR}
+  ${RESUMEGAME_SRC_DIR})
 
 set(GRAPHICS_INC
   ${SETTINGSMENU_INC}

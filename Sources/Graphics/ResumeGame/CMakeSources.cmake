@@ -6,7 +6,7 @@ set( RESUMEGAME_SRC_DIR
   ${RESUMEGAME_ROOT_DIR})
 
 set( RESUMEGAME_INC
-  ${RESUMEGAME_INC_DIR}/ResumeGame.hpp )
+  ${RESUMEGAME_INC_DIR}/resumeGame.hpp )
 
 set( RESUMEGAME_SRC
-  ${RESUMEGAME_SRC_DIR}/ResumeGame.cpp )
+  ${RESUMEGAME_SRC_DIR}/resumeGame.cpp )

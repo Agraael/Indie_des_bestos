@@ -5,14 +5,16 @@
 ** source
 */
 
+#include <string>
+#include <filesystem>
 #include <chrono>
 #include <thread>
-#include "ResumeGame.hpp"
+#include "resumeGame.hpp"
 
 graphic::ResumeGame::ResumeGame(graphic::IrrlichtLib *lib) : _lib(lib)
 {
     _size = _lib->getScreenSize();
-    _count = -30;
+    _count = 0;
 }
 
 void    graphic::ResumeGame::drawChoiceButtons()
@@ -22,10 +24,10 @@ void    graphic::ResumeGame::drawChoiceButtons()
     buttonExit._y = 360;
     buttonExit._w = 400;
     buttonExit._h = 390;
-    buttonExit._path = "Assets/media/button_ResumeGame.png";
+    buttonExit._path = "Assets/media/button_menu.png";
     buttonExit._desc = "Return to ResumeGame";
     buttonExit._name = "RETURN TO ResumeGame";
-    buttonExit._type = graphic::EXIT_MAINResumeGame;
+    buttonExit._type = graphic::EXIT_MAINMENU;
     _lib->printButton(buttonExit);
 }
 
@@ -68,7 +70,14 @@ void    graphic::ResumeGame::printLogo()
 
 void    graphic::ResumeGame::printListBox()
 {
-    _lib->createListBox("CHOICE YOUR GAMEPLAY");
+
+    namespace fs = std::filesystem;
+        std::string path = "./gameMap/";
+        for (auto & p : fs::directory_iterator(path))
+            std::cout << p << std::endl;
+    //_lib->getDevice()->getFileSystem()->changeWorkingDirectoryTo("./gameMap/");
+    //_lib->createListBox("CHOICE YOUR GAMEPLAY");
+    //_lib->getDevice()->getFileSystem()->changeWorkingDirectoryTo("../");
 }
 
 void graphic::ResumeGame::printBackground()
@@ -79,7 +88,7 @@ void graphic::ResumeGame::printBackground()
     background._w = 640;
     background._h = 480;
     background._maxW = _size.x;
-    background._maxH = _size.h;
+    background._maxH = _size.y;
     background._path = "Assets/media/pixel_skyline.png";
 	_lib->drawImage(background);
 }

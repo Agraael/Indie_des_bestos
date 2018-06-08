@@ -35,5 +35,5 @@ add_executable( ${INDIE_BIN_NAME}
 				${INDIE_SRC} )
 
 if(UNIX)
-	target_link_libraries(${INDIE_BIN_NAME} Irrlicht GL Xxf86vm Xext X11 Xcursor)
+	target_link_libraries(${INDIE_BIN_NAME} Irrlicht GL Xxf86vm Xext X11 Xcursor stdc++fs)
 endif()

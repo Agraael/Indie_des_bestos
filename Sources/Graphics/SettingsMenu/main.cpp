@@ -4,7 +4,7 @@
 
 #include <memory>
 #include "../LocalMenu/localMenu.hpp"
-#include "../ResumeGame/ResumeGame.hpp"
+#include "../ResumeGame/resumeGame.hpp"
 #include <string>
 #include <cstdio>
 #include <iostream>
