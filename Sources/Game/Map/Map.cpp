@@ -84,40 +84,52 @@ void Map::allowWallpass(std::shared_ptr<entities::Entity> &character, const enti
         }
 }
 
-void	Map::checkExplosioCollision(entities::entityPosition)
+void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 {
-	//for (auto _map[][])
+	int i = 0;
+
+	for (auto entity :_map[pos.first][pos.second]) {
+		if (!(entity.get()->getType() == entities::entityType::BOMB_UP_TYPE ||
+		      entity.get()->getType() == entities::entityType::SPEED_UP_TYPE ||
+		      entity.get()->getType() == entities::entityType::FIRE_UP_TYPE ||
+		      entity.get()->getType() == entities::entityType::WALL_PASS_TYPE)) {
+                        _map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
+		}
+		i++;
+	}
 }
 
 void Map::checkBonusCollision(std::shared_ptr<entities::Entity> character, const entities::entityPosition &pos)
 {
+	int i = 0;
         for (auto entity : _map[pos.first][pos.second]) {
                 if (entity.get()->getType() == entities::entityType::BOMB_UP_TYPE) {
                         addBombs(character, pos);
+			_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
                 } else if (entity.get()->getType() == entities::entityType::SPEED_UP_TYPE) {
                         addSpeed(character, pos);
+			_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
                 } else if (entity.get()->getType() == entities::entityType::FIRE_UP_TYPE) {
                         addFire(character, pos);
+			_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
                 } else if (entity.get()->getType() == entities::entityType::WALL_PASS_TYPE) {
                         allowWallpass(character, pos);
+			_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
                 }
+		i++;
         }
 }
 
-void	Map::updatePos(entities::Entity*, entities::entityPosition)
+void	Map::updatePos(entities::Entity *entity, entities::entityPosition pos)
 {
-/* 	std::cout << entity << std::endl;
-	auto x = entity->getPos().first;
-	auto y = entity->getPos().second;
-	auto find = std::find_if(std::begin(_map[x][y]), std::end(_map[x][y]), 
-				[entity](const std::shared_ptr<entities::Entity>& elem){return elem.get() == entity;});
+	entities::entityPosition	newPos = entity->getPos();
+	std::size_t	i = 0;
 
-	std::cout << "entity nb : " << entity->getId() << std::endl;
-	std::cout << x << ":" << y << " -> " << newPos.first << ":" << newPos.second << std::endl;
-	if (find == std::end(_map[x][y]))
-		std::cout << "no found" << std::endl;
-	else {
-		//_map[newPos.first][newPos.second].push_back(*find);
-		//_map[x][y].erase(find);
-	} */
+	for (auto oldEntity :_map[newPos.first][newPos.second]) {
+		if (oldEntity->getId() == entity->getId()) {
+			_map[pos.first][pos.second].push_back(oldEntity);
+                        _map[newPos.first][newPos.second].erase(_map[newPos.first][newPos.second].begin() + i);
+		}
+		i++;
+	}
 }

@@ -17,16 +17,16 @@
 class Map {
 public:
 	Map(GameMap map) : _map(map) {};
-	GameMap	get3dMap() const noexcept { return _map; }
+	GameMap &get3dMap() { return _map; }
 	void	placeBomb(entities::entityPosition, std::size_t);
-	void	updatePos(entities::Entity*, entities::entityPosition);
+	void	updatePos(entities::Entity *, entities::entityPosition);
 	void	deleteElem(std::shared_ptr<entities::Entity>);
 	void	displayMap();
 	void	checkAfterExplosion() {};
 	void	playerDeath() {};
 	void	placeExplosion(std::shared_ptr<entities::Entity> &, entities::entityPosition pos);	
 	void    checkBonusCollision(std::shared_ptr<entities::Entity>, const entities::entityPosition &);
-	void	checkExplosioCollision(entities::entityPosition _pos);
+	void	checkExplosionCollision(const entities::entityPosition &_pos);
 private:
 	void    addBombs(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
         void    addSpeed(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
