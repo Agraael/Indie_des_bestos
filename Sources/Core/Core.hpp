@@ -13,6 +13,9 @@
 #include "HandleGame.hpp"
 #include "EventCore.hpp"
 #include "Menu.hpp"
+#include "settingsMenu.hpp"
+#include "localMenu.hpp"
+#include "MenuPause.hpp"
 #include "IrrlichtLib.hpp"
 #include "EventManager.hpp"
 
@@ -24,19 +27,23 @@ public:
 	int	run();
 private:
 	void	chooseCorePart(const CoreState &);
+	void	game(const CoreState &);
 	void	menu(const CoreState &);
-	void	game_local(const CoreState &);
-	void	game_solo(const CoreState &);
-	void	menu_setting(const CoreState &);
-	void	menu_local(const CoreState &);
-	int	exitCore();
+	void	menuResume(const CoreState &);
+	void	menuSetting(const CoreState &);
+	void	menuCreateGame(const CoreState &);
+	void	menuGamePaused(const CoreState &);
 
 	CoreState			_state;
 	graphic::IrrlichtLib		*_lib;
 	EventCore			_eventCore;
 	graphic::Menu			*_menu;
 	HandleGame			hGame;
+	graphic::settingsMenu		*_menuSetting;
+	graphic::localMenu		*_menuCreateGame;
+	graphic::MenuPause		*_menuPause;
 	bool				_playing;
+	bool				_gamePaused;
 	//using ptr = void	(Core::*)(const CoreState &);
 	//const std::unordered_map<CoreState, ptr>	_fcnTab = {
 	//	{CoreState::IN_MENU, &menu},

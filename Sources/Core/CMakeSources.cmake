@@ -10,11 +10,13 @@ set( CORE_INC
   ${CORE_INC_DIR}/Core.hpp
   ${CORE_INC_DIR}/EventManager.hpp
   ${CORE_INC_DIR}/EventCore.hpp
-  ${CORE_INC_DIR}/HandleGame.hpp)
+  ${CORE_INC_DIR}/HandleGame.hpp
+	 ${CORE_INC_DIR}/TimeManager.hpp)
 
 set( CORE_SRC
   ${CORE_SRC_DIR}/Core.cpp
   #${CORE_SRC_DIR}/main.cpp
   ${CORE_SRC_DIR}/EventCore.cpp
-  ${CORE_SRC_DIR}/HandleGame.cpp)
+  ${CORE_SRC_DIR}/HandleGame.cpp
+	 ${CORE_SRC_DIR}/TimeManager.cpp)
 # -----

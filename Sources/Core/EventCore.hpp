@@ -14,9 +14,9 @@
 
 enum	CoreState {
 	IN_MENU,
-	IN_SOLO,
+	IN_RESUME,
 	IN_LOCAL,
-	IN_LOCAL_GAME,
+	IN_GAME,
 	IN_SETTINGS,
 	EXIT,
 	GAME_PAUSE
@@ -30,7 +30,7 @@ class EventCore
 		CoreState	updateCore(CoreState) const noexcept;
 	private:
 		graphic::IrrlichtLib		*_lib;
-		static const std::unordered_map<IndieEvents::IndieKeys, CoreState>	_statesTab;
+		static const std::unordered_map<graphic::controllerUser, CoreState>	_statesTab;
 };
 
 #endif /* !EVENTCORE_HPP_ */

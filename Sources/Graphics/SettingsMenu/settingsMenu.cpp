@@ -129,7 +129,7 @@ void    graphic::settingsMenu::returnToMenu()
     buttonExit._path = "Assets/media/button_menu.png";
     buttonExit._desc = "Return to main menu";
     buttonExit._name = "Quit";
-    buttonExit._type = graphic::EXIT_MAINMENU;
+    buttonExit._type = graphic::controllerUser::EXIT_SETTINGS;
     _lib->printButton(buttonExit);
 }
 

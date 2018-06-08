@@ -16,15 +16,26 @@
 class Map {
 public:
 	Map(GameMap map) : _map(map) {};
-	GameMap	get3dMap() const noexcept { return _map; }
+	GameMap &get3dMap() { return _map; }
 	void	placeBomb(entities::entityPosition, std::size_t);
-	void	updatePos(entities::Entity*, entities::entityPosition);
-	void	deleteElem(std::shared_ptr<entities::Entity>);
+	void	updatePos(entities::Entity *, entities::entityPosition);
 	void	displayMap();
 	void	checkAfterExplosion() {};
 	void	playerDeath() {};
-	std::shared_ptr<entities::Entity>	placeExplosion(entities::entityPosition pos);	
+	std::vector<std::shared_ptr<entities::Entity>> getModifiedEntities(void) const noexcept { return _modifiedEntities; }
+	std::vector<int> getDeletedEntities(void) const noexcept { return _deletedEntities; }
+	void	placeExplosion(std::shared_ptr<entities::Entity> &, entities::entityPosition pos);	
+	void    checkBonusCollision(std::shared_ptr<entities::Entity>, const entities::entityPosition &);
+	void	checkExplosionCollision(const entities::entityPosition &_pos);
 private:
+	void	addModifiedEntity(const std::shared_ptr<entities::Entity> &entity);
+	void	addDeletedEntity(const std::shared_ptr<entities::Entity> &entity);
+	void    addBombs(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
+        void    addSpeed(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
+        void    addFire(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
+        void    allowWallpass(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
+	std::vector<std::shared_ptr<entities::Entity>> _modifiedEntities;
+	std::vector<int> _deletedEntities;
 	GameMap _map;
 };
 

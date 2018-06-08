@@ -5,7 +5,11 @@
 #ifndef LIBEVENTMANAGER_HPP
 #define LIBEVENTMANAGER_HPP
 
+#ifdef _WIN32
+#include <irrlicht.h>
+#else
 #include <irrlicht/irrlicht.h>
+#endif
 
 namespace graphic
 {
@@ -26,11 +30,11 @@ namespace graphic
 		LESS_PLAYER,
 		MORE_IA,
 		LESS_IA,
-        DIST_MAP,
-        STAND_MAP,
-        SMALL_MAP,
-        MEDIUM_MAP,
-        LARGE_MAP,
+		DIST_MAP,
+		STAND_MAP,
+		SMALL_MAP,
+		MEDIUM_MAP,
+		LARGE_MAP,
 		ENTER_NAME1,
 		ENTER_NAME2,
 		EXIT_MAINMENU,
@@ -56,10 +60,15 @@ namespace graphic
 		KEY_D,
 		SPACEBAR,
 		ECHAP,
-		RESTART,
+		SAVE,
 		CONTINUE,
 		MENU,
 		QUIT,
+		RESUME_GAME,
+		MAP_NEXT,
+		MAP_PREV,
+		MAP_SIZE_UP,
+		MAP_SIZE_DOWN,
 		GUI_ID_NO_BUTTON
 	};
 

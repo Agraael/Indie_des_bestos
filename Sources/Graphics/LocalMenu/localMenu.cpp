@@ -7,286 +7,301 @@
 #include <memory>
 #include "localMenu.hpp"
 
-graphic::localMenu::localMenu(graphic::IrrlichtLib *lib) : _lib(lib)
+void	graphic::localMenu::printGoodOneMod()
 {
-    _nbrPlayers = 1;
-    _nbrIa = 1;
+	if (_genModeTab[_genMode] == GenerationMod::FullDest)
+		_mapModInfos._path = "./Assets/media/FullDest.png";
+	else
+		_mapModInfos._path = "./Assets/media/OldSchool.png";
+	_mapModImg->remove();
+	_mapModImg = _lib->drawImage(_mapModInfos);
 }
 
-void    graphic::localMenu::printLogo()
+void	graphic::localMenu::printNumber(graphic::infos_t &info, irr::gui::IGUIImage *&graph, int nb)
 {
-    graphic::infos_t logo;
-    logo._x = 10;
-    logo._y = 5;
-    logo._w = 50;
-    logo._h = 50;
-    logo._maxH = 50;
-    logo._maxW = 50;
-    logo._path = "Assets/media/Neo_Bomberman_Logo.png";
-    _lib->drawImage(logo);
+	if (nb == 0)
+		info._path = "./Assets/media/zero.png";
+	else if (nb == 1)
+		info._path = "./Assets/media/one.png";
+	else if (nb == 2)
+		info._path = "./Assets/media/two.png";
+	else
+		info._path = "./Assets/media/three.png";
+	graph->remove();
+	graph = _lib->drawImage(info);
 }
 
-void graphic::localMenu::printBackground()
+void	graphic::localMenu::printGoodOneSize()
 {
-    graphic::infos_t background;
-    background._x = 0;
-    background._y = 0;
-    background._w = 640;
-    background._h = 480;
-    background._maxW = 740;
-    background._maxH = 580;
-    background._path = "Assets/media/pixel_skyline.png";
-    _lib->drawImage(background);
+	if (_genSizeTab[_genSize] == GenerationSize::Small)
+		_mapSizeInfos._path = "./Assets/media/small.png";
+	else if (_genSizeTab[_genSize] == GenerationSize::Medium)
+		_mapSizeInfos._path = "./Assets/media/medium.png";
+	else
+		_mapSizeInfos._path = "./Assets/media/big.png";
+	_mapSizeImg->remove();
+	_mapSizeImg = _lib->drawImage(_mapSizeInfos);
 }
 
-void graphic::localMenu::printChoicePlayers()
+void	graphic::localMenu::display()
 {
-    graphic::infos_t players;
-    players._x = 160;
-    players._y = 30;
-    players._w = 100;
-    players._h = 70;
-    players._maxW = 100;
-    players._maxH = 70;
-    players._path = "./Assets/media/players.png";
-    _lib->drawImage(players);
-
-    graphic::infos_t moins;
-    moins._x = 300;
-    moins._y = 50;
-    moins._w = 330;
-    moins._h = 80;
-    moins._type = graphic::LESS_PLAYER;
-    moins._desc = "oh less players.. play with Ia.. ";
-    moins._name = "";
-    moins._path = "./Assets/media/left_arrow.png";
-    _lib->printButton(moins);
-
-    _infosPlayers._x = 340;
-    _infosPlayers._y = 50;
-    _infosPlayers._w = 30;
-    _infosPlayers._h = 30;
-    _infosPlayers._maxW = 30;
-    _infosPlayers._maxH = 30;
-    _infosPlayers._path = "./Assets/media/one.png";
-    _playerNbrImg = _lib->drawImage(_infosPlayers);
-
-    graphic::infos_t plus;
-    plus._x = 390;
-    plus._y = 50;
-    plus._w = 420;
-    plus._h = 80;
-    plus._path = "./Assets/media/right_arrow.png";
-    plus._desc = "Game Party, dude?";
-    plus._name = "";
-    plus._type = graphic::MORE_PLAYER;
-    _lib->printButton(plus);
+	_genSize = 1;
+	_genMode = 1;
+	_playersNb = 1;
+	_aisNb = 3;
+	_name = "map";
+	printBackground();
+	printMenuTitle();
+	printCoreButtons();
+	printButtonsPlayer();
+	printButtonsIa();
+	printButtonsChooseMap();
 }
 
-void graphic::localMenu::printChoiceIA()
+void	graphic::localMenu::updateDisplay()
 {
-    graphic::infos_t ai;
-    ai._x = 160;
-    ai._y = 100;
-    ai._w = 100;
-    ai._h = 40;
-    ai._maxW = 100;
-    ai._maxH = 70;
-    ai._path = "./Assets/media/ia.png";
-    _lib->drawImage(ai);
-
-    graphic::infos_t moins;
-    moins._x = 300;
-    moins._y = 120;
-    moins._w = 330;
-    moins._h = 150;
-    moins._type = graphic::LESS_IA;
-    moins._desc = "Yes men, play with your friends!";
-    moins._name = "";
-    moins._path = "./Assets/media/left_arrow.png";
-    _lib->printButton(moins);
-
-    _infosIa._x = 340;
-    _infosIa._y = 120;
-    _infosIa._w = 30;
-    _infosIa._h = 30;
-    _infosIa._maxW = 30;
-    _infosIa._maxH = 30;
-    _infosIa._path = "./Assets/media/one.png";
-    _iaNbrImg = _lib->drawImage(_infosIa);
-
-    graphic::infos_t plus;
-    plus._x = 390;
-    plus._y = 120;
-    plus._w = 420;
-    plus._h = 150;
-    plus._path = "./Assets/media/right_arrow.png";
-    plus._desc = "More ia is like 'forever alone'!";
-    plus._name = "";
-    plus._type = graphic::MORE_IA;
-    _lib->printButton(plus);
+	for (auto elem : _updateNumberEntity) {
+		if (_lib->getEventManager()->IsButtonClicked(elem.first) == true) {
+			elem.second();
+			if (elem.first == graphic::controllerUser::MAP_SIZE_DOWN || elem.first == graphic::controllerUser::MAP_SIZE_UP)
+				printGoodOneSize();
+			else if (elem.first == graphic::controllerUser::MAP_NEXT || elem.first == graphic::controllerUser::MAP_PREV)
+				printGoodOneMod();
+			else if (elem.first == graphic::controllerUser::PLAYER_DOWN || elem.first == graphic::controllerUser::PLAYER_UP)
+				printNumber(_playerNbInfos, _playerNbImg, _playersNb);
+			else if (elem.first == graphic::controllerUser::IA_DOWN || elem.first == graphic::controllerUser::IA_UP)
+				printNumber(_iaNbInfos, _iaNbImg, _aisNb);
+		}
+	}
 }
 
-void graphic::localMenu::choiceMap()
+void	graphic::localMenu::printMapName()
 {
-    graphic::infos_t map;
-    map._x = 50;
-    map._y = 150;
-    map._w = 100;
-    map._h = 40;
-    map._maxW = 100;
-    map._maxH = 70;
-    map._path = "./Assets/media/map.png";
-    _lib->drawImage(map);
-
-    graphic::infos_t dist;
-    dist._x = 180;
-    dist._y = 180;
-    dist._w = 360;
-    dist._h = 210;
-    dist._type = graphic::DIST_MAP;
-    dist._desc = "only distructibles cubes";
-    dist._name = "FULL DISTRUCTIBLE";
-    dist._path = "./Assets/media/blue_button.png";
-    _lib->printButton(dist);
-
-    graphic::infos_t stand;
-    stand._x = 390;
-    stand._y = 180;
-    stand._w = 570;
-    stand._h = 210;
-    stand._path = "./Assets/media/blue_button.png";
-    stand._desc = "indistructibles and distructibles cubes";
-    stand._name = "STANDARD";
-    stand._type = graphic::STAND_MAP;
-    _lib->printButton(stand);
+	// textBox = new CGUITextBox(env->getFont("myfont.xml"),"",env,rect<s32>(50,120,750,500),0,-1);
+	// textBox->setText("");
+	// textBox->setScrollModeLines(false);
+	// textBox->setVisible(true);
 }
 
-void graphic::localMenu::choiceSizeMap()
+void	graphic::localMenu::printButtonsPlayer()
 {
-    graphic::infos_t map;
-    map._x = 50;
-    map._y = 210;
-    map._w = 100;
-    map._h = 40;
-    map._maxW = 100;
-    map._maxH = 70;
-    map._path = "./Assets/media/map_size.png";
-    _lib->drawImage(map);
+	vec2d size = _lib->getScreenSize();
 
-    graphic::infos_t small;
-    small._x = 180;
-    small._y = 240;
-    small._w = 300;
-    small._h = 270;
-    small._type = graphic::SMALL_MAP;
-    small._desc = "small map";
-    small._name = "SMALL";
-    small._path = "./Assets/media/blue_button.png";
-    _lib->printButton(small);
+	graphic::infos_t players;
+	players._x = (size.x / 2) - 200;
+	players._y = 300;
+	players._w = (size.x / 2) - 100;
+	players._h = 350;
+	players._maxW = 100;
+	players._maxH = 70;
+	players._path = "./Assets/media/players.png";
+	_lib->drawImage(players);
 
-    graphic::infos_t medium;
-    medium._x = 330;
-    medium._y = 240;
-    medium._w = 450;
-    medium._h = 270;
-    medium._path = "./Assets/media/blue_button.png";
-    medium._desc = "medium map";
-    medium._name = "MEDIUM";
-    medium._type = graphic::MEDIUM_MAP;
-    _lib->printButton(medium);
+	graphic::infos_t plus;
+	plus._x = (size.x / 2) + 50;
+	plus._y = 300;
+	plus._w = (size.x / 2) + 90;
+	plus._h = 350;
+	plus._type = graphic::controllerUser::PLAYER_UP;
+	plus._desc = "";
+	plus._name = "";
+	plus._path = "./Assets/media/right_arrow.png";
+	_lib->printButton(plus);
 
-    graphic::infos_t large;
-    large._x = 480;
-    large._y = 240;
-    large._w = 600;
-    large._h = 270;
-    large._path = "./Assets/media/blue_button.png";
-    large._desc = "large map";
-    large._name = "LARGE";
-    large._type = graphic::LARGE_MAP;
-    _lib->printButton(large);
+	_playerNbInfos._x = (size.x / 2) - 10;
+	_playerNbInfos._y = 300;
+	_playerNbInfos._w = 50;
+	_playerNbInfos._h = 50;
+	_playerNbInfos._maxW = 50;
+	_playerNbInfos._maxH = 50;
+	_playerNbInfos._path = "./Assets/media/one.png";
+	_playerNbImg = _lib->drawImage(_playerNbInfos);
+
+	graphic::infos_t minus;
+	minus._x = (size.x / 2) - 50;
+	minus._y = 300;
+	minus._w = (size.x / 2) - 10;
+	minus._h = 350;
+	minus._type = graphic::controllerUser::PLAYER_DOWN;
+	minus._desc = "";
+	minus._name = "";
+	minus._path = "./Assets/media/left_arrow.png";
+	_lib->printButton(minus);
 }
 
-void    graphic::localMenu::playGame()
+void	graphic::localMenu::printButtonsIa()
 {
-    graphic::infos_t buttonExit;
-    buttonExit._x = 200;
-    buttonExit._y = 330;
-    buttonExit._w = 380;
-    buttonExit._h = 360;
-    buttonExit._path = "Assets/media/button_menu.png";
-    buttonExit._desc = "Play game";
-    buttonExit._name = "START";
-    buttonExit._type = graphic::EXIT_MAINMENU;
-    _lib->printButton(buttonExit);
+	vec2d size = _lib->getScreenSize();
+
+	graphic::infos_t players;
+	players._x = (size.x / 2) - 200;
+	players._y = 400;
+	players._w = (size.x / 2) - 150;
+	players._h = 450;
+	players._maxW = 40;
+	players._maxH = 40;
+	players._path = "./Assets/media/ia.png";
+	_lib->drawImage(players);
+
+	graphic::infos_t plus;
+	plus._x = (size.x / 2) + 50;
+	plus._y = 400;
+	plus._w = (size.x / 2) + 90;
+	plus._h = 450;
+	plus._type = graphic::controllerUser::IA_UP;
+	plus._desc = "";
+	plus._name = "";
+	plus._path = "./Assets/media/right_arrow.png";
+	_lib->printButton(plus);
+
+	_iaNbInfos._x = (size.x / 2) - 10;
+	_iaNbInfos._y = 400;
+	_iaNbInfos._w = 50;
+	_iaNbInfos._h = 50;
+	_iaNbInfos._maxW = 50;
+	_iaNbInfos._maxH = 50;
+	_iaNbInfos._path = "./Assets/media/three.png";
+	_iaNbImg = _lib->drawImage(_iaNbInfos);
+
+	graphic::infos_t minus;
+	minus._x = (size.x / 2) - 50;
+	minus._y = 400;
+	minus._w = (size.x / 2) - 10;
+	minus._h = 450;
+	minus._type = graphic::controllerUser::IA_DOWN;
+	minus._desc = "";
+	minus._name = "";
+	minus._path = "./Assets/media/left_arrow.png";
+	_lib->printButton(minus);
 }
 
-void    graphic::localMenu::returnToMenu()
+void	graphic::localMenu::printButtonsChooseMap()
 {
-    graphic::infos_t buttonExit;
-    buttonExit._x = 200;
-    buttonExit._y = 390;
-    buttonExit._w = 380;
-    buttonExit._h = 420;
-    buttonExit._path = "Assets/media/button_menu.png";
-    buttonExit._desc = "Return to main menu";
-    buttonExit._name = "RETURN TO MENU";
-    buttonExit._type = graphic::EXIT_MAINMENU;
-    _lib->printButton(buttonExit);
+	vec2d size = _lib->getScreenSize();
+
+	graphic::infos_t players;
+	players._x = (size.x / 2) - 200;
+	players._y = 500;
+	players._w = (size.x / 2) - 100;
+	players._h = 550;
+	players._maxW = 100;
+	players._maxH = 50;
+	players._path = "./Assets/media/map.png";
+	_lib->drawImage(players);
+
+	graphic::infos_t plus;
+	plus._x = (size.x / 2) + 150;
+	plus._y = 500;
+	plus._w = (size.x / 2) + 190;
+	plus._h = 550;
+	plus._type = graphic::controllerUser::MAP_NEXT;
+	plus._desc = "";
+	plus._name = "";
+	plus._path = "./Assets/media/right_arrow.png";
+	_lib->printButton(plus);
+
+	_mapModInfos._x = (size.x / 2) - 10;
+	_mapModInfos._y = 500;
+	_mapModInfos._w = 150;
+	_mapModInfos._h = 50;
+	_mapModInfos._maxW = 160;
+	_mapModInfos._maxH = 50;
+	_mapModInfos._path = "./Assets/media/OldSchool.png";
+	_mapModImg = _lib->drawImage(_mapModInfos);
+
+	graphic::infos_t minus;
+	minus._x = (size.x / 2) - 50;
+	minus._y = 500;
+	minus._w = (size.x / 2) - 10;
+	minus._h = 550;
+	minus._type = graphic::controllerUser::MAP_PREV;
+	minus._desc = "";
+	minus._name = "";
+	minus._path = "./Assets/media/left_arrow.png";
+	_lib->printButton(minus);
+
+	graphic::infos_t plusS;
+	plusS._x = (size.x / 2) + 320;
+	plusS._y = 500;
+	plusS._w = (size.x / 2) + 360;
+	plusS._h = 550;
+	plusS._type = graphic::controllerUser::MAP_SIZE_UP;
+	plusS._desc = "";
+	plusS._name = "";
+	plusS._path = "./Assets/media/right_arrow.png";
+	_lib->printButton(plusS);
+
+	_mapSizeInfos._x = (size.x / 2) + 240;
+	_mapSizeInfos._y = 500;
+	_mapSizeInfos._w = 80;
+	_mapSizeInfos._h = 50;
+	_mapSizeInfos._maxW = 80;
+	_mapSizeInfos._maxH = 50;
+	_mapSizeInfos._path = "./Assets/media/medium.png";
+	_mapSizeImg = _lib->drawImage(_mapSizeInfos);
+
+	graphic::infos_t minusS;
+	minusS._x = (size.x / 2) + 200;
+	minusS._y = 500;
+	minusS._w = (size.x / 2) + 240;
+	minusS._h = 550;
+	minusS._type = graphic::controllerUser::MAP_SIZE_DOWN;
+	minusS._desc = "";
+	minusS._name = "";
+	minusS._path = "./Assets/media/left_arrow.png";
+	_lib->printButton(minusS);
 }
 
-void graphic::localMenu::printNbrChoice(int nbr, graphic::infos_t *nbrEntity, irr::gui::IGUIImage *img)
+void	graphic::localMenu::printCoreButtons()
 {
-    img->remove();
-    if (nbr == 1)
-        (*nbrEntity)._path = "./Assets/media/one.png";
-    if (nbr == 2)
-        (*nbrEntity)._path = "./Assets/media/two.png";
-    if (nbr == 3)
-        (*nbrEntity)._path = "./Assets/media/three.png";
+	graphic::infos_t btnStart;
+	vec2d size = _lib->getScreenSize();
+	btnStart._x = (size.x / 2) + 100;
+	btnStart._y = 600;
+	btnStart._w = (size.x / 2) + 200;
+	btnStart._h = 650;
+	btnStart._type = graphic::controllerUser::START_LOCAL_GAME;
+	btnStart._desc = "Start";
+	btnStart._name = "Start";
+	btnStart._path = "Assets/media/button_menu.png";
+	_lib->printButton(btnStart);
 
+	graphic::infos_t btnReturn;
+	btnReturn._x = (size.x / 2) - 200;
+	btnReturn._y = 600;
+	btnReturn._w = (size.x / 2) - 100;
+	btnReturn._h = 650;
+	btnReturn._type = graphic::controllerUser::MENU;
+	btnReturn._desc = "Return to menu";
+	btnReturn._name = "Return to menu";
+	btnReturn._path = "Assets/media/button_menu.png";
+	_lib->printButton(btnReturn);
 }
 
-void     graphic::localMenu::setNbrIa(int nbr) {
-
-    if (nbr == 1 && _nbrPlayers < 3 && _nbrIa < 3)
-        _nbrIa++;
-    if (nbr == 1 && _nbrPlayers == 3 && _nbrIa == 1)
-        _nbrIa++;
-    if (nbr == -1 && _nbrIa > 1)
-        _nbrIa--;
-    printNbrChoice(_nbrIa, &_infosIa, _iaNbrImg);
-    _iaNbrImg = _lib->drawImage(_infosIa);
+void	graphic::localMenu::printMenuTitle()
+{
+	graphic::infos_t title;
+	vec2d size = _lib->getScreenSize();
+	title._x = (size.x / 2) - 80;
+	title._y = 100;
+	title._w = (size.x / 2) + 100;
+	title._h = 150;
+	title._maxW = 150;
+	title._maxH = 60;
+	title._path = "Assets/media/TitleCreateGame.png";
+	_lib->drawImage(title);
 }
 
-void     graphic::localMenu::setNbrPlayer(int nbr)
+void	graphic::localMenu::printBackground()
 {
-    if (nbr == 1 && _nbrPlayers < 3 && _nbrIa < 3)
-        _nbrPlayers++;
-    if (nbr == 1 && _nbrPlayers == 1 && _nbrIa == 3)
-        _nbrIa++;
-    if (nbr == -1 && _nbrPlayers > 1)
-        _nbrPlayers--;
-    printNbrChoice(_nbrPlayers, &_infosPlayers, _playerNbrImg);
-    std::cout << _infosPlayers._path << std::endl;
-    std::cout << _nbrPlayers << std::endl;
-    _playerNbrImg = _lib->drawImage(_infosPlayers);
-}
-
-void    graphic::localMenu::display()
-{
-    printBackground();
-    choiceMap();
-    choiceSizeMap();
-    printLogo();
-    playGame();
-    printChoicePlayers();
-    printChoiceIA();
-    returnToMenu();
-}
-
-void graphic::localMenu::updateDisplay()
-{
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+	vec2d size = _lib->getScreenSize();
+	graphic::infos_t background;
+	background._x = 0;
+	background._y = 0;
+	background._w = size.x;
+	background._h = size.y;
+	background._maxW = size.x;
+	background._maxH = size.y;
+	background._path = "Assets/media/pixel_skyline.png";
+	_lib->drawImage(background);
 }
