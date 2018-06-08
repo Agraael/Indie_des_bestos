@@ -15,15 +15,15 @@ void Ia::update()
 	Algorithm *algo = new Algorithm;
 
 	(void)(algo);
- 	/*if (algo->check_if_dangerous_zone(map, _pos) == true) {
+ 	if (algo->check_if_dangerous_zone(map, _pos) == true) {
 		move = algo->defensiveMove(map, _pos);
 	}
 	else {
 		move = algo->offensiveMove(map, _pos, _map);
-	}*/
-	//if (_pos != move) {
-		_map->updatePos(this, move);
-	//}
+	}
+	if (_pos != move) {
+		_map->updatePos(reinterpret_cast<Entity *>(this), move);
+	}
 	_pos = move;
 }
 

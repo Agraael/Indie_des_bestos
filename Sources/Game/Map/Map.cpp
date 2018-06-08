@@ -143,20 +143,16 @@ void Map::checkBonusCollision(std::shared_ptr<entities::Entity> character, const
 	}
 }
 
-void	Map::updatePos(entities::Entity* entity, entities::entityPosition newPos)
+void	Map::updatePos(entities::Entity *entity, entities::entityPosition pos)
 {
-	std::cout << entity << std::endl;
-	auto x = entity->getPos().first;
-	auto y = entity->getPos().second;
-	auto find = std::find_if(std::begin(_map[x][y]), std::end(_map[x][y]), 
-				[entity](const std::shared_ptr<entities::Entity>& elem){return elem.get() == entity;});
+	entities::entityPosition	newPos = entity->getPos();
+	std::size_t	i = 0;
 
-	std::cout << "entity nb : " << entity->getId() << std::endl;
-	std::cout << x << ":" << y << " -> " << newPos.first << ":" << newPos.second << std::endl;
-	if (find == std::end(_map[x][y]))
-		std::cout << "no found" << std::endl;
-	else {
-		//_map[newPos.first][newPos.second].push_back(*find);
-		//_map[x][y].erase(find);
+	for (auto oldEntity :_map[newPos.first][newPos.second]) {
+		if (oldEntity->getId() == entity->getId()) {
+			_map[pos.first][pos.second].push_back(oldEntity);
+                        _map[newPos.first][newPos.second].erase(_map[newPos.first][newPos.second].begin() + i);
+		}
+		i++;
 	}
 }

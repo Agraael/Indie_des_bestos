@@ -52,6 +52,7 @@ namespace entities {
 		void			setLayout(int i) noexcept { _layout = i;}
 		void			setTexture(std::string texture) { _texture = texture; }
 		std::string const	&getName() const noexcept { return _name; }
+		void			setMooved() { _mooved = false; }
 	protected:
 		std::size_t		_id;
 		graphicEntityPosition	_graphicPos;
@@ -63,6 +64,7 @@ namespace entities {
 		std::string		_name;
 		std::shared_ptr<Map>	_map;
 		bool			_isDead;
+		bool			_mooved;
 		//bool			_isregidBody;
 		//bool			getIsRegidBody() { return _isregidBody; }
 	};

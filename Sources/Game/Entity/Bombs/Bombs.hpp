@@ -20,7 +20,7 @@ class Bombs : public entities::Entity {
 		~Bombs() final = default;
 	void	update();
 	private:
-		time_t 	_saveTime;
+		time_t						_saveTime;
 		std::vector<std::shared_ptr<entities::Entity>>	_exploseTab;
 };
 

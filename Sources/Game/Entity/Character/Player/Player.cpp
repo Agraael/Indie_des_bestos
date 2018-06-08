@@ -9,16 +9,22 @@
 
 void	Player::update()
 {
-	std::size_t	index = 0;
-		std::cout << index << std::endl;
+	std::size_t			index = 0;
+	entities::entityPosition	newPos = _pos;
 
 	for (auto event : _eventPlayer) {
+		if (_lib->getEventManager()->IsKeyDown(event) && index < 4) {
+			auto func = _foncter[index];
+			newPos = func(_map->get3dMap(), _pos);
+		}
+		else if (_lib->getEventManager()->IsKeyDown(event))
+			_map->placeBomb(_pos, _power);
 		++index;
-		std::cout << event << std::endl;
-		//std::cout << event << std::endl;
-	/* 	if (_lib->getEventManager()->IsKeyDown(irr::KEY_KEY_Z)) {
-			std::cout << "oui" << std::endl;
-			std::cout << event << std::endl;
-		} */
 	}
+	if (newPos != std::make_pair(0, 0) && newPos != _pos && _mooved == false) {
+		_mooved = true;
+		_map->updatePos(reinterpret_cast<Entity *>(this), newPos);
+		_pos = newPos;
+	}
+
 }
