@@ -5,7 +5,11 @@
 #ifndef LIBEVENTMANAGER_HPP
 #define LIBEVENTMANAGER_HPP
 
+#ifdef _WIN32
+#include <irrlicht.h>
+#else
 #include <irrlicht/irrlicht.h>
+#endif
 
 namespace graphic
 {

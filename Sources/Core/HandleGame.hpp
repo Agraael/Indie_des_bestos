@@ -48,7 +48,7 @@ class HandleGame
 		std::vector<irr::scene::ISceneNode *>	_disp;
 		std::string				_winnerName;
 		bool					_timeDispWinner;
-		const std::unordered_map<const GenerationSize, const Vector_t>	_hGameSizeTab = {
+		const std::unordered_map<GenerationSize, const Vector_t>	_hGameSizeTab = {
 			{GenerationSize::Small, {13, 7}},
 			{GenerationSize::Medium, {19, 13}},
 			{GenerationSize::Big, {25, 19}}

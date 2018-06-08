@@ -38,6 +38,20 @@ void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
  	_map[pos.first][pos.second].push_back(std::make_shared<Bombs>(pos, false, 0, exploseTab));
 }
 
+void Map::addModifiedEntity(const std::shared_ptr<entities::Entity> &entity)
+{
+	std::shared_ptr<entities::Entity> new_entity(entity);
+
+	_modifiedEntities.push_back(new_entity);
+}
+
+void Map::addDeletedEntity(const std::shared_ptr<entities::Entity> &entity)
+{
+	int id = entity->getId();
+
+	_deletedEntities.push_back(id);
+}
+
 void Map::addBombs(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos)
 {
         for (auto entity : _map[pos.first][pos.second]) {
@@ -76,38 +90,47 @@ void Map::allowWallpass(std::shared_ptr<entities::Entity> &character, const enti
 
 void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 {
-	int i = 0;
-
-	for (auto entity :_map[pos.first][pos.second]) {
-		if (!(entity.get()->getType() == entities::entityType::BOMB_UP_TYPE ||
-		      entity.get()->getType() == entities::entityType::SPEED_UP_TYPE ||
-		      entity.get()->getType() == entities::entityType::FIRE_UP_TYPE ||
-		      entity.get()->getType() == entities::entityType::WALL_PASS_TYPE)) {
-                        _map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
+	for (unsigned int i = 0; i < _map[pos.first][pos.second].size(); i++) {
+		for (auto entity :_map[pos.first][pos.second]) {
+			if (!(entity.get()->getType() == entities::entityType::BOMB_UP_TYPE ||
+			      entity.get()->getType() == entities::entityType::SPEED_UP_TYPE ||
+			      entity.get()->getType() == entities::entityType::FIRE_UP_TYPE ||
+			      entity.get()->getType() == entities::entityType::WALL_PASS_TYPE)) {
+				addDeletedEntity(entity);
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin());
+				break;
+			}
 		}
-		i++;
 	}
 }
 
 void Map::checkBonusCollision(std::shared_ptr<entities::Entity> character, const entities::entityPosition &pos)
 {
-	int i = 0;
-        for (auto entity : _map[pos.first][pos.second]) {
-                if (entity.get()->getType() == entities::entityType::BOMB_UP_TYPE) {
-                        addBombs(character, pos);
-			_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
-                } else if (entity.get()->getType() == entities::entityType::SPEED_UP_TYPE) {
-                        addSpeed(character, pos);
-			_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
-                } else if (entity.get()->getType() == entities::entityType::FIRE_UP_TYPE) {
-                        addFire(character, pos);
-			_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
-                } else if (entity.get()->getType() == entities::entityType::WALL_PASS_TYPE) {
-                        allowWallpass(character, pos);
-			_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
-                }
-		i++;
-        }
+	for (unsigned int i = 0; i < _map[pos.first][pos.second].size(); i++) {
+		for (auto entity : _map[pos.first][pos.second]) {
+			if (entity.get()->getType() == entities::entityType::BOMB_UP_TYPE) {
+				addBombs(character, pos);
+				addDeletedEntity(entity);
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin());
+				break;
+			} else if (entity.get()->getType() == entities::entityType::SPEED_UP_TYPE) {
+				addSpeed(character, pos);
+				addDeletedEntity(entity);
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin());
+				break;
+			} else if (entity.get()->getType() == entities::entityType::FIRE_UP_TYPE) {
+				addFire(character, pos);
+				addDeletedEntity(entity);
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin());
+				break;
+			} else if (entity.get()->getType() == entities::entityType::WALL_PASS_TYPE) {
+				allowWallpass(character, pos);
+				addDeletedEntity(entity);
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin());
+				break;
+			}
+		}
+	}
 }
 
 void	Map::updatePos(entities::Entity *entity, entities::entityPosition pos)
