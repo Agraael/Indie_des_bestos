@@ -32,20 +32,10 @@ void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
 			placeExplosion(newEntity, std::make_pair(pos.first, pos.second + i));
 		exploseTab.push_back(newEntity);
 	}
+	newEntity = std::make_shared<GonnaExplose>(pos, false, 0);
+	exploseTab.push_back(newEntity);
+ 	_map[pos.first][pos.second].push_back(newEntity);
  	_map[pos.first][pos.second].push_back(std::make_shared<Bombs>(pos, false, 0, exploseTab));
-}
-
-void	Map::deleteElem(std::shared_ptr<entities::Entity> entity)
-{
-
-	auto x = entity->getPos().first;
-	auto y = entity->getPos().second;
-	
-	auto find = std::find(std::begin(_map[x][y]), std::end(_map[x][y]), entity);
-	if (find == std::end(_map[x][y]))
-		std::cout << "no found" << std::endl;
-	else
-		_map[x][y].erase(find);
 }
 
 void Map::addBombs(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos)

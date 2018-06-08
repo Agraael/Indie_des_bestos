@@ -20,7 +20,7 @@ void	InterpreteGeneration::InitDestructible(SharedEntity &tempTab, std::size_t x
 
 void	InterpreteGeneration::InitBombUp(SharedEntity &tempTab, std::size_t x, std::size_t y)
 {
-	std::shared_ptr<BonusSpace::Bonus>		bonus;
+	std::shared_ptr<entities::Entity>		bonus;
 
 	bonus = std::make_shared<BombUp>(std::make_pair(x,y), true, 1);
 	tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), false, 0, bonus, BonusSpace::BonusesTypes::BOMBUP));
@@ -29,7 +29,7 @@ void	InterpreteGeneration::InitBombUp(SharedEntity &tempTab, std::size_t x, std:
 
 void	InterpreteGeneration::InitSpeedUp(SharedEntity &tempTab, std::size_t x, std::size_t y)
 {
-	std::shared_ptr<BonusSpace::Bonus>		bonus;
+	std::shared_ptr<entities::Entity>		bonus;
 
 	bonus = std::make_shared<SpeedUp>(std::make_pair(x,y), true, 1);
 	tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), false, 0, bonus, BonusSpace::BonusesTypes::SPEEDUP));
@@ -38,7 +38,7 @@ void	InterpreteGeneration::InitSpeedUp(SharedEntity &tempTab, std::size_t x, std
 
 void	InterpreteGeneration::InitFireUp(SharedEntity &tempTab, std::size_t x, std::size_t y)
 {
-	std::shared_ptr<BonusSpace::Bonus>		bonus;
+	std::shared_ptr<entities::Entity>		bonus;
 
 	bonus = std::make_shared<FireUp>(std::make_pair(x,y), true, 1);
 	tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), false, 0, bonus, BonusSpace::BonusesTypes::FIREUP));
@@ -47,7 +47,7 @@ void	InterpreteGeneration::InitFireUp(SharedEntity &tempTab, std::size_t x, std:
 
 void	InterpreteGeneration::InitWallPass(SharedEntity &tempTab, std::size_t x, std::size_t y)
 {
-	std::shared_ptr<BonusSpace::Bonus>		bonus;
+	std::shared_ptr<entities::Entity>		bonus;
 
 	bonus = std::make_shared<WallPass>(std::make_pair(x,y), true, 1);
 	tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), false, 0, bonus, BonusSpace::BonusesTypes::WALLPASS));
@@ -66,6 +66,7 @@ void	InterpreteGeneration::InitPlayer(SharedEntity &tempTab, std::size_t x, std:
 {
 	static	std::size_t	index = 1;
 
+	std::cout << x << " " << y << std::endl;
 	tempTab.push_back(std::make_shared<Player>(std::make_pair(x,y), false, 0, _eventPlayer[index], "PLAYER" + std::to_string(index)));
 	++index;
 }
@@ -118,6 +119,7 @@ void	InterpreteGeneration::Fill(GameMap &map, const std::size_t &width, const st
 {
 	for (std::size_t i = 0; i < height; ++i) {
 		for (std::size_t n = 0; n < width; ++n) {
+			std::cout << charMap[i][n];
 			auto func = _initFuncsPtr[static_cast<InterpreteGeneration::entityType>(charMap[i][n])];
 			if (charMap[i][n] != ' ') {
 				func(_tempTab, i, n);
@@ -127,6 +129,7 @@ void	InterpreteGeneration::Fill(GameMap &map, const std::size_t &width, const st
 			else
 				_tempLine.push_back({});
 		}
+		std::cout << std::endl;
 		map.push_back(_tempLine);
 		if (!(_tempLine.empty()))
 			_tempLine.clear();

@@ -45,14 +45,13 @@ namespace entities {
 		entities::entityType	getType() const noexcept { return _typeEnum; }
 		std::size_t		getLayout() const noexcept { return _layout; }
 		std::size_t		getId() const noexcept { return _id; }
-		void			setId(std::size_t id) { _id = id; }
-		std::size_t		getId() { return (_id); }
+		std::size_t		&getId() { return (_id); }
 		void			die(bool state) { _isDead = state; }
 		void			setMap(std::shared_ptr<Map> &map) {_map = map; };
 		void			setLayout(int i) noexcept { _layout = i;}
 		void			setTexture(std::string texture) { _texture = texture; }
 		std::string const	&getName() const noexcept { return _name; }
-		void			setMooved() { _mooved = false; }
+		void			setMooved() { _mooved = true; }
 	protected:
 		std::size_t		_id;
 		graphicEntityPosition	_graphicPos;
