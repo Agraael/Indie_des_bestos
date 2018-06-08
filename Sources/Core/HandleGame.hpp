@@ -39,7 +39,7 @@ class HandleGame
 		bool	CheckEndGame();
 	private:
 		void	changeDisp();
-		void	initMapGround(GenerationSize &, std::size_t &);
+		void	initMapGround(const GenerationSize &, std::size_t &);
 		void	addCubeToMap(const entities::Entity &, std::size_t &);
 		void	updateEntity(const entities::Entity *);
 		bool	gameEnd() noexcept;
@@ -48,7 +48,7 @@ class HandleGame
 		std::vector<irr::scene::ISceneNode *>	_disp;
 		std::string				_winnerName;
 		bool					_timeDispWinner;
-		const std::unordered_map<const GenerationSize, const Vector_t>	_hGameSizeTab = {
+		const std::unordered_map<GenerationSize, const Vector_t>	_hGameSizeTab = {
 			{GenerationSize::Small, {13, 7}},
 			{GenerationSize::Medium, {19, 13}},
 			{GenerationSize::Big, {25, 19}}
