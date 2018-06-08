@@ -13,7 +13,7 @@ std::pair<int, int> MoveTo::try_move_up(std::vector<std::vector<std::vector<std:
         if (pos_character.first < 0 || pos_character.second < 0 || pos_character.first >= static_cast<int>(map.size()))
                 return {};
         for (auto &entity : map[pos_character.first + 1][pos_character.second]) {
-		if (std::static_pointer_cast<Walls>(entity) != nullptr)
+		if (entity.get()->IsKinematic() == true)
 			return {};
         }
 	std::pair<int, int> to_return;
@@ -28,7 +28,7 @@ std::pair<int, int> MoveTo::try_move_down(std::vector<std::vector<std::vector<st
         if (pos_character.first <= 0 || pos_character.second < 0)
                 return {};
         for (auto &entity : map[pos_character.first - 1][pos_character.second]) {
-		if (std::static_pointer_cast<Walls>(entity) != nullptr)
+		if (entity.get()->IsKinematic() == true)
 			return {};
         }
 	std::pair<int, int> to_return;
@@ -43,7 +43,7 @@ std::pair<int, int> MoveTo::try_move_right(std::vector<std::vector<std::vector<s
 	if (pos_character.first < 0 || pos_character.second <= 0)
 		return {};
 	for (auto &entity : map[pos_character.first][pos_character.second - 1]) {
-		if (std::static_pointer_cast<Walls>(entity) != nullptr)
+		if (entity.get()->IsKinematic() == true)
 			return {};
 	}
 	std::pair<int, int> to_return;
@@ -58,7 +58,7 @@ std::pair<int, int> MoveTo::try_move_left(std::vector<std::vector<std::vector<st
 	if (pos_character.first < 0 || pos_character.second < 0 || pos_character.second >= static_cast<int>(map[pos_character.first].size()))
 		return {};
 	for (auto &entity : map[pos_character.first][pos_character.second + 1]) {
-		if (std::static_pointer_cast<Walls>(entity) != nullptr)
+		if (entity.get()->IsKinematic() == true)
 			return {};
 	}
 	std::pair<int, int> to_return;
