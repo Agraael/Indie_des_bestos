@@ -15,6 +15,7 @@ void Ia::update()
 	Algorithm *algo = new Algorithm;
 
 	(void)(algo);
+	std::cout << _pos.first << " " << _pos.second << "is pos\n";
  	if (algo->check_if_dangerous_zone(map, _pos) == true) {
 		move = algo->defensiveMove(map, _pos);
 	}
@@ -22,6 +23,7 @@ void Ia::update()
 		move = algo->offensiveMove(map, _pos, _map);
 	}
 	if (_pos != move) {
+		std::cout << _pos.first << " " << _pos.second << " " << move.first << " " << move.second << std::endl;
 		_map->updatePos(reinterpret_cast<Entity *>(this), move);
 	}
 	_pos = move;
