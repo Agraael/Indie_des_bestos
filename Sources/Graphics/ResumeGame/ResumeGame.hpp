@@ -28,6 +28,7 @@ namespace graphic
 	private:
 		graphic::IrrlichtLib *_lib;
 		irr::gui::IGUIImage *_dirigible;
+		vec2d _size;
 		size_t _count;
 	};
 }

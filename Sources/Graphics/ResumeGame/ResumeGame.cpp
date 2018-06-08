@@ -11,6 +11,7 @@
 
 graphic::ResumeGame::ResumeGame(graphic::IrrlichtLib *lib) : _lib(lib)
 {
+    _size = _lib->getScreenSize();
     _count = -30;
 }
 
@@ -21,14 +22,14 @@ void    graphic::ResumeGame::drawChoiceButtons()
     buttonExit._y = 360;
     buttonExit._w = 400;
     buttonExit._h = 390;
-    buttonExit._path = "Assets/media/button_menu.png";
-    buttonExit._desc = "Return to menu";
-    buttonExit._name = "RETURN TO MENU";
-    buttonExit._type = graphic::EXIT_MAINMENU;
+    buttonExit._path = "Assets/media/button_ResumeGame.png";
+    buttonExit._desc = "Return to ResumeGame";
+    buttonExit._name = "RETURN TO ResumeGame";
+    buttonExit._type = graphic::EXIT_MAINResumeGame;
     _lib->printButton(buttonExit);
 }
 
-irr::gui::IGUIImage *graphic::Menu::drawDirigible()
+irr::gui::IGUIImage *graphic::ResumeGame::drawDirigible()
 {
     graphic::infos_t dirgInfos;
     dirgInfos._x = 0;
@@ -42,17 +43,17 @@ irr::gui::IGUIImage *graphic::Menu::drawDirigible()
 	return (dirigible);
 }
 
-void    graphic::Menu::startDirigible()
+void    graphic::ResumeGame::startDirigible()
 {
-    if (_count < 700) {
+    if (_count < _size.x) {
         auto rect = irr::core::position2d<int>(_count, 50);
         _dirigible->setRelativePosition(rect);
     }
-    if (_count == 700)
+    if (_count == _size.x)
         _count = -30;
 }
 
-void    graphic::Menu::printLogo()
+void    graphic::ResumeGame::printLogo()
 {
     graphic::infos_t logo;
     logo._x = 5;
@@ -65,27 +66,33 @@ void    graphic::Menu::printLogo()
 	_lib->drawImage(logo);
 }
 
-void graphic::Menu::printBackground()
+void    graphic::ResumeGame::printListBox()
+{
+    _lib->createListBox("CHOICE YOUR GAMEPLAY");
+}
+
+void graphic::ResumeGame::printBackground()
 {
     graphic::infos_t background;
     background._x = 0;
     background._y = 0;
     background._w = 640;
     background._h = 480;
-    background._maxW = _lib.getHeight();
-    background._maxH = 580;
+    background._maxW = _size.x;
+    background._maxH = _size.h;
     background._path = "Assets/media/pixel_skyline.png";
 	_lib->drawImage(background);
 }
 
-void    graphic::Menu::display()
+void    graphic::ResumeGame::display()
 {
     printBackground();
+    printListBox();
     drawChoiceButtons();
     _dirigible = drawDirigible();
 }
 
-void graphic::Menu::updateDisplay()
+void graphic::ResumeGame::updateDisplay()
 {
     startDirigible();
     printLogo();

@@ -67,6 +67,7 @@ namespace graphic {
 			irr::gui::IGUIScrollBar	*scrollBarButton(const infos_t &);
 			std::shared_ptr<LibEventManager> const& getEventManager() const noexcept { return _eventManager; }
 			vec2d const		&getScreenSize() const noexcept { return _screenSize; }
+			void createListBox(const std::string &name);
 		private:
 			vec2d						_screenSize;
 			irr::video::IVideoDriver			*_driver;
