@@ -48,6 +48,20 @@ void	Map::deleteElem(std::shared_ptr<entities::Entity> entity)
 		_map[x][y].erase(find);
 }
 
+void Map::addModifiedEntity(const std::shared_ptr<entities::Entity> &entity)
+{
+	std::shared_ptr<entities::Entity> new_entity(entity);
+
+	_modifiedEntities.push_back(new_entity);
+}
+
+void Map::addDeletedEntity(const std::shared_ptr<entities::Entity> &entity)
+{
+	int id = entity->getId();
+
+	_deletedEntities.push_back(id);
+}
+
 void Map::addBombs(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos)
 {
         for (auto entity : _map[pos.first][pos.second]) {
@@ -92,7 +106,8 @@ void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 			      entity.get()->getType() == entities::entityType::SPEED_UP_TYPE ||
 			      entity.get()->getType() == entities::entityType::FIRE_UP_TYPE ||
 			      entity.get()->getType() == entities::entityType::WALL_PASS_TYPE)) {
-				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
+				addDeletedEntity(entity);
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin());
 				break;
 			}
 		}
@@ -105,19 +120,23 @@ void Map::checkBonusCollision(std::shared_ptr<entities::Entity> character, const
 		for (auto entity : _map[pos.first][pos.second]) {
 			if (entity.get()->getType() == entities::entityType::BOMB_UP_TYPE) {
 				addBombs(character, pos);
-				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
+				addDeletedEntity(entity);
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin());
 				break;
 			} else if (entity.get()->getType() == entities::entityType::SPEED_UP_TYPE) {
 				addSpeed(character, pos);
-				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
+				addDeletedEntity(entity);
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin());
 				break;
 			} else if (entity.get()->getType() == entities::entityType::FIRE_UP_TYPE) {
 				addFire(character, pos);
-				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
+				addDeletedEntity(entity);
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin());
 				break;
 			} else if (entity.get()->getType() == entities::entityType::WALL_PASS_TYPE) {
 				allowWallpass(character, pos);
-				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + i);
+				addDeletedEntity(entity);
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin());
 				break;
 			}
 		}
