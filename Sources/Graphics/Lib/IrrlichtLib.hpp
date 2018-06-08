@@ -76,6 +76,7 @@ namespace graphic {
 			std::map<std::string, irr::video::ITexture *>	_mapTexture;
 			std::shared_ptr<graphic::LibEventManager>	_eventManager{nullptr};
             irr::s32 _light;
+		    irr::gui::IGUIListBox*    _listBox;
 	};
 	void driverChoiceConsole(irr::video::E_DRIVER_TYPE &);
 }

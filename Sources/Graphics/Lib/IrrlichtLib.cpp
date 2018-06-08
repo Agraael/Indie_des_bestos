@@ -70,6 +70,13 @@ irr::gui::IGUIButton	*graphic::IrrlichtLib::printButton(const infos_t &infos)
 
 }
 
+void graphic::IrrlichtLib::createListBox(const std::string &name)
+{
+	std::wstring wideStr = std::wstring(name.begin(), name.end());
+	const wchar_t *wideCStr = wideStr.c_str();
+	_listBox->addItem(wideCStr);
+}
+
 irr::gui::IGUIScrollBar	*graphic::IrrlichtLib::scrollBarButton(const infos_t &infos)
 {
 	drawText(200, 200, 30, "Brightness Control");

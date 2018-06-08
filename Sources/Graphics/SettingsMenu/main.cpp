@@ -42,7 +42,7 @@ int main()
                 button->second();
             }
         }
-        lib->displayAll(true);
+        lib->displayAll();
     }
     return (0);
 }
