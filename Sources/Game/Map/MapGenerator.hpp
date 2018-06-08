@@ -30,9 +30,9 @@ class MapGenerator
 		void	createMapLine(char *&, const mapline_t &, std::size_t);
 
 		const std::map<const GenerationSize, const Vector_t>	_GenSizeTab = {
-			{GenerationSize::Small, {13, 7}},
-			{GenerationSize::Medium, {19, 13}},
-			{GenerationSize::Big, {25, 19}}
+			{GenerationSize::Small, {15, 9}},
+			{GenerationSize::Medium, {25, 19}},
+			{GenerationSize::Big, {37, 31}}
 		};
 };
 

@@ -11,7 +11,7 @@
 #include "Core.hpp"
 
 Core::Core()
-	: _state(CoreState::IN_MENU), _lib(new graphic::IrrlichtLib()), _eventCore(_lib), _menu(new graphic::Menu(_lib)), hGame(_lib), _menuSetting(new graphic::settingsMenu(_lib)), _playing(false)
+	: _state(CoreState::IN_MENU), _lib(new graphic::IrrlichtLib()), _eventCore(_lib), _menu(new graphic::Menu(_lib)), hGame(_lib), _menuSetting(new graphic::settingsMenu(_lib)), _menuCreateGame(new graphic::localMenu(_lib)), _menuPause(new graphic::MenuPause(_lib)), _playing(false), _gamePaused(false)
 {
 }
 
@@ -28,7 +28,7 @@ int	Core::run()
 	while (_lib->getDevice()->run()) {
 		newState = _eventCore.updateCore(_state);
 		if (newState == CoreState::EXIT)
-			return exitCore();
+			return 0;
 		chooseCorePart(newState);
 		_lib->displayAll();
 	}
@@ -36,17 +36,18 @@ int	Core::run()
 }
 void	Core::chooseCorePart(const CoreState &state)
 {
-	// if (_fcnTab.find(_state) != _fcnTab.end())
-	// 	_fcnTab.at(_state)(state);
 	if (_state == CoreState::IN_MENU)
 		menu(state);
-	if (_state == CoreState::IN_SOLO) {
-		//sleep(2);
-		gameSolo(state);
-	}
-	if (_state == CoreState::IN_SETTINGS) {
+	else if (_state == CoreState::IN_GAME)
+		game(state);
+	else if (_state == CoreState::IN_SETTINGS)
 		menuSetting(state);
-	}
+	else if (_state == CoreState::GAME_PAUSE)
+		menuGamePaused(state);
+	else if (_state == CoreState::IN_RESUME) {
+
+	} else if (_state == CoreState::IN_LOCAL)
+		menuCreateGame(state);
 }
 
 void	Core::menu(const CoreState &state)
@@ -55,46 +56,27 @@ void	Core::menu(const CoreState &state)
 	if (state == _state)
 		return;
 	_lib->clearGui();
-	if (state == CoreState::IN_SOLO) {
-		_playing = true;
-		hGame.InitGame({GenerationSize::Medium, GenerationMod::Standard, 1, 3});
-	} else if (state == CoreState::IN_SETTINGS) {
-		//init menu setting
+	if (state == CoreState::IN_LOCAL)
+		_menuCreateGame->display();
+	else if (state == CoreState::IN_SETTINGS)
 		_menuSetting->display();
-	} else if (state == CoreState::IN_LOCAL) {
+	else if (state == CoreState::IN_RESUME) {
 	}
 	_state = state;
 }
 
-void	Core::gameLocal(const CoreState &state)
-{
-	if (_lib->getEventManager()->IsKeyDown(irr::EKEY_CODE::KEY_ESCAPE) == true || !_playing) {
-		hGame.quitGame();
-		_lib->clearGui();
-		_menu->display();
-		_state = CoreState::IN_MENU;
-		return;
-	}
-	hGame.updateMap(_playing);
-	(void)(state);
-}
-
-void	Core::gameSolo(const CoreState &state)
+void	Core::game(const CoreState &)
 {
 	//sleep (0.5);
 	if (_lib->getEventManager()->IsKeyDown(irr::EKEY_CODE::KEY_ESCAPE) == true) {
-		hGame.quitGame();
-		_lib->clearGui();
-		_menu->display();
-//		_menu->updateDisplay();
-		_state = CoreState::IN_MENU;
+		_menuPause->display();
+		_state = CoreState::GAME_PAUSE;
 		return;
 	} else if (!_playing) {
 		hGame.dumpPlayerName();
 		return;
 	}
 	hGame.updateMap(_playing);
-	(void)(state);
 }
 
 void	Core::menuSetting(const CoreState &state)
@@ -106,15 +88,42 @@ void	Core::menuSetting(const CoreState &state)
 		return;
 	}
 	_menuSetting->updateDisplay();
-	(void)(state);
 }
 
-void	Core::menuLocal(const CoreState &state)
+void	Core::menuCreateGame(const CoreState &state)
 {
-	(void)(state);
+	if (state == CoreState::IN_GAME) {
+		_playing = true;
+		hGame.InitGame({_menuCreateGame->getMapName(), _menuCreateGame->getGenSize(), _menuCreateGame->getGenMode(), _menuCreateGame->getPlayerNb(), _menuCreateGame->getIaNb()});
+		_lib->clearGui();
+		_state = state;
+		return;
+	} else if (state == CoreState::IN_MENU) {
+		_lib->clearGui();
+		_menu->display();
+		_state = state;
+		return;
+	}
+	_menuCreateGame->updateDisplay();
 }
 
-int	Core::exitCore()
+void	Core::menuGamePaused(const CoreState &state)
 {
-	return 0;
+	if (state == CoreState::IN_MENU) {
+		_lib->clearGui();
+		_lib->clearScene();
+		_menu->display();
+		_state = state;
+		return;
+	} else if (state == CoreState::IN_GAME) {
+		_lib->clearGui();
+		_state = state;
+		return;
+	}
+	_menuPause->updateDisplay(hGame);
+}
+
+void	Core::menuResume(const CoreState &)
+{
+
 }

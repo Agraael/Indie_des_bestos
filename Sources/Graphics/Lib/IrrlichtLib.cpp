@@ -27,8 +27,8 @@ graphic::IrrlichtLib::~IrrlichtLib()
 void	graphic::IrrlichtLib::displayAll()
 {
 	_driver->beginScene(true, true, irr::video::SColor(255,100,101,140));
-	_guiEnv->drawAll();
 	_sceneManager->drawAll();
+	_guiEnv->drawAll();
 	_driver->endScene();
 }
 
@@ -84,6 +84,7 @@ void	graphic::IrrlichtLib::setCamera(irr::scene::ISceneNode * child)
 	irr::scene::ICameraSceneNode *cam= _sceneManager->addCameraSceneNode();
 	cam->setPosition(irr::core::vector3df(10, -10,-10));
 	cam->setParent(child);
+	cam->setID(1);
 }
 
 void	graphic::IrrlichtLib::setCamera(const vec3df &pos, const vec3df &target)
@@ -91,6 +92,7 @@ void	graphic::IrrlichtLib::setCamera(const vec3df &pos, const vec3df &target)
 	irr::scene::ICameraSceneNode *cam= _sceneManager->addCameraSceneNode();
 	cam->setPosition(irr::core::vector3df(pos.x, pos.y, pos.z));
 	cam->setTarget(irr::core::vector3df(target.x, target.y, target.z));
+	cam->setID(1);
 }
 
 irr::scene::ISceneNode	*graphic::IrrlichtLib::createCube(const vec3df &pos, const std::string &path, irr::s32 id)

@@ -18,11 +18,12 @@ void	HandleGame::InitGame(const gameType_t &game)
 {
 	InterpreteGeneration	interpret;
 	MapGenerator		generator;
-	std::size_t		id = 0;
+	std::size_t		id = 2;
 	GameMap			threedmap;
 
 	_timeDispWinner = false;
 	_winnerName = std::string("");
+	_gameName = game.game_name;
 	generator.runGeneration(game.g_size, game.g_mod);
 	generator.setPlayers(game.nb_player, game.nb_ia);
 	if (_threeDMap)
@@ -46,16 +47,16 @@ void	HandleGame::InitGame(const gameType_t &game)
 
 void	HandleGame::initMapGround(const GenerationSize &size, std::size_t &id)
 {
-	Vector_t	max = _hGameSizeTab.at(size);
+	Vector3d<int>	max = _hGameSizeTab.at(size);
 
-	for (std::size_t y = 0; y < max.y; y++) {
-		for (std::size_t x = 0; x < max.x; x++) {
-			_disp.push_back(_lib->createCube({static_cast<double>(x), static_cast<double>(y), 0}, "./Assets/media/grass.png", id));
+	for (int y = -2; y < max.y + 2; y++) {
+		for (int x = -2; x <max.x + 2; x++) {
+			_disp.push_back(_lib->createCube({static_cast<double>(x), static_cast<double>(y), 0}, "./Assets/media/BrickGround.jpg", id));
 			id++;
 		}
 	}
-//	_lib->setCamera({(static_cast<double>(max.x) / 2), - (static_cast<double>(max.y) / 2) + 4, 13}, {static_cast<double>(max.x) / 2, static_cast<double>(max.y) / 2, 0});
-	_lib->setCamera({(static_cast<double>(max.x) / 2), (static_cast<double>(max.y) / 2), 13}, {static_cast<double>(max.x) / 2, static_cast<double>(max.y) / 2, 0});
+	//_lib->setCamera({(static_cast<double>(max.x) / 2), - (static_cast<double>(max.y) / 2) + 4, static_cast<double>(max.z)}, {static_cast<double>(max.x) / 2, static_cast<double>(max.y) / 2, 0});
+	_lib->setCamera({(static_cast<double>(max.x) / 2), (static_cast<double>(max.y) / 2), static_cast<double>(max.z)}, {static_cast<double>(max.x) / 2, static_cast<double>(max.y) / 2, 0});
 }
 
 void	HandleGame::addCubeToMap(const entities::Entity &entity, std::size_t &id)

@@ -4,29 +4,34 @@ include(${GRAPHICS_ROOT_DIR}/Menu/CMakeSources.cmake)
 include(${GRAPHICS_ROOT_DIR}/SettingsMenu/CMakeSources.cmake)
 include(${GRAPHICS_ROOT_DIR}/LocalMenu/CMakeSources.cmake)
 include(${GRAPHICS_ROOT_DIR}/Lib/CMakeSources.cmake)
+include(${GRAPHICS_ROOT_DIR}/MenuPause/CMakeSources.cmake)
 
 set(GRAPHICS_INC_DIR
   ${MENU_INC_DIR}
   ${SETTINGSMENU_INC_DIR}
   ${LOCALMENU_INC_DIR}
   ${LIB_INC_DIR}
-  ${GRAPHICS_ROOT_DIR})
+  ${GRAPHICS_ROOT_DIR}
+  ${MENUPAUSE_INC_DIR})
 
 set(GRAPHICS_SRC_DIR
   ${MENU_SRC_DIR}
   ${LOCALMENU_SRC_DIR}
   ${SETTINGSMENU_SRC_DIR}
   ${LIB_SRC_DIR}
-  ${GRAPHICS_ROOT_DIR})
+  ${GRAPHICS_ROOT_DIR}
+  ${MENUPAUSE_SRC_DIR})
 
 set(GRAPHICS_INC
   ${SETTINGSMENU_INC}
   ${LOCALMENU_INC}
   ${MENU_INC}
-  ${LIB_INC})
+  ${LIB_INC}
+  ${MENUPAUSE_INC})
 
 set(GRAPHICS_SRC
   ${SETTINGSMENU_SRC}
   ${LOCALMENU_SRC}
   ${MENU_SRC}
-  ${LIB_SRC})
+  ${LIB_SRC}
+  ${MENUPAUSE_SRC})
