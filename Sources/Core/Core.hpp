@@ -13,6 +13,7 @@
 #include "HandleGame.hpp"
 #include "EventCore.hpp"
 #include "Menu.hpp"
+#include "settingsMenu.hpp"
 #include "IrrlichtLib.hpp"
 #include "EventManager.hpp"
 
@@ -25,10 +26,10 @@ public:
 private:
 	void	chooseCorePart(const CoreState &);
 	void	menu(const CoreState &);
-	void	game_local(const CoreState &);
-	void	game_solo(const CoreState &);
-	void	menu_setting(const CoreState &);
-	void	menu_local(const CoreState &);
+	void	gameLocal(const CoreState &);
+	void	gameSolo(const CoreState &);
+	void	menuSetting(const CoreState &);
+	void	menuLocal(const CoreState &);
 	int	exitCore();
 
 	CoreState			_state;
@@ -36,6 +37,7 @@ private:
 	EventCore			_eventCore;
 	graphic::Menu			*_menu;
 	HandleGame			hGame;
+	graphic::settingsMenu		*_menuSetting;
 	bool				_playing;
 	//using ptr = void	(Core::*)(const CoreState &);
 	//const std::unordered_map<CoreState, ptr>	_fcnTab = {

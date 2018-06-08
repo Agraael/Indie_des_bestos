@@ -12,17 +12,18 @@ EventCore::~EventCore()
 {
 }
 
-const std::unordered_map<IndieEvents::IndieKeys, CoreState>	EventCore::_statesTab = {
-	{IndieEvents::IndieKeys::SETTINGS, CoreState::IN_SETTINGS},
-	{IndieEvents::IndieKeys::EXIT_MAINMENU, CoreState::EXIT},
-	{IndieEvents::IndieKeys::START_LOCAL, CoreState::IN_LOCAL},
-	{IndieEvents::IndieKeys::START_SOLO, CoreState::IN_SOLO},
-	{IndieEvents::IndieKeys::EXIT_LOCAL, CoreState::IN_MENU},
-	{IndieEvents::IndieKeys::MENU, CoreState::IN_MENU},
-	{IndieEvents::IndieKeys::START_LOCAL_GAME, CoreState::IN_LOCAL_GAME},
-	{IndieEvents::IndieKeys::RESTART, CoreState::IN_LOCAL_GAME},
-	{IndieEvents::IndieKeys::QUIT, CoreState::IN_MENU},
-	{IndieEvents::IndieKeys::ECHAP, CoreState::GAME_PAUSE}
+const std::unordered_map<graphic::controllerUser, CoreState>	EventCore::_statesTab = {
+	{graphic::controllerUser::SETTINGS, CoreState::IN_SETTINGS},
+	{graphic::controllerUser::EXIT_MAINMENU, CoreState::EXIT},
+	{graphic::controllerUser::EXIT_SETTINGS, CoreState::IN_MENU},
+	{graphic::controllerUser::START_LOCAL, CoreState::IN_LOCAL},
+	{graphic::controllerUser::START_SOLO, CoreState::IN_SOLO},
+	{graphic::controllerUser::EXIT_LOCAL, CoreState::IN_MENU},
+	{graphic::controllerUser::MENU, CoreState::IN_MENU},
+	{graphic::controllerUser::START_LOCAL_GAME, CoreState::IN_LOCAL_GAME},
+	{graphic::controllerUser::RESTART, CoreState::IN_LOCAL_GAME},
+	{graphic::controllerUser::QUIT, CoreState::IN_MENU},
+	{graphic::controllerUser::ECHAP, CoreState::GAME_PAUSE}
 };
 
 CoreState	EventCore::updateCore(CoreState currentState) const noexcept
