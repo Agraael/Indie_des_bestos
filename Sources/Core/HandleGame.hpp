@@ -39,7 +39,7 @@ class HandleGame
 		bool	CheckEndGame();
 	private:
 		void	changeDisp();
-		void	initMapGround(const GenerationSize &, std::size_t &);
+		void	initMapGround(GenerationSize &, std::size_t &);
 		void	addCubeToMap(const entities::Entity &, std::size_t &);
 		void	updateEntity(const entities::Entity *);
 		bool	gameEnd() noexcept;
