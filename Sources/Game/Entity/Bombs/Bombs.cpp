@@ -7,7 +7,8 @@
 
 #include "Bombs.hpp"
 
-void	Bombs::checkExplosion()
+bool	Bombs::checkExplosion()
 {
+        return true;
         //if ((_saveTime - std::time(nullptr)) > 3)
 }

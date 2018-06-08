@@ -1,0 +1,12 @@
+set(LOCALMENU_ROOT_DIR Graphics/LocalMenu)
+
+set(LOCALMENU_INC_DIR
+  ${LOCALMENU_ROOT_DIR})
+set( LOCALMENU_SRC_DIR
+  ${LOCALMENU_ROOT_DIR})
+
+set( LOCALMENU_INC
+  ${LOCALMENU_INC_DIR}/localMenu.hpp )
+
+set( LOCALMENU_SRC
+  ${LOCALMENU_SRC_DIR}/localMenu.cpp )

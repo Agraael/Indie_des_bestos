@@ -23,8 +23,9 @@ namespace BonusSpace {
 	class Bonus : public entities::Entity {
 		public:
 			Bonus(entities::entityPosition pos, bool iskinematic, std::size_t layout, entities::entityType type) :
-			entities::Entity(pos, iskinematic, layout, type) {}
-			~Bonus() {};
+			entities::Entity(pos, iskinematic, layout, type, "") {}
+			~Bonus() override = default;
+			void	update() {};			
 	};
 }
 

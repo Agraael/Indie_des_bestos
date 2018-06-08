@@ -8,119 +8,86 @@
 #include "InterpreteGeneration.hpp"
 #include <algorithm>
 
-SharedEntity	InterpreteGeneration::InitIndestructible(std::size_t x, std::size_t y)
+void	InterpreteGeneration::InitIndestructible(SharedEntity &tempTab, std::size_t x, std::size_t y)
 {
-	SharedEntity	tempLine;
-
-	tempLine.push_back(std::make_shared<entities::Entity>(IndestructibleWalls(std::make_pair(x,y), false, 0)));
-	return tempLine;
+	tempTab.push_back(std::make_shared<IndestructibleWalls>(std::make_pair(x,y), false, 0));
 }
 
-SharedEntity	InterpreteGeneration::InitDestructible(std::size_t x, std::size_t y)
+void	InterpreteGeneration::InitDestructible(SharedEntity &tempTab, std::size_t x, std::size_t y)
 {
-	SharedEntity	tempLine;
-
-	tempLine.push_back(std::make_shared<entities::Entity>(DestructibleWalls(
-	std::make_pair(x,y), false, 0, nullptr, BonusSpace::BonusesTypes::NO_BONUS)));
-	return tempLine;
+	tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), false, 0, nullptr, BonusSpace::BonusesTypes::NO_BONUS));
 }
 
-SharedEntity	InterpreteGeneration::InitBombUp(std::size_t x, std::size_t y)
+void	InterpreteGeneration::InitBombUp(SharedEntity &tempTab, std::size_t x, std::size_t y)
 {
-	SharedEntity	tempLine;
 	std::shared_ptr<BonusSpace::Bonus>		bonus;
 
-	bonus = std::make_shared<BonusSpace::Bonus>(BombUp(std::make_pair(x,y), true, 1));
-	tempLine.push_back(std::make_shared<entities::Entity>(DestructibleWalls(
-		std::make_pair(x,y), false, 0, bonus, BonusSpace::BonusesTypes::BOMBUP)));
-	tempLine.push_back(bonus);
-	return tempLine;
+	bonus = std::make_shared<BombUp>(std::make_pair(x,y), true, 1);
+	tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), false, 0, bonus, BonusSpace::BonusesTypes::BOMBUP));
+	tempTab.push_back(bonus);
 }
 
-SharedEntity	InterpreteGeneration::InitSpeedUp(std::size_t x, std::size_t y)
+void	InterpreteGeneration::InitSpeedUp(SharedEntity &tempTab, std::size_t x, std::size_t y)
 {
-	SharedEntity	tempLine;
 	std::shared_ptr<BonusSpace::Bonus>		bonus;
 
-	bonus = std::make_shared<BonusSpace::Bonus>(SpeedUp(std::make_pair(x,y), true, 1));
-	tempLine.push_back(std::make_shared<entities::Entity>(DestructibleWalls(
-		std::make_pair(x,y), false, 0, bonus, BonusSpace::BonusesTypes::SPEEDUP)));
-	tempLine.push_back(bonus);
-	return tempLine;
+	bonus = std::make_shared<SpeedUp>(std::make_pair(x,y), true, 1);
+	tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), false, 0, bonus, BonusSpace::BonusesTypes::SPEEDUP));
+	tempTab.push_back(bonus);
 }
 
-SharedEntity	InterpreteGeneration::InitFireUp(std::size_t x, std::size_t y)
+void	InterpreteGeneration::InitFireUp(SharedEntity &tempTab, std::size_t x, std::size_t y)
 {
-	SharedEntity	tempLine;
 	std::shared_ptr<BonusSpace::Bonus>		bonus;
 
-	bonus = std::make_shared<BonusSpace::Bonus>(FireUp(std::make_pair(x,y), true, 1));
-	tempLine.push_back(std::make_shared<entities::Entity>(DestructibleWalls(
-		std::make_pair(x,y), false, 0, bonus, BonusSpace::BonusesTypes::FIREUP)));
-	tempLine.push_back(bonus);
-	return tempLine;
+	bonus = std::make_shared<FireUp>(std::make_pair(x,y), true, 1);
+	tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), false, 0, bonus, BonusSpace::BonusesTypes::FIREUP));
+	tempTab.push_back(bonus);
 }
 
-SharedEntity	InterpreteGeneration::InitWallPass(std::size_t x, std::size_t y)
+void	InterpreteGeneration::InitWallPass(SharedEntity &tempTab, std::size_t x, std::size_t y)
 {
-	SharedEntity	tempLine;
 	std::shared_ptr<BonusSpace::Bonus>		bonus;
 
-	bonus = std::make_shared<BonusSpace::Bonus>(WallPass(std::make_pair(x,y), true, 1));
-	tempLine.push_back(std::make_shared<entities::Entity>(DestructibleWalls(
-		std::make_pair(x,y), false, 0, bonus, BonusSpace::BonusesTypes::WALLPASS)));
-	tempLine.push_back(bonus);
-	return tempLine;
+	bonus = std::make_shared<WallPass>(std::make_pair(x,y), true, 1);
+	tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), false, 0, bonus, BonusSpace::BonusesTypes::WALLPASS));
+	tempTab.push_back(bonus);
 }
 
-SharedEntity	InterpreteGeneration::InitIa(std::size_t x, std::size_t y)
-{
-	SharedEntity	tempLine;
-
-	tempLine.push_back(std::make_shared<entities::Entity>(Ia(std::make_pair(x,y), false, 0)));
-	return tempLine;
-}
-
-SharedEntity	InterpreteGeneration::InitPlayer(std::size_t x, std::size_t y)
+void	InterpreteGeneration::InitIa(SharedEntity &tempTab, std::size_t x, std::size_t y)
 {
 	static	std::size_t	index = 1;
-	SharedEntity		tempLine;
 
-	tempLine.push_back(std::make_shared<entities::Entity>(Player(std::make_pair(x,y), false, 0, _eventPlayer[index])));
+	tempTab.push_back(std::make_shared<Ia>(std::make_pair(x,y), false, 0, "IA" + std::to_string(index)));
 	++index;
-	return tempLine;
 }
 
-SharedEntity	InterpreteGeneration::InitSoloBombUp(std::size_t x, std::size_t y)
+void	InterpreteGeneration::InitPlayer(SharedEntity &tempTab, std::size_t x, std::size_t y)
 {
-	SharedEntity	tempLine;
+	static	std::size_t	index = 1;
 
-	tempLine.push_back(std::make_shared<entities::Entity>(BombUp(std::make_pair(x,y), true, 1)));
-	return tempLine;
+	tempTab.push_back(std::make_shared<Player>(std::make_pair(x,y), false, 0, _eventPlayer[index], "PLAYER" + std::to_string(index)));
+	++index;
 }
 
-SharedEntity	InterpreteGeneration::InitSoloSpeedUp(std::size_t x, std::size_t y)
+void	InterpreteGeneration::InitSoloBombUp(SharedEntity &tempTab, std::size_t x, std::size_t y)
 {
-	SharedEntity	tempLine;
-
-	tempLine.push_back(std::make_shared<entities::Entity>(SpeedUp(std::make_pair(x,y), false, 0)));
-	return tempLine;
+	tempTab.push_back(std::make_shared<BombUp>(std::make_pair(x,y), true, 1));
 }
 
-SharedEntity	InterpreteGeneration::InitSoloFireUp(std::size_t x, std::size_t y)
+void	InterpreteGeneration::InitSoloSpeedUp(SharedEntity &tempTab, std::size_t x, std::size_t y)
 {
-	SharedEntity	tempLine;
-
-	tempLine.push_back(std::make_shared<entities::Entity>(FireUp(std::make_pair(x,y), false, 0)));
-	return tempLine;
+	tempTab.push_back(std::make_shared<SpeedUp>(std::make_pair(x,y), false, 0));
 }
 
-SharedEntity	InterpreteGeneration::InitSoloWallPass(std::size_t x, std::size_t y)
+void	InterpreteGeneration::InitSoloFireUp(SharedEntity &tempTab, std::size_t x, std::size_t y)
 {
-	SharedEntity	tempLine;
+	tempTab.push_back(std::make_shared<FireUp>(std::make_pair(x,y), false, 0));
+}
 
-	tempLine.push_back(std::make_shared<entities::Entity>(WallPass(std::make_pair(x,y), false, 0)));
-	return tempLine;
+void	InterpreteGeneration::InitSoloWallPass(SharedEntity &tempTab, std::size_t x, std::size_t y)
+{
+	tempTab.push_back(std::make_shared<WallPass>(std::make_pair(x,y), false, 0));
 }
 
 std::size_t	InterpreteGeneration::findHeight(char **map)
@@ -142,27 +109,26 @@ std::size_t	InterpreteGeneration::findWidth(char **map)
 	return (0);
 }
 
-GameMap	InterpreteGeneration::createMap(char **map)
+void	InterpreteGeneration::createMap(GameMap &threedmap, char **map)
 {
-	return (Fill(findWidth(map), findHeight(map), map));
+	Fill(threedmap, findWidth(map), findHeight(map), map);
 }
 
-GameMap	InterpreteGeneration::Fill(const std::size_t &width, const std::size_t &height, char **charMap)
+void	InterpreteGeneration::Fill(GameMap &map, const std::size_t &width, const std::size_t &height, char **charMap)
 {
-	std::vector<std::vector<std::shared_ptr<entities::Entity>>>	tempLine;
-	GameMap							map;
-
 	for (std::size_t i = 0; i < height; ++i) {
 		for (std::size_t n = 0; n < width; ++n) {
 			auto func = _initFuncsPtr[static_cast<InterpreteGeneration::entityType>(charMap[i][n])];
-			if (charMap[i][n] != ' ')
-				tempLine.push_back(func(i, n));
+			if (charMap[i][n] != ' ') {
+				func(_tempTab, i, n);
+				_tempLine.push_back(_tempTab);
+				_tempTab.clear();
+			}
 			else
-				tempLine.push_back({});
+				_tempLine.push_back({});
 		}
-		map.push_back(tempLine);
-		if (!(tempLine.empty()))
-			tempLine.clear();
+		map.push_back(_tempLine);
+		if (!(_tempLine.empty()))
+			_tempLine.clear();
 	}
-	return map;
 }

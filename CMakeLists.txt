@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.9)
 project( IndieStudio CXX)
 set(CMAKE_CXX_STANDARD 14)
 
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CONFIGURATION_TYPES build)
 
 option(NAZI "Use NAZI cpp flags for unix" OFF) #OFF by default : use -DNAZI
@@ -10,7 +11,7 @@ option(MDR "Use MDR for no flags" OFF)
 option(CPPCHECK "Use CPPCHECK for cppckeck" OFF)
 
 if (UNIX)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -pedantic -Wextra -fno-builtin -ffast-math -pthread")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -pedantic -Wextra -fno-builtin -ffast-math -std=c++17")
 
   if(NAZI)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wfloat-equal -Wshadow \
