@@ -23,8 +23,10 @@ bool Algorithm::is_character_here(const GameMap &map, const std::pair<int, int> 
 {
 	for (auto &entity : map[pos.first][pos.second]) {
 		if (entity.get()->getType() ==
-		    entities::entityType::DESTRUCTIBLE_TYPE)
-			return true;
+                    entities::entityType::IA_TYPE ||
+                    entity.get()->getType() ==
+                    entities::entityType::PLAYER_TYPE)
+                        return true;
 	}
         return false;
 }
@@ -32,10 +34,8 @@ bool Algorithm::is_character_here(const GameMap &map, const std::pair<int, int> 
 bool Algorithm::is_wall_destructible(const GameMap &map, const std::pair<int, int> &pos)
 {
 	for (auto &entity : map[pos.first][pos.second]) {
-                if (entity.get()->getType() ==
-		    entities::entityType::IA_TYPE ||
-		    entity.get()->getType() ==
-		    entities::entityType::PLAYER_TYPE)
+		if (entity.get()->getType() ==
+                    entities::entityType::DESTRUCTIBLE_TYPE)
                         return true;
         }
         return false;
@@ -159,15 +159,16 @@ std::pair<int, int> Algorithm::locate_enemy(GameMap &map, std::pair<int, int> &p
 	return {1, 1};
 }
 
-bool Algorithm::try_to_put_a_bomb(GameMap &map, std::pair<int, int> &posPlayer, std::shared_ptr<Map>/*  _map */)
+bool Algorithm::try_to_put_a_bomb(GameMap &map, std::pair<int, int> &posPlayer, std::shared_ptr<Map> _map)
 {
 	GameMap fake_map = map;
 	//auto new_map = _map;
-//	Map *new_map = new Map(fake_map);
-//	new_map->placeBomb(posPlayer, 3);
+	Map *new_map = new Map(fake_map);
+	_nbr_of_moves = 0;
+	new_map->placeBomb(posPlayer, 3);
 	findNearestSafePoint(fake_map, posPlayer);
 	if (_nbr_of_moves < 5) {
-	//	_map->placeBomb(posPlayer, 3);
+		_map->placeBomb(posPlayer, 3);
 		return true;
 	}
 	return false;
@@ -188,6 +189,8 @@ std::pair<int, int> Algorithm::offensiveUp(GameMap &map, std::pair<int, int> &po
 		}
 	}
 	else {
+		direction.first = posPlayer.first + 1;
+		direction.second = posPlayer.second;
 		if (is_wall_destructible(map, direction)) {
 			if (try_to_put_a_bomb(map, posPlayer, _map) == true)
 				return (posPlayer);
@@ -211,6 +214,8 @@ std::pair<int, int> Algorithm::offensiveDown(GameMap &map, std::pair<int, int> &
 		}
 	}
 	else {
+		direction.first = posPlayer.first - 1;
+		direction.second = posPlayer.second;
 		if (is_wall_destructible(map, direction)) {
 			if (try_to_put_a_bomb(map, posPlayer, _map) == true)
 				return (posPlayer);
@@ -226,17 +231,21 @@ std::pair<int, int> Algorithm::offensiveLeft(GameMap &map, std::pair<int, int> &
         MoveTo *dir = new MoveTo;
 
 	direction.first = posPlayer.first;
-	direction.second = posPlayer.second + 1;
+	direction.second = posPlayer.second - 1;
 	_offensive_tries++;
-	if ((direction = dir->try_move_left(map, posPlayer)) != empty_pair) {
+	if ((direction = dir->try_move_right(map, posPlayer)) != empty_pair) {
 		if (check_if_dangerous_zone(map, direction) == false) {
 			return (direction);
 		}
 	}
 	else {
+		direction.first = posPlayer.first;
+		direction.second = posPlayer.second - 1;
 		if (is_wall_destructible(map, direction)) {
 			if (try_to_put_a_bomb(map, posPlayer, _map) == true)
 				return (posPlayer);
+			else
+				return posPlayer;
 		}
 	}
 	return ((_offensive_tries < 5) ? (offensiveDown(map, posPlayer, _map)) : (posPlayer));
@@ -249,14 +258,16 @@ std::pair<int, int> Algorithm::offensiveRight(GameMap &map, std::pair<int, int> 
         MoveTo *dir = new MoveTo;
 
 	direction.first = posPlayer.first;
-	direction.second = posPlayer.second - 1;
+	direction.second = posPlayer.second + 1;
 	_offensive_tries++;
-	if ((direction = dir->try_move_right(map, posPlayer)) != empty_pair) {
+	if ((direction = dir->try_move_left(map, posPlayer)) != empty_pair) {
 		if (check_if_dangerous_zone(map, direction) == false) {
 			return (direction);
 		}
 	}
 	else {
+		direction.first = posPlayer.first;
+		direction.second = posPlayer.second + 1;
 		if (is_wall_destructible(map, direction)) {
 			if (try_to_put_a_bomb(map, posPlayer, _map) == true)
 				return (posPlayer);
@@ -280,5 +291,6 @@ std::pair<int, int> Algorithm::offensiveMove(GameMap &map, std::pair<int, int> &
         } else {
 		direction = offensiveRight(map, posPlayer, _map);
         }
+	std::cout << direction.first << " " << direction.second << std::endl;
 	return direction;
 }
