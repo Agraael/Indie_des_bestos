@@ -112,8 +112,8 @@ void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 		x = 0;
 		for (auto entity :_map[pos.first][pos.second]) {
 			x++;
-				entity.get()->getType() == entities::entityType::IA_TYPE ||
 			if ( entity.get()->getType() == entities::entityType::PLAYER_TYPE ||
+				entity.get()->getType() == entities::entityType::IA_TYPE ||
 				entity.get()->getType() == entities::entityType::DESTRUCTIBLE_TYPE) {
 					addDeletedEntity(entity);
 					_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
