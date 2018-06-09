@@ -25,6 +25,7 @@ public:
 	~Ia() final { std::cout << "IA destroyed" << std::endl;}
 private:
 	Singleton::ChronoId _chrono;
+	Singleton::ChronoId _chronoBomb;
 };
 
 #endif /* !ia */
