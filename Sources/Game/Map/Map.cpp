@@ -62,7 +62,7 @@ void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
 	for (int i = 1; i <= static_cast<int>(power); i++)
 		if ((pos.second - i) > 0) {
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first, pos.second - i));
-			if (isWallHere(pos.first, pos.second + i) == true)
+			if (isWallHere(pos.first, pos.second - i) == true)
 				break;
 		}
 	for (int i = 1; i <= static_cast<int>(power); i++)
