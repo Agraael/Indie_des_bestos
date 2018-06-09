@@ -41,6 +41,8 @@ namespace graphic
 		START_SOLO,
 		START_LOCAL,
 		PLAYER_DOWN,
+		PREV_FILE,
+		NEXT_FILE,
 		PLAYER_UP,
 		IA_DOWN,
 		IA_UP,

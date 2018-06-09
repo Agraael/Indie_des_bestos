@@ -13,6 +13,7 @@
 
 graphic::ResumeGame::ResumeGame(graphic::IrrlichtLib *lib) : _lib(lib)
 {
+    _itFiles = 0;
     _size = _lib->getScreenSize();
     _count = 0;
 }
@@ -97,7 +98,7 @@ void    graphic::ResumeGame::drawFileName()
     name = name.substr(11, name.size());
     std::transform(name.begin(), name.end(),name.begin(), ::toupper);
     int i = (_size.x / 2) - 270;
-    for (auto &character : fileName) {
+    for (auto &character : name) {
         graphic::infos_t letter;
         letter._x = i;
         letter._y = 310;
@@ -108,23 +109,34 @@ void    graphic::ResumeGame::drawFileName()
         std::unordered_map<char,std::string>::iterator it =  _alphaMap.find(character);
         if (it != _alphaMap.end()) {
             letter._path = _alphaMap[character];
-           _fileImg =  _lib->drawImage(letter);
+            auto img = _lib->drawImage(letter);
+           _filesImg.push_back(img);
             i += 25;
         }
     }
 }
 
-void    graphic::ResumeGame::manageFiles(size_t nbr)
+void    graphic::ResumeGame::removeImgFiles()
 {
-    _fileImg->remove();
-    if (nbr == 1 && _itFiles == _filesName.size())
+    for (auto &img : _filesImg) {
+        img->remove();
+    }
+    _filesImg.clear();
+}
+
+void    graphic::ResumeGame::manageFiles(int nbr)
+{
+    std::cout << _filesImg.size() << std::endl;
+    removeImgFiles();
+    std::cout << "esce da remove file" << std::endl;
+    if (nbr == 1 && _itFiles == (_files.size() - 1))
         _itFiles = 0;
-    if (nbr == -1 && _itFiles == 0)
-        _itFiles = _filesName.size();
+    else if (nbr == -1 && _itFiles == 0)
+        _itFiles = _files.size() - 1;
     else
-    _itFiles += nbr;
+        _itFiles += nbr;
     _fileName = _files[_itFiles];
-    drawFileName(_files[_itFiles]);
+    drawFileName();
 }
 
 void    graphic::ResumeGame::printListBox()
@@ -146,7 +158,7 @@ void    graphic::ResumeGame::printListBox()
     minus._y = 300;
     minus._w = (_size.x / 2) - 260;
     minus._h = 350;
-    minus._type = IndieEvents::PREV_FILE;
+    minus._type = graphic::controllerUser::PREV_FILE;
     minus._desc = "";
     minus._name = "";
     minus._path = "./Assets/media/left_arrow.png";
@@ -159,7 +171,7 @@ void    graphic::ResumeGame::printListBox()
     plus._y = 300;
     plus._w = (_size.x / 2) - 70;
     plus._h = 350;
-    plus._type = IndieEvents::IndieKeys::NEXT_FILE;
+    plus._type = graphic::controllerUser::NEXT_FILE;
     plus._desc = "";
     plus._name = "";
     plus._path = "./Assets/media/right_arrow.png";
@@ -192,17 +204,9 @@ void graphic::ResumeGame::updateDisplay()
     startDirigible();
     printLogo();
     _count += 10;
-    for (auto elem : _updateNumberEntity) {
+    for (auto elem : _manageEvent) {
         if (_lib->getEventManager()->IsButtonClicked(elem.first) == true) {
             elem.second();
-            if (elem.first == graphic::controllerUser::MAP_SIZE_DOWN || elem.first == graphic::controllerUser::MAP_SIZE_UP)
-                printGoodOneSize();
-            else if (elem.first == graphic::controllerUser::MAP_NEXT || elem.first == graphic::controllerUser::MAP_PREV)
-                printGoodOneMod();
-            else if (elem.first == graphic::controllerUser::PLAYER_DOWN || elem.first == graphic::controllerUser::PLAYER_UP)
-                printNumber(_playerNbInfos, _playerNbImg, _playersNb);
-            else if (elem.first == graphic::controllerUser::IA_DOWN || elem.first == graphic::controllerUser::IA_UP)
-                printNumber(_iaNbInfos, _iaNbImg, _aisNb);
         }
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(100));

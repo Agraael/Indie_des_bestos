@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <algorithm>
 #include <functional>
+#include <vector>
 #include "IrrlichtLib.hpp"
 #include "EventManager.hpp"
 
@@ -27,8 +28,9 @@ namespace graphic
 		void display();
         void drawFileName();
 		void printListBox();
-		void manageFiles(size_t nbr);
+		void manageFiles(int nbr);
 		void updateDisplay();
+		void removeImgFiles();
 		void drawChoice();
 		void saveFilesToVector();
 	private:
@@ -37,7 +39,7 @@ namespace graphic
 		vec2d _size;
 		int _count;
 		size_t _itFiles;
-        irr::gui::IGUIImage *_fileImg;
+        std::vector<irr::gui::IGUIImage*> _filesImg;
         std::string _fileName;
 		std::vector<std::string> _files;
 		std::unordered_map<char, std::string> _alphaMap = {
@@ -68,9 +70,9 @@ namespace graphic
 				{'Y', "./Assets/media/Y_letter.png"},
 				{'Z', "./Assets/media/Z_letter.png"},
 		};
-        std::unordered_map<IndieEvents::IndieKeys, std::function<void()>>	_manageEvent = {
-                {IndieEvents::NEXT_FILE, [this](){ manageFiles(1);  }},
-                {IndieEvents::PREV_FILE, [this](){ manageFiles(-1); }},
+        std::unordered_map<graphic::controllerUser, std::function<void()>>	_manageEvent = {
+                {graphic::NEXT_FILE, [this](){ manageFiles(1);  }},
+                {graphic::PREV_FILE, [this](){ manageFiles(-1); }},
                 //{graphic::controllerUser::IA_DOWN, [this](){ (_aisNb == 0) ? _aisNb = 0 : _aisNb--; }},
                 //{graphic::controllerUser::IA_UP, [this](){ (_aisNb == 3) ? _aisNb = 3 : _aisNb++; }},
         };
