@@ -8,14 +8,14 @@
 #include "InterpreteGeneration.hpp"
 #include <algorithm>
 
-void	InterpreteGeneration::InitIndestructible(SharedEntity &tempTab, std::size_t x, std::size_t y)
+void	InterpreteGeneration::InitIndestructible(SharedEntity &/* tempTab */, std::size_t/* x */, std::size_t/*  y */)
 {
-	tempTab.push_back(std::make_shared<IndestructibleWalls>(std::make_pair(x,y), true, 0));
+	//tempTab.push_back(std::make_shared<IndestructibleWalls>(std::make_pair(x,y), true, 0));
 }
 
-void	InterpreteGeneration::InitDestructible(SharedEntity &tempTab, std::size_t x, std::size_t y)
+void	InterpreteGeneration::InitDestructible(SharedEntity &/* tempTab */, std::size_t/*  x */, std::size_t/*  y */)
 {
-	tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), true, 0, nullptr, BonusSpace::BonusesTypes::NO_BONUS));
+	//tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), true, 0, nullptr, BonusSpace::BonusesTypes::NO_BONUS));
 }
 
 void	InterpreteGeneration::InitBombUp(SharedEntity &tempTab, std::size_t x, std::size_t y)

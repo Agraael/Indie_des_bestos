@@ -12,6 +12,10 @@
 
 void	Map::placeExplosion(std::vector<std::shared_ptr<entities::Entity>> &exploseTab, std::shared_ptr<entities::Entity> &newEntity, entities::entityPosition pos)
 {
+	for (auto oldEntity :_map[pos.first][pos.second]) {
+		if (oldEntity.get()->getType() == entities::entityType::INDESTRUCTIBLE_TYPE)
+			return;
+	}
 	newEntity = std::make_shared<GonnaExplose>(pos, false, 1, *this);
 	_map[pos.first][pos.second].push_back(newEntity);
 	exploseTab.push_back(newEntity);
@@ -60,7 +64,6 @@ void Map::addDeletedEntity(const std::shared_ptr<entities::Entity> &entity)
 
 void Map::addAddedEntity(const std::shared_ptr<entities::Entity> &entity)
 {
-	std::cout << "oui" << std::endl;
 	_addedEntities.push_back(entity);
 }
 
@@ -104,6 +107,8 @@ void Map::allowWallpass(std::shared_ptr<entities::Entity> &character, const enti
 void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 {
 	for (auto entity :_map[pos.first][pos.second]) {
+		if (entity.get()->getType() == entities::entityType::PLAYER_TYPE)
+			std::cout << "player" << std::endl;;
 		if (entity.get()->getType() == entities::entityType::GONNAEXPLOSE_TYPE)
 			addModifiedEntity(entity);
 		if (!(entity.get()->getType() == entities::entityType::BOMB_UP_TYPE ||
