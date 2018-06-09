@@ -29,7 +29,7 @@ void	HandleGame::InitGame(const gameType_t &game)
 	if (_threeDMap)
 		_threeDMap.reset();
 	interpret.createMap(threedmap, generator.getMap());
-	_threeDMap = std::make_shared<Map>(Map(threedmap));
+	_threeDMap = std::make_shared<Map>(threedmap);
 	initMapGround(game.g_size, id);
 	for (auto line : _threeDMap->get3dMap()) {
 		for (auto tab : line) {
@@ -94,11 +94,8 @@ void	HandleGame::updateMap(bool &state)
 					reinterpret_cast<Ia &>(*shared).update();
 					updateEntity(shared.get());
 				}
-				if (shared.get()->getType() == entities::entityType::BOMBS_TYPE) {
-					std::cout << "sdfghjklm" << std::endl;
+				if (shared.get()->getType() == entities::entityType::BOMBS_TYPE)
 					reinterpret_cast<Bombs &>(*shared).update();
-				//	updateEntity(shared.get());
-				}
 			}
 		}
 	}

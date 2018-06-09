@@ -15,6 +15,7 @@ void	Map::placeExplosion(std::vector<std::shared_ptr<entities::Entity>> &explose
 	newEntity = std::make_shared<GonnaExplose>(pos, false, 1, *this);
 	_map[pos.first][pos.second].push_back(newEntity);
 	exploseTab.push_back(newEntity);
+	addAddedEntity(newEntity);
 }
 
 void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
@@ -39,7 +40,9 @@ void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
 	newEntity = std::make_shared<GonnaExplose>(pos, false, 1, *this);
 	exploseTab.push_back(newEntity);
 	_map[pos.first][pos.second].push_back(newEntity);
+	addAddedEntity(newEntity);
 	newEntity = std::make_shared<Bombs>(pos, false, 0, exploseTab, *this);
+	addAddedEntity(newEntity);
  	_map[pos.first][pos.second].push_back(newEntity);
 }
 
@@ -54,6 +57,12 @@ void Map::addDeletedEntity(const std::shared_ptr<entities::Entity> &entity)
 {
 	_deletedEntities.push_back(entity->getId());
 }
+
+void Map::addAddedEntity(const std::shared_ptr<entities::Entity> &entity)
+{
+	_addedEntities.push_back(entity);
+}
+
 
 void Map::addBombs(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos)
 {
@@ -94,6 +103,8 @@ void Map::allowWallpass(std::shared_ptr<entities::Entity> &character, const enti
 void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 {
 	for (auto entity :_map[pos.first][pos.second]) {
+		if (entity.get()->getType() == entities::entityType::GONNAEXPLOSE_TYPE)
+			addModifiedEntity(entity);
 		if (!(entity.get()->getType() == entities::entityType::BOMB_UP_TYPE ||
 		     	entity.get()->getType() == entities::entityType::SPEED_UP_TYPE ||
 		     	entity.get()->getType() == entities::entityType::FIRE_UP_TYPE ||
@@ -135,20 +146,30 @@ void Map::checkBonusCollision(std::shared_ptr<entities::Entity> character, const
 	}
 }
 
-void	Map::updatePos(entities::Entity *entity, entities::entityPosition pos)
+void    Map::updatePos(entities::Entity *entity, entities::entityPosition pos)
 {
-	entities::entityPosition	newPos = entity->getPos();
-	std::size_t	i = 0;
+        entities::entityPosition        newPos = entity->getPos();
 
-	for (auto entity :_map[newPos.first][newPos.second]) {
-		entity->getId();
-	}
-	for (auto oldEntity :_map[newPos.first][newPos.second]) {
-		if (oldEntity->getId() == entity->getId()) {
-			_map[pos.first][pos.second].push_back(oldEntity);
-		     	_map[newPos.first][newPos.second].erase(_map[newPos.first][newPos.second].begin() + i);
-			return ;
-		}
-		i++;
-	}
+        for (unsigned int i = 0; i < _map[newPos.first][newPos.second].size(); i++) {
+                for (auto oldEntity :_map[newPos.first][newPos.second]) {
+                        if (oldEntity->getId() == entity->getId()) {
+                                _map[pos.first][pos.second].push_back(oldEntity);
+                                _map[newPos.first][newPos.second].erase(_map[newPos.first][newPos.second].begin() + i);
+                                return ;
+                        }
+                }
+        }
+}
+
+bool	Map::verifPosition(entities::entityPosition &pos)
+{
+	if (pos.first < 0)
+		return (false);
+	if (pos.second < 0)
+		return (false);
+	if (pos.first > _mapPos.first)
+		return (false);
+	if (pos.second > _mapPos.second)
+		return (false);
+	return (true);
 }
