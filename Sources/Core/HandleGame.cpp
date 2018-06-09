@@ -108,17 +108,32 @@ void	HandleGame::updateMap(bool &state)
 				shared->setMooved();
 		}
 	}
+	updateDeletedEntity();
 }
 
+void	HandleGame::updateDeletedEntity()
+{
+	std::vector<std::size_t>	idVec = _threeDMap->getDeleteEntities();
+
+	for (auto elem: _disp) {
+		for (auto id : idVec) {
+			if (static_cast<irr::s32>(id) == elem->getID())
+				elem->setVisible(false);
+		}
+	}
+}
 
 void	HandleGame::updateEntity(const entities::Entity *entity)
 {
+	updateDeletedEntity();
 	for (auto elem : _disp) {
 		if (elem->getID() == static_cast<irr::s32>(entity->getId())) {
 			elem->setPosition(irr::core::vector3df(entity->getPos().second, entity->getPos().first, 1));
 		}
 	}
 }
+
+
 
 bool	HandleGame::gameEnd() noexcept
 {
@@ -130,7 +145,7 @@ bool	HandleGame::gameEnd() noexcept
 				const entities::Entity	*ent = shared.get();
 				if (ent->getLayout() == 0 &&
 					(ent->getType() == entities::entityType::IA_TYPE
-					|| ent->getType() == entities::entityType::PLAYER_TYPE)) {
+					|| ent->getType() == entities::entityType::PLAYER_TYPE) && ent->isDead() != true) {
 					count++;
 					_winnerName = ent->getName();
 				}
