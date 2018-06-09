@@ -129,6 +129,8 @@ void	HandleGame::updateAddEntity()
 
 	for (auto elem : entVec) {
 		entities::entityPosition	pos = elem->getPos();
+		if (elem->getType() == entities::entityType::GONNAEXPLOSE_TYPE)
+			_disp.push_back(_lib->createSphere({static_cast<double>(pos.second), static_cast<double>(pos.first), 1}, _textureMap.at(elem->getType()), elem->getId(), {0.5, false}));
 		if (elem->getType() == entities::entityType::BOMBS_TYPE)
 			_disp.push_back(_lib->createSphere({static_cast<double>(pos.second), static_cast<double>(pos.first), 1}, _textureMap.at(elem->getType()), elem->getId(), {0.25, false}));
 	}

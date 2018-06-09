@@ -71,7 +71,7 @@ class HandleGame
 			{entities::entityType::BOMB_UP_TYPE, "./Assets/media/brick_wall.jpg"},
 			{entities::entityType::BOMBS_TYPE, "./Assets/media/brick_wall.jpg"},
 			{entities::entityType::FIRE_UP_TYPE, "./Assets/media/brick_wall.jpg"},
-			{entities::entityType::GONNAEXPLOSE_TYPE, "./Assets/media/brick_wall.jpg"},
+			{entities::entityType::GONNAEXPLOSE_TYPE, "./Assets/media/lava.jpg"},
 			{entities::entityType::IA_TYPE, "./Assets/media/bmbrmn.png"},
 			{entities::entityType::PLAYER_TYPE, "./Assets/media/bmbrmn.png"},
 			{entities::entityType::SPEED_UP_TYPE, "./Assets/media/brick_wall.jpg"},
