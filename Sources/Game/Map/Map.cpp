@@ -8,6 +8,9 @@
 #include "Map.hpp"
 #include <algorithm>
 #include "Bombs.hpp"
+#include "Walls.hpp"
+#include "Entity.hpp"
+#include "Algorithm.hpp"
 #include "GonnaExplose.hpp"
 
 void	Map::placeExplosion(std::vector<std::shared_ptr<entities::Entity>> &exploseTab, std::shared_ptr<entities::Entity> &newEntity, entities::entityPosition pos)
@@ -22,6 +25,20 @@ void	Map::placeExplosion(std::vector<std::shared_ptr<entities::Entity>> &explose
 	addAddedEntity(newEntity);
 }
 
+bool Map::isWallHere(int first, int second)
+{
+	if (first <= 0 || second <= 0 || static_cast<unsigned int>(first) >= _map.size() || static_cast<unsigned int>(second) >= _map[first].size())
+                return true;
+        for (auto &entity : _map[first][second]) {
+                if (entity.get()->getType() ==
+                    entities::entityType::DESTRUCTIBLE_TYPE ||
+                    entity.get()->getType() ==
+                    entities::entityType::INDESTRUCTIBLE_TYPE)
+                        return true;
+        }
+        return false;
+}
+
 void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
 {
 	std::vector<std::shared_ptr<entities::Entity>>	exploseTab;
@@ -30,16 +47,18 @@ void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
 	for (auto oldEntity :_map[pos.first][pos.second])
 		if (oldEntity.get()->getType() == entities::entityType::BOMBS_TYPE)
 			return;
-	for (int i = 1; i <= static_cast<int>(power); ++i) {
+	for (int i = 1; i <= static_cast<int>(power) && isWallHere(pos.first - i, pos.second) == false; i++)
 		if ((pos.first - i) > 0)
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first - i, pos.second));
+	for (int i = 1; i <= static_cast<int>(power) && isWallHere(pos.first + i, pos.second) == false; i++)
 		if ((pos.first + i) < 25)
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first + i, pos.second));
+	for (int i = 1; i <= static_cast<int>(power) && isWallHere(pos.first, pos.second + i) == false; i++)
 		if ((pos.second - i) > 0)
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first, pos.second - i));
+	for (int i = 1; i <= static_cast<int>(power) && isWallHere(pos.first, pos.second + i) == false; i++)
 		if ((pos.second + i) < 25)
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first, pos.second + i));
-	}
 	newEntity = std::make_shared<GonnaExplose>(pos, false, 1, *this);
 	exploseTab.push_back(newEntity);
 	_map[pos.first][pos.second].push_back(newEntity);
