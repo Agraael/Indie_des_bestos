@@ -13,7 +13,6 @@
 void	Map::placeExplosion(std::vector<std::shared_ptr<entities::Entity>> &exploseTab, std::shared_ptr<entities::Entity> &newEntity, entities::entityPosition pos)
 {
 	newEntity = std::make_shared<GonnaExplose>(pos, false, 1, *this);
-//	newEntity->setMap(std::shared_ptr<Map>(this));
 	_map[pos.first][pos.second].push_back(newEntity);
 	exploseTab.push_back(newEntity);
 }
@@ -30,19 +29,17 @@ void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
 	for (int i = 1; i <= static_cast<int>(power); ++i) {
 		if ((pos.first - i) > 0)
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first - i, pos.second));
-		if ((pos.first + i) >= 0)
+		if ((pos.first + i) < 25)
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first + i, pos.second));
-		if ((pos.second - i) >= 0)
+		if ((pos.second - i) > 0)
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first, pos.second - i));
-		if ((pos.second + i) >= 0)
+		if ((pos.second + i) < 25)
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first, pos.second + i));
 	}
 	newEntity = std::make_shared<GonnaExplose>(pos, false, 1, *this);
-//	newEntity->setMap(_map[0][0][0]->getMap());	
 	exploseTab.push_back(newEntity);
 	_map[pos.first][pos.second].push_back(newEntity);
-	newEntity = std::make_shared<Bombs>(pos, false, 0, exploseTab);
-//	newEntity->setMap(_map[0][0][0]->getMap());
+	newEntity = std::make_shared<Bombs>(pos, false, 0, exploseTab, *this);
  	_map[pos.first][pos.second].push_back(newEntity);
 }
 
@@ -100,8 +97,8 @@ void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 		if (!(entity.get()->getType() == entities::entityType::BOMB_UP_TYPE ||
 		     	entity.get()->getType() == entities::entityType::SPEED_UP_TYPE ||
 		     	entity.get()->getType() == entities::entityType::FIRE_UP_TYPE ||
-		     	entity.get()->getType() == entities::entityType::WALL_PASS_TYPE)) {
-				     std::cout << "cédrci" << std::endl;
+		     	entity.get()->getType() == entities::entityType::WALL_PASS_TYPE ||
+			entity.get()->getType() == entities::entityType::INDESTRUCTIBLE_TYPE)) {
 				addDeletedEntity(entity);
 				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin());
 				break;

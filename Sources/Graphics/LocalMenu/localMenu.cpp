@@ -48,7 +48,7 @@ void	graphic::localMenu::display()
 	_genSize = 1;
 	_genMode = 1;
 	_playersNb = 1;
-	_aisNb = 3;
+	_aisNb = 1;
 	_name = "map";
 	printBackground();
 	printMenuTitle();
