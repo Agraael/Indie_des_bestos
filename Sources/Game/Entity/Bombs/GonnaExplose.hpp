@@ -19,6 +19,7 @@ class GonnaExplose : public entities::Entity {
 		void	update();
 	private:
 		Map	&_map;
+		time_t	_saveTime;		
 };
 
 #endif /* !GONNAEXPLOSE_HPP_ */

@@ -65,9 +65,7 @@ namespace entities {
 		std::shared_ptr<Map>	_map;
 		bool			_mooved;
 		bool			_isDead;
-		//bool			_isregidBody;
-		//bool			getIsRegidBody() { return _isregidBody; }
 	};
-//	std::size_t entities::Entity::_nb = 0;
 }
+
 #endif /* !ENTITY_HPP_ */

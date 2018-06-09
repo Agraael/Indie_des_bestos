@@ -234,22 +234,22 @@ std::pair<int, int> Algorithm::locate_enemy(GameMap &map, std::pair<int, int> &p
 	return {1, 1};
 }
 
-bool Algorithm::try_to_put_a_bomb(GameMap &map, std::pair<int, int> &posPlayer, std::shared_ptr<Map> _map)
+bool Algorithm::try_to_put_a_bomb(GameMap &map, std::pair<int, int> &posPlayer, std::shared_ptr<Map>/*  _map */)
 {
 	Singleton::TimeManager &timer = Singleton::TimeManager::Instance();
 	GameMap fake_map = map;
-	Map *new_map = new Map(fake_map);
+//	Map *new_map = new Map(fake_map);
 	std::pair<int, int> fake_pos = posPlayer;
 	_nbr_of_moves = 0;
 	if (timer.getChronoDuration(_chronoBomb) < 2) {
                 return true;
         }
-	new_map->placeBomb(posPlayer, 3);
+	//new_map->placeBomb(posPlayer, 3);
 	findNearestSafePoint(fake_map, posPlayer);
 	for (int x = 0; x < 5; x++) {
 		fake_pos = defensiveMove(map, fake_pos);
 		if (check_if_dangerous_zone(fake_map, fake_pos) == false) {
-			_map->placeBomb(posPlayer, _power);
+	//		_map->placeBomb(posPlayer, _power);
 			std::cout << "BOMB PLACED BY IA" << _chronoBomb << "\n";
 			return true;
 		}
