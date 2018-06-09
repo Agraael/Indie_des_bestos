@@ -103,44 +103,51 @@ void Map::allowWallpass(std::shared_ptr<entities::Entity> &character, const enti
 
 void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 {
-	for (auto entity :_map[pos.first][pos.second]) {
-		if (entity.get()->getType() == entities::entityType::GONNAEXPLOSE_TYPE)
-			addModifiedEntity(entity);
-		if (!(entity.get()->getType() == entities::entityType::BOMB_UP_TYPE ||
-		     	entity.get()->getType() == entities::entityType::SPEED_UP_TYPE ||
-		     	entity.get()->getType() == entities::entityType::FIRE_UP_TYPE ||
-		     	entity.get()->getType() == entities::entityType::WALL_PASS_TYPE ||
-			entity.get()->getType() == entities::entityType::INDESTRUCTIBLE_TYPE)) {
+	std::size_t x = 0;
+	for (unsigned int i = 0; i < _map[pos.first][pos.second].size(); i++) {
+		for (auto entity :_map[pos.first][pos.second]) {
+			x++;
+			if (entity.get()->getType() == entities::entityType::GONNAEXPLOSE_TYPE)
+				addModifiedEntity(entity);
+			if (!(entity.get()->getType() == entities::entityType::BOMB_UP_TYPE ||
+			      entity.get()->getType() == entities::entityType::SPEED_UP_TYPE ||
+			      entity.get()->getType() == entities::entityType::FIRE_UP_TYPE ||
+			      entity.get()->getType() == entities::entityType::WALL_PASS_TYPE ||
+			      entity.get()->getType() == entities::entityType::INDESTRUCTIBLE_TYPE)) {
 				addDeletedEntity(entity);
-				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin());
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
 				break;
+			}
 		}
 	}
 }
 
 void Map::checkBonusCollision(std::shared_ptr<entities::Entity> character, const entities::entityPosition &pos)
 {
+	std::size_t x = 0;
 	for (unsigned int i = 0; i < _map[pos.first][pos.second].size(); i++) {
+		x = 0;
 		for (auto entity : _map[pos.first][pos.second]) {
+			x++;
 			if (entity.get()->getType() == entities::entityType::BOMB_UP_TYPE) {
 				addBombs(character, pos);
 				addDeletedEntity(entity);
-				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin());
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
 				break;
 			} else if (entity.get()->getType() == entities::entityType::SPEED_UP_TYPE) {
 				addSpeed(character, pos);
 				addDeletedEntity(entity);
-				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin());
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
 				break;
 			} else if (entity.get()->getType() == entities::entityType::FIRE_UP_TYPE) {
 				addFire(character, pos);
 				addDeletedEntity(entity);
-				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin());
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
 				break;
 			} else if (entity.get()->getType() == entities::entityType::WALL_PASS_TYPE) {
 				allowWallpass(character, pos);
 				addDeletedEntity(entity);
-				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin());
+				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
 				break;
 			}
 		}
