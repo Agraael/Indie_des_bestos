@@ -16,13 +16,15 @@
 
 class Bombs : public entities::Entity {
 	public:
-                Bombs(entities::entityPosition pos, bool iskinematic, std::size_t layout, std::vector<std::shared_ptr<entities::Entity>> &exploseTab) :
-		entities::Entity(pos, iskinematic, layout, entities::entityType::BOMBS_TYPE, ""), _saveTime(std::time(nullptr)), _exploseTab(exploseTab) {}
+                Bombs(entities::entityPosition pos, bool iskinematic, std::size_t layout, std::vector<std::shared_ptr<entities::Entity>> &exploseTab, Map &map) :
+		entities::Entity(pos, iskinematic, layout, entities::entityType::BOMBS_TYPE, ""), _saveTime(std::time(nullptr)), _exploseTab(exploseTab), _map(map) {_chrono = Singleton::TimeManager::Instance().createChrono();}
 		~Bombs() final = default;
 	void	update();
 	private:
 		time_t						_saveTime;
+		Singleton::ChronoId _chrono;
 		std::vector<std::shared_ptr<entities::Entity>>	_exploseTab;
+		Map	&_map;
 };
 
 #endif /* !BOMBS_HPP_ */

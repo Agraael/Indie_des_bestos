@@ -29,7 +29,7 @@ void	HandleGame::InitGame(const gameType_t &game)
 	if (_threeDMap)
 		_threeDMap.reset();
 	interpret.createMap(threedmap, generator.getMap());
-	_threeDMap = std::make_shared<Map>(Map(threedmap));
+	_threeDMap = std::make_shared<Map>(threedmap);
 	initMapGround(game.g_size, id);
 	for (auto line : _threeDMap->get3dMap()) {
 		for (auto tab : line) {
@@ -87,14 +87,15 @@ void	HandleGame::updateMap(bool &state)
 		for (auto tab : line) {
 			for (auto shared : tab) {
 				if (shared.get()->getType() == entities::entityType::PLAYER_TYPE) {
-					std::cout << "oui" << std::endl;
 					reinterpret_cast<Player &>(*shared).update();
 					updateEntity(shared.get());
 				}
-				if (shared.get()->getType() == entities::entityType::IA_TYPE) {
+			 	if (shared.get()->getType() == entities::entityType::IA_TYPE) {
 					reinterpret_cast<Ia &>(*shared).update();
 					updateEntity(shared.get());
 				}
+				if (shared.get()->getType() == entities::entityType::BOMBS_TYPE)
+					reinterpret_cast<Bombs &>(*shared).update();
 			}
 		}
 	}
@@ -104,8 +105,37 @@ void	HandleGame::updateMap(bool &state)
 				shared->setMooved();
 		}
 	}
+	updateAddEntity();
+	_threeDMap->clean();
+	updateDeletedEntity();
 }
 
+void	HandleGame::updateDeletedEntity()
+{
+	std::vector<std::size_t>	idVec = _threeDMap->getDeleteEntities();
+
+	for (auto elem: _disp) {
+		for (auto id : idVec) {
+			if (static_cast<irr::s32>(id) == elem->getID())
+				elem->setVisible(false);
+		}
+	}
+}
+
+void	HandleGame::updateAddEntity()
+{
+	std::vector<std::shared_ptr<entities::Entity>>	entVec = _threeDMap->getModifiedEntities();
+
+	for (auto elem : entVec) {
+		entities::entityPosition	pos = elem->getPos();
+		if (elem->getType() == entities::entityType::GONNAEXPLOSE_TYPE)
+			_disp.push_back(_lib->createCube({static_cast<double>(pos.second), static_cast<double>(pos.first), 1}, _textureMap.at(elem->getType()), elem->getId()));
+		if (elem->getType() == entities::entityType::BOMBS_TYPE)
+			_disp.push_back(_lib->createSphere({static_cast<double>(pos.second), static_cast<double>(pos.first), 1}, _textureMap.at(elem->getType()), elem->getId(), {0.5, false}));
+		else
+			_disp.push_back(_lib->createSphere({static_cast<double>(pos.second), static_cast<double>(pos.first), 1}, _textureMap.at(elem->getType()), elem->getId(), {0.25, true}));
+	}
+}
 
 void	HandleGame::updateEntity(const entities::Entity *entity)
 {

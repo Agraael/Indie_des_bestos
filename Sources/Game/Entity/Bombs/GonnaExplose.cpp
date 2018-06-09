@@ -7,7 +7,7 @@
 
 #include "GonnaExplose.hpp"
 
-GonnaExplose::update()
+void    GonnaExplose::update()
 {
-        _map.checkExplosioCollision(_pos);
+	_map.checkExplosionCollision(_pos);
 }

@@ -66,7 +66,6 @@ void	InterpreteGeneration::InitPlayer(SharedEntity &tempTab, std::size_t x, std:
 {
 	static	std::size_t	index = 1;
 
-	std::cout << x << " " << y << std::endl;
 	tempTab.push_back(std::make_shared<Player>(std::make_pair(x,y), false, 0, _eventPlayer[index], "PLAYER" + std::to_string(index)));
 	++index;
 }
