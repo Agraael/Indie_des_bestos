@@ -38,6 +38,7 @@ private:
         void    addSpeed(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
         void    addFire(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
         void    allowWallpass(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
+	bool isWallHere(int first, int second);
 	std::vector<std::shared_ptr<entities::Entity>> _modifiedEntities;
 	std::vector<std::shared_ptr<entities::Entity>> _addedEntities;
 	std::vector<std::size_t> _deletedEntities;
