@@ -128,6 +128,7 @@ void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 	for (unsigned int i = 0; i < _map[pos.first][pos.second].size(); i++) {
 		x = 0;
 		for (auto entity :_map[pos.first][pos.second]) {
+			x++;
 			if ( entity.get()->getType() == entities::entityType::PLAYER_TYPE ||
 				entity.get()->getType() == entities::entityType::IA_TYPE ||
 				entity.get()->getType() == entities::entityType::DESTRUCTIBLE_TYPE) {
@@ -139,7 +140,6 @@ void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 				entity->setLayout(0);
 				addModifiedEntity(entity);
 			}
-			x++;
 		}
 	}
 }
