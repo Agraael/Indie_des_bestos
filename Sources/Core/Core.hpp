@@ -18,7 +18,6 @@
 #include "MenuPause.hpp"
 #include "IrrlichtLib.hpp"
 #include "EventManager.hpp"
-
 class Core
 {
 public:
@@ -33,12 +32,13 @@ private:
 	void	menuSetting(const CoreState &);
 	void	menuCreateGame(const CoreState &);
 	void	menuGamePaused(const CoreState &);
+	void    reset();
 
 	CoreState			_state;
 	graphic::IrrlichtLib		*_lib;
 	EventCore			_eventCore;
 	graphic::Menu			*_menu;
-	HandleGame			hGame;
+	HandleGame			*hGame;
 	graphic::settingsMenu		*_menuSetting;
 	graphic::localMenu		*_menuCreateGame;
 	graphic::MenuPause		*_menuPause;

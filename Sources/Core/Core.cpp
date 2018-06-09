@@ -12,13 +12,17 @@
 #include <unistd.h>
 
 Core::Core()
-	: _state(CoreState::IN_MENU), _lib(new graphic::IrrlichtLib()), _eventCore(_lib), _menu(new graphic::Menu(_lib)), hGame(_lib), _menuSetting(new graphic::settingsMenu(_lib)), _menuCreateGame(new graphic::localMenu(_lib)), _menuPause(new graphic::MenuPause(_lib)), _playing(false), _gamePaused(false)
+	: _state(CoreState::IN_MENU), _lib(new graphic::IrrlichtLib()),
+	_eventCore(_lib), _menu(new graphic::Menu(_lib)), hGame(nullptr),
+	_menuSetting(new graphic::settingsMenu(_lib)), _menuCreateGame(new graphic::localMenu(_lib)),
+	_menuPause(new graphic::MenuPause(_lib)), _playing(false), _gamePaused(false)
 {
 }
 
 Core::~Core()
 {
 	delete _lib;
+	delete hGame;
 }
 
 int	Core::run()
@@ -74,10 +78,10 @@ void	Core::game(const CoreState &)
 		_state = CoreState::GAME_PAUSE;
 		return;
 	} else if (!_playing) {
-		hGame.dumpPlayerName();
+		hGame->dumpPlayerName();
 		return;
 	}
-	hGame.updateMap(_playing);
+	hGame->updateMap(_playing);
 }
 
 void	Core::menuSetting(const CoreState &state)
@@ -91,11 +95,22 @@ void	Core::menuSetting(const CoreState &state)
 	_menuSetting->updateDisplay();
 }
 
+
+void Core::reset()
+{
+	if (hGame)
+		delete hGame;
+	hGame = new HandleGame(_lib);
+}
+
+
 void	Core::menuCreateGame(const CoreState &state)
 {
 	if (state == CoreState::IN_GAME) {
 		_playing = true;
-		hGame.InitGame({_menuCreateGame->getMapName(), _menuCreateGame->getGenSize(), _menuCreateGame->getGenMode(), _menuCreateGame->getPlayerNb(), _menuCreateGame->getIaNb()});
+		reset();
+		hGame->InitGame({_menuCreateGame->getMapName(), _menuCreateGame->getGenSize(),
+			               _menuCreateGame->getGenMode(), _menuCreateGame->getPlayerNb(), _menuCreateGame->getIaNb()});
 		_lib->clearGui();
 		_state = state;
 		return;
@@ -121,7 +136,7 @@ void	Core::menuGamePaused(const CoreState &state)
 		_state = state;
 		return;
 	}
-	_menuPause->updateDisplay(hGame);
+	_menuPause->updateDisplay(*hGame);
 }
 
 void	Core::menuResume(const CoreState &)
