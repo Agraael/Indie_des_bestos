@@ -230,12 +230,16 @@ bool Algorithm::try_to_put_a_bomb(GameMap &map, std::pair<int, int> &posPlayer, 
 	GameMap fake_map = map;
 	//auto new_map = _map;
 	Map *new_map = new Map(fake_map);
+	std::pair<int, int> fake_pos = posPlayer;
 	_nbr_of_moves = 0;
 	new_map->placeBomb(posPlayer, 3);
 	findNearestSafePoint(fake_map, posPlayer);
-	if (_nbr_of_moves < 5) {
-		_map->placeBomb(posPlayer, 3);
-		return true;
+	for (int x = 0; x < 5; x++) {
+		fake_pos = defensiveMove(map, fake_pos);
+		if (check_if_dangerous_zone(map, fake_pos) == false) {
+			_map->placeBomb(posPlayer, 3);
+			return true;
+		}
 	}
 	return false;
 }
