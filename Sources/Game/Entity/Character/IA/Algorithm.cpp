@@ -51,7 +51,6 @@ bool Algorithm::is_wall_destructible(const GameMap &map, const std::pair<int, in
 {
 	if (pos.first <= 0 || pos.second <= 0 || static_cast<unsigned int>(pos.first) >= map.size() || static_cast<unsigned int>(pos.second) >= map[pos.first].size())
 		return false;
-	std::cout << pos.first << " " << pos.second << std::endl;
 	for (auto &entity : map[pos.first][pos.second]) {
 		if (entity.get()->getType() ==
                     entities::entityType::DESTRUCTIBLE_TYPE)
@@ -216,7 +215,6 @@ std::pair<int, int> Algorithm::findNearestSafePoint(GameMap &map, std::pair<int,
 std::pair<int, int> Algorithm::defensiveMove(GameMap &map, std::pair<int, int> &posPlayer)
 {
 	std::pair<int, int> pos = findNearestSafePoint(map, posPlayer);
-	std::cout << check_if_dangerous_zone(map, pos) << std::endl;
 	return pos;
 }
 
@@ -372,6 +370,5 @@ std::pair<int, int> Algorithm::offensiveMove(GameMap &map, std::pair<int, int> &
         } else {
 		direction = offensiveRight(map, posPlayer, _map);
         }
-	std::cout << check_if_dangerous_zone(map, direction) << std::endl;
 	return direction;
 }
