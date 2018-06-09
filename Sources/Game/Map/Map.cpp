@@ -60,6 +60,7 @@ void Map::addDeletedEntity(const std::shared_ptr<entities::Entity> &entity)
 
 void Map::addAddedEntity(const std::shared_ptr<entities::Entity> &entity)
 {
+	std::cout << "oui" << std::endl;
 	_addedEntities.push_back(entity);
 }
 
