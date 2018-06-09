@@ -19,16 +19,28 @@ graphic::ResumeGame::ResumeGame(graphic::IrrlichtLib *lib) : _lib(lib)
 
 void    graphic::ResumeGame::drawChoiceButtons()
 {
+    graphic::infos_t buttonPlay;
+    buttonPlay._x = (_size.x / 2) - 300;
+    buttonPlay._y = 400;
+    buttonPlay._w = (_size.x / 2) - 100;
+    buttonPlay._h = 430;
+    buttonPlay._path = "Assets/media/button_menu.png";
+    buttonPlay._desc = "Play the game";
+    buttonPlay._name = "PLAY THE GAME";
+    buttonPlay._type = graphic::EXIT_MAINMENU;
+    _lib->printButton(buttonPlay);
+
     graphic::infos_t buttonExit;
-    buttonExit._x = 200;
-    buttonExit._y = 360;
-    buttonExit._w = 400;
-    buttonExit._h = 390;
+    buttonExit._x = (_size.x / 2) - 300;
+    buttonExit._y = 460;
+    buttonExit._w = (_size.x / 2) - 100;
+    buttonExit._h = 490;
     buttonExit._path = "Assets/media/button_menu.png";
-    buttonExit._desc = "Return to ResumeGame";
-    buttonExit._name = "RETURN TO ResumeGame";
+    buttonExit._desc = "Return to MENU";
+    buttonExit._name = "RETURN TO MENU";
     buttonExit._type = graphic::EXIT_MAINMENU;
     _lib->printButton(buttonExit);
+
 }
 
 irr::gui::IGUIImage *graphic::ResumeGame::drawDirigible()
@@ -36,10 +48,10 @@ irr::gui::IGUIImage *graphic::ResumeGame::drawDirigible()
     graphic::infos_t dirgInfos;
     dirgInfos._x = 0;
     dirgInfos._y = 0;
-    dirgInfos._w = 50;
-    dirgInfos._h = 50;
-    dirgInfos._maxH = 150;
-    dirgInfos._maxW = 150;
+    dirgInfos._w = 30;
+    dirgInfos._h = 30;
+    dirgInfos._maxH = 100;
+    dirgInfos._maxW = 100;
     dirgInfos._path = "Assets/media/dirigible.png";
 	irr::gui::IGUIImage *dirigible =  _lib->drawImage(dirgInfos);
 	return (dirigible);
@@ -74,10 +86,45 @@ void    graphic::ResumeGame::saveFilesToVector()
     for (auto &p : std::experimental::filesystem::directory_iterator(path)) {
         std::ostringstream str;
         str << p;
-        std::string name = str.str();
-        name = name.substr(11, name.size());
-        _fileName.push_back(name);
+        _fileName = str.str();
+        _files.push_back(_fileName);
     }
+}
+
+void    graphic::ResumeGame::drawFileName()
+{
+    std::string name(_fileName);
+    name = name.substr(11, name.size());
+    std::transform(name.begin(), name.end(),name.begin(), ::toupper);
+    int i = (_size.x / 2) - 270;
+    for (auto &character : fileName) {
+        graphic::infos_t letter;
+        letter._x = i;
+        letter._y = 310;
+        letter._w = 30;
+        letter._h = 30;
+        letter._maxH = 30;
+        letter._maxW = 30;
+        std::unordered_map<char,std::string>::iterator it =  _alphaMap.find(character);
+        if (it != _alphaMap.end()) {
+            letter._path = _alphaMap[character];
+           _fileImg =  _lib->drawImage(letter);
+            i += 25;
+        }
+    }
+}
+
+void    graphic::ResumeGame::manageFiles(size_t nbr)
+{
+    _fileImg->remove();
+    if (nbr == 1 && _itFiles == _filesName.size())
+        _itFiles = 0;
+    if (nbr == -1 && _itFiles == 0)
+        _itFiles = _filesName.size();
+    else
+    _itFiles += nbr;
+    _fileName = _files[_itFiles];
+    drawFileName(_files[_itFiles]);
 }
 
 void    graphic::ResumeGame::printListBox()
@@ -93,29 +140,30 @@ void    graphic::ResumeGame::printListBox()
     _lib->drawImage(mapImg);
 
     saveFilesToVector();
-    graphic::infos_t plus;
-    plus._x = (_size.x / 2) + 50;
-    plus._y = 100;
-    plus._w = (_size.x / 2) + 90;
-    plus._h = 150;
-    plus._type = graphic::controllerUser::PLAYER_UP;
-    plus._desc = "";
-    plus._name = "";
-    plus._path = "./Assets/media/right_arrow.png";
-    _lib->printButton(plus);
-
-    _lib->drawText((_size.x / 2) , 110, 30, _fileName[0]);
 
     graphic::infos_t minus;
-    minus._x = (_size.x / 2) - 50;
-    minus._y = 100;
-    minus._w = (_size.x / 2) - 10;
-    minus._h = 150;
-    minus._type = graphic::controllerUser::PLAYER_DOWN;
+    minus._x = (_size.x / 2) - 300;
+    minus._y = 300;
+    minus._w = (_size.x / 2) - 260;
+    minus._h = 350;
+    minus._type = IndieEvents::PREV_FILE;
     minus._desc = "";
     minus._name = "";
     minus._path = "./Assets/media/left_arrow.png";
     _lib->printButton(minus);
+
+    drawFileName();
+
+    graphic::infos_t plus;
+    plus._x = (_size.x / 2) - 110;
+    plus._y = 300;
+    plus._w = (_size.x / 2) - 70;
+    plus._h = 350;
+    plus._type = IndieEvents::IndieKeys::NEXT_FILE;
+    plus._desc = "";
+    plus._name = "";
+    plus._path = "./Assets/media/right_arrow.png";
+    _lib->printButton(plus);
 }
 
 void graphic::ResumeGame::printBackground()
@@ -144,5 +192,18 @@ void graphic::ResumeGame::updateDisplay()
     startDirigible();
     printLogo();
     _count += 10;
+    for (auto elem : _updateNumberEntity) {
+        if (_lib->getEventManager()->IsButtonClicked(elem.first) == true) {
+            elem.second();
+            if (elem.first == graphic::controllerUser::MAP_SIZE_DOWN || elem.first == graphic::controllerUser::MAP_SIZE_UP)
+                printGoodOneSize();
+            else if (elem.first == graphic::controllerUser::MAP_NEXT || elem.first == graphic::controllerUser::MAP_PREV)
+                printGoodOneMod();
+            else if (elem.first == graphic::controllerUser::PLAYER_DOWN || elem.first == graphic::controllerUser::PLAYER_UP)
+                printNumber(_playerNbInfos, _playerNbImg, _playersNb);
+            else if (elem.first == graphic::controllerUser::IA_DOWN || elem.first == graphic::controllerUser::IA_UP)
+                printNumber(_iaNbInfos, _iaNbImg, _aisNb);
+        }
+    }
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
