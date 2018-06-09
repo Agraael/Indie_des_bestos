@@ -66,6 +66,7 @@ namespace graphic
 			const std::vector<GenerationSize>	_genSizeTab = {GenerationSize::Small, GenerationSize::Medium, GenerationSize::Big};
 			const std::vector<GenerationMod>	_genModeTab = {GenerationMod::FullDest, GenerationMod::Standard};
 
+			void	updateNumber();
 			void	printNumber(graphic::infos_t &, irr::gui::IGUIImage *&, int);
 			void	printGoodOneMod();
 			void	printGoodOneSize();
