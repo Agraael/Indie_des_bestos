@@ -9,6 +9,8 @@
 
 bool Algorithm::check_if_dangerous_zone(const GameMap &map, const std::pair<int, int> &pos)
 {
+	if (pos.first <= 0 || pos.second <= 0 || static_cast<unsigned int>(pos.first) >= map.size() || static_cast<unsigned int>(pos.second) >= map[pos.first].size())
+		return true;
 	for (auto &entity : map[pos.first][pos.second]) {
 		if (entity.get()->getType() ==
 		    entities::entityType::GONNAEXPLOSE_TYPE ||
@@ -21,6 +23,8 @@ bool Algorithm::check_if_dangerous_zone(const GameMap &map, const std::pair<int,
 
 bool Algorithm::is_bomb_here(const GameMap &map, const std::pair<int, int> &pos)
 {
+	if (pos.first <= 0 || pos.second <= 0 || static_cast<unsigned int>(pos.first) >= map.size() || static_cast<unsigned int>(pos.second) >= map[pos.first].size())
+		return false;
 	for (auto &entity : map[pos.first][pos.second]) {
 		if (entity.get()->getType() ==
 		    entities::entityType::BOMBS_TYPE)
@@ -31,6 +35,8 @@ bool Algorithm::is_bomb_here(const GameMap &map, const std::pair<int, int> &pos)
 
 bool Algorithm::is_character_here(const GameMap &map, const std::pair<int, int> &pos)
 {
+	if (pos.first <= 0 || pos.second <= 0 || static_cast<unsigned int>(pos.first) >= map.size() || static_cast<unsigned int>(pos.second) >= map[pos.first].size())
+		return false;
 	for (auto &entity : map[pos.first][pos.second]) {
 		if (entity.get()->getType() ==
                     entities::entityType::IA_TYPE ||
@@ -43,6 +49,9 @@ bool Algorithm::is_character_here(const GameMap &map, const std::pair<int, int> 
 
 bool Algorithm::is_wall_destructible(const GameMap &map, const std::pair<int, int> &pos)
 {
+	if (pos.first <= 0 || pos.second <= 0 || static_cast<unsigned int>(pos.first) >= map.size() || static_cast<unsigned int>(pos.second) >= map[pos.first].size())
+		return false;
+	std::cout << pos.first << " " << pos.second << std::endl;
 	for (auto &entity : map[pos.first][pos.second]) {
 		if (entity.get()->getType() ==
                     entities::entityType::DESTRUCTIBLE_TYPE)
@@ -206,7 +215,9 @@ std::pair<int, int> Algorithm::findNearestSafePoint(GameMap &map, std::pair<int,
 
 std::pair<int, int> Algorithm::defensiveMove(GameMap &map, std::pair<int, int> &posPlayer)
 {
-	return findNearestSafePoint(map, posPlayer);
+	std::pair<int, int> pos = findNearestSafePoint(map, posPlayer);
+	std::cout << check_if_dangerous_zone(map, pos) << std::endl;
+	return pos;
 }
 
 std::pair<int, int> Algorithm::locate_enemy(GameMap &map, std::pair<int, int> &pos_ia)
@@ -361,6 +372,6 @@ std::pair<int, int> Algorithm::offensiveMove(GameMap &map, std::pair<int, int> &
         } else {
 		direction = offensiveRight(map, posPlayer, _map);
         }
-	std::cout << direction.first << " " << direction.second << std::endl;
+	std::cout << check_if_dangerous_zone(map, direction) << std::endl;
 	return direction;
 }
