@@ -19,6 +19,16 @@ bool Algorithm::check_if_dangerous_zone(const GameMap &map, const std::pair<int,
 	return false;
 }
 
+bool Algorithm::is_bomb_here(const GameMap &map, const std::pair<int, int> &pos)
+{
+	for (auto &entity : map[pos.first][pos.second]) {
+		if (entity.get()->getType() ==
+		    entities::entityType::BOMBS_TYPE)
+                        return true;
+	}
+	return false;
+}
+
 bool Algorithm::is_character_here(const GameMap &map, const std::pair<int, int> &pos)
 {
 	for (auto &entity : map[pos.first][pos.second]) {
@@ -42,72 +52,130 @@ bool Algorithm::is_wall_destructible(const GameMap &map, const std::pair<int, in
 
 }
 
-std::pair<int, int> Algorithm::init_directions(GameMap &map, std::pair<int, int> current_pos)
+int Algorithm::init_directions(GameMap &map, std::pair<int, int> current_pos)
+{
+	std::pair<unsigned int, unsigned int> direction = current_pos;
+
+	for (direction = current_pos; direction.first + 1 < map.size(); direction.first += 1) {
+		for (auto entity : map[direction.first][direction.second]) {
+			if (check_if_dangerous_zone(map, direction) == false)
+				break;
+			if (is_bomb_here(map, direction) == true)
+				return UP;
+		}
+	}
+	for (direction = current_pos; direction.first >= 1; direction.first -= 1) {
+                for (auto entity : map[direction.first][direction.second]) {
+                        if (check_if_dangerous_zone(map, direction) == false)
+                                break;
+                        if (is_bomb_here(map, direction) == true)
+                                return DOWN;
+                }
+        }
+	for (direction = current_pos; direction.second + 1 > map[direction.first].size(); direction.second += 1) {
+                for (auto entity : map[direction.first][direction.second]) {
+                        if (check_if_dangerous_zone(map, direction) == false)
+                                break;
+                        if (is_bomb_here(map, direction) == true)
+                                return RIGHT;
+                }
+        }
+	for (direction = current_pos; direction.second >= 1; direction.second -= 1) {
+	        for (auto entity : map[direction.first][direction.second]) {
+                        if (check_if_dangerous_zone(map, direction) == false)
+                                break;
+                        if (is_bomb_here(map, direction) == true)
+                                return LEFT;
+                }
+	}
+	return {};
+}
+
+std::pair<int, int> Algorithm::defensiveRight(GameMap &map, std::pair<int, int> current_pos)
 {
 	std::pair<int, int> direction;
+	std::pair<int, int> empty_pair = {};
+	MoveTo *dir = new MoveTo;
+
+	direction = dir->try_move_right(map, current_pos);
+	if (direction != empty_pair)
+		return direction;
+	direction = dir->try_move_up(map, current_pos);
+	if (direction != empty_pair)
+		return direction;
+	direction = dir->try_move_down(map, current_pos);
+        if (direction != empty_pair)
+		return direction;
+	return current_pos;
+}
+
+std::pair<int, int> Algorithm::defensiveLeft(GameMap &map, std::pair<int, int> current_pos)
+{
+        std::pair<int, int> direction;
         std::pair<int, int> empty_pair = {};
         MoveTo *dir = new MoveTo;
 
-	if ((direction = dir->try_move_up(map, current_pos)) != empty_pair)
-		return (aim_at_a_further_point(map, UP, 1, direction));
-        direction = dir->try_move_down(map, current_pos);
-        if (direction != empty_pair)
-		return (aim_at_a_further_point(map, DOWN, 1, direction));
         direction = dir->try_move_left(map, current_pos);
         if (direction != empty_pair)
-		return (aim_at_a_further_point(map, LEFT, 1, direction));
+		return direction;
+	direction = dir->try_move_down(map, current_pos);
+        if (direction != empty_pair)
+		return direction;
+        direction = dir->try_move_up(map, current_pos);
+	if (direction != empty_pair)
+                return direction;
+        return current_pos;
+}
+
+std::pair<int, int> Algorithm::defensiveUp(GameMap &map, std::pair<int, int> current_pos)
+{
+        std::pair<int, int> direction;
+        std::pair<int, int> empty_pair = {};
+        MoveTo *dir = new MoveTo;
+
+        direction = dir->try_move_up(map, current_pos);
+        if (direction != empty_pair)
+		return direction;
+	direction = dir->try_move_left(map, current_pos);
+        if (direction != empty_pair)
+		return direction;
         direction = dir->try_move_right(map, current_pos);
 	if (direction != empty_pair)
-		return (aim_at_a_further_point(map, RIGHT, 1, direction));
-	return {};
+                return direction;
+        return current_pos;
 }
 
-std::pair<int, int> Algorithm::found_safe_point(int nbr_moves, int first_dir, std::pair<int, int> &direction)
+std::pair<int, int> Algorithm::defensiveDown(GameMap &map, std::pair<int, int> current_pos)
 {
-	_dir = first_dir;
-	_nbr_of_moves = nbr_moves;
-	return (direction);
-}
-
-std::pair<int, int> Algorithm::aim_at_a_further_point(GameMap &map, int first_dir, int nbr_moves, std::pair<int, int> current_pos)
-{
-	std::pair<int, int> direction;
+        std::pair<int, int> direction;
         std::pair<int, int> empty_pair = {};
-	MoveTo *dir = new MoveTo;
+        MoveTo *dir = new MoveTo;
 
-	if (first_dir == 0)
-		init_directions(map, current_pos);
-	else if (nbr_moves > _nbr_of_moves)
-		return {};
-	direction = dir->try_move_up(map, current_pos);
-	if (direction != empty_pair) {
-		if (check_if_dangerous_zone(map, direction) == false)
-			return (found_safe_point(nbr_moves, first_dir, direction));
-		else
-			aim_at_a_further_point(map, first_dir, nbr_moves + 1, direction);
-	}
-	direction = dir->try_move_down(map, current_pos);
-        if (direction != empty_pair) {
-                if (check_if_dangerous_zone(map, direction) == false)
-                        return (found_safe_point(nbr_moves, first_dir, direction));
-                else
-                        aim_at_a_further_point(map, first_dir, nbr_moves + 1, direction);
-        }
-	direction = dir->try_move_left(map, current_pos);
-        if (direction != empty_pair) {
-                if (check_if_dangerous_zone(map, direction) == false)
-                        return (found_safe_point(nbr_moves, first_dir, direction));
-                else
-                        aim_at_a_further_point(map, first_dir, nbr_moves + 1, direction);
-        }
+        direction = dir->try_move_down(map, current_pos);
+        if (direction != empty_pair)
+		return direction;
 	direction = dir->try_move_right(map, current_pos);
-        if (direction != empty_pair) {
-                if (check_if_dangerous_zone(map, direction) == false)
-                        return (found_safe_point(nbr_moves, first_dir, direction));
-                else
-                        aim_at_a_further_point(map, first_dir, nbr_moves + 1, direction);
-        }
-	return {};
+        if (direction != empty_pair)
+		return direction;
+        direction = dir->try_move_left(map, current_pos);
+	if (direction != empty_pair)
+                return direction;
+        return current_pos;
+}
+
+std::pair<int, int> Algorithm::aim_at_a_further_point(GameMap &map, int /*first_dir*/, int /*nbr_moves*/, std::pair<int, int> current_pos)
+{
+	int dir_bomb = init_directions(map, current_pos);
+
+	if (dir_bomb == LEFT)
+		return defensiveRight(map, current_pos);
+	else if (dir_bomb == RIGHT)
+		return defensiveLeft(map, current_pos);
+	else if (dir_bomb == DOWN)
+		return defensiveUp(map, current_pos);
+	else if (dir_bomb == UP)
+		return defensiveDown(map, current_pos);
+	return current_pos;
 }
 
 std::pair<int, int> Algorithm::findNearestSafePoint(GameMap &map, std::pair<int, int> &posPlayer)
@@ -117,23 +185,21 @@ std::pair<int, int> Algorithm::findNearestSafePoint(GameMap &map, std::pair<int,
 	std::pair<int, int> empty_pair = {};
 
 	if ((direction = dir->try_move_up(map, posPlayer)) != empty_pair) {
-		if (check_if_dangerous_zone(map, direction) == false)
+		if (check_if_dangerous_zone(map, direction) == false || is_bomb_here(map, posPlayer) == true)
 			return (direction);
 	}
 	direction = dir->try_move_down(map, posPlayer);
         if (direction != empty_pair)
-                if (check_if_dangerous_zone(map, direction) == false)
+                if (check_if_dangerous_zone(map, direction) == false || is_bomb_here(map, posPlayer) == true)
 			return (direction);
 	direction = dir->try_move_left(map, posPlayer);
         if (direction != empty_pair)
-                if (check_if_dangerous_zone(map, direction) == false)
+                if (check_if_dangerous_zone(map, direction) == false || is_bomb_here(map, posPlayer) == true)
 			return (direction);
 	direction = dir->try_move_right(map, posPlayer);
         if (direction != empty_pair)
-                if (check_if_dangerous_zone(map, direction) == false)
+                if (check_if_dangerous_zone(map, direction) == false || is_bomb_here(map, posPlayer) == true)
 			return (direction);
-	_posPlayer = posPlayer;
-	_nbr_of_moves = 100;
 	direction = posPlayer;
 	return (aim_at_a_further_point(map, 0, 0, direction));
 }

@@ -37,8 +37,8 @@ public:
         std::pair<int, int> offensiveMove(GameMap &map, std::pair<int, int> &posPlayer, std::shared_ptr<Map> _map);
 	bool check_if_dangerous_zone(const GameMap &map, const std::pair<int, int> &pos);
 private:
-	std::pair<int, int> init_directions(GameMap &map, std::pair<int, int> current_pos);
-	std::pair<int, int> found_safe_point(int nbr_moves, int first_dir, std::pair<int, int> &direction);
+	bool is_bomb_here(const GameMap &map, const std::pair<int, int> &pos);
+	int init_directions(GameMap &map, std::pair<int, int> current_pos);
 	std::pair<int, int> aim_at_a_further_point(GameMap &map, int first_dir, int nbr_moves, std::pair<int, int> current_pos);
 	bool is_character_here(const GameMap &map, const std::pair<int, int> &pos);
 	std::pair<int, int> findNearestSafePoint(GameMap &map, std::pair<int, int> &posPlayer);
@@ -49,9 +49,13 @@ private:
 	std::pair<int, int> offensiveDown(GameMap &map, std::pair<int, int> &posPlayer, std::shared_ptr<Map> _map);
 	std::pair<int, int> offensiveLeft(GameMap &map, std::pair<int, int> &posPlayer, std::shared_ptr<Map> _map);
 	std::pair<int, int> offensiveRight(GameMap &map, std::pair<int, int> &posPlayer, std::shared_ptr<Map> _map);
+	std::pair<int, int> defensiveDown(GameMap &map, std::pair<int, int> current_pos);
+	std::pair<int, int> defensiveUp(GameMap &map, std::pair<int, int> current_pos);
+	std::pair<int, int> defensiveLeft(GameMap &map, std::pair<int, int> current_pos);
+	std::pair<int, int> defensiveRight(GameMap &map, std::pair<int, int> current_pos);
 	std::pair<int, int> _posPlayer;
-	int _nbr_of_moves;
 	int _dir;
+	int _nbr_of_moves;
 	int _offensive_tries;
 };
 
