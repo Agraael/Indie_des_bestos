@@ -13,11 +13,15 @@
 #include "MoveTo.hpp"
 #include "Gen.hpp"
 #include "Map.hpp"
+#include "TimeManager.hpp"
 
 class Player : public Character {
 public:
 	Player(entities::entityPosition pos, bool iskinematic, std::size_t layout, std::vector<irr::EKEY_CODE> eventPlayer, std::string name) :
-	Character(pos, iskinematic, layout, entities::entityType::PLAYER_TYPE, name), _eventPlayer(eventPlayer) { _move = std::make_unique<MoveTo>(); }
+	Character(pos, iskinematic, layout, entities::entityType::PLAYER_TYPE, name), _eventPlayer(eventPlayer) {
+		 _move = std::make_unique<MoveTo>();
+		_chrono = Singleton::TimeManager::Instance().createChrono();
+	}
 	void	setLibEventManager(graphic::IrrlichtLib *lib) { _lib = lib; }
 	void	update();
 	~Player() final {};
@@ -31,6 +35,7 @@ private:
 		[this](GameMap &map, entities::entityPosition pos) { return _move->try_move_down(map, pos); },
 		[this](GameMap &map, entities::entityPosition pos) { return _move->try_move_right(map, pos); }
 	};
+	Singleton::ChronoId _chrono;
 };
 
 #endif /* !PLAYER_HPP_ */
