@@ -16,6 +16,7 @@
 #include "Entity.hpp"
 #include "Character.hpp"
 #include "Walls.hpp"
+#include "TimeManager.hpp"
 #include "Map.hpp"
 #include "MoveTo.hpp"
 #include "GonnaExplose.hpp"
@@ -32,7 +33,7 @@ typedef struct s_choice {
 
 class Algorithm {
 public:
-	Algorithm() {};
+	Algorithm(int power, Singleton::ChronoId chronoBomb) : _power(power), _chronoBomb(chronoBomb) {};
 	std::pair<int, int> defensiveMove(GameMap &map, std::pair<int, int> &posPlayer);
         std::pair<int, int> offensiveMove(GameMap &map, std::pair<int, int> &posPlayer, std::shared_ptr<Map> _map);
 	bool check_if_dangerous_zone(const GameMap &map, const std::pair<int, int> &pos);
@@ -57,6 +58,8 @@ private:
 	int _dir;
 	int _nbr_of_moves;
 	int _offensive_tries;
+	int _power;
+	Singleton::ChronoId _chronoBomb;
 };
 
 #endif /* !ALGORITHM_HPP_ */
