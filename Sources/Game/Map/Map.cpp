@@ -208,3 +208,19 @@ bool	Map::verifPosition(entities::entityPosition &pos)
 		return (false);
 	return (true);
 }
+
+#include <algorithm>
+
+void Map::clean()
+{
+	std::for_each(_map.begin(), _map.end(), [](EntitiesVec& elem){
+		std::for_each(elem.begin(), elem.end(), [](SharedEntity& elem){
+			for (auto item = elem.begin(); item != elem.end() ; item++) {
+				if ((*item)->isDead()) {
+					elem.erase(item);
+					std::cout << "delete mdr" << std::endl;
+				}
+			}
+		});
+	});
+}
