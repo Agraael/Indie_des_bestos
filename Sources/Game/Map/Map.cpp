@@ -58,7 +58,6 @@ void Map::addModifiedEntity(const std::shared_ptr<entities::Entity> &entity)
 
 void Map::addDeletedEntity(const std::shared_ptr<entities::Entity> &entity)
 {
-	std::cout << "deleted entity : " << entity->getId() << std::endl;
 	_deletedEntities.push_back(entity->getId());
 }
 
@@ -107,11 +106,9 @@ void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 {
 	std::size_t x = 0;
 
-	//std::cout << "collision" << pos.first << " " << pos.second << std::endl;
 	for (unsigned int i = 0; i < _map[pos.first][pos.second].size(); i++) {
 		x = 0;
 		for (auto entity :_map[pos.first][pos.second]) {
-			x++;
 			if ( entity.get()->getType() == entities::entityType::PLAYER_TYPE ||
 				entity.get()->getType() == entities::entityType::IA_TYPE ||
 				entity.get()->getType() == entities::entityType::DESTRUCTIBLE_TYPE) {
@@ -123,6 +120,7 @@ void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 				entity->setLayout(0);
 				addModifiedEntity(entity);
 			}
+			x++;
 		}
 	}
 }
@@ -167,12 +165,12 @@ void    Map::updatePos(entities::Entity *entity, entities::entityPosition pos)
         for (unsigned int i = 0; i < _map[newPos.first][newPos.second].size(); i++) {
 		x = 0;
                 for (auto oldEntity :_map[newPos.first][newPos.second]) {
-			++x;
                         if (oldEntity->getId() == entity->getId()) {
                                 _map[pos.first][pos.second].push_back(oldEntity);
                                 _map[newPos.first][newPos.second].erase(_map[newPos.first][newPos.second].begin() + x);
                                 return ;
                         }
+			++x;
                 }
         }
 }
