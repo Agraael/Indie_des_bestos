@@ -48,7 +48,7 @@ void	graphic::localMenu::display()
 	_genSize = 1;
 	_genMode = 1;
 	_playersNb = 1;
-	_aisNb = 1;
+	_aisNb = 3;
 	_name = "map";
 	printBackground();
 	printMenuTitle();
@@ -73,7 +73,19 @@ void	graphic::localMenu::updateDisplay()
 				printNumber(_iaNbInfos, _iaNbImg, _aisNb);
 		}
 	}
+	updateNumber();
 }
+
+void	graphic::localMenu::updateNumber()
+{
+	if (_playersNb == 2 && _aisNb == 3) {
+		_aisNb = 2;
+		_iaNbImg->remove();
+		_iaNbInfos._path = "./Assets/media/two.png";
+		_iaNbImg = _lib->drawImage(_iaNbInfos);
+	}
+}
+
 
 void	graphic::localMenu::printMapName()
 {
