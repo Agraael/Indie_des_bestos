@@ -106,6 +106,7 @@ void	HandleGame::updateMap(bool &state)
 		}
 	}
 	updateDeletedEntity();
+	updateAddEntity();
 }
 
 void	HandleGame::updateDeletedEntity()
@@ -126,6 +127,8 @@ void	HandleGame::updateAddEntity()
 
 	for (auto elem : entVec) {
 		entities::entityPosition	pos = elem->getPos();
+		if (elem->getType() == entities::entityType::GONNAEXPLOSE_TYPE)
+			_disp.push_back(_lib->createCube({static_cast<double>(pos.second), static_cast<double>(pos.first), 1}, _textureMap.at(elem->getType()), elem->getId()));
 		if (elem->getType() == entities::entityType::BOMBS_TYPE)
 			_disp.push_back(_lib->createSphere({static_cast<double>(pos.second), static_cast<double>(pos.first), 1}, _textureMap.at(elem->getType()), elem->getId(), {0.25, false}));
 	}
@@ -133,8 +136,6 @@ void	HandleGame::updateAddEntity()
 
 void	HandleGame::updateEntity(const entities::Entity *entity)
 {
-	updateDeletedEntity();
-	updateAddEntity();
 	for (auto elem : _disp) {
 		if (elem->getID() == static_cast<irr::s32>(entity->getId())) {
 			elem->setPosition(irr::core::vector3df(entity->getPos().second, entity->getPos().first, 1));
