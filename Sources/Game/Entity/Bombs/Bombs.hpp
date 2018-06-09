@@ -15,17 +15,14 @@
 
 class Bombs : public entities::Entity {
 	public:
-                Bombs(entities::entityPosition pos, bool iskinematic, std::size_t layout, std::vector<std::shared_ptr<entities::Entity>> &exploseTab) :
-		entities::Entity(pos, iskinematic, layout, entities::entityType::BOMBS_TYPE, ""), _saveTime(std::time(nullptr)), _exploseTab(exploseTab) {
-			for (auto &explosed : _exploseTab) {
-				explosed->setMap(_map);
-			}
-		}
+                Bombs(entities::entityPosition pos, bool iskinematic, std::size_t layout, std::vector<std::shared_ptr<entities::Entity>> &exploseTab, Map &map) :
+		entities::Entity(pos, iskinematic, layout, entities::entityType::BOMBS_TYPE, ""), _saveTime(std::time(nullptr)), _exploseTab(exploseTab), _map(map) {}
 		~Bombs() final = default;
 	void	update();
 	private:
 		time_t						_saveTime;
 		std::vector<std::shared_ptr<entities::Entity>>	_exploseTab;
+		Map	&_map;
 };
 
 #endif /* !BOMBS_HPP_ */

@@ -13,7 +13,6 @@
 void	Map::placeExplosion(std::vector<std::shared_ptr<entities::Entity>> &exploseTab, std::shared_ptr<entities::Entity> &newEntity, entities::entityPosition pos)
 {
 	newEntity = std::make_shared<GonnaExplose>(pos, false, 1, *this);
-//	newEntity->setMap(std::shared_ptr<Map>(this));
 	_map[pos.first][pos.second].push_back(newEntity);
 	exploseTab.push_back(newEntity);
 }
@@ -38,11 +37,9 @@ void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first, pos.second + i));
 	}
 	newEntity = std::make_shared<GonnaExplose>(pos, false, 1, *this);
-//	newEntity->setMap(_map[0][0][0]->getMap());	
 	exploseTab.push_back(newEntity);
 	_map[pos.first][pos.second].push_back(newEntity);
-	newEntity = std::make_shared<Bombs>(pos, false, 0, exploseTab);
-//	newEntity->setMap(_map[0][0][0]->getMap());
+	newEntity = std::make_shared<Bombs>(pos, false, 0, exploseTab, *this);
  	_map[pos.first][pos.second].push_back(newEntity);
 }
 
