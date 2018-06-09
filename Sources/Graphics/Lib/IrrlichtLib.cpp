@@ -128,6 +128,21 @@ irr::scene::ISceneNode	*graphic::IrrlichtLib::createSphere(const vec3df &pos, co
 	return (node);
 }
 
+irr::scene::ISceneNode	*graphic::IrrlichtLib::createSphere(const vec3df &pos, const std::string &path, irr::s32 id, const sphere_t &sph)
+{
+	irr::scene::ISceneNode *node = _sceneManager->addSphereSceneNode(sph.diameter);
+
+	if (node) {
+		node->setPosition(irr::core::vector3df(pos.x,pos.y, pos.z));
+		node->setMaterialTexture(0, _driver->getTexture(path.c_str()));
+		node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+		node->setID(id);
+		if (sph.rotate != true)
+			node->setRotation(irr::core::vector3df(0.5, 0, 0));
+	}
+	return (node);
+}
+
 void	graphic::IrrlichtLib::drawText(size_t x, size_t y, size_t fontSize, const std::string &text)
 {
 	std::wstring wideStr = std::wstring(text.begin(), text.end());

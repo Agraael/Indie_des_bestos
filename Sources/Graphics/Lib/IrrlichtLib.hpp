@@ -28,6 +28,11 @@ struct	vec2d {
 	int	y;
 };
 
+struct	sphere_t {
+	double	diameter;
+	bool	rotate;
+};
+
 #ifdef _IRR_WINDOWS_
 #pragma comment(lib, "Irrlicht.lib")
 #endif
@@ -62,6 +67,7 @@ namespace graphic {
             irr::s32 getLight() { return _light; }
 			irr::scene::ISceneNode	*createCube(const vec3df &, const std::string &, irr::s32);
 			irr::scene::ISceneNode	*createSphere(const vec3df &, const std::string &, irr::s32);
+			irr::scene::ISceneNode	*createSphere(const vec3df &, const std::string &, irr::s32, const sphere_t &);
 			void			setCamera(irr::scene::ISceneNode *);
 			void			setCamera(const vec3df &, const vec3df &t);
 			void			drawEditBox(graphic::infos_t);
