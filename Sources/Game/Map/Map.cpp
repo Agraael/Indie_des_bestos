@@ -12,8 +12,8 @@
 
 void	Map::placeExplosion(std::vector<std::shared_ptr<entities::Entity>> &exploseTab, std::shared_ptr<entities::Entity> &newEntity, entities::entityPosition pos)
 {
-	newEntity = std::make_shared<GonnaExplose>(pos, false, 1);
-	newEntity->setMap(_map[0][0][0]->getMap());
+	newEntity = std::make_shared<GonnaExplose>(pos, false, 1, *this);
+//	newEntity->setMap(std::shared_ptr<Map>(this));
 	_map[pos.first][pos.second].push_back(newEntity);
 	exploseTab.push_back(newEntity);
 }
@@ -37,12 +37,12 @@ void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
 		if ((pos.second + i) >= 0)
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first, pos.second + i));
 	}
-	newEntity = std::make_shared<GonnaExplose>(pos, false, 1);
-	newEntity->setMap(_map[0][0][0]->getMap());	
+	newEntity = std::make_shared<GonnaExplose>(pos, false, 1, *this);
+//	newEntity->setMap(_map[0][0][0]->getMap());	
 	exploseTab.push_back(newEntity);
 	_map[pos.first][pos.second].push_back(newEntity);
 	newEntity = std::make_shared<Bombs>(pos, false, 0, exploseTab);
-	newEntity->setMap(_map[0][0][0]->getMap());
+//	newEntity->setMap(_map[0][0][0]->getMap());
  	_map[pos.first][pos.second].push_back(newEntity);
 }
 
@@ -55,9 +55,7 @@ void Map::addModifiedEntity(const std::shared_ptr<entities::Entity> &entity)
 
 void Map::addDeletedEntity(const std::shared_ptr<entities::Entity> &entity)
 {
-	int id = entity->getId();
-
-	_deletedEntities.push_back(id);
+	_deletedEntities.push_back(entity->getId());
 }
 
 void Map::addBombs(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos)
@@ -98,12 +96,12 @@ void Map::allowWallpass(std::shared_ptr<entities::Entity> &character, const enti
 
 void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 {
-	std::cout << "amaury" << std::endl;
 	for (auto entity :_map[pos.first][pos.second]) {
 		if (!(entity.get()->getType() == entities::entityType::BOMB_UP_TYPE ||
 		     	entity.get()->getType() == entities::entityType::SPEED_UP_TYPE ||
 		     	entity.get()->getType() == entities::entityType::FIRE_UP_TYPE ||
 		     	entity.get()->getType() == entities::entityType::WALL_PASS_TYPE)) {
+				     std::cout << "cédrci" << std::endl;
 				addDeletedEntity(entity);
 				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin());
 				break;
