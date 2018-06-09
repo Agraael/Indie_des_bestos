@@ -22,7 +22,7 @@ public:
 	void	displayMap();
 	void	checkAfterExplosion() {};
 	void	playerDeath() {};
-	std::vector<std::shared_ptr<entities::Entity>> getModifiedEntities(void) const noexcept { return _modifiedEntities; }
+	std::vector<std::shared_ptr<entities::Entity>> getModifiedEntities() const noexcept { return _modifiedEntities; }
 	void    checkBonusCollision(std::shared_ptr<entities::Entity>, const entities::entityPosition &);
 	void	checkExplosionCollision(const entities::entityPosition &_pos);
 	std::vector<std::size_t>	getDeleteEntities() const noexcept { return _deletedEntities; }

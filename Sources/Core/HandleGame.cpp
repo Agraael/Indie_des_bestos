@@ -123,17 +123,27 @@ void	HandleGame::updateDeletedEntity()
 	}
 }
 
+void	HandleGame::updateAddEntity()
+{
+	std::vector<std::shared_ptr<entities::Entity>>	entVec = _threeDMap->getModifiedEntities();
+
+	for (auto elem : entVec) {
+		entities::entityPosition	pos = elem->getPos();
+		if (elem->getType() == entities::entityType::BOMBS_TYPE)
+			_disp.push_back(_lib->createSphere({static_cast<double>(pos.second), static_cast<double>(pos.first), 1}, _textureMap.at(elem->getType()), elem->getId(), {0.25, false}));
+	}
+}
+
 void	HandleGame::updateEntity(const entities::Entity *entity)
 {
 	updateDeletedEntity();
+	updateAddEntity();
 	for (auto elem : _disp) {
 		if (elem->getID() == static_cast<irr::s32>(entity->getId())) {
 			elem->setPosition(irr::core::vector3df(entity->getPos().second, entity->getPos().first, 1));
 		}
 	}
 }
-
-
 
 bool	HandleGame::gameEnd() noexcept
 {
@@ -145,7 +155,7 @@ bool	HandleGame::gameEnd() noexcept
 				const entities::Entity	*ent = shared.get();
 				if (ent->getLayout() == 0 &&
 					(ent->getType() == entities::entityType::IA_TYPE
-					|| ent->getType() == entities::entityType::PLAYER_TYPE) && ent->isDead() != true) {
+					|| ent->getType() == entities::entityType::PLAYER_TYPE)) {
 					count++;
 					_winnerName = ent->getName();
 				}

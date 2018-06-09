@@ -48,6 +48,7 @@ class HandleGame
 	private:
 		void	changeDisp();
 		void	updateDeletedEntity();
+		void	updateAddEntity();
 		void	initMapGround(const GenerationSize &, std::size_t &);
 		void	addCubeToMap(const entities::Entity &, std::size_t &);
 		void	updateEntity(const entities::Entity *);
