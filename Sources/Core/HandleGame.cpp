@@ -95,7 +95,7 @@ void	HandleGame::updateMap(bool &state)
 					updateEntity(shared.get());
 				}
 				if (shared.get()->getType() == entities::entityType::BOMBS_TYPE) {
-					std::cout << "oui" << std::endl;
+					std::cout << "sdfghjklm" << std::endl;
 					reinterpret_cast<Bombs &>(*shared).update();
 				//	updateEntity(shared.get());
 				}

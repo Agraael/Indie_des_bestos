@@ -9,9 +9,5 @@
 
 void    GonnaExplose::update()
 {
-	std::cout << "non" << std::endl;
-	if (_map == nullptr) {
-		std::cout << "nullptr" << std::endl;
-	}
-	_map->checkExplosionCollision(_pos);
+	_map.checkExplosionCollision(_pos);
 }

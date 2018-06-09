@@ -13,10 +13,12 @@
 
 class GonnaExplose : public entities::Entity {
 	public:
-                GonnaExplose(entities::entityPosition pos, bool iskinematic, std::size_t layout) :
-		entities::Entity(pos, iskinematic, layout, entities::entityType::GONNAEXPLOSE_TYPE, "") {}
+                GonnaExplose(entities::entityPosition pos, bool iskinematic, std::size_t layout, Map &map) :
+		entities::Entity(pos, iskinematic, layout, entities::entityType::GONNAEXPLOSE_TYPE, ""), _map(map) {}
 		~GonnaExplose() {};
 		void	update();
+	private:
+		Map	&_map;
 };
 
 #endif /* !GONNAEXPLOSE_HPP_ */
