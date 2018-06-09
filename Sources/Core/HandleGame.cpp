@@ -106,6 +106,7 @@ void	HandleGame::updateMap(bool &state)
 		}
 	}
 	updateDeletedEntity();
+	updateAddEntity();
 }
 
 void	HandleGame::updateDeletedEntity()
@@ -135,8 +136,6 @@ void	HandleGame::updateAddEntity()
 
 void	HandleGame::updateEntity(const entities::Entity *entity)
 {
-	updateDeletedEntity();
-	updateAddEntity();
 	for (auto elem : _disp) {
 		if (elem->getID() == static_cast<irr::s32>(entity->getId())) {
 			elem->setPosition(irr::core::vector3df(entity->getPos().second, entity->getPos().first, 1));
