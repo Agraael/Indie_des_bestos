@@ -7,7 +7,11 @@
 
 #include "GonnaExplose.hpp"
 
-GonnaExplose::update()
+void    GonnaExplose::update()
 {
-        _map.checkExplosioCollision(_pos);
+	std::cout << "non" << std::endl;
+	if (_map == nullptr) {
+		std::cout << "nullptr" << std::endl;
+	}
+	_map->checkExplosionCollision(_pos);
 }

@@ -24,10 +24,11 @@ public:
 	void	playerDeath() {};
 	std::vector<std::shared_ptr<entities::Entity>> getModifiedEntities(void) const noexcept { return _modifiedEntities; }
 	std::vector<int> getDeletedEntities(void) const noexcept { return _deletedEntities; }
-	void	placeExplosion(std::shared_ptr<entities::Entity> &, entities::entityPosition pos);	
 	void    checkBonusCollision(std::shared_ptr<entities::Entity>, const entities::entityPosition &);
 	void	checkExplosionCollision(const entities::entityPosition &_pos);
+	void	test() { std::cout << "oui" << std::endl;}
 private:
+	void	placeExplosion(std::vector<std::shared_ptr<entities::Entity>> &, std::shared_ptr<entities::Entity> &, entities::entityPosition pos);	
 	void	addModifiedEntity(const std::shared_ptr<entities::Entity> &entity);
 	void	addDeletedEntity(const std::shared_ptr<entities::Entity> &entity);
 	void    addBombs(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);

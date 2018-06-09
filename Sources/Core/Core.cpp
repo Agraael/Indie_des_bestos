@@ -9,6 +9,7 @@
 #include <string>
 #include "Gen.hpp"
 #include "Core.hpp"
+#include <unistd.h>
 
 Core::Core()
 	: _state(CoreState::IN_MENU), _lib(new graphic::IrrlichtLib()), _eventCore(_lib), _menu(new graphic::Menu(_lib)), hGame(_lib), _menuSetting(new graphic::settingsMenu(_lib)), _menuCreateGame(new graphic::localMenu(_lib)), _menuPause(new graphic::MenuPause(_lib)), _playing(false), _gamePaused(false)
