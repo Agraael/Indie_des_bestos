@@ -29,6 +29,7 @@ public:
 	std::vector<std::shared_ptr<entities::Entity>>	getAddedEntity() const noexcept { return _addedEntities; }
 	void	clearDeleteEntities() { _deletedEntities.clear(); }
 	bool	verifPosition(entities::entityPosition &);
+	void    clean();
 private:
 	void	placeExplosion(std::vector<std::shared_ptr<entities::Entity>> &, std::shared_ptr<entities::Entity> &, entities::entityPosition pos);	
 	void	addModifiedEntity(const std::shared_ptr<entities::Entity> &entity);
