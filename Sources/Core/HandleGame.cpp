@@ -105,8 +105,8 @@ void	HandleGame::updateMap(bool &state)
 				shared->setMooved();
 		}
 	}
-	updateDeletedEntity();
 	updateAddEntity();
+	updateDeletedEntity();
 }
 
 void	HandleGame::updateDeletedEntity()
