@@ -10,7 +10,7 @@ option(MDR "Use MDR for no flags" OFF)
 option(CPPCHECK "Use CPPCHECK for cppckeck" OFF)
 
 if (UNIX)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -pedantic -Wextra -fno-builtin -ffast-math -pthread -std=c++17")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -pedantic -Wextra -fno-builtin -ffast-math -pthread -std=c++17 -g3")
 
   if(NAZI)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wfloat-equal -Wshadow \
