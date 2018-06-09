@@ -14,26 +14,28 @@ graphic::settingsMenu::settingsMenu(graphic::IrrlichtLib *lib) : _lib(lib)
 
 void    graphic::settingsMenu::printLogo()
 {
-    graphic::infos_t logo;
-    logo._x = 10;
-    logo._y = 5;
-    logo._w = 50;
-    logo._h = 50;
-    logo._maxH = 50;
-    logo._maxW = 50;
-    logo._path = "Assets/media/Neo_Bomberman_Logo.png";
-    _lib->drawImage(logo);
+	vec2d size = _lib->getScreenSize();
+	graphic::infos_t logo;
+	logo._x = (size.x / 2) - 125;
+	logo._y = 5;
+	logo._w = (size.x / 2) + 125;
+	logo._h = 200;
+	logo._maxH = 250;
+	logo._maxW = 250;
+	logo._path = "Assets/media/Neo_Bomberman_Logo.png";
+	_lib->drawImage(logo);
 }
 
 void graphic::settingsMenu::printBackground()
 {
+	vec2d size = _lib->getScreenSize();
     graphic::infos_t background;
     background._x = 0;
     background._y = 0;
-    background._w = 640;
-    background._h = 480;
-    background._maxW = 740;
-    background._maxH = 580;
+    background._w = size.x;
+    background._h = size.y;
+    background._maxW = size.x;
+    background._maxH = size.y;
     background._path = "Assets/media/pixel_skyline.png";
     _lib->drawImage(background);
 }
@@ -51,6 +53,8 @@ void graphic::settingsMenu::brightnessBar()
 
 void graphic::settingsMenu::printSound()
 {
+	vec2d size = _lib->getScreenSize();
+
     graphic::infos_t moins;
     moins._x = 200;
     moins._y = 150;
@@ -63,12 +67,12 @@ void graphic::settingsMenu::printSound()
     _lib->printButton(moins);
 
     graphic::infos_t sound;
-    sound._x = 240;
-    sound._y = 130;
-    sound._w = 100;
-    sound._h = 80;
-    sound._maxW = 100;
-    sound._maxH = 80;
+    sound._x = (size.x /2) - 100;
+    sound._y = 260;
+    sound._w = 200;
+    sound._h = 160;
+    sound._maxW = 200;
+    sound._maxH = 160;
     sound._path = "./Assets/media/formation-au-son-1.png";
     _lib->drawImage(sound);
 
