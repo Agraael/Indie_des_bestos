@@ -47,18 +47,30 @@ void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
 	for (auto oldEntity :_map[pos.first][pos.second])
 		if (oldEntity.get()->getType() == entities::entityType::BOMBS_TYPE)
 			return;
-	for (int i = 1; i <= static_cast<int>(power) && isWallHere(pos.first - i, pos.second) == false; i++)
-		if ((pos.first - i) > 0)
+	for (int i = 1; i <= static_cast<int>(power); i++)
+		if ((pos.first - i) > 0) {
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first - i, pos.second));
-	for (int i = 1; i <= static_cast<int>(power) && isWallHere(pos.first + i, pos.second) == false; i++)
-		if ((pos.first + i) < 25)
+			if (isWallHere(pos.first - i, pos.second) == true)
+				break;
+		}
+	for (int i = 1; i <= static_cast<int>(power); i++)
+		if ((pos.first + i) < 25) {
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first + i, pos.second));
-	for (int i = 1; i <= static_cast<int>(power) && isWallHere(pos.first, pos.second + i) == false; i++)
-		if ((pos.second - i) > 0)
+			if (isWallHere(pos.first + i, pos.second) == true)
+				break;
+		}
+	for (int i = 1; i <= static_cast<int>(power); i++)
+		if ((pos.second - i) > 0) {
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first, pos.second - i));
-	for (int i = 1; i <= static_cast<int>(power) && isWallHere(pos.first, pos.second + i) == false; i++)
-		if ((pos.second + i) < 25)
+			if (isWallHere(pos.first, pos.second + i) == true)
+				break;
+		}
+	for (int i = 1; i <= static_cast<int>(power); i++)
+		if ((pos.second + i) < 25) {
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first, pos.second + i));
+			if (isWallHere(pos.first, pos.second + i) == true)
+				break;
+		}
 	newEntity = std::make_shared<GonnaExplose>(pos, false, 1, *this);
 	exploseTab.push_back(newEntity);
 	_map[pos.first][pos.second].push_back(newEntity);
