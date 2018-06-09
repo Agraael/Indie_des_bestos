@@ -17,16 +17,16 @@ class Map;
 
 namespace entities {
 
-	using graphicEntityPosition = std::pair<float, float>;
-	using entityPosition = std::pair<int, int>;
+	using	graphicEntityPosition = std::pair<float, float>;
+	using	entityPosition = std::pair<int, int>;
 
 	enum entityType {
 		INDESTRUCTIBLE_TYPE,
 		DESTRUCTIBLE_TYPE,
 		BOMB_UP_TYPE,
 		SPEED_UP_TYPE,
-		FIRE_UP_TYPE,
 		WALL_PASS_TYPE,
+		FIRE_UP_TYPE,
 		PLAYER_TYPE,
 		IA_TYPE,
 		BOMBS_TYPE,
@@ -45,13 +45,13 @@ namespace entities {
 		entities::entityType	getType() const noexcept { return _typeEnum; }
 		std::size_t		getLayout() const noexcept { return _layout; }
 		std::size_t		getId() const noexcept { return _id; }
-		std::size_t		&getId() { return (_id); }
+		std::string const	&getName() const noexcept { return _name; }
+		std::size_t		&getId() noexcept { return (_id); }
+		std::shared_ptr<Map>	&getMap() noexcept { return _map; };
 		void			die(bool state) { _isDead = state; }
 		void			setMap(std::shared_ptr<Map> map) { _map = map;};
-		std::shared_ptr<Map>	&getMap() { return _map; };
 		void			setLayout(int i) noexcept { _layout = i;}
 		void			setTexture(std::string texture) { _texture = texture; }
-		std::string const	&getName() const noexcept { return _name; }
 		void			setMooved() { _mooved = true; }
 	protected:
 		std::size_t		_id;

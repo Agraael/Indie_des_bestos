@@ -87,6 +87,7 @@ void	HandleGame::updateMap(bool &state)
 		for (auto tab : line) {
 			for (auto shared : tab) {
 				if (shared.get()->getType() == entities::entityType::PLAYER_TYPE) {
+					std::cout << "fghjklm" << std::endl;
 					reinterpret_cast<Player &>(*shared).update();
 					updateEntity(shared.get());
 				}
