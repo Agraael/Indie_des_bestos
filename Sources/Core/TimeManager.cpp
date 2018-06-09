@@ -43,7 +43,7 @@ bool Singleton::TimeManager::resetChrono(Singleton::ChronoId id)
 {
 	if (_chronoMap.find(id) == _chronoMap.end())
 		return false;
-	_chronoMap[_chronoNb] = std::chrono::steady_clock::now();
+	_chronoMap[id] = std::chrono::steady_clock::now();
 	return true;
 }
 
