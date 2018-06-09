@@ -11,4 +11,5 @@ set(BOMBS_INC
   ${BOMBS_INC_DIR}/GonnaExplose.hpp)
 
 set(BOMBS_SRC
-  ${BOMBS_SRC_DIR}/Bombs.cpp)
+  ${BOMBS_SRC_DIR}/Bombs.cpp
+  ${BOMBS_SRC_DIR}/GonnaExplose.cpp)

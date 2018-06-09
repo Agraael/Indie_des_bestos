@@ -21,10 +21,9 @@ void	Player::update()
 			_map->placeBomb(_pos, _power);
 		++index;
 	}
-	if (newPos != std::make_pair(0, 0) && newPos != _pos && _mooved == false) {
+	if (newPos != std::make_pair(0, 0) && newPos != _pos) {
 		_mooved = true;
 		_map->updatePos(reinterpret_cast<Entity *>(this), newPos);
 		_pos = newPos;
 	}
-
 }

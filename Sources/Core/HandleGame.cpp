@@ -87,13 +87,17 @@ void	HandleGame::updateMap(bool &state)
 		for (auto tab : line) {
 			for (auto shared : tab) {
 				if (shared.get()->getType() == entities::entityType::PLAYER_TYPE) {
-					std::cout << "oui" << std::endl;
 					reinterpret_cast<Player &>(*shared).update();
 					updateEntity(shared.get());
 				}
-				if (shared.get()->getType() == entities::entityType::IA_TYPE) {
+			 	if (shared.get()->getType() == entities::entityType::IA_TYPE) {
 					reinterpret_cast<Ia &>(*shared).update();
 					updateEntity(shared.get());
+				}
+				if (shared.get()->getType() == entities::entityType::BOMBS_TYPE) {
+					std::cout << "oui" << std::endl;
+					reinterpret_cast<Bombs &>(*shared).update();
+				//	updateEntity(shared.get());
 				}
 			}
 		}

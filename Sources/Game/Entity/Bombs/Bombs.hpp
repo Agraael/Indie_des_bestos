@@ -16,7 +16,11 @@
 class Bombs : public entities::Entity {
 	public:
                 Bombs(entities::entityPosition pos, bool iskinematic, std::size_t layout, std::vector<std::shared_ptr<entities::Entity>> &exploseTab) :
-		entities::Entity(pos, iskinematic, layout, entities::entityType::BOMBS_TYPE, ""), _saveTime(std::time(nullptr)), _exploseTab(exploseTab) {}
+		entities::Entity(pos, iskinematic, layout, entities::entityType::BOMBS_TYPE, ""), _saveTime(std::time(nullptr)), _exploseTab(exploseTab) {
+			for (auto &explosed : _exploseTab) {
+				explosed->setMap(_map);
+			}
+		}
 		~Bombs() final = default;
 	void	update();
 	private:
