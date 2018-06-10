@@ -7,19 +7,19 @@
 
 #include "Bombs.hpp"
 
-void	Bombs::update()
+void    Bombs::update()
 {
-	Singleton::TimeManager &timer = Singleton::TimeManager::Instance();
+        Singleton::TimeManager &timer = Singleton::TimeManager::Instance();
 
         if (timer.getChronoDuration(_chrono)  > 2) {
-		for (auto entity : _exploseTab) {
-			if (timer.getChronoDuration(_chrono)  > 2.5f) {
-				entity->die(true);
-			}
-			else {
-				entity->setLayout(0);
-				reinterpret_cast<GonnaExplose &>(*entity).update();;
-			}
-		}
-	}
+                for (auto entity : _exploseTab) {
+                        if (timer.getChronoDuration(_chrono)  > 2.5f) {
+                                entity->die(true);
+                        }
+                        else {
+                                entity->setLayout(0);
+                                reinterpret_cast<GonnaExplose &>(*entity).update();;
+                        }
+                }
+        }
 }

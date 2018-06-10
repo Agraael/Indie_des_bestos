@@ -22,8 +22,8 @@ void	InterpreteGeneration::InitBombUp(SharedEntity &tempTab, std::size_t x, std:
 {
 	std::shared_ptr<entities::Entity>		bonus;
 
-	bonus = std::make_shared<BombUp>(std::make_pair(x,y), true, 1);
-	tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), false, 0, bonus, BonusSpace::BonusesTypes::BOMBUP));
+	bonus = std::make_shared<BombUp>(std::make_pair(x,y), false, 1);
+	tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), true, 0, bonus, BonusSpace::BonusesTypes::BOMBUP));
 	tempTab.push_back(bonus);
 }
 
@@ -31,8 +31,8 @@ void	InterpreteGeneration::InitSpeedUp(SharedEntity &tempTab, std::size_t x, std
 {
 	std::shared_ptr<entities::Entity>		bonus;
 
-	bonus = std::make_shared<SpeedUp>(std::make_pair(x,y), true, 1);
-	tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), false, 0, bonus, BonusSpace::BonusesTypes::SPEEDUP));
+	bonus = std::make_shared<SpeedUp>(std::make_pair(x,y), false, 1);
+	tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), true, 0, bonus, BonusSpace::BonusesTypes::SPEEDUP));
 	tempTab.push_back(bonus);
 }
 
@@ -40,8 +40,8 @@ void	InterpreteGeneration::InitFireUp(SharedEntity &tempTab, std::size_t x, std:
 {
 	std::shared_ptr<entities::Entity>		bonus;
 
-	bonus = std::make_shared<FireUp>(std::make_pair(x,y), true, 1);
-	tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), false, 0, bonus, BonusSpace::BonusesTypes::FIREUP));
+	bonus = std::make_shared<FireUp>(std::make_pair(x,y), false, 1);
+	tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), true, 0, bonus, BonusSpace::BonusesTypes::FIREUP));
 	tempTab.push_back(bonus);
 }
 
@@ -49,8 +49,8 @@ void	InterpreteGeneration::InitWallPass(SharedEntity &tempTab, std::size_t x, st
 {
 	std::shared_ptr<entities::Entity>		bonus;
 
-	bonus = std::make_shared<WallPass>(std::make_pair(x,y), true, 1);
-	tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), false, 0, bonus, BonusSpace::BonusesTypes::WALLPASS));
+	bonus = std::make_shared<WallPass>(std::make_pair(x,y), false, 1);
+	tempTab.push_back(std::make_shared<DestructibleWalls>(std::make_pair(x,y), true, 0, bonus, BonusSpace::BonusesTypes::WALLPASS));
 	tempTab.push_back(bonus);
 }
 
@@ -118,7 +118,6 @@ void	InterpreteGeneration::Fill(GameMap &map, const std::size_t &width, const st
 {
 	for (std::size_t i = 0; i < height; ++i) {
 		for (std::size_t n = 0; n < width; ++n) {
-			std::cout << charMap[i][n];
 			auto func = _initFuncsPtr[static_cast<InterpreteGeneration::entityType>(charMap[i][n])];
 			if (charMap[i][n] != ' ') {
 				func(_tempTab, i, n);
@@ -128,7 +127,6 @@ void	InterpreteGeneration::Fill(GameMap &map, const std::size_t &width, const st
 			else
 				_tempLine.push_back({});
 		}
-		std::cout << std::endl;
 		map.push_back(_tempLine);
 		if (!(_tempLine.empty()))
 			_tempLine.clear();
