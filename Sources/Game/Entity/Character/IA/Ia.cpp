@@ -35,4 +35,5 @@ Ia::Ia(entities::entityPosition pos, bool iskinematic, std::size_t layout, std::
                 Character(pos, iskinematic, layout, entities::entityType::IA_TYPE, name)
 {
 	_chrono = Singleton::TimeManager::Instance().createChrono();
+	_chronoBomb = Singleton::TimeManager::Instance().createChrono();
 }
