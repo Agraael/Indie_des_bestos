@@ -31,8 +31,8 @@ namespace graphic
         void returnToMenu();
         void updateDisplay();
         void printSound();
-        void modifyBrightness(graphic::Action);
-        void modifySound(graphic::Action);
+        void modifyBrightness();
+        void modifySound();
         void quitSettingsMenu(graphic::Action);
         std::unordered_map <graphic::controllerUser, std::function<void(graphic::IrrlichtLib&)>> getEventTab() { return _eventTab; };
     private:
