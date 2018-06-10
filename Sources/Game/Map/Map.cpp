@@ -8,6 +8,9 @@
 #include "Map.hpp"
 #include <algorithm>
 #include "Bombs.hpp"
+#include "Walls.hpp"
+#include "Entity.hpp"
+#include "Algorithm.hpp"
 #include "GonnaExplose.hpp"
 
 void	Map::placeExplosion(std::vector<std::shared_ptr<entities::Entity>> &exploseTab, std::shared_ptr<entities::Entity> &newEntity, entities::entityPosition pos)
@@ -22,25 +25,52 @@ void	Map::placeExplosion(std::vector<std::shared_ptr<entities::Entity>> &explose
 	addAddedEntity(newEntity);
 }
 
+bool Map::isWallHere(int first, int second)
+{
+	if (first <= 0 || second <= 0 || static_cast<unsigned int>(first) >= _map.size() || static_cast<unsigned int>(second) >= _map[first].size())
+                return true;
+        for (auto &entity : _map[first][second]) {
+                if (entity.get()->getType() ==
+                    entities::entityType::DESTRUCTIBLE_TYPE ||
+                    entity.get()->getType() ==
+                    entities::entityType::INDESTRUCTIBLE_TYPE)
+                        return true;
+        }
+        return false;
+}
+
 void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
 {
 	std::vector<std::shared_ptr<entities::Entity>>	exploseTab;
 	std::shared_ptr<entities::Entity>		newEntity;
 
-	for (auto oldEntity :_map[pos.first][pos.second]) {
+	for (auto oldEntity :_map[pos.first][pos.second])
 		if (oldEntity.get()->getType() == entities::entityType::BOMBS_TYPE)
 			return;
-	}
-	for (int i = 1; i <= static_cast<int>(power); ++i) {
-		if ((pos.first - i) > 0)
+	for (int i = 1; i <= static_cast<int>(power); i++)
+		if ((pos.first - i) > 0) {
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first - i, pos.second));
-		if ((pos.first + i) < 25)
+			if (isWallHere(pos.first - i, pos.second) == true)
+				break;
+		}
+	for (int i = 1; i <= static_cast<int>(power); i++)
+		if ((pos.first + i) < 25) {
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first + i, pos.second));
-		if ((pos.second - i) > 0)
+			if (isWallHere(pos.first + i, pos.second) == true)
+				break;
+		}
+	for (int i = 1; i <= static_cast<int>(power); i++)
+		if ((pos.second - i) > 0) {
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first, pos.second - i));
-		if ((pos.second + i) < 25)
+			if (isWallHere(pos.first, pos.second - i) == true)
+				break;
+		}
+	for (int i = 1; i <= static_cast<int>(power); i++)
+		if ((pos.second + i) < 25) {
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first, pos.second + i));
-	}
+			if (isWallHere(pos.first, pos.second + i) == true)
+				break;
+		}
 	newEntity = std::make_shared<GonnaExplose>(pos, false, 1, *this);
 	exploseTab.push_back(newEntity);
 	_map[pos.first][pos.second].push_back(newEntity);
@@ -66,7 +96,6 @@ void Map::addAddedEntity(const std::shared_ptr<entities::Entity> &entity)
 {
 	_addedEntities.push_back(entity);
 }
-
 
 void Map::addBombs(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos)
 {
@@ -107,21 +136,21 @@ void Map::allowWallpass(std::shared_ptr<entities::Entity> &character, const enti
 void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 {
 	std::size_t x = 0;
+
 	for (unsigned int i = 0; i < _map[pos.first][pos.second].size(); i++) {
+		x = 0;
 		for (auto entity :_map[pos.first][pos.second]) {
 			x++;
-			if (entity.get()->getType() == entities::entityType::PLAYER_TYPE)
-                        std::cout << "player" << std::endl;
-			if (entity.get()->getType() == entities::entityType::GONNAEXPLOSE_TYPE)
+			if ( entity.get()->getType() == entities::entityType::PLAYER_TYPE ||
+				entity.get()->getType() == entities::entityType::IA_TYPE ||
+				entity.get()->getType() == entities::entityType::DESTRUCTIBLE_TYPE) {
+					addDeletedEntity(entity);
+					_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
+					break;
+			}
+			if (entity.get()->getType() == entities::entityType::GONNAEXPLOSE_TYPE) {
+				entity->setLayout(0);
 				addModifiedEntity(entity);
-			if (!(entity.get()->getType() == entities::entityType::BOMB_UP_TYPE ||
-			      entity.get()->getType() == entities::entityType::SPEED_UP_TYPE ||
-			      entity.get()->getType() == entities::entityType::FIRE_UP_TYPE ||
-			      entity.get()->getType() == entities::entityType::WALL_PASS_TYPE ||
-			      entity.get()->getType() == entities::entityType::INDESTRUCTIBLE_TYPE)) {
-				addDeletedEntity(entity);
-				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
-				break;
 			}
 		}
 	}
@@ -162,14 +191,17 @@ void Map::checkBonusCollision(std::shared_ptr<entities::Entity> character, const
 void    Map::updatePos(entities::Entity *entity, entities::entityPosition pos)
 {
         entities::entityPosition        newPos = entity->getPos();
+	std::size_t x = 0;	
 
         for (unsigned int i = 0; i < _map[newPos.first][newPos.second].size(); i++) {
+		x = 0;
                 for (auto oldEntity :_map[newPos.first][newPos.second]) {
                         if (oldEntity->getId() == entity->getId()) {
                                 _map[pos.first][pos.second].push_back(oldEntity);
-                                _map[newPos.first][newPos.second].erase(_map[newPos.first][newPos.second].begin() + i);
+                                _map[newPos.first][newPos.second].erase(_map[newPos.first][newPos.second].begin() + x);
                                 return ;
                         }
+			++x;
                 }
         }
 }

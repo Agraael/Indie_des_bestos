@@ -9,10 +9,17 @@
 
 void	Bombs::update()
 {
-        if ((std::time(nullptr) - _saveTime) > 2) {
+	Singleton::TimeManager &timer = Singleton::TimeManager::Instance();
+
+        if (timer.getChronoDuration(_chrono)  > 2) {
 		for (auto entity : _exploseTab) {
-			entity->setLayout(0);
-			reinterpret_cast<GonnaExplose &>(*entity).update();;
+			if (timer.getChronoDuration(_chrono)  > 2.5f) {
+				entity->die(true);
+			}
+			else {
+				entity->setLayout(0);
+				reinterpret_cast<GonnaExplose &>(*entity).update();;
+			}
 		}
 	}
 }
