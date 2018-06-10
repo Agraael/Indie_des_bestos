@@ -29,11 +29,11 @@ private:
 	graphic::IrrlichtLib									*_lib;
 	std::vector<irr::EKEY_CODE>								_eventPlayer;
 	std::unique_ptr<MoveTo>									_move;
-	std::vector<std::function<std::pair<int, int> (GameMap &, entities::entityPosition)>>	_foncter = {
-		[this](GameMap &map, entities::entityPosition pos) { return _move->try_move_up(map, pos); },
-		[this](GameMap &map, entities::entityPosition pos) { return _move->try_move_left(map, pos); },
-		[this](GameMap &map, entities::entityPosition pos) { return _move->try_move_down(map, pos); },
-		[this](GameMap &map, entities::entityPosition pos) { return _move->try_move_right(map, pos); }
+	std::vector<std::function<std::pair<int, int> (GameMap &, entities::entityPosition, int)>>	_foncter = {
+		[this](GameMap &map, entities::entityPosition pos, int _wallpass) { return _move->try_move_up(map, pos, _wallpass); },
+		[this](GameMap &map, entities::entityPosition pos, int _wallpass) { return _move->try_move_left(map, pos, _wallpass); },
+		[this](GameMap &map, entities::entityPosition pos, int _wallpass) { return _move->try_move_down(map, pos, _wallpass); },
+		[this](GameMap &map, entities::entityPosition pos, int _wallpass) { return _move->try_move_right(map, pos, _wallpass); }
 	};
 	Singleton::ChronoId _chrono;
 };

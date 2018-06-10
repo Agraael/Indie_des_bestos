@@ -105,13 +105,13 @@ std::pair<int, int> Algorithm::defensiveRight(GameMap &map, std::pair<int, int> 
 	std::pair<int, int> empty_pair = {};
 	MoveTo *dir = new MoveTo;
 
-	direction = dir->try_move_right(map, current_pos);
+	direction = dir->try_move_right(map, current_pos, 0);
 	if (direction != empty_pair)
 		return direction;
-	direction = dir->try_move_up(map, current_pos);
+	direction = dir->try_move_up(map, current_pos, 0);
 	if (direction != empty_pair)
 		return direction;
-	direction = dir->try_move_down(map, current_pos);
+	direction = dir->try_move_down(map, current_pos, 0);
         if (direction != empty_pair)
 		return direction;
 	return current_pos;
@@ -123,13 +123,13 @@ std::pair<int, int> Algorithm::defensiveLeft(GameMap &map, std::pair<int, int> c
         std::pair<int, int> empty_pair = {};
         MoveTo *dir = new MoveTo;
 
-        direction = dir->try_move_left(map, current_pos);
+        direction = dir->try_move_left(map, current_pos, 0);
         if (direction != empty_pair)
 		return direction;
-	direction = dir->try_move_down(map, current_pos);
+	direction = dir->try_move_down(map, current_pos, 0);
         if (direction != empty_pair)
 		return direction;
-        direction = dir->try_move_up(map, current_pos);
+        direction = dir->try_move_up(map, current_pos, 0);
 	if (direction != empty_pair)
                 return direction;
         return current_pos;
@@ -141,13 +141,13 @@ std::pair<int, int> Algorithm::defensiveUp(GameMap &map, std::pair<int, int> cur
         std::pair<int, int> empty_pair = {};
         MoveTo *dir = new MoveTo;
 
-        direction = dir->try_move_up(map, current_pos);
+        direction = dir->try_move_up(map, current_pos, 0);
         if (direction != empty_pair)
 		return direction;
-	direction = dir->try_move_left(map, current_pos);
+	direction = dir->try_move_left(map, current_pos, 0);
         if (direction != empty_pair)
 		return direction;
-        direction = dir->try_move_right(map, current_pos);
+        direction = dir->try_move_right(map, current_pos, 0);
 	if (direction != empty_pair)
                 return direction;
         return current_pos;
@@ -159,13 +159,13 @@ std::pair<int, int> Algorithm::defensiveDown(GameMap &map, std::pair<int, int> c
         std::pair<int, int> empty_pair = {};
         MoveTo *dir = new MoveTo;
 
-        direction = dir->try_move_down(map, current_pos);
+        direction = dir->try_move_down(map, current_pos, 0);
         if (direction != empty_pair)
 		return direction;
-	direction = dir->try_move_right(map, current_pos);
+	direction = dir->try_move_right(map, current_pos, 0);
         if (direction != empty_pair)
 		return direction;
-        direction = dir->try_move_left(map, current_pos);
+        direction = dir->try_move_left(map, current_pos, 0);
 	if (direction != empty_pair)
                 return direction;
         return current_pos;
@@ -192,19 +192,19 @@ std::pair<int, int> Algorithm::findNearestSafePoint(GameMap &map, std::pair<int,
 	std::pair<int, int> direction;
 	std::pair<int, int> empty_pair = {};
 
-	if ((direction = dir->try_move_up(map, posPlayer)) != empty_pair) {
+	if ((direction = dir->try_move_up(map, posPlayer, 0)) != empty_pair) {
 		if (check_if_dangerous_zone(map, direction) == false || is_bomb_here(map, posPlayer) == true)
 			return (direction);
 	}
-	direction = dir->try_move_down(map, posPlayer);
+	direction = dir->try_move_down(map, posPlayer, 0);
         if (direction != empty_pair)
                 if (check_if_dangerous_zone(map, direction) == false || is_bomb_here(map, posPlayer) == true)
 			return (direction);
-	direction = dir->try_move_left(map, posPlayer);
+	direction = dir->try_move_left(map, posPlayer, 0);
         if (direction != empty_pair)
                 if (check_if_dangerous_zone(map, direction) == false || is_bomb_here(map, posPlayer) == true)
 			return (direction);
-	direction = dir->try_move_right(map, posPlayer);
+	direction = dir->try_move_right(map, posPlayer, 0);
         if (direction != empty_pair)
                 if (check_if_dangerous_zone(map, direction) == false || is_bomb_here(map, posPlayer) == true)
 			return (direction);
@@ -266,7 +266,7 @@ std::pair<int, int> Algorithm::offensiveUp(GameMap &map, std::pair<int, int> &po
 	direction.first = posPlayer.first + 1;
 	direction.second = posPlayer.second;
 	_offensive_tries++;
-	if ((dir->try_move_up(map, posPlayer)) != empty_pair) {
+	if ((dir->try_move_up(map, posPlayer, 0)) != empty_pair) {
 		if (check_if_dangerous_zone(map, direction) == false) {
 			return (direction);
 		}
@@ -291,7 +291,7 @@ std::pair<int, int> Algorithm::offensiveDown(GameMap &map, std::pair<int, int> &
 	direction.first = posPlayer.first - 1;
 	direction.second = posPlayer.second;
 	_offensive_tries++;
-	if ((direction = dir->try_move_down(map, posPlayer)) != empty_pair) {
+	if ((direction = dir->try_move_down(map, posPlayer, 0)) != empty_pair) {
 		if (check_if_dangerous_zone(map, direction) == false) {
 			return (direction);
 		}
@@ -316,7 +316,7 @@ std::pair<int, int> Algorithm::offensiveLeft(GameMap &map, std::pair<int, int> &
 	direction.first = posPlayer.first;
 	direction.second = posPlayer.second - 1;
 	_offensive_tries++;
-	if ((direction = dir->try_move_right(map, posPlayer)) != empty_pair) {
+	if ((direction = dir->try_move_right(map, posPlayer, 0)) != empty_pair) {
 		if (check_if_dangerous_zone(map, direction) == false) {
 			return (direction);
 		}
@@ -343,7 +343,7 @@ std::pair<int, int> Algorithm::offensiveRight(GameMap &map, std::pair<int, int> 
 	direction.first = posPlayer.first;
 	direction.second = posPlayer.second + 1;
 	_offensive_tries++;
-	if ((direction = dir->try_move_left(map, posPlayer)) != empty_pair) {
+	if ((direction = dir->try_move_left(map, posPlayer, 0)) != empty_pair) {
 		if (check_if_dangerous_zone(map, direction) == false) {
 			return (direction);
 		}
