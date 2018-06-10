@@ -108,6 +108,7 @@ void	HandleGame::updateMap(bool &state)
 	updateAddEntity();
 	_threeDMap->clean();
 	updateDeletedEntity();
+	//_threeDMap->clearDeletedEntities();
 }
 
 void	HandleGame::updateDeletedEntity()
@@ -120,7 +121,6 @@ void	HandleGame::updateDeletedEntity()
 				elem->setVisible(false);
 		}
 	}
-	_threeDMap->clearDeleteEntities();
 }
 
 void	HandleGame::updateAddEntity()
