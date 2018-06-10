@@ -16,7 +16,7 @@ void	Player::update()
 	for (auto event : _eventPlayer) {
 		if (_lib->getEventManager()->IsKeyDown(event) && index < 4) {
 			auto func = _foncter[index];
-			newPos = func(_map->get3dMap(), _pos);
+			newPos = func(_map->get3dMap(), _pos, _wallpass);
 		}
 		else if (_lib->getEventManager()->IsKeyDown(event))
 			_map->placeBomb(_pos, _power);

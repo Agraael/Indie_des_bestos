@@ -32,7 +32,8 @@ public:
 	void	upgradeBombs() noexcept { _bombs += 1; }
         void	upgradeSpeed() noexcept { _speed += 1; }
         void	upgradePower() noexcept { _power += 1; }
-        void	upgradeWallpass() noexcept { _wallpass += 1; }
+	int	getWallpass() {return _wallpass; }
+        void	upgradeWallpass() noexcept { if (_wallpass != 2) {_wallpass = 2;} else {_wallpass = 0;} }
 protected:
 	int				_power;
         std::size_t			_bombs;
