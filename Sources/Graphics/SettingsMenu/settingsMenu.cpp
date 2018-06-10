@@ -7,7 +7,7 @@
 #include <memory>
 #include "settingsMenu.hpp"
 
-graphic::settingsMenu::settingsMenu(graphic::IrrlichtLib *lib) : _lib(lib)
+graphic::settingsMenu::settingsMenu(graphic::IrrlichtLib *lib, graphic::irrKlangLib sound) : _lib(lib), _sound(sound)
 {
     _count = -30;
 }
@@ -38,17 +38,6 @@ void graphic::settingsMenu::printBackground()
     background._maxH = size.y;
     background._path = "Assets/media/pixel_skyline.png";
     _lib->drawImage(background);
-}
-
-void graphic::settingsMenu::brightnessBar()
-{
-    /*graphic::infos_t brightness;
-    brightness._x = 200;
-    brightness._y = 250;
-    brightness._w = 400;
-    brightness._h = 150;
-    brightness._type = graphic::GUI_ID_TRANSPARENCY_SCROLL_BAR;
-    _lib->scrollBarButton(brightness);*/
 }
 
 void graphic::settingsMenu::printSound()

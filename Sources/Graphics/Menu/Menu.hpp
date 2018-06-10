@@ -7,6 +7,7 @@
 
 #include "IrrlichtLib.hpp"
 #include "LibEventManager.hpp"
+#include "irrKlangLib.hpp"
 
 namespace graphic
 {
@@ -23,6 +24,7 @@ namespace graphic
 		void printBackground();
 		void printUserName();
 		void display();
+		void playSoundMenu();
 		void updateDisplay();
 		void drawChoice();
 	private:

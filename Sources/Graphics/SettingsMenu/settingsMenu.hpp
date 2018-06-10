@@ -43,8 +43,8 @@ namespace graphic
                 {
                         {graphic::BRIGTHNESS_DOWN, [](graphic::IrrlichtLib &_lib){ _lib.modifyLight(-10); }},
                         {graphic::BRIGTHNESS_UP, [](graphic::IrrlichtLib &_lib){ _lib.modifyLight(10); }},
-                        {graphic::SOUND_DOWN, [](graphic::IrrlichtLib &_lib){ _lib = _lib; }},
-                        {graphic::SOUND_UP, [](graphic::IrrlichtLib &_lib){ _lib = _lib; }},
+                        {graphic::SOUND_DOWN, [](graphic::IrrlichtLib &_lib){ _lib->setVolume(_lib->getVolume() - 0.1); }},
+                        {graphic::SOUND_UP, [](graphic::IrrlichtLib &_lib){ _lib->setVolume(_lib->getVolume() + 0.1); }},
                         //{graphic::EXIT_MAINMENU, [](graphic::IrrlichtLib &_lib){}},
         };
     };

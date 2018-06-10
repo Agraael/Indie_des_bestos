@@ -12,10 +12,10 @@
 #else
 #include <irrlicht/irrlicht.h>
 #endif
-//#include <EventManager.hpp>
 #include <string>
 #include <memory>
 #include "LibEventManager.hpp"
+#include "IrrKlang.h"
 
 struct vec3df {
 	double	x;
@@ -77,6 +77,8 @@ namespace graphic {
 			std::shared_ptr<LibEventManager> const& getEventManager() const noexcept { return _eventManager; }
 			vec2d const		&getScreenSize() const noexcept { return _screenSize; }
 			void createListBox(const std::string &name);
+			void setVolume(float vol) { _sound.setVolume(vol); }
+			float getVolume() { return _sound.getVolume(); }
 		private:
 			vec2d						_screenSize;
 			irr::video::IVideoDriver			*_driver;
@@ -86,7 +88,7 @@ namespace graphic {
 			std::map<std::string, irr::video::ITexture *>	_mapTexture;
 			std::shared_ptr<graphic::LibEventManager>	_eventManager{nullptr};
             irr::s32 _light;
-		    irr::gui::IGUIListBox*    _listBox;
+			graphic::irrKlangLib _sound;
 	};
 	void driverChoiceConsole(irr::video::E_DRIVER_TYPE &);
 }

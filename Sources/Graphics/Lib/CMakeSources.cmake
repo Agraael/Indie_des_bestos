@@ -8,8 +8,10 @@ set(LIB_SRC_DIR
 
 set(LIB_INC
   ${LIB_ROOT_DIR}/IrrlichtLib.hpp
-  ${LIB_ROOT_DIR}/LibEventManager.hpp)
+  ${LIB_ROOT_DIR}/LibEventManager.hpp
+  ${LIB_ROOT_DIR}/irrKlangLib.hpp )
 
 set(LIB_SRC
   ${LIB_ROOT_DIR}/IrrlichtLib.cpp
-  ${LIB_ROOT_DIR}/LibEventManager.cpp)
+  ${LIB_ROOT_DIR}/LibEventManager.cpp
+  ${LIB_ROOT_DIR}/irrKlangLib.cpp )

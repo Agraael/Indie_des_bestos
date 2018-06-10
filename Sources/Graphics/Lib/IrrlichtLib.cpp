@@ -17,6 +17,7 @@ graphic::IrrlichtLib::IrrlichtLib() {
 	_eventManager = std::make_shared<graphic::LibEventManager>(t_contextRecEvnt{_device, 0, nullptr});
 	_device->setEventReceiver(_eventManager.get());
 	_light = 255;
+	_sound.playSound("Assets/media/opening.mp3");
 }
 
 graphic::IrrlichtLib::~IrrlichtLib()
@@ -67,17 +68,6 @@ irr::gui::IGUIButton	*graphic::IrrlichtLib::printButton(const infos_t &infos)
 	butCustom->setScaleImage(true);
 	butCustom->setUseAlphaChannel(true);
 	return (butCustom);
-
-}
-
-void graphic::IrrlichtLib::createListBox(const std::string &name)
-{
-    (void)name;
-    /*_listBox = _guiEnv->addListBox(irr::core::rect<irr::s32>(50, 140, 250, 210));
-	std::wstring wideStr = std::wstring(name.begin(), name.end());
-	const wchar_t *wideCStr = wideStr.c_str();
-	_listBox->addItem(wideCStr);
-    irr::gui::IGUIFileOpenDialog* dialog = _guiEnv->addFileOpenDialog(L"./gameMap/", true, 0, -1, true);*/
 
 }
 

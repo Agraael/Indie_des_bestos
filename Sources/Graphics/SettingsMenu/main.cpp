@@ -8,8 +8,9 @@
 #include <string>
 #include <cstdio>
 #include <iostream>
+#include "IrrKlang.h"
 
-/*using namespace std;
+using namespace std;
 
 int main()
 {
@@ -18,32 +19,31 @@ int main()
 
     if (!engine) return 1; // could not start engine
 
-    engine->setSoundVolume(1.0f);
-    engine->play2D("./media/bombermanMenu.mp3"); // play some mp3 file
+    engine->setSoundVolume(2.0f);
+    engine->play2D("./Assets/media/bombermanMenu.mp3"); // play some mp3 file
 
     cout<<"hello\n";
 
     std::cin.get(); // wait until user presses a key
-
     engine->drop(); // delete engine
     return 0;
-}*/
+}
 
-int main()
+/*int main()
 {
 
     graphic::IrrlichtLib *lib = new graphic::IrrlichtLib;
     graphic::ResumeGame menu(lib);
     menu.display();
-    //std::unordered_map <graphic::controllerUser, std::function<void()>>eventTab = menu.getEventTab();
+    std::unordered_map <graphic::controllerUser, std::function<void()>>eventTab = menu.getEventTab();
     while (lib->getDevice()->run()) {
         menu.updateDisplay();
-        /*for (auto button = eventTab.begin(); button != eventTab.end(); button++) {
+        for (auto button = eventTab.begin(); button != eventTab.end(); button++) {
             if (lib->getEventManager()->IsButtonClicked(static_cast<graphic::controllerUser>(button->first)) == true) {
                 button->second();
             }
-        }*/
+        }
         lib->displayAll();
     }
     return (0);
-}
+}*/
