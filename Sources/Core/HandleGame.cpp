@@ -87,15 +87,14 @@ void	HandleGame::updateMap(bool &state)
 		for (auto tab : line) {
 			for (auto shared : tab) {
 				if (shared.get()->getType() == entities::entityType::PLAYER_TYPE) {
-					std::cout << "fghjklm" << std::endl;
 					reinterpret_cast<Player &>(*shared).update();
 					updateEntity(shared.get());
 				}
-			 	if (shared.get()->getType() == entities::entityType::IA_TYPE) {
+			 	else if (shared.get()->getType() == entities::entityType::IA_TYPE) {
 					reinterpret_cast<Ia &>(*shared).update();
 					updateEntity(shared.get());
 				}
-				if (shared.get()->getType() == entities::entityType::BOMBS_TYPE)
+				else if (shared.get()->getType() == entities::entityType::BOMBS_TYPE)
 					reinterpret_cast<Bombs &>(*shared).update();
 			}
 		}
@@ -121,6 +120,7 @@ void	HandleGame::updateDeletedEntity()
 				elem->setVisible(false);
 		}
 	}
+	_threeDMap->clearDeleteEntities();
 }
 
 void	HandleGame::updateAddEntity()
@@ -136,6 +136,7 @@ void	HandleGame::updateAddEntity()
 		else
 			_disp.push_back(_lib->createSphere({static_cast<double>(pos.second), static_cast<double>(pos.first), 1}, _textureMap.at(elem->getType()), elem->getId(), {0.25, true}));
 	}
+	_threeDMap->clearAddedEntities();	
 }
 
 void	HandleGame::updateEntity(const entities::Entity *entity)
