@@ -56,6 +56,7 @@ void	graphic::localMenu::display()
 	printButtonsPlayer();
 	printButtonsIa();
 	printButtonsChooseMap();
+	printMapName();
 }
 
 void	graphic::localMenu::updateDisplay()
@@ -89,11 +90,28 @@ void	graphic::localMenu::updateNumber()
 
 void	graphic::localMenu::printMapName()
 {
-	// textBox = new CGUITextBox(env->getFont("myfont.xml"),"",env,rect<s32>(50,120,750,500),0,-1);
-	// textBox->setText("");
-	// textBox->setScrollModeLines(false);
-	// textBox->setVisible(true);
+	vec2d size = _lib->getScreenSize();
+
+	graphic::infos_t data;
+	data._x = (size.x / 2) - 150;
+	data._y = 200;
+	data._w = (size.x / 2) + 150;
+	data._h = 250;
+	data._maxW = 350;
+	data._maxH = 70;
+	data._path = "";
+	data._name = "";
+	data._desc = "";
+	_text = _lib->drawEditBox(data);
 }
+
+std::string	graphic::localMenu::getMapName() const noexcept
+{
+	std::wstring wideStr(_text->getText());
+
+	return std::string(wideStr.begin(), wideStr.end());
+}
+
 
 void	graphic::localMenu::printButtonsPlayer()
 {
@@ -102,9 +120,9 @@ void	graphic::localMenu::printButtonsPlayer()
 	graphic::infos_t players;
 	players._x = (size.x / 2) - 200;
 	players._y = 300;
-	players._w = (size.x / 2) - 100;
-	players._h = 350;
-	players._maxW = 100;
+	players._w = 150;
+	players._h = 50;
+	players._maxW = 150;
 	players._maxH = 70;
 	players._path = "./Assets/media/players.png";
 	_lib->drawImage(players);
@@ -148,10 +166,10 @@ void	graphic::localMenu::printButtonsIa()
 	graphic::infos_t players;
 	players._x = (size.x / 2) - 200;
 	players._y = 400;
-	players._w = (size.x / 2) - 150;
-	players._h = 450;
-	players._maxW = 40;
-	players._maxH = 40;
+	players._w = 100;
+	players._h = 50;
+	players._maxW = 100;
+	players._maxH = 50;
 	players._path = "./Assets/media/ia.png";
 	_lib->drawImage(players);
 
@@ -194,9 +212,9 @@ void	graphic::localMenu::printButtonsChooseMap()
 	graphic::infos_t players;
 	players._x = (size.x / 2) - 200;
 	players._y = 500;
-	players._w = (size.x / 2) - 100;
-	players._h = 550;
-	players._maxW = 100;
+	players._w = 150;
+	players._h = 50;
+	players._maxW = 150;
 	players._maxH = 50;
 	players._path = "./Assets/media/map.png";
 	_lib->drawImage(players);
@@ -294,12 +312,12 @@ void	graphic::localMenu::printMenuTitle()
 {
 	graphic::infos_t title;
 	vec2d size = _lib->getScreenSize();
-	title._x = (size.x / 2) - 80;
+	title._x = (size.x / 2) - 150;
 	title._y = 100;
-	title._w = (size.x / 2) + 100;
-	title._h = 150;
-	title._maxW = 150;
-	title._maxH = 60;
+	title._w = 300;
+	title._h = 100;
+	title._maxW = 300;
+	title._maxH = 100;
 	title._path = "Assets/media/TitleCreateGame.png";
 	_lib->drawImage(title);
 }

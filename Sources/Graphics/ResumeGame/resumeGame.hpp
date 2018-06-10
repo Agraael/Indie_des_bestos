@@ -26,7 +26,7 @@ namespace graphic
 		irr::gui::IGUIImage *drawDirigible();
 		void printBackground();
 		void display();
-        void drawFileName();
+		void drawFileName();
 		void printListBox();
 		void manageFiles(int nbr);
 		void updateDisplay();

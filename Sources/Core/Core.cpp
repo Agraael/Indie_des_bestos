@@ -15,7 +15,7 @@ Core::Core()
 	: _state(CoreState::IN_MENU), _lib(new graphic::IrrlichtLib()),
 	_eventCore(_lib), _menu(new graphic::Menu(_lib)), hGame(nullptr),
 	_menuSetting(new graphic::settingsMenu(_lib)), _menuCreateGame(new graphic::localMenu(_lib)),
-	_menuPause(new graphic::MenuPause(_lib)), _playing(false), _gamePaused(false)
+	_menuPause(new graphic::MenuPause(_lib)), _menuResume(new graphic::ResumeGame(_lib)), _playing(false), _gamePaused(false)
 {
 }
 
@@ -49,9 +49,9 @@ void	Core::chooseCorePart(const CoreState &state)
 		menuSetting(state);
 	else if (_state == CoreState::GAME_PAUSE)
 		menuGamePaused(state);
-	else if (_state == CoreState::IN_RESUME) {
-
-	} else if (_state == CoreState::IN_LOCAL)
+	else if (_state == CoreState::IN_RESUME)
+		menuResume(state);
+	else if (_state == CoreState::IN_LOCAL)
 		menuCreateGame(state);
 }
 
@@ -65,8 +65,8 @@ void	Core::menu(const CoreState &state)
 		_menuCreateGame->display();
 	else if (state == CoreState::IN_SETTINGS)
 		_menuSetting->display();
-	else if (state == CoreState::IN_RESUME) {
-	}
+	else if (state == CoreState::IN_RESUME)
+		_menuResume->display();
 	_state = state;
 }
 
@@ -139,7 +139,19 @@ void	Core::menuGamePaused(const CoreState &state)
 	_menuPause->updateDisplay(*hGame);
 }
 
-void	Core::menuResume(const CoreState &)
+void	Core::menuResume(const CoreState &state)
 {
-
+	if (state == CoreState::IN_GAME) {
+		_playing = true;
+		reset();
+		_lib->clearGui();
+		_state = state;
+		//
+		return;
+	} else if (state  == CoreState::IN_MENU) {
+		_lib->clearGui();
+		_state = state;
+		return;
+	}
+	_menuResume->updateDisplay();
 }

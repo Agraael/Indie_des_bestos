@@ -119,11 +119,11 @@ irr::scene::ISceneNode	*graphic::IrrlichtLib::createCube(const vec3df &pos, cons
 	return (n);
 }
 
-void	graphic::IrrlichtLib::drawEditBox(graphic::infos_t infos)
+irr::gui::IGUIEditBox	*graphic::IrrlichtLib::drawEditBox(const infos_t &infos)
 {
 	std::wstring wideStr = std::wstring(infos._name.begin(), infos._name.end());
 	const wchar_t *nameToPrint = wideStr.c_str();
-	_guiEnv->addEditBox(nameToPrint, irr::core::rect<irr::s32>(infos._x, infos._y, infos._w, infos._h));
+	return _guiEnv->addEditBox(nameToPrint, irr::core::rect<irr::s32>(infos._x, infos._y, infos._w, infos._h));
 }
 
 irr::scene::ISceneNode	*graphic::IrrlichtLib::createSphere(const vec3df &pos, const std::string &path, irr::s32 id)

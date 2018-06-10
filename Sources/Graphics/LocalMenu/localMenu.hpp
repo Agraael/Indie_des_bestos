@@ -31,7 +31,7 @@ namespace graphic
 			localMenu(graphic::IrrlichtLib *&lib) : _lib(lib) {}
 			void					display();
 			void					updateDisplay();
-			std::string	const		&getMapName() const noexcept { return _name; }
+			std::string	getMapName() const noexcept;
 			GenerationSize const	&getGenSize() const noexcept { return _genSizeTab[_genSize]; }
 			GenerationMod const		&getGenMode() const noexcept { return _genModeTab[_genMode]; }
 			int	const				&getPlayerNb() const noexcept { return _playersNb; }
@@ -41,6 +41,7 @@ namespace graphic
 			std::string		_name;
 			int	_genSize;
 			int	_genMode;
+			irr::gui::IGUIEditBox	*_text;
 			irr::gui::IGUIImage *_iaNbImg;
 			irr::gui::IGUIImage *_playerNbImg;
 			irr::gui::IGUIImage *_mapSizeImg;

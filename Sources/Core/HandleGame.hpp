@@ -43,6 +43,7 @@ class HandleGame
 		void	updateMap(bool &);
 		void	quitGame();
 		void	dumpPlayerName();
+		void	saveGame();
 		GameMap getGameMap() const noexcept { return (_threeDMap->get3dMap()); }
 		bool	CheckEndGame();
 	private:
@@ -59,6 +60,7 @@ class HandleGame
 		graphic::IrrlichtLib			*_lib;
 		std::vector<irr::scene::ISceneNode *>	_disp;
 		std::string				_winnerName;
+		char					**_map;
 		bool					_timeDispWinner;
 		const std::unordered_map<GenerationSize, const Vector3d<int>>	_hGameSizeTab = {
 			{GenerationSize::Small, {15, 9, 10}},

@@ -21,25 +21,25 @@ graphic::ResumeGame::ResumeGame(graphic::IrrlichtLib *lib) : _lib(lib)
 void    graphic::ResumeGame::drawChoiceButtons()
 {
     graphic::infos_t buttonPlay;
-    buttonPlay._x = (_size.x / 2) - 300;
+    buttonPlay._x = (_size.x / 2) - 100;
     buttonPlay._y = 400;
-    buttonPlay._w = (_size.x / 2) - 100;
-    buttonPlay._h = 430;
+    buttonPlay._w = (_size.x / 2) + 100;
+    buttonPlay._h = 450;
     buttonPlay._path = "Assets/media/button_menu.png";
     buttonPlay._desc = "Play the game";
     buttonPlay._name = "PLAY THE GAME";
-    buttonPlay._type = graphic::EXIT_MAINMENU;
+    buttonPlay._type = graphic::controllerUser::START_LOCAL_GAME;
     _lib->printButton(buttonPlay);
 
     graphic::infos_t buttonExit;
-    buttonExit._x = (_size.x / 2) - 300;
-    buttonExit._y = 460;
-    buttonExit._w = (_size.x / 2) - 100;
-    buttonExit._h = 490;
+    buttonExit._x = (_size.x / 2) - 100;
+    buttonExit._y = 500;
+    buttonExit._w = (_size.x / 2) + 100;
+    buttonExit._h = 550;
     buttonExit._path = "Assets/media/button_menu.png";
     buttonExit._desc = "Return to MENU";
     buttonExit._name = "RETURN TO MENU";
-    buttonExit._type = graphic::EXIT_MAINMENU;
+    buttonExit._type = graphic::controllerUser::MENU;
     _lib->printButton(buttonExit);
 
 }
@@ -97,7 +97,7 @@ void    graphic::ResumeGame::drawFileName()
     std::string name(_fileName);
     name = name.substr(11, name.size());
     std::transform(name.begin(), name.end(),name.begin(), ::toupper);
-    int i = (_size.x / 2) - 270;
+    int i = (_size.x / 2) - 100;
     for (auto &character : name) {
         graphic::infos_t letter;
         letter._x = i;
@@ -140,7 +140,7 @@ void    graphic::ResumeGame::manageFiles(int nbr)
 void    graphic::ResumeGame::printListBox()
 {
     graphic::infos_t mapImg;
-    mapImg._x = 200;
+    mapImg._x = (_size.x / 2) - 150;
     mapImg._y = 100;
     mapImg._w = 300;
     mapImg._h = 100;
@@ -152,9 +152,9 @@ void    graphic::ResumeGame::printListBox()
     saveFilesToVector();
 
     graphic::infos_t minus;
-    minus._x = (_size.x / 2) - 300;
+    minus._x = (_size.x / 2) - 150;
     minus._y = 300;
-    minus._w = (_size.x / 2) - 260;
+    minus._w = (_size.x / 2) - 100;
     minus._h = 350;
     minus._type = graphic::controllerUser::PREV_FILE;
     minus._desc = "";
@@ -165,9 +165,9 @@ void    graphic::ResumeGame::printListBox()
     drawFileName();
 
     graphic::infos_t plus;
-    plus._x = (_size.x / 2) - 110;
+    plus._x = (_size.x / 2) + 150;
     plus._y = 300;
-    plus._w = (_size.x / 2) - 70;
+    plus._w = (_size.x / 2) + 200;
     plus._h = 350;
     plus._type = graphic::controllerUser::NEXT_FILE;
     plus._desc = "";
@@ -181,8 +181,8 @@ void graphic::ResumeGame::printBackground()
     graphic::infos_t background;
     background._x = 0;
     background._y = 0;
-    background._w = 640;
-    background._h = 480;
+    background._w = _size.x;
+    background._h = _size.y;
     background._maxW = _size.x;
     background._maxH = _size.y;
     background._path = "Assets/media/pixel_skyline.png";
