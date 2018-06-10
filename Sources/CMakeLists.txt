@@ -18,10 +18,12 @@ elseif(WIN32)
 	set(IRRLICHT_LIB_DIR
 		${CMAKE_CURRENT_SOURCE_DIR}/../irrlicht-1.8.4/lib/Win32-visualstudio
 		${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/lib/Winx64-visualStudio)
+	set(IRRKLANG_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/lib/Winx64-visualStudio)
 elseif(WIN64)
 	set(IRRLICHT_LIB_DIR
 		${CMAKE_CURRENT_SOURCE_DIR}/../irrlicht-1.8.4/lib/Win64-visualstudio
 		${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/lib/Winx64-visualStudio)
+	set(IRRKLANG_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/lib/Winx64-visualStudio)
 endif()
 
 include_directories(${INDIE_INC_DIR})

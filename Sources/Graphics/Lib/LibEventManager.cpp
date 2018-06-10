@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <SoundManager.hpp>
 #include "LibEventManager.hpp"
 
 graphic::LibEventManager::LibEventManager(t_contextRecEvnt const& context)
@@ -14,6 +15,8 @@ graphic::LibEventManager::LibEventManager(t_contextRecEvnt const& context)
 
 bool graphic::LibEventManager::OnEvent(const irr::SEvent& event)
 {
+	Singleton::SoundManager& soundManager = Singleton::SoundManager::Instance();
+
 	_pressedButton = GUI_ID_NO_BUTTON;
 	if (event.EventType == irr::EET_KEY_INPUT_EVENT)
 		KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
@@ -24,6 +27,7 @@ bool graphic::LibEventManager::OnEvent(const irr::SEvent& event)
 		switch(event.GUIEvent.EventType)
 		{
 		case irr::gui::EGET_BUTTON_CLICKED:
+			soundManager.playSound("Audio/button.wav");
 			_pressedButton = id;
 			switch(id)
 			{

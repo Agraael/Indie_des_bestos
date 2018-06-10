@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include "EventCore.hpp"
+#include "SoundManager.hpp"
 
 EventCore::~EventCore()
 {
@@ -25,11 +26,21 @@ const std::unordered_map<graphic::controllerUser, CoreState>	EventCore::_statesT
 	{graphic::controllerUser::QUIT, CoreState::IN_MENU}
 };
 
+const std::unordered_map<CoreState, std::string> soundButton = {
+	{CoreState::IN_SETTINGS, "Audio/settings.wav"},
+	{CoreState::IN_MENU, "Audio/return_to_menu.wav"},
+};
+
 CoreState	EventCore::updateCore(CoreState currentState) const noexcept
 {
+	Singleton::SoundManager& soundManager = Singleton::SoundManager::Instance();
+
 	for (auto button = _statesTab.begin(); button != _statesTab.end(); button++) {
-		if (_lib->getEventManager()->IsButtonClicked(button->first) == true)
+		if (_lib->getEventManager()->IsButtonClicked(button->first) == true) {
+			if (soundButton.find(button->second) != soundButton.end())
+				soundManager.playSound(soundButton.at(button->second));
 			return button->second;
+		}
 	}
 	return currentState;
 }

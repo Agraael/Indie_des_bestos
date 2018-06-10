@@ -8,7 +8,7 @@
 #include <iostream>
 #include <map>
 #ifdef _WIN32
-#include <irrlicht.h>
+#include <irrlicht
 #else
 #include <irrlicht/irrlicht.h>
 #endif
@@ -35,6 +35,7 @@ struct	sphere_t {
 
 #ifdef _IRR_WINDOWS_
 #pragma comment(lib, "Irrlicht.lib")
+#pragma comment(lib, "irrKlang.lib")
 #endif
 
 namespace graphic {
