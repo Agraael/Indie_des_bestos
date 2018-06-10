@@ -46,6 +46,7 @@ private:
 	graphic::ResumeGame		*_menuResume;
 	bool				_playing;
 	bool				_gamePaused;
+	bool                            _music{false};
 	//using ptr = void	(Core::*)(const CoreState &);
 	//const std::unordered_map<CoreState, ptr>	_fcnTab = {
 	//	{CoreState::IN_MENU, &menu},

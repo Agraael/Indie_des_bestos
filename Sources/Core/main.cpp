@@ -13,6 +13,7 @@ int	main(int ac, char **av)
 {
 	Core	core;
 
+	srand(static_cast<unsigned int>(time(nullptr)));
 	(void)ac;
 	(void)av;
 	try
