@@ -20,6 +20,7 @@ void Ia::update()
 	Algorithm *algo = new Algorithm(_power, _chronoBomb);
 
  	if (algo->check_if_dangerous_zone(map, _pos) == true) {
+		std::cout << _pos.first << " " << _pos.second << "ptn\n";
 		move = algo->defensiveMove(map, _pos);
 	}
 	else {
