@@ -13,7 +13,7 @@ bool Algorithm::check_if_dangerous_zone(const GameMap &map, const std::pair<int,
 		return true;
 	for (auto &entity : map[pos.first][pos.second]) {
 		if (entity.get()->getType() ==
-		    entities::entityType::GONNAEXPLOSE_TYPE ||
+		     entities::entityType::GONNAEXPLOSE_TYPE ||
 		    entity.get()->getType() ==
 		    entities::entityType::BOMBS_TYPE)
 			return true;
@@ -241,16 +241,16 @@ bool Algorithm::try_to_put_a_bomb(GameMap &map, std::pair<int, int> &posPlayer, 
 	Map *new_map = new Map(fake_map);
 	std::pair<int, int> fake_pos = posPlayer;
 	_nbr_of_moves = 0;
-	if (timer.getChronoDuration(_chronoBomb) < 2) {
-                return true;
+	if (timer.getChronoDuration(_chronoBomb) < 3) {
+                return false;
         }
+	timer.resetChrono(_chronoBomb);
 	new_map->placeBomb(posPlayer, 3);
 	findNearestSafePoint(fake_map, posPlayer);
 	for (int x = 0; x < 5; x++) {
 		fake_pos = defensiveMove(map, fake_pos);
 		if (check_if_dangerous_zone(fake_map, fake_pos) == false) {
 			_map->placeBomb(posPlayer, _power);
-			std::cout << "BOMB PLACED BY IA" << _chronoBomb << "\n";
 			return true;
 		}
 	}
