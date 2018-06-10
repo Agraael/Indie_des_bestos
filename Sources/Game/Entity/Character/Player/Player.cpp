@@ -12,7 +12,7 @@ void	Player::update()
 	std::size_t			index = 0;
 	entities::entityPosition	newPos = _pos;
 	Singleton::TimeManager		&timer = Singleton::TimeManager::Instance();
-	
+
 	for (auto event : _eventPlayer) {
 		if (_lib->getEventManager()->IsKeyDown(event) && index < 4) {
 			auto func = _foncter[index];

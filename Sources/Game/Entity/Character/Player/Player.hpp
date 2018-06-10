@@ -8,6 +8,7 @@
 #ifndef PLAYER_HPP_
 	#define PLAYER_HPP_
 
+#include <SoundManager.hpp>
 #include "Character.hpp"
 #include "IrrlichtLib.hpp"
 #include "MoveTo.hpp"

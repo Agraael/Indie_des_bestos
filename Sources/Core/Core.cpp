@@ -22,6 +22,7 @@ Core::Core()
 
 Core::~Core()
 {
+
 	delete _lib;
 	delete hGame;
 }
@@ -47,6 +48,7 @@ void	Core::chooseCorePart(const CoreState &state)
 	if (_state == CoreState::IN_MENU) {
 		menu(state);
 		soundManager.stopLoop("Audio/Music1.wav");
+		soundManager.playLoop("Audio/Menu.wav");
 	}
 	else if (_state == CoreState::IN_GAME)
 		game(state);
@@ -88,6 +90,7 @@ void	Core::game(const CoreState &)
 		return;
 	}
 	soundManager.playLoop("Audio/Music1.wav");
+	soundManager.stopLoop("Audio/Menu.wav");
 	hGame->updateMap(_playing);
 }
 

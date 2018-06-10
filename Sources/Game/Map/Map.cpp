@@ -228,8 +228,15 @@ void Map::clean()
 	std::for_each(_map.begin(), _map.end(), [this](EntitiesVec& elem1){
 		std::for_each(elem1.begin(), elem1.end(), [this](SharedEntity& elem2){
 			elem2.erase(std::remove_if(elem2.begin(), elem2.end(), [this](std::shared_ptr<entities::Entity>& ptr){
-				if (ptr->isDead())
+				Singleton::SoundManager& soundManager = Singleton::SoundManager::Instance();
+
+				if (ptr->isDead()) {
 					this->addDeletedEntity(ptr);
+					if (ptr->getType() == entities::entityType::PLAYER_TYPE)
+						soundManager.playSound("Audio/Oof.wav");
+					if (ptr->getType() == entities::entityType::IA_TYPE)
+						soundManager.playSound("Audio/OOF.wav");
+				}
 				return ptr->isDead();
 			}), elem2.end());
 		});
