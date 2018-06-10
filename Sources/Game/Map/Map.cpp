@@ -76,8 +76,9 @@ void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
 	exploseTab.push_back(newEntity);
 	_map[pos.first][pos.second].push_back(newEntity);
 	addAddedEntity(newEntity);
-	newEntity = std::make_shared<Bombs>(pos, false, 0, exploseTab, *this);
+	newEntity = std::make_shared<Bombs>(pos, true, 0, exploseTab, *this);
 	addAddedEntity(newEntity);
+	addModifiedEntity(newEntity);
  	_map[pos.first][pos.second].push_back(newEntity);
 }
 
@@ -97,6 +98,8 @@ void Map::addDeletedEntity(const std::shared_ptr<entities::Entity> &entity)
 
 void Map::addAddedEntity(const std::shared_ptr<entities::Entity> &entity)
 {
+	if (entity->getType() == entities::entityType::BOMBS_TYPE)
+		std::cout << "bomb added" << std::endl;
 	_addedEntities.push_back(entity);
 }
 

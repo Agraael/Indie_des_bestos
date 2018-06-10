@@ -68,8 +68,8 @@ void	InterpreteGeneration::InitPlayer(SharedEntity &tempTab, std::size_t x, std:
 
 	tempTab.push_back(std::make_shared<Player>(std::make_pair(x,y), false, 0, _eventPlayer[index], "PLAYER" + std::to_string(index)));
 	++index;
-	if (index == 2)
-		index = 1;
+	//if (index == 2)
+	//	index = 1;
 }
 
 void	InterpreteGeneration::InitSoloBombUp(SharedEntity &tempTab, std::size_t x, std::size_t y)
