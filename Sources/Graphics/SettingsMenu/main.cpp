@@ -4,6 +4,7 @@
 
 #include <memory>
 #include "../LocalMenu/localMenu.hpp"
+#include "../ResumeGame/resumeGame.hpp"
 #include <string>
 #include <cstdio>
 #include <iostream>
@@ -32,17 +33,17 @@ int main()
 {
 
     graphic::IrrlichtLib *lib = new graphic::IrrlichtLib;
-    graphic::localMenu menu(lib);
+    graphic::ResumeGame menu(lib);
     menu.display();
-    std::unordered_map <graphic::controllerUser, std::function<void()>>eventTab = menu.getEventTab();
+    //std::unordered_map <graphic::controllerUser, std::function<void()>>eventTab = menu.getEventTab();
     while (lib->getDevice()->run()) {
         menu.updateDisplay();
-        for (auto button = eventTab.begin(); button != eventTab.end(); button++) {
+        /*for (auto button = eventTab.begin(); button != eventTab.end(); button++) {
             if (lib->getEventManager()->IsButtonClicked(static_cast<graphic::controllerUser>(button->first)) == true) {
                 button->second();
             }
-        }
-        lib->displayAll(true);
+        }*/
+        lib->displayAll();
     }
     return (0);
 }

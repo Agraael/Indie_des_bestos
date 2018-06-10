@@ -39,7 +39,7 @@ add_executable( ${INDIE_BIN_NAME}
 				${INDIE_SRC} )
 
 if(UNIX)
-	target_link_libraries( ${INDIE_BIN_NAME} Irrlicht GL Xxf86vm Xext X11 Xcursor
+	target_link_libraries( ${INDIE_BIN_NAME} Irrlicht GL Xxf86vm Xext X11 Xcursor stdc++fs
 						   ${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/bin/linux-gcc-64/libIrrKlang.so
 						   ${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/bin/linux-gcc-64/libikpMP3.so
 						   ${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/bin/linux-gcc-64/libikpFlac.so )
