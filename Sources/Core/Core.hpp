@@ -17,6 +17,7 @@
 #include "localMenu.hpp"
 #include "MenuPause.hpp"
 #include "IrrlichtLib.hpp"
+#include "resumeGame.hpp"
 #include "EventManager.hpp"
 class Core
 {
@@ -42,6 +43,7 @@ private:
 	graphic::settingsMenu		*_menuSetting;
 	graphic::localMenu		*_menuCreateGame;
 	graphic::MenuPause		*_menuPause;
+	graphic::ResumeGame		*_menuResume;
 	bool				_playing;
 	bool				_gamePaused;
 	//using ptr = void	(Core::*)(const CoreState &);

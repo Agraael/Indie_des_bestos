@@ -44,7 +44,7 @@ private:
 	bool is_character_here(const GameMap &map, const std::pair<int, int> &pos);
 	std::pair<int, int> findNearestSafePoint(GameMap &map, std::pair<int, int> &posPlayer);
 	std::pair<int, int> locate_enemy(GameMap &map, std::pair<int, int> &posPlayer);
-	bool try_to_put_a_bomb(GameMap &map, std::pair<int, int> posPlayer, std::shared_ptr<Map> _map);
+	bool try_to_put_a_bomb(GameMap &map, std::pair<int, int> &posPlayer, std::shared_ptr<Map> _map);
 	bool is_wall_destructible(const GameMap &map, const std::pair<int, int> &pos);
 	std::pair<int, int> offensiveUp(GameMap &map, std::pair<int, int> &posPlayer, std::shared_ptr<Map> _map);
 	std::pair<int, int> offensiveDown(GameMap &map, std::pair<int, int> &posPlayer, std::shared_ptr<Map> _map);

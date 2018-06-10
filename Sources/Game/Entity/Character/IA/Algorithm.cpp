@@ -12,7 +12,6 @@ bool Algorithm::check_if_dangerous_zone(const GameMap &map, const std::pair<int,
 	if (pos.first <= 0 || pos.second <= 0 || static_cast<unsigned int>(pos.first) >= map.size() || static_cast<unsigned int>(pos.second) >= map[pos.first].size())
 		return true;
 	for (auto &entity : map[pos.first][pos.second]) {
-		std::cout << pos.first << " " << pos.second << "lol" << entity.get()->getType() << std::endl;
 		if (entity.get()->getType() ==
 		    entities::entityType::GONNAEXPLOSE_TYPE ||
 		    entity.get()->getType() ==
@@ -235,7 +234,7 @@ std::pair<int, int> Algorithm::locate_enemy(GameMap &map, std::pair<int, int> &p
 	return {1, 1};
 }
 
-bool Algorithm::try_to_put_a_bomb(GameMap &map, std::pair<int, int> posPlayer, std::shared_ptr<Map> _map)
+bool Algorithm::try_to_put_a_bomb(GameMap &map, std::pair<int, int> &posPlayer, std::shared_ptr<Map> _map)
 {
 	Singleton::TimeManager &timer = Singleton::TimeManager::Instance();
 	GameMap fake_map = map;
@@ -245,11 +244,13 @@ bool Algorithm::try_to_put_a_bomb(GameMap &map, std::pair<int, int> posPlayer, s
 	if (timer.getChronoDuration(_chronoBomb) < 2) {
                 return true;
         }
-	new_map->placeBomb(posPlayer, _power);
+	new_map->placeBomb(posPlayer, 3);
+	findNearestSafePoint(fake_map, posPlayer);
 	for (int x = 0; x < 5; x++) {
 		fake_pos = defensiveMove(map, fake_pos);
 		if (check_if_dangerous_zone(fake_map, fake_pos) == false) {
 			_map->placeBomb(posPlayer, _power);
+			std::cout << "BOMB PLACED BY IA" << _chronoBomb << "\n";
 			return true;
 		}
 	}
@@ -274,9 +275,8 @@ std::pair<int, int> Algorithm::offensiveUp(GameMap &map, std::pair<int, int> &po
 		direction.first = posPlayer.first + 1;
 		direction.second = posPlayer.second;
 		if (is_wall_destructible(map, direction)) {
-			if (try_to_put_a_bomb(map, posPlayer, _map) == true) {
+			if (try_to_put_a_bomb(map, posPlayer, _map) == true)
 				return (posPlayer);
-			}
 		}
 	}
 	return ((_offensive_tries < 5) ? (offensiveLeft(map, posPlayer, _map)) : (posPlayer));

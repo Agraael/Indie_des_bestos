@@ -5,6 +5,7 @@
 ** source
 */
 
+#include "SaveGame.hpp"
 #include "HandleGame.hpp"
 #include "InterpreteGeneration.hpp"
 #include "MapGenerator.hpp"
@@ -28,6 +29,7 @@ void	HandleGame::InitGame(const gameType_t &game)
 	generator.setPlayers(game.nb_player, game.nb_ia);
 	if (_threeDMap)
 		_threeDMap.reset();
+	_map = generator.getMap();
 	interpret.createMap(threedmap, generator.getMap());
 	_threeDMap = std::make_shared<Map>(threedmap);
 	initMapGround(game.g_size, id);
@@ -90,11 +92,11 @@ void	HandleGame::updateMap(bool &state)
 					reinterpret_cast<Player &>(*shared).update();
 					updateEntity(shared.get());
 				}
-			 	else if (shared.get()->getType() == entities::entityType::IA_TYPE) {
+			 	if (shared.get()->getType() == entities::entityType::IA_TYPE) {
 					reinterpret_cast<Ia &>(*shared).update();
 					updateEntity(shared.get());
 				}
-				else if (shared.get()->getType() == entities::entityType::BOMBS_TYPE)
+				if (shared.get()->getType() == entities::entityType::BOMBS_TYPE)
 					reinterpret_cast<Bombs &>(*shared).update();
 			}
 		}
@@ -108,17 +110,18 @@ void	HandleGame::updateMap(bool &state)
 	updateAddEntity();
 	_threeDMap->clean();
 	updateDeletedEntity();
-	//_threeDMap->clearDeletedEntities();
 }
 
 void	HandleGame::updateDeletedEntity()
 {
 	std::vector<std::size_t>	idVec = _threeDMap->getDeleteEntities();
 
-	for (auto elem: _disp) {
+	for (auto elem = _disp.begin(); elem != _disp.end(); elem++) {
 		for (auto id : idVec) {
-			if (static_cast<irr::s32>(id) == elem->getID())
-				elem->setVisible(false);
+			if (static_cast<irr::s32>(id) == (*elem)->getID()) {
+				(*elem)->remove();
+				_disp.erase(elem);
+			}
 		}
 	}
 }
@@ -136,7 +139,6 @@ void	HandleGame::updateAddEntity()
 		else
 			_disp.push_back(_lib->createSphere({static_cast<double>(pos.second), static_cast<double>(pos.first), 1}, _textureMap.at(elem->getType()), elem->getId(), {0.25, true}));
 	}
-	_threeDMap->clearAddedEntities();	
 }
 
 void	HandleGame::updateEntity(const entities::Entity *entity)
@@ -177,4 +179,11 @@ void	HandleGame::dumpPlayerName()
 		//_lib->drawText(size.width, size.Height, 0, std::string(_winnerName + " won the game !! " + "\n click on echap to leave."));
 		_timeDispWinner = true;
 	}
+}
+
+void	HandleGame::saveGame()
+{
+//	SaveGame	s;
+
+	//s.save(_gameName, _map);
 }

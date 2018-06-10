@@ -19,10 +19,10 @@ void	graphic::MenuPause::display()
 	printTitle();
 }
 
-void	graphic::MenuPause::updateDisplay(HandleGame &)
+void	graphic::MenuPause::updateDisplay(HandleGame &game)
 {
 	if (_lib->getEventManager()->IsButtonClicked(graphic::controllerUser::SAVE) == true)
-		std::cout << "SAVING GAME" << std::endl;
+		game.saveGame();
 }
 
 void	graphic::MenuPause::printTitle()

@@ -35,12 +35,12 @@ public:
 private:
 	void	placeExplosion(std::vector<std::shared_ptr<entities::Entity>> &, std::shared_ptr<entities::Entity> &, entities::entityPosition pos);	
 	void	addModifiedEntity(const std::shared_ptr<entities::Entity> &entity);
-	void	addDeletedEntity(int id);
+	void	addDeletedEntity(const std::shared_ptr<entities::Entity> &entity);
 	void	addAddedEntity(const std::shared_ptr<entities::Entity> &entity);
-	void    addBombs(entities::Entity *character, const entities::entityPosition &pos);
-        void    addSpeed(entities::Entity *character, const entities::entityPosition &pos);
-        void    addFire(entities::Entity *character, const entities::entityPosition &pos);
-        void    allowWallpass(entities::Entity *character, const entities::entityPosition &pos);
+	void    addBombs(entities::Entity *, const entities::entityPosition &pos);
+        void    addSpeed(entities::Entity *, const entities::entityPosition &pos);
+        void    addFire(entities::Entity *, const entities::entityPosition &pos);
+        void    allowWallpass(entities::Entity *, const entities::entityPosition &pos);
 	bool isWallHere(int first, int second);
 	std::vector<std::shared_ptr<entities::Entity>> _modifiedEntities;
 	std::vector<std::shared_ptr<entities::Entity>> _addedEntities;
