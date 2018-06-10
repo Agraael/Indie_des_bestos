@@ -17,7 +17,7 @@ const std::unordered_map<graphic::controllerUser, CoreState>	EventCore::_statesT
 	{graphic::controllerUser::EXIT_MAINMENU, CoreState::EXIT},
 	{graphic::controllerUser::EXIT_SETTINGS, CoreState::IN_MENU},
 	{graphic::controllerUser::START_LOCAL, CoreState::IN_LOCAL},
-	{graphic::controllerUser::RESUME_GAME, CoreState::IN_GAME},
+	{graphic::controllerUser::RESUME_GAME, CoreState::IN_RESUME},
 	{graphic::controllerUser::EXIT_LOCAL, CoreState::IN_MENU},
 	{graphic::controllerUser::MENU, CoreState::IN_MENU},
 	{graphic::controllerUser::CONTINUE, CoreState::IN_GAME},

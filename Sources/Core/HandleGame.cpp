@@ -5,6 +5,7 @@
 ** source
 */
 
+#include "SaveGame.hpp"
 #include "HandleGame.hpp"
 #include "InterpreteGeneration.hpp"
 #include "MapGenerator.hpp"
@@ -28,6 +29,7 @@ void	HandleGame::InitGame(const gameType_t &game)
 	generator.setPlayers(game.nb_player, game.nb_ia);
 	if (_threeDMap)
 		_threeDMap.reset();
+	_map = generator.getMap();
 	interpret.createMap(threedmap, generator.getMap());
 	_threeDMap = std::make_shared<Map>(threedmap);
 	initMapGround(game.g_size, id);
@@ -175,4 +177,11 @@ void	HandleGame::dumpPlayerName()
 		//_lib->drawText(size.width, size.Height, 0, std::string(_winnerName + " won the game !! " + "\n click on echap to leave."));
 		_timeDispWinner = true;
 	}
+}
+
+void	HandleGame::saveGame()
+{
+	SaveGame	s;
+
+	s.save(_gameName, _map);
 }

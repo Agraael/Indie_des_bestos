@@ -70,7 +70,7 @@ namespace graphic {
 			irr::scene::ISceneNode	*createSphere(const vec3df &, const std::string &, irr::s32, const sphere_t &);
 			void			setCamera(irr::scene::ISceneNode *);
 			void			setCamera(const vec3df &, const vec3df &t);
-			void			drawEditBox(graphic::infos_t);
+			irr::gui::IGUIEditBox	*drawEditBox(const infos_t &);
 			irr::gui::IGUIButton	*printButton(const infos_t &);
 			void			drawText(size_t, size_t, size_t, std::string const&);
 			irr::gui::IGUIScrollBar	*scrollBarButton(const infos_t &);
