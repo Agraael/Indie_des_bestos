@@ -146,7 +146,6 @@ void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 				entity.get()->getType() == entities::entityType::DESTRUCTIBLE_TYPE) {
 					addDeletedEntity(entity);
 					entity->die(true);
-					//_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
 					break;
 			}
 			if (entity.get()->getType() == entities::entityType::GONNAEXPLOSE_TYPE) {
