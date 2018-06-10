@@ -8,6 +8,7 @@
 #include <algorithm>
 #include "Map.hpp"
 #include <algorithm>
+#include <SoundManager.hpp>
 #include "Bombs.hpp"
 #include "DestructibleWalls.hpp"
 #include "Entity.hpp"
@@ -44,6 +45,7 @@ std::shared_ptr<entities::Entity>	Map::placeBomb(entities::entityPosition pos, s
 {
 	std::vector<std::shared_ptr<entities::Entity>>	exploseTab;
 	std::shared_ptr<entities::Entity>		newEntity;
+	Singleton::SoundManager& soundManager = Singleton::SoundManager::Instance();
 
 	for (auto oldEntity :_map[pos.first][pos.second])
 		if (oldEntity.get()->getType() == entities::entityType::BOMBS_TYPE)
@@ -80,6 +82,7 @@ std::shared_ptr<entities::Entity>	Map::placeBomb(entities::entityPosition pos, s
 	addAddedEntity(newEntity);
 	addModifiedEntity(newEntity);
  	_map[pos.first][pos.second].push_back(newEntity);
+	soundManager.playSound("Audio/Woosh.wav");
 	return (newEntity);
 }
 
