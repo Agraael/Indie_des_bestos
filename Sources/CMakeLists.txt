@@ -15,15 +15,13 @@ if(UNIX)
 	FIND_PACKAGE(GLUT)
 	FIND_PACKAGE(ZLIB)
 elseif(WIN32)
-	set(IRRLICHT_LIB_DIR
-		${CMAKE_CURRENT_SOURCE_DIR}/../irrlicht-1.8.4/lib/Win32-visualstudio
-		${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/lib/Winx64-visualStudio)
-	set(IRRKLANG_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/lib/Winx64-visualStudio)
+  set(IRRLICHT_LIB_DIR
+    ${CMAKE_CURRENT_SOURCE_DIR}/../irrlicht-1.8.4/lib/Win32-visualstudio
+    ${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/lib/Win32-visualStudio)
 elseif(WIN64)
-	set(IRRLICHT_LIB_DIR
-		${CMAKE_CURRENT_SOURCE_DIR}/../irrlicht-1.8.4/lib/Win64-visualstudio
-		${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/lib/Winx64-visualStudio)
-	set(IRRKLANG_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/lib/Winx64-visualStudio)
+  set(IRRLICHT_LIB_DIR
+    ${CMAKE_CURRENT_SOURCE_DIR}/../irrlicht-1.8.4/lib/Win64-visualstudio
+    ${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/lib/Winx64-visualStudio)
 endif()
 
 include_directories(${INDIE_INC_DIR})
@@ -38,11 +36,11 @@ link_directories(
   ${IRRKLANG_LIB_DIR})
 
 add_executable( ${INDIE_BIN_NAME}
-				${INDIE_SRC} )
+  ${INDIE_SRC} )
 
 if(UNIX)
-	target_link_libraries( ${INDIE_BIN_NAME} Irrlicht GL Xxf86vm Xext X11 Xcursor stdc++fs
-						   ${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/bin/linux-gcc-64/libIrrKlang.so
-						   ${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/bin/linux-gcc-64/libikpMP3.so
-						   ${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/bin/linux-gcc-64/libikpFlac.so )
+  target_link_libraries( ${INDIE_BIN_NAME} Irrlicht GL Xxf86vm Xext X11 Xcursor stdc++fs
+    ${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/bin/linux-gcc-64/libIrrKlang.so
+    ${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/bin/linux-gcc-64/libikpMP3.so
+    ${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.6.0/bin/linux-gcc-64/libikpFlac.so )
 endif()

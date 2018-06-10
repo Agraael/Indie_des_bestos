@@ -8,7 +8,7 @@
 #include <iostream>
 #include <map>
 #ifdef _WIN32
-#include <irrlicht
+#include <irrlicht.h>
 #else
 #include <irrlicht/irrlicht.h>
 #endif

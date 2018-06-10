@@ -1,21 +1,22 @@
-/*
-** EPITECH PROJECT, 2018
-** indie
-** File description:
-** source
-*/
+OB/*
+  ** EPITECH PROJECT, 2018
+  ** indie
+  ** File description:
+  ** source
+  */
 
 #include <string>
 #include <experimental/filesystem>
 #include <chrono>
 #include <thread>
+#include <sstream>
 #include "resumeGame.hpp"
 
 graphic::ResumeGame::ResumeGame(graphic::IrrlichtLib *lib) : _lib(lib)
 {
-    _itFiles = 0;
-    _size = _lib->getScreenSize();
-    _count = 0;
+	_itFiles = 0;
+	_size = _lib->getScreenSize();
+	_count = 0;
 }
 
 void    graphic::ResumeGame::drawChoiceButtons()
