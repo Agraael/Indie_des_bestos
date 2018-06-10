@@ -28,10 +28,10 @@ public:
 	void	clearDeletedEntities() { _deletedEntities.clear(); }
 	void	clearAddedEntities() { _addedEntities.clear(); }
 	void	clearModifiedEntities() { _modifiedEntities.clear(); }
+	void	placeBomb(entities::entityPosition, std::size_t);
 	std::vector<std::shared_ptr<entities::Entity>>	getAddedEntity() const noexcept { return _addedEntities; }
 	std::vector<std::size_t>			getDeleteEntities() const noexcept { return _deletedEntities; }
 	std::vector<std::shared_ptr<entities::Entity>>	getModifiedEntities(void) const noexcept { return _modifiedEntities; }
-	std::shared_ptr<entities::Entity>		placeBomb(entities::entityPosition, std::size_t);
 private:
 	void	placeExplosion(std::vector<std::shared_ptr<entities::Entity>> &, std::shared_ptr<entities::Entity> &, entities::entityPosition pos);	
 	void	addModifiedEntity(const std::shared_ptr<entities::Entity> &entity);
