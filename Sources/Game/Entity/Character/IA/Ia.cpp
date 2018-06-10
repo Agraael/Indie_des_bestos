@@ -11,15 +11,8 @@
 void Ia::update()
 {
 	Singleton::TimeManager &timer = Singleton::TimeManager::Instance();
-	if (_speed <= 3) {
-                if (timer.getChronoDuration(_chrono) < (0.12f - (static_cast<float>(_speed) / 100))) \
-{
+	if (timer.getChronoDuration(_chrono) < 0.2f)
                         return;
-                }
-        } else {
-                if (timer.getChronoDuration(_chrono) < 0.08f)
-                        return;
-        }
 	timer.resetChrono(_chrono);
         std::pair<int, int> move = std::make_pair<int, int>(1, 1);
         GameMap map = _map->get3dMap();

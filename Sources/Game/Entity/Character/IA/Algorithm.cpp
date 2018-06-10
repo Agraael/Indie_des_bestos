@@ -96,7 +96,7 @@ int Algorithm::init_directions(GameMap &map, std::pair<int, int> current_pos)
                                 return LEFT;
                 }
 	}
-	return {};
+	return RIGHT;
 }
 
 std::pair<int, int> Algorithm::defensiveRight(GameMap &map, std::pair<int, int> current_pos)
@@ -114,7 +114,7 @@ std::pair<int, int> Algorithm::defensiveRight(GameMap &map, std::pair<int, int> 
 	direction = dir->try_move_down(map, current_pos, 0);
         if (direction != empty_pair)
 		return direction;
-	return current_pos;
+	return dir->try_move_left(map, current_pos, 0);
 }
 
 std::pair<int, int> Algorithm::defensiveLeft(GameMap &map, std::pair<int, int> current_pos)
@@ -132,7 +132,7 @@ std::pair<int, int> Algorithm::defensiveLeft(GameMap &map, std::pair<int, int> c
         direction = dir->try_move_up(map, current_pos, 0);
 	if (direction != empty_pair)
                 return direction;
-        return current_pos;
+        return dir->try_move_right(map, current_pos, 0);
 }
 
 std::pair<int, int> Algorithm::defensiveUp(GameMap &map, std::pair<int, int> current_pos)
@@ -150,7 +150,7 @@ std::pair<int, int> Algorithm::defensiveUp(GameMap &map, std::pair<int, int> cur
         direction = dir->try_move_right(map, current_pos, 0);
 	if (direction != empty_pair)
                 return direction;
-        return current_pos;
+        return dir->try_move_down(map, current_pos, 0);
 }
 
 std::pair<int, int> Algorithm::defensiveDown(GameMap &map, std::pair<int, int> current_pos)
@@ -168,7 +168,7 @@ std::pair<int, int> Algorithm::defensiveDown(GameMap &map, std::pair<int, int> c
         direction = dir->try_move_left(map, current_pos, 0);
 	if (direction != empty_pair)
                 return direction;
-        return current_pos;
+	return dir->try_move_up(map, current_pos, 0);
 }
 
 std::pair<int, int> Algorithm::aim_at_a_further_point(GameMap &map, int /*first_dir*/, int /*nbr_moves*/, std::pair<int, int> current_pos)
@@ -215,6 +215,8 @@ std::pair<int, int> Algorithm::findNearestSafePoint(GameMap &map, std::pair<int,
 std::pair<int, int> Algorithm::defensiveMove(GameMap &map, std::pair<int, int> &posPlayer)
 {
 	std::pair<int, int> pos = findNearestSafePoint(map, posPlayer);
+	if (pos.first == 0 && pos.second == 0)
+		return posPlayer;
 	return pos;
 }
 
