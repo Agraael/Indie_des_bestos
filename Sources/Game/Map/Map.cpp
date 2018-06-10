@@ -172,7 +172,6 @@ void Map::checkBonusCollision(entities::Entity *character, const entities::entit
 {
 	for (auto entity : _map[pos.first][pos.second]) {
 		if (entity.get()->getType() == entities::entityType::BOMB_UP_TYPE) {
-			std::cout << "bomb" << std::endl;
 			addBombs(character, pos);
 			entity.get()->die(true);
 			break;
