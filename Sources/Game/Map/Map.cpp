@@ -41,7 +41,7 @@ bool Map::isWallHere(int first, int second)
 	return false;
 }
 
-std::shared_ptr<entities::Entity>	Map::placeBomb(entities::entityPosition pos, std::size_t power)
+void	Map::placeBomb(entities::entityPosition pos, std::size_t power)
 {
 	std::vector<std::shared_ptr<entities::Entity>>	exploseTab;
 	std::shared_ptr<entities::Entity>		newEntity;
@@ -49,7 +49,7 @@ std::shared_ptr<entities::Entity>	Map::placeBomb(entities::entityPosition pos, s
 
 	for (auto oldEntity :_map[pos.first][pos.second])
 		if (oldEntity.get()->getType() == entities::entityType::BOMBS_TYPE)
-			return nullptr;
+			return ;
 	for (int i = 1; i <= static_cast<int>(power); i++)
 		if ((pos.first - i) > 0) {
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first - i, pos.second));
@@ -83,7 +83,6 @@ std::shared_ptr<entities::Entity>	Map::placeBomb(entities::entityPosition pos, s
 	addModifiedEntity(newEntity);
  	_map[pos.first][pos.second].push_back(newEntity);
 	soundManager.playSound("Audio/Woosh.wav");
-	return (newEntity);
 }
 
 void Map::addModifiedEntity(const std::shared_ptr<entities::Entity> &entity)

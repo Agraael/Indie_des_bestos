@@ -117,7 +117,7 @@ void	HandleGame::updateDeletedEntity()
 {
 	std::vector<std::size_t>	idVec = _threeDMap->getDeleteEntities();
 
-	for (auto elem = _disp.begin(); elem != _disp.end(); elem++) {
+	for (auto elem: _disp) {
 		for (auto id : idVec) {
 			if (static_cast<irr::s32>(id) == elem->getID())
 				elem->setVisible(false);
