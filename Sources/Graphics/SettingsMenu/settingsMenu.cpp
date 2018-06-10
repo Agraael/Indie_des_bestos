@@ -5,6 +5,7 @@
 #include <chrono>
 #include <thread>
 #include <memory>
+#include <SoundManager.hpp>
 #include "settingsMenu.hpp"
 
 graphic::settingsMenu::settingsMenu(graphic::IrrlichtLib *lib) : _lib(lib)
@@ -56,10 +57,10 @@ void graphic::settingsMenu::printSound()
 	vec2d size = _lib->getScreenSize();
 
     graphic::infos_t moins;
-    moins._x = 200;
-    moins._y = 150;
-    moins._w = 230;
-    moins._h = 180;
+    moins._x = (size.x /2) - 100 - 40;
+    moins._y = 320;
+    moins._w = (size.x /2) - 100 - 10;
+    moins._h = 350;
     moins._type = graphic::SOUND_DOWN;
     moins._desc = "Sound down";
     moins._name = "";
@@ -77,10 +78,10 @@ void graphic::settingsMenu::printSound()
     _lib->drawImage(sound);
 
     graphic::infos_t plus;
-    plus._x = 350;
-    plus._y = 150;
-    plus._w = 380;
-    plus._h = 180;
+    plus._x = (size.x /2) + 100 + 10;
+    plus._y = 320;
+    plus._w = (size.x /2) + 100 + 40;
+    plus._h = 350;
     plus._path = "./Assets/media/plus.png";
     plus._desc = "Sound up";
     plus._name = "";
@@ -90,11 +91,13 @@ void graphic::settingsMenu::printSound()
 
 void graphic::settingsMenu::printBrightness()
 {
+	vec2d size = _lib->getScreenSize();
+
     graphic::infos_t moins;
-    moins._x = 200;
-    moins._y = 250;
-    moins._w = 230;
-    moins._h = 280;
+	moins._x = (size.x /2) - 100 - 40;
+	moins._y = 520;
+	moins._w = (size.x /2) - 100 - 10;
+	moins._h = 550;
     moins._type = graphic::BRIGTHNESS_DOWN;
     moins._desc = "Light down";
     moins._name = "";
@@ -102,20 +105,20 @@ void graphic::settingsMenu::printBrightness()
     _lib->printButton(moins);
 
     graphic::infos_t light;
-    light._x = 240;
-    light._y = 230;
-    light._w = 100;
-    light._h = 80;
+    light._x = (size.x /2) - 60;
+    light._y = 480;
+    light._w = (size.x /2) + 60;
+    light._h = 310;
     light._maxW = 100;
     light._maxH = 80;
     light._path = "./Assets/media/lantern.png";
     _lib->drawImage(light);
 
     graphic::infos_t plus;
-    plus._x = 350;
-    plus._y = 250;
-    plus._w = 380;
-    plus._h = 280;
+	plus._x = (size.x /2) + 100 + 10;
+	plus._y = 520;
+	plus._w = (size.x /2) + 100 + 40;
+	plus._h = 550;
     plus._path = "./Assets/media/plus.png";
     plus._desc = "Light up";
     plus._name = "";
@@ -125,11 +128,13 @@ void graphic::settingsMenu::printBrightness()
 
 void    graphic::settingsMenu::returnToMenu()
 {
+	vec2d size = _lib->getScreenSize();
+
     graphic::infos_t buttonExit;
-    buttonExit._x = 200;
-    buttonExit._y = 330;
-    buttonExit._w = 380;
-    buttonExit._h = 360;
+    buttonExit._x = (size.x /2) - 90;
+    buttonExit._y = 630;
+    buttonExit._w = (size.x /2) + 90;
+    buttonExit._h = 660;
     buttonExit._path = "Assets/media/button_menu.png";
     buttonExit._desc = "Return to main menu";
     buttonExit._name = "Quit";
@@ -161,22 +166,32 @@ void    graphic::settingsMenu::startClouds()
         _count = -30;
 }
 
-void    graphic::settingsMenu::modifyBrightness(graphic::Action action)
+void    graphic::settingsMenu::modifyBrightness()
 {
-    if (action == graphic::MORE)
+    if (_lib->getEventManager()->IsButtonClicked(graphic::BRIGTHNESS_UP))
         _lib->modifyLight(10);
-    else if (action == graphic::LESS)
+    else if (_lib->getEventManager()->IsButtonClicked(graphic::BRIGTHNESS_DOWN))
         _lib->modifyLight(-10);
 }
 
-void    graphic::settingsMenu::modifySound(graphic::Action)
+void    graphic::settingsMenu::modifySound()
 {
+	Singleton::SoundManager& soundManager = Singleton::SoundManager::Instance();
 
+	if (_lib->getEventManager()->IsButtonClicked(graphic::SOUND_UP)) {
+		soundManager.setVolume(soundManager.getVolume() + 0.1f);
+		std::cout << soundManager.getVolume() << std::endl;
+		soundManager.playSound("Audio/bra.wav");
+	}
+	else if (_lib->getEventManager()->IsButtonClicked(graphic::SOUND_DOWN)) {
+		soundManager.setVolume(soundManager.getVolume() - 0.1f);
+		std::cout << soundManager.getVolume() << std::endl;
+		soundManager.playSound("Audio/bra.wav");
+	}
 }
 
 void    graphic::settingsMenu::quitSettingsMenu(graphic::Action)
 {
-
 }
 
 void    graphic::settingsMenu::display()
@@ -193,5 +208,7 @@ void graphic::settingsMenu::updateDisplay()
     printBrightness();
     returnToMenu();
     _count += 10;
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+	modifySound();
+	//modifyBrightness();
+	std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }

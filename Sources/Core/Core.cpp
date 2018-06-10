@@ -42,11 +42,11 @@ int	Core::run()
 }
 void	Core::chooseCorePart(const CoreState &state)
 {
-//	Singleton::SoundManager& soundManager = Singleton::SoundManager::Instance();
+	Singleton::SoundManager& soundManager = Singleton::SoundManager::Instance();
 
 	if (_state == CoreState::IN_MENU) {
 		menu(state);
-//		soundManager.stopLoop("Audio/Music1.wav");
+		soundManager.stopLoop("Audio/Music1.wav");
 	}
 	else if (_state == CoreState::IN_GAME)
 		game(state);

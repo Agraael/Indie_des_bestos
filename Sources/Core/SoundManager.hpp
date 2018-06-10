@@ -22,6 +22,8 @@ namespace Singleton
 		void playSound(std::string const& file);
 		void playLoop(std::string const& file);
 		void stopLoop(std::string const& file);
+		void setVolume(irrklang::ik_f32 value);
+		irrklang::ik_f32 getVolume() const;
 	private:
 		SoundManager& operator= (const SoundManager&){return *this;};
 		SoundManager (const SoundManager&) = default;
