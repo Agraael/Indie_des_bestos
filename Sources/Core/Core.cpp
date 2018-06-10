@@ -9,6 +9,7 @@
 #include <string>
 #include "Gen.hpp"
 #include "Core.hpp"
+#include "SoundManager.hpp"
 #include <unistd.h>
 
 Core::Core()
@@ -41,8 +42,12 @@ int	Core::run()
 }
 void	Core::chooseCorePart(const CoreState &state)
 {
-	if (_state == CoreState::IN_MENU)
+//	Singleton::SoundManager& soundManager = Singleton::SoundManager::Instance();
+
+	if (_state == CoreState::IN_MENU) {
 		menu(state);
+//		soundManager.stopLoop("Audio/Music1.wav");
+	}
 	else if (_state == CoreState::IN_GAME)
 		game(state);
 	else if (_state == CoreState::IN_SETTINGS)
@@ -72,7 +77,8 @@ void	Core::menu(const CoreState &state)
 
 void	Core::game(const CoreState &)
 {
-//	sleep (0.5);
+	Singleton::SoundManager& soundManager = Singleton::SoundManager::Instance();
+
 	if (_lib->getEventManager()->IsKeyDown(irr::EKEY_CODE::KEY_ESCAPE) == true) {
 		_menuPause->display();
 		_state = CoreState::GAME_PAUSE;
@@ -81,6 +87,7 @@ void	Core::game(const CoreState &)
 		hGame->dumpPlayerName();
 		return;
 	}
+	soundManager.playLoop("Audio/Music1.wav");
 	hGame->updateMap(_playing);
 }
 
@@ -98,8 +105,9 @@ void	Core::menuSetting(const CoreState &state)
 
 void Core::reset()
 {
-	if (hGame)
+	if (hGame) {
 		delete hGame;
+	}
 	hGame = new HandleGame(_lib);
 }
 
