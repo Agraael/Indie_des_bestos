@@ -154,7 +154,6 @@ void	Core::menuResume(const CoreState &state)
 		reset();
 		_lib->clearGui();
 		_state = state;
-		//
 		return;
 	} else if (state  == CoreState::IN_MENU) {
 		_lib->clearGui();

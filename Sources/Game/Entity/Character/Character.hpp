@@ -34,12 +34,10 @@ public:
         void	upgradePower() noexcept { _power += 1; }
         void	upgradeWallpass() noexcept { _wallpass += 1; }
 protected:
-	void	deleteBombs();
 	int				_power;
         std::size_t			_bombs;
         int				_speed;
         int				_wallpass;
-	std::vector<std::shared_ptr<entities::Entity>>	_playerBombs;
 };
 
 #endif /* !CHARACTER_HPP */
