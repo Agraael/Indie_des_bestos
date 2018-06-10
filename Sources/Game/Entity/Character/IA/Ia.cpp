@@ -11,9 +11,15 @@
 void Ia::update()
 {
 	Singleton::TimeManager &timer = Singleton::TimeManager::Instance();
-	if (timer.getChronoDuration(_chrono) < 0.4f) {
-		return ;
-	}
+	if (_speed <= 3) {
+                if (timer.getChronoDuration(_chrono) < (0.12f - (static_cast<float>(_speed) / 100))) \
+{
+                        return;
+                }
+        } else {
+                if (timer.getChronoDuration(_chrono) < 0.08f)
+                        return;
+        }
 	timer.resetChrono(_chrono);
         std::pair<int, int> move = std::make_pair<int, int>(1, 1);
         GameMap map = _map->get3dMap();
@@ -35,4 +41,5 @@ Ia::Ia(entities::entityPosition pos, bool iskinematic, std::size_t layout, std::
 {
 	_chrono = Singleton::TimeManager::Instance().createChrono();
 	_chronoBomb = Singleton::TimeManager::Instance().createChrono();
+	_speed = 1;
 }

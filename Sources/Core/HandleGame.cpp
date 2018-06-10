@@ -176,15 +176,13 @@ bool	HandleGame::gameEnd() noexcept
 void	HandleGame::dumpPlayerName()
 {
 	if (_timeDispWinner == false) {
-		//irr::core::dimension2d<irr::u32> size = _lib->getDevice()->getCurrentRenderTargetSize();
-		//_lib->drawText(size.width, size.Height, 0, std::string(_winnerName + " won the game !! " + "\n click on echap to leave."));
+		vec2d size = _lib->getScreenSize();
+		std::string	endStr = _winnerName + " won the game !!\n click on echap to leave.";
+		_lib->drawText((size.x / 2) - (endStr.size() / 2), (size.y / 2) - (endStr.size() / 2), 0, endStr);
 		_timeDispWinner = true;
 	}
 }
 
 void	HandleGame::saveGame()
 {
-//	SaveGame	s;
-
-	//s.save(_gameName, _map);
 }

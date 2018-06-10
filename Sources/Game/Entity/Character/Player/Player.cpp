@@ -13,24 +13,24 @@ void	Player::update()
 	entities::entityPosition	newPos = _pos;
 	Singleton::TimeManager		&timer = Singleton::TimeManager::Instance();
 	
-	Character::deleteBombs();
 	for (auto event : _eventPlayer) {
 		if (_lib->getEventManager()->IsKeyDown(event) && index < 4) {
 			auto func = _foncter[index];
 			newPos = func(_map->get3dMap(), _pos);
 		}
-		else if (_lib->getEventManager()->IsKeyDown(event) && _playerBombs.size() <= _bombs) {
-			std::cout << _bombs << std::endl;
-			std::cout << _playerBombs.size() << std::endl;
-			_playerBombs.push_back(_map->placeBomb(_pos, _power));
-			std::cout << "non" << std::endl;
-		}
+		else if (_lib->getEventManager()->IsKeyDown(event))
+			_map->placeBomb(_pos, _power);
 		++index;
 	}
-	if (timer.getChronoDuration(_chrono) < 0.1f) {
-		return;
+	if (_speed <= 5) {
+		if (timer.getChronoDuration(_chrono) < (0.12f - (static_cast<float>(_speed) / 100.0f))) {
+			return;
+		}
+	} else {
+		if (timer.getChronoDuration(_chrono) < 0.08f)
+			return;
 	}
-	else if (newPos != std::make_pair(0, 0) && newPos != _pos) {
+	if (newPos != std::make_pair(0, 0) && newPos != _pos) {
 		_mooved = true;
 		_map->updatePos(reinterpret_cast<Entity *>(this), newPos);
 		_pos = newPos;
