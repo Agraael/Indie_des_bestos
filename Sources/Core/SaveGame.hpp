@@ -19,8 +19,9 @@ class SaveGame
 	public:
 		SaveGame();
 		~SaveGame();
-		void	save(const std::string &, const char **&);
+		void	save(const std::string &, const std::shared_ptr<Map> &, char **&);
 	private:
+		bool	dumpChar(int, int, const GameMap &, std::ofstream &);
 		const std::string	_path = "./gameMap/";
 };
 
