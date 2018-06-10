@@ -87,50 +87,14 @@ void Map::addModifiedEntity(const std::shared_ptr<entities::Entity> &entity)
 	_modifiedEntities.push_back(new_entity);
 }
 
-void Map::addDeletedEntity(const std::shared_ptr<entities::Entity> &entity)
+void Map::addDeletedEntity(int id)
 {
-	_deletedEntities.push_back(entity->getId());
+        _deletedEntities.push_back(id);
 }
 
 void Map::addAddedEntity(const std::shared_ptr<entities::Entity> &entity)
 {
 	_addedEntities.push_back(entity);
-}
-
-void Map::addBombs(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos)
-{
-	for (auto entity : _map[pos.first][pos.second]) {
-		if (entity == character) {
-			std::static_pointer_cast<Character>(entity).get()->upgradeBombs();
-		}
-	}
-}
-
-void Map::addSpeed(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos)
-{
-	for (auto entity : _map[pos.first][pos.second]) {
-		if (entity == character) {
-			std::static_pointer_cast<Character>(entity).get()->upgradeSpeed();
-		}
-	}
-}
-
-void Map::addFire(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos)
-{
-	for (auto entity : _map[pos.first][pos.second]) {
-		if (entity == character) {
-			std::static_pointer_cast<Character>(entity).get()->upgradePower();
-		}
-	}
-}
-
-void Map::allowWallpass(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos)
-{
-	for (auto entity : _map[pos.first][pos.second]) {
-		if (entity == character) {
-			std::static_pointer_cast<Character>(entity).get()->upgradeWallpass();
-		}
-	}
 }
 
 void	Map::checkExplosionCollision(const entities::entityPosition &pos)
@@ -144,7 +108,7 @@ void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 			if ( entity.get()->getType() == entities::entityType::PLAYER_TYPE ||
 				entity.get()->getType() == entities::entityType::IA_TYPE ||
 				entity.get()->getType() == entities::entityType::DESTRUCTIBLE_TYPE) {
-					addDeletedEntity(entity);
+				addDeletedEntity(entity->getId());
 					_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
 					break;
 			}
@@ -156,36 +120,72 @@ void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 	}
 }
 
-void Map::checkBonusCollision(std::shared_ptr<entities::Entity> character, const entities::entityPosition &pos)
+void Map::addBombs(entities::Entity *character, const entities::entityPosition &pos)
 {
-	std::size_t x = 0;
-	for (unsigned int i = 0; i < _map[pos.first][pos.second].size(); i++) {
-		x = 0;
-		for (auto entity : _map[pos.first][pos.second]) {
-			x++;
-			if (entity.get()->getType() == entities::entityType::BOMB_UP_TYPE) {
-				addBombs(character, pos);
-				addDeletedEntity(entity);
-				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
-				break;
-			} else if (entity.get()->getType() == entities::entityType::SPEED_UP_TYPE) {
-				addSpeed(character, pos);
-				addDeletedEntity(entity);
-				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
-				break;
-			} else if (entity.get()->getType() == entities::entityType::FIRE_UP_TYPE) {
-				addFire(character, pos);
-				addDeletedEntity(entity);
-				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
-				break;
-			} else if (entity.get()->getType() == entities::entityType::WALL_PASS_TYPE) {
-				allowWallpass(character, pos);
-				addDeletedEntity(entity);
-				_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
-				break;
-			}
-		}
-	}
+        for (auto entity : _map[pos.first][pos.second]) {
+                if (entity->getId() == character->getId()) {
+                        std::static_pointer_cast<Character>(entity).get()->upgradeBombs();
+                }
+        }
+}
+
+void Map::addSpeed(entities::Entity *character, const entities::entityPosition &pos)
+{
+        for (auto entity : _map[pos.first][pos.second]) {
+                if (entity->getId() == character->getId()) {
+                        std::static_pointer_cast<Character>(entity).get()->upgradeSpeed();
+                }
+        }
+}
+
+void Map::addFire(entities::Entity *character, const entities::entityPosition &pos)
+{
+        for (auto entity : _map[pos.first][pos.second]) {
+                if (entity->getId() == character->getId()) {
+                        std::static_pointer_cast<Character>(entity).get()->upgradePower();
+                }
+        }
+}
+
+void Map::allowWallpass(entities::Entity *character, const entities::entityPosition &pos)
+{
+        for (auto entity : _map[pos.first][pos.second]) {
+                if (entity->getId() == character->getId()) {
+                        std::static_pointer_cast<Character>(entity).get()->upgradeWallpass();
+                }
+        }
+}
+
+void Map::checkBonusCollision(entities::Entity *character, const entities::entityPosition &pos)
+{
+        std::size_t x = 0;
+        for (unsigned int i = 0; i < _map[pos.first][pos.second].size(); i++) {
+                x = 0;
+                for (auto entity : _map[pos.first][pos.second]) {
+                        x++;
+                        if (entity.get()->getType() == entities::entityType::BOMB_UP_TYPE) {
+                                addBombs(character, pos);
+                                addDeletedEntity(entity->getId());
+                                _map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
+                                break;
+                        } else if (entity.get()->getType() == entities::entityType::SPEED_UP_TYPE) {
+                                addSpeed(character, pos);
+                                addDeletedEntity(entity->getId());
+                                _map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
+                                break;
+                        } else if (entity.get()->getType() == entities::entityType::FIRE_UP_TYPE) {
+                                addFire(character, pos);
+                                addDeletedEntity(entity->getId());
+                                _map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
+                                break;
+                        } else if (entity.get()->getType() == entities::entityType::WALL_PASS_TYPE) {
+                                allowWallpass(character, pos);
+                                addDeletedEntity(entity->getId());
+                                _map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
+                                break;
+                        }
+                }
+        }
 }
 
 void    Map::updatePos(entities::Entity *entity, entities::entityPosition pos)
@@ -227,7 +227,7 @@ void Map::clean()
 		std::for_each(elem1.begin(), elem1.end(), [this](SharedEntity& elem2){
 			elem2.erase(std::remove_if(elem2.begin(), elem2.end(), [this](std::shared_ptr<entities::Entity>& ptr){
 				if (ptr->isDead())
-					this->addDeletedEntity(ptr);
+					this->addDeletedEntity(ptr->getId());
 				return ptr->isDead();
 			}), elem2.end());
 		});
