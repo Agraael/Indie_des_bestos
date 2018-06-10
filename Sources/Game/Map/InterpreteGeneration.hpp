@@ -68,8 +68,8 @@ private:
 	EntitiesVec	_tempLine;
 	SharedEntity	_tempTab;	
 	std::unordered_map<std::size_t, std::vector<irr::EKEY_CODE>>	_eventPlayer = {
-		{1, {irr::KEY_KEY_Z, irr::KEY_KEY_Q, irr::KEY_KEY_S, irr::KEY_KEY_D, irr::KEY_SPACE}},
-		{2, {irr::KEY_UP, irr::KEY_LEFT, irr::KEY_DOWN, irr::KEY_RIGHT, irr::KEY_RETURN}},
+		{1, {irr::KEY_UP, irr::KEY_LEFT, irr::KEY_DOWN, irr::KEY_RIGHT, irr::KEY_RETURN}},
+		{2, {irr::KEY_KEY_Z, irr::KEY_KEY_Q, irr::KEY_KEY_S, irr::KEY_KEY_D, irr::KEY_SPACE}},
 	};
 	using	EntitiesInitialization = std::function<void(SharedEntity &, std::size_t, std::size_t)>;
 	using	ptrMapFunc = std::unordered_map<entityType, EntitiesInitialization>;

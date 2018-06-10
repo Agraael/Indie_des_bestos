@@ -28,15 +28,15 @@ void	Map::placeExplosion(std::vector<std::shared_ptr<entities::Entity>> &explose
 bool Map::isWallHere(int first, int second)
 {
 	if (first <= 0 || second <= 0 || static_cast<unsigned int>(first) >= _map.size() || static_cast<unsigned int>(second) >= _map[first].size())
-                return true;
-        for (auto &entity : _map[first][second]) {
-                if (entity.get()->getType() ==
-                    entities::entityType::DESTRUCTIBLE_TYPE ||
-                    entity.get()->getType() ==
-                    entities::entityType::INDESTRUCTIBLE_TYPE)
-                        return true;
-        }
-        return false;
+		return true;
+	for (auto &entity : _map[first][second]) {
+		if (entity.get()->getType() ==
+		    entities::entityType::DESTRUCTIBLE_TYPE ||
+		    entity.get()->getType() ==
+		    entities::entityType::INDESTRUCTIBLE_TYPE)
+			return true;
+	}
+	return false;
 }
 
 void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
@@ -145,7 +145,7 @@ void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 				entity.get()->getType() == entities::entityType::IA_TYPE ||
 				entity.get()->getType() == entities::entityType::DESTRUCTIBLE_TYPE) {
 					addDeletedEntity(entity);
-					_map[pos.first][pos.second].erase(_map[pos.first][pos.second].begin() + x);
+					entity->die(true);
 					break;
 			}
 			if (entity.get()->getType() == entities::entityType::GONNAEXPLOSE_TYPE) {
@@ -190,20 +190,20 @@ void Map::checkBonusCollision(std::shared_ptr<entities::Entity> character, const
 
 void    Map::updatePos(entities::Entity *entity, entities::entityPosition pos)
 {
-        entities::entityPosition        newPos = entity->getPos();
+	entities::entityPosition        newPos = entity->getPos();
 	std::size_t x = 0;	
 
-        for (unsigned int i = 0; i < _map[newPos.first][newPos.second].size(); i++) {
+	for (unsigned int i = 0; i < _map[newPos.first][newPos.second].size(); i++) {
 		x = 0;
-                for (auto oldEntity :_map[newPos.first][newPos.second]) {
-                        if (oldEntity->getId() == entity->getId()) {
-                                _map[pos.first][pos.second].push_back(oldEntity);
-                                _map[newPos.first][newPos.second].erase(_map[newPos.first][newPos.second].begin() + x);
-                                return ;
-                        }
+		for (auto oldEntity :_map[newPos.first][newPos.second]) {
+			if (oldEntity->getId() == entity->getId()) {
+				_map[pos.first][pos.second].push_back(oldEntity);
+				_map[newPos.first][newPos.second].erase(_map[newPos.first][newPos.second].begin() + x);
+				break ;
+			}
 			++x;
-                }
-        }
+		}
+	}
 }
 
 bool	Map::verifPosition(entities::entityPosition &pos)
@@ -223,14 +223,13 @@ bool	Map::verifPosition(entities::entityPosition &pos)
 
 void Map::clean()
 {
-	std::for_each(_map.begin(), _map.end(), [](EntitiesVec& elem){
-		std::for_each(elem.begin(), elem.end(), [](SharedEntity& elem){
-			for (auto item = elem.begin(); item != elem.end() ; item++) {
-				if ((*item)->isDead()) {
-					elem.erase(item);
-					std::cout << "delete mdr" << std::endl;
-				}
-			}
+	std::for_each(_map.begin(), _map.end(), [this](EntitiesVec& elem1){
+		std::for_each(elem1.begin(), elem1.end(), [this](SharedEntity& elem2){
+			elem2.erase(std::remove_if(elem2.begin(), elem2.end(), [this](std::shared_ptr<entities::Entity>& ptr){
+				if (ptr->isDead())
+					this->addDeletedEntity(ptr);
+				return ptr->isDead();
+			}), elem2.end());
 		});
 	});
 }
