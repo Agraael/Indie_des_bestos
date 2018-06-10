@@ -11,7 +11,6 @@ void	Bombs::update()
 {
 	Singleton::TimeManager &timer = Singleton::TimeManager::Instance();
 
-	std::cout << "non" << std::endl;
 	if (timer.getChronoDuration(_chrono)  > 2) {
 		for (auto entity : _exploseTab) {
 			if (timer.getChronoDuration(_chrono)  > 2.5f) {
