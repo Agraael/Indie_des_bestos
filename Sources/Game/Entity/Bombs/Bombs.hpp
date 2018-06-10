@@ -12,6 +12,7 @@
 #include <ctime>
 #include "GonnaExplose.hpp"
 #include <thread>
+#include <vector>
 
 class Bombs : public entities::Entity {
 	public:

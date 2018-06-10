@@ -223,14 +223,13 @@ bool	Map::verifPosition(entities::entityPosition &pos)
 
 void Map::clean()
 {
-	std::for_each(_map.begin(), _map.end(), [](EntitiesVec& elem){
-		std::for_each(elem.begin(), elem.end(), [](SharedEntity& elem){
-			for (auto item = elem.begin(); item != elem.end() ; item++) {
-				if ((*item)->isDead()) {
-					elem.erase(item);
-					std::cout << "delete mdr" << std::endl;
-				}
-			}
+	std::for_each(_map.begin(), _map.end(), [this](EntitiesVec& elem1){
+		std::for_each(elem1.begin(), elem1.end(), [this](SharedEntity& elem2){
+			elem2.erase(std::remove_if(elem2.begin(), elem2.end(), [this](std::shared_ptr<entities::Entity>& ptr){
+				if (ptr->isDead())
+					this->addDeletedEntity(ptr);
+				return ptr->isDead();
+			}), elem2.end());
 		});
 	});
 }

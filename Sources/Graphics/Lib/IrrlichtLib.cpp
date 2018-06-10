@@ -70,6 +70,17 @@ irr::gui::IGUIButton	*graphic::IrrlichtLib::printButton(const infos_t &infos)
 
 }
 
+void graphic::IrrlichtLib::createListBox(const std::string &name)
+{
+    (void)name;
+    /*_listBox = _guiEnv->addListBox(irr::core::rect<irr::s32>(50, 140, 250, 210));
+	std::wstring wideStr = std::wstring(name.begin(), name.end());
+	const wchar_t *wideCStr = wideStr.c_str();
+	_listBox->addItem(wideCStr);
+    irr::gui::IGUIFileOpenDialog* dialog = _guiEnv->addFileOpenDialog(L"./gameMap/", true, 0, -1, true);*/
+
+}
+
 irr::gui::IGUIScrollBar	*graphic::IrrlichtLib::scrollBarButton(const infos_t &infos)
 {
 	drawText(200, 200, 30, "Brightness Control");
