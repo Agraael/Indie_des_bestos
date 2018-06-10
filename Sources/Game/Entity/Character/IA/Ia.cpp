@@ -19,10 +19,8 @@ void Ia::update()
         GameMap map = _map->get3dMap();
 	Algorithm *algo = new Algorithm(_power, _chronoBomb);
 
- 	if (algo->check_if_dangerous_zone(map, _pos) == true) {
-		std::cout << _pos.first << " " << _pos.second << "ptn\n";
+ 	if (algo->check_if_dangerous_zone(map, _pos) == true)
 		move = algo->defensiveMove(map, _pos);
-	}
 	else {
 		move = algo->offensiveMove(map, _pos, _map);
 	}
