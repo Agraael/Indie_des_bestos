@@ -8,6 +8,7 @@
 #include <algorithm>
 #include "Map.hpp"
 #include <algorithm>
+#include <SoundManager.hpp>
 #include "Bombs.hpp"
 #include "DestructibleWalls.hpp"
 #include "Entity.hpp"
@@ -40,14 +41,15 @@ bool Map::isWallHere(int first, int second)
 	return false;
 }
 
-void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
+std::shared_ptr<entities::Entity>	Map::placeBomb(entities::entityPosition pos, std::size_t power)
 {
 	std::vector<std::shared_ptr<entities::Entity>>	exploseTab;
 	std::shared_ptr<entities::Entity>		newEntity;
+	Singleton::SoundManager& soundManager = Singleton::SoundManager::Instance();
 
 	for (auto oldEntity :_map[pos.first][pos.second])
 		if (oldEntity.get()->getType() == entities::entityType::BOMBS_TYPE)
-			return;
+			return nullptr;
 	for (int i = 1; i <= static_cast<int>(power); i++)
 		if ((pos.first - i) > 0) {
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first - i, pos.second));
@@ -55,7 +57,7 @@ void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
 				break;
 		}
 	for (int i = 1; i <= static_cast<int>(power); i++)
-		if ((pos.first + i) < 25) {
+		if ((pos.first + i) < _mapPos.first) {
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first + i, pos.second));
 			if (isWallHere(pos.first + i, pos.second) == true)
 				break;
@@ -67,7 +69,7 @@ void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
 				break;
 		}
 	for (int i = 1; i <= static_cast<int>(power); i++)
-		if ((pos.second + i) < 25) {
+		if ((pos.second + i) < _mapPos.second) {
 			placeExplosion(exploseTab, newEntity, std::make_pair(pos.first, pos.second + i));
 			if (isWallHere(pos.first, pos.second + i) == true)
 				break;
@@ -80,6 +82,8 @@ void    Map::placeBomb(entities::entityPosition pos, std::size_t power)
 	addAddedEntity(newEntity);
 	addModifiedEntity(newEntity);
  	_map[pos.first][pos.second].push_back(newEntity);
+	soundManager.playSound("Audio/Woosh.wav");
+	return (newEntity);
 }
 
 void Map::addModifiedEntity(const std::shared_ptr<entities::Entity> &entity)
@@ -98,8 +102,6 @@ void Map::addDeletedEntity(const std::shared_ptr<entities::Entity> &entity)
 
 void Map::addAddedEntity(const std::shared_ptr<entities::Entity> &entity)
 {
-	if (entity->getType() == entities::entityType::BOMBS_TYPE)
-		std::cout << "bomb added" << std::endl;
 	_addedEntities.push_back(entity);
 }
 
@@ -150,6 +152,7 @@ void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 			if (entity.get()->getType() == entities::entityType::DESTRUCTIBLE_TYPE) {
 				addModifiedEntity(reinterpret_cast<DestructibleWalls &>(*entity).getBonus());
 				addModifiedEntity(entity);
+				reinterpret_cast<DestructibleWalls &>(*entity).setLayout(0);				
 			}
 			if ( entity.get()->getType() == entities::entityType::PLAYER_TYPE ||
 			entity.get()->getType() == entities::entityType::IA_TYPE ||
@@ -168,25 +171,24 @@ void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 
 void Map::checkBonusCollision(entities::Entity *character, const entities::entityPosition &pos)
 {
-	for (unsigned int i = 0; i < _map[pos.first][pos.second].size(); i++) {
-		for (auto entity : _map[pos.first][pos.second]) {
-			if (entity.get()->getType() == entities::entityType::BOMB_UP_TYPE) {
-				addBombs(character, pos);
-				entity.get()->die(true);
-				break;
-			} else if (entity.get()->getType() == entities::entityType::SPEED_UP_TYPE) {
-				addSpeed(character, pos);
-				entity.get()->die(true);
-				break;
-			} else if (entity.get()->getType() == entities::entityType::FIRE_UP_TYPE) {
-				addFire(character, pos);
-				entity.get()->die(true);
-				break;
-			} else if (entity.get()->getType() == entities::entityType::WALL_PASS_TYPE) {
-				allowWallpass(character, pos);
-				entity.get()->die(true);
-				break;
-			}
+	for (auto entity : _map[pos.first][pos.second]) {
+		if (entity.get()->getType() == entities::entityType::BOMB_UP_TYPE) {
+			std::cout << "bomb" << std::endl;
+			addBombs(character, pos);
+			entity.get()->die(true);
+			break;
+		} else if (entity.get()->getType() == entities::entityType::SPEED_UP_TYPE) {
+			addSpeed(character, pos);
+			entity.get()->die(true);
+			break;
+		} else if (entity.get()->getType() == entities::entityType::FIRE_UP_TYPE) {
+			addFire(character, pos);
+			entity.get()->die(true);
+			break;
+		} else if (entity.get()->getType() == entities::entityType::WALL_PASS_TYPE) {
+			allowWallpass(character, pos);
+			entity.get()->die(true);
+			break;
 		}
 	}
 }
@@ -202,7 +204,7 @@ void    Map::updatePos(entities::Entity *entity, entities::entityPosition pos)
 			if (oldEntity->getId() == entity->getId()) {
 				_map[pos.first][pos.second].push_back(oldEntity);
 				_map[newPos.first][newPos.second].erase(_map[newPos.first][newPos.second].begin() + x);
-				checkBonusCollision(entity, newPos);
+				checkBonusCollision(entity, pos);
 				break;
 			}
 			++x;
