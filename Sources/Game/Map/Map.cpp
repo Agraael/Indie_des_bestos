@@ -193,12 +193,12 @@ void Map::clean()
 {
 	std::for_each(_map.begin(), _map.end(), [](EntitiesVec& elem){
 		std::for_each(elem.begin(), elem.end(), [](SharedEntity& elem){
-			for (auto item = elem.begin(); item != elem.end() ; item++) {
-				if ((*item)->isDead()) {
-					elem.erase(item);
-					std::cout << "delete mdr" << std::endl;
-				}
-			}
+			elem.erase(std::remove_if(elem.begin(), elem.end(), [](std::shared_ptr<entities::Entity>& ptr){
+				if (ptr.get())
+					return ptr->isDead();
+				else
+					return false;
+			}));
 		});
 	});
 }
