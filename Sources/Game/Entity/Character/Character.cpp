@@ -14,7 +14,7 @@ void    Character::deleteBombs()
  	for (unsigned int i = 0; i < _playerBombs.size(); i++) {
 		x = 0;
 		for (auto oldEntity :_playerBombs) {
-			if (oldEntity ==  nullptr) {
+			if (oldEntity == nullptr) {
                                 std::cout << "oui" << std::endl;
 				_playerBombs.erase(_playerBombs.begin() + x);
 				break;

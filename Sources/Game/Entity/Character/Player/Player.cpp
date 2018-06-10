@@ -19,12 +19,8 @@ void	Player::update()
 			auto func = _foncter[index];
 			newPos = func(_map->get3dMap(), _pos);
 		}
-		else if (_lib->getEventManager()->IsKeyDown(event) && _playerBombs.size() <= _bombs) {
-			std::cout << _bombs << std::endl;
-			std::cout << _playerBombs.size() << std::endl;
+		else if (_lib->getEventManager()->IsKeyDown(event)) {
 			_playerBombs.push_back(_map->placeBomb(_pos, _power));
-			std::cout << "non" << std::endl;
-		}
 		++index;
 	}
 	if (timer.getChronoDuration(_chrono) < 0.1f) {
