@@ -92,13 +92,11 @@ void Map::addModifiedEntity(const std::shared_ptr<entities::Entity> &entity)
 
 void Map::addDeletedEntity(const std::shared_ptr<entities::Entity> &entity)
 {
-	std::cout << "deleted" << entity->getType() << std::endl;	
 	_deletedEntities.push_back(entity->getId());
 }
 
 void Map::addAddedEntity(const std::shared_ptr<entities::Entity> &entity)
 {
-	std::cout << "added" << entity->getType() << std::endl;
 	_addedEntities.push_back(entity);
 }
 
@@ -151,11 +149,11 @@ void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 				addModifiedEntity(entity);
 			}
 			if ( entity.get()->getType() == entities::entityType::PLAYER_TYPE ||
-				entity.get()->getType() == entities::entityType::IA_TYPE ||
-				entity.get()->getType() == entities::entityType::DESTRUCTIBLE_TYPE) {
-					entity->die(true);
-					break;
-				}
+			entity.get()->getType() == entities::entityType::IA_TYPE ||
+			entity.get()->getType() == entities::entityType::DESTRUCTIBLE_TYPE) {
+				entity->die(true);
+				break;
+			}
 			if (entity.get()->getType() == entities::entityType::GONNAEXPLOSE_TYPE) {
 				entity->setLayout(0);
 				addModifiedEntity(entity);
@@ -167,29 +165,22 @@ void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 
 void Map::checkBonusCollision(entities::Entity *character, const entities::entityPosition &pos)
 {
-	std::size_t x = 0;
 	for (unsigned int i = 0; i < _map[pos.first][pos.second].size(); i++) {
-		x = 0;
 		for (auto entity : _map[pos.first][pos.second]) {
-			x++;
 			if (entity.get()->getType() == entities::entityType::BOMB_UP_TYPE) {
 				addBombs(character, pos);
-				addDeletedEntity(entity);
 				entity.get()->die(true);
 				break;
 			} else if (entity.get()->getType() == entities::entityType::SPEED_UP_TYPE) {
 				addSpeed(character, pos);
-				addDeletedEntity(entity);
 				entity.get()->die(true);
 				break;
 			} else if (entity.get()->getType() == entities::entityType::FIRE_UP_TYPE) {
 				addFire(character, pos);
-				addDeletedEntity(entity);
 				entity.get()->die(true);
 				break;
 			} else if (entity.get()->getType() == entities::entityType::WALL_PASS_TYPE) {
 				allowWallpass(character, pos);
-				addDeletedEntity(entity);
 				entity.get()->die(true);
 				break;
 			}
@@ -208,7 +199,7 @@ void    Map::updatePos(entities::Entity *entity, entities::entityPosition pos)
 			if (oldEntity->getId() == entity->getId()) {
 				_map[pos.first][pos.second].push_back(oldEntity);
 				_map[newPos.first][newPos.second].erase(_map[newPos.first][newPos.second].begin() + x);
-				checkBonusCollision(entity, pos);
+				checkBonusCollision(entity, newPos);
 				break;
 			}
 			++x;

@@ -117,13 +117,10 @@ void	HandleGame::updateDeletedEntity()
 {
 	std::vector<std::size_t>	idVec = _threeDMap->getDeleteEntities();
 
-	std::cout << idVec.size() << std::endl;
-	for (auto elem = _disp.begin(); elem != _disp.end(); elem++) {
+	for (auto elem: _disp) {
 		for (auto id : idVec) {
-			if (static_cast<irr::s32>(id) == (*elem)->getID()) {
-				(*elem)->remove();
-				_disp.erase(elem);
-			}
+			if (static_cast<irr::s32>(id) == elem->getID())
+				elem->setVisible(false);
 		}
 	}
 }
@@ -141,6 +138,8 @@ void	HandleGame::updateAddEntity()
 		else
 			_disp.push_back(_lib->createSphere({static_cast<double>(pos.second), static_cast<double>(pos.first), 1}, _textureMap.at(elem->getType()), elem->getId(), {0.25, true}));
 	}
+	_threeDMap->clearModifiedEntities();
+	_threeDMap->clearAddedEntities();
 }
 
 void	HandleGame::updateEntity(const entities::Entity *entity)
