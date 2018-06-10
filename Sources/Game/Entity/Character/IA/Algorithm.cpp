@@ -250,7 +250,6 @@ bool Algorithm::try_to_put_a_bomb(GameMap &map, std::pair<int, int> &posPlayer, 
 		fake_pos = defensiveMove(map, fake_pos);
 		if (check_if_dangerous_zone(fake_map, fake_pos) == false) {
 			_map->placeBomb(posPlayer, _power);
-			std::cout << "BOMB PLACED BY IA" << _chronoBomb << "\n";
 			return true;
 		}
 	}
