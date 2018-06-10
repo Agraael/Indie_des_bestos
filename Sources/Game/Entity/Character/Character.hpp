@@ -32,7 +32,7 @@ public:
 	void	upgradeBombs() noexcept { _bombs += 1; }
         void	upgradeSpeed() noexcept { _speed += 1; }
         void	upgradePower() noexcept { _power += 1; }
-	int	getWallpass() {return _wallpass; }
+	int	getWallPass() {return _wallpass; }
         void	upgradeWallpass() noexcept { if (_wallpass != 2) {_wallpass = 2;} else {_wallpass = 0;} }
 protected:
 	int				_power;

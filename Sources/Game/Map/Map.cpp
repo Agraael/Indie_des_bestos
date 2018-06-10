@@ -170,6 +170,12 @@ void	Map::checkExplosionCollision(const entities::entityPosition &pos)
 
 void Map::checkBonusCollision(entities::Entity *character, const entities::entityPosition &pos)
 {
+	if (reinterpret_cast<Character &>(*character).getWallPass() == 2) {
+		for (auto entity : _map[pos.first][pos.second]) {
+			if (entity.get()->getType() == entities::entityType::DESTRUCTIBLE_TYPE)
+				return;
+		}
+	}
 	for (auto entity : _map[pos.first][pos.second]) {
 		if (entity.get()->getType() == entities::entityType::BOMB_UP_TYPE) {
 			addBombs(character, pos);
