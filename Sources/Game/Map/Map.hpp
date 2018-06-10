@@ -22,7 +22,7 @@ public:
 	void	checkAfterExplosion() {};
 	void	playerDeath() {};
 	void	placeBomb(entities::entityPosition, std::size_t);
-	void    checkBonusCollision(std::shared_ptr<entities::Entity>, const entities::entityPosition &);
+	void    checkBonusCollision(entities::Entity *, const entities::entityPosition &);
 	void	checkExplosionCollision(const entities::entityPosition &_pos);
 	std::vector<std::shared_ptr<entities::Entity>>	getModifiedEntities(void) const noexcept { return _modifiedEntities; }
 	std::vector<std::size_t>			getDeleteEntities() const noexcept { return _deletedEntities; }
@@ -37,10 +37,10 @@ private:
 	void	addModifiedEntity(const std::shared_ptr<entities::Entity> &entity);
 	void	addDeletedEntity(const std::shared_ptr<entities::Entity> &entity);
 	void	addAddedEntity(const std::shared_ptr<entities::Entity> &entity);
-	void    addBombs(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
-        void    addSpeed(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
-        void    addFire(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
-        void    allowWallpass(std::shared_ptr<entities::Entity> &character, const entities::entityPosition &pos);
+	void    addBombs(entities::Entity *, const entities::entityPosition &pos);
+        void    addSpeed(entities::Entity *, const entities::entityPosition &pos);
+        void    addFire(entities::Entity *, const entities::entityPosition &pos);
+        void    allowWallpass(entities::Entity *, const entities::entityPosition &pos);
 	bool isWallHere(int first, int second);
 	std::vector<std::shared_ptr<entities::Entity>> _modifiedEntities;
 	std::vector<std::shared_ptr<entities::Entity>> _addedEntities;
