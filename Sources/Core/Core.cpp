@@ -10,7 +10,6 @@
 #include "Gen.hpp"
 #include "Core.hpp"
 #include "SoundManager.hpp"
-#include <unistd.h>
 
 Core::Core()
 	: _state(CoreState::IN_MENU), _lib(new graphic::IrrlichtLib()),
@@ -91,7 +90,7 @@ void	Core::game(const CoreState &)
 		hGame->dumpPlayerName();
 		return;
 	}
-	if (not _music) {
+	if (!_music) {
 		auto res = (rand() % 2);
 		std::cout << res << std::endl;
 		if (res == 0)
