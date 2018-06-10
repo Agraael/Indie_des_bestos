@@ -126,9 +126,7 @@ void    graphic::ResumeGame::removeImgFiles()
 
 void    graphic::ResumeGame::manageFiles(int nbr)
 {
-    std::cout << _filesImg.size() << std::endl;
     removeImgFiles();
-    std::cout << "esce da remove file" << std::endl;
     if (nbr == 1 && _itFiles == (_files.size() - 1))
         _itFiles = 0;
     else if (nbr == -1 && _itFiles == 0)
