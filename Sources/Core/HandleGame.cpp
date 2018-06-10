@@ -110,12 +110,14 @@ void	HandleGame::updateMap(bool &state)
 	updateAddEntity();
 	_threeDMap->clean();
 	updateDeletedEntity();
+	_threeDMap->clearDeletedEntities();
 }
 
 void	HandleGame::updateDeletedEntity()
 {
 	std::vector<std::size_t>	idVec = _threeDMap->getDeleteEntities();
 
+	std::cout << idVec.size() << std::endl;
 	for (auto elem = _disp.begin(); elem != _disp.end(); elem++) {
 		for (auto id : idVec) {
 			if (static_cast<irr::s32>(id) == (*elem)->getID()) {

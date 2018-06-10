@@ -92,11 +92,13 @@ void Map::addModifiedEntity(const std::shared_ptr<entities::Entity> &entity)
 
 void Map::addDeletedEntity(const std::shared_ptr<entities::Entity> &entity)
 {
+	std::cout << "deleted" << entity->getType() << std::endl;	
 	_deletedEntities.push_back(entity->getId());
 }
 
 void Map::addAddedEntity(const std::shared_ptr<entities::Entity> &entity)
 {
+	std::cout << "added" << entity->getType() << std::endl;
 	_addedEntities.push_back(entity);
 }
 
