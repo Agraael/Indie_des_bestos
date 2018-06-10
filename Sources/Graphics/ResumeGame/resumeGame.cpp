@@ -1,9 +1,9 @@
-OB/*
-  ** EPITECH PROJECT, 2018
-  ** indie
-  ** File description:
-  ** source
-  */
+/*
+** EPITECH PROJECT, 2018
+** indie
+** File description:
+** source
+*/
 
 #include <string>
 #include <experimental/filesystem>
