@@ -27,7 +27,9 @@ public:
 	std::vector<std::shared_ptr<entities::Entity>>	getModifiedEntities(void) const noexcept { return _modifiedEntities; }
 	std::vector<std::size_t>			getDeleteEntities() const noexcept { return _deletedEntities; }
 	std::vector<std::shared_ptr<entities::Entity>>	getAddedEntity() const noexcept { return _addedEntities; }
-	void	clearDeleteEntities() { _deletedEntities.clear(); }
+	void	clearDeletedEntities() { _deletedEntities.clear(); }
+	void	clearAddedEntities() { _addeddEntities.clear(); }
+	void	clearModifiedEntities() { _modifiedEntities.clear(); }
 	bool	verifPosition(entities::entityPosition &);
 	void    clean();
 private:
