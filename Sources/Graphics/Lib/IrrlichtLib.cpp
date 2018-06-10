@@ -128,15 +128,19 @@ irr::gui::IGUIEditBox	*graphic::IrrlichtLib::drawEditBox(const infos_t &infos)
 
 irr::scene::ISceneNode	*graphic::IrrlichtLib::createSphere(const vec3df &pos, const std::string &path, irr::s32 id)
 {
-	irr::scene::ISceneNode *node = _sceneManager->addSphereSceneNode(0.5);
+	irr::scene::IAnimatedMesh* mesh = _sceneManager->getMesh("./Assets/media/stay.b3d");
+        irr::scene::ISceneNode *node = _sceneManager->addAnimatedMeshSceneNode(mesh);
 
-	if (node) {
-		node->setPosition(irr::core::vector3df(pos.x,pos.y, pos.z));
-		node->setMaterialTexture(0, _driver->getTexture(path.c_str()));
-		node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-		node->setID(id);
-	}
-	return (node);
+        if (node) {
+                node->setScale(irr::core::vector3df(0.8f, 0.8f, 0.8f));
+                node->setPosition(irr::core::vector3df(pos.x ,pos.y, pos.z));
+                node->setRotation(irr::core::vector3df(60.f, 0.f, 0.f));
+                node->setMaterialTexture(0, _driver->getTexture(path.c_str()));
+                node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+                node->setID(id);
+        }
+        return (node);
+
 }
 
 irr::scene::ISceneNode	*graphic::IrrlichtLib::createSphere(const vec3df &pos, const std::string &path, irr::s32 id, const sphere_t &sph)
