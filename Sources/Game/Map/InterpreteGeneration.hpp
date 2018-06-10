@@ -65,6 +65,8 @@ private:
 	void		InitSoloWallPass(SharedEntity &, std::size_t, std::size_t);
 	void		InitSoloBombUp(SharedEntity &, std::size_t, std::size_t);
 
+	std::size_t	_nbplayer = 1;
+	std::size_t	_nbia = 1;
 	EntitiesVec	_tempLine;
 	SharedEntity	_tempTab;	
 	std::unordered_map<std::size_t, std::vector<irr::EKEY_CODE>>	_eventPlayer = {

@@ -21,17 +21,17 @@ public:
 	void	displayMap();
 	void	checkAfterExplosion() {};
 	void	playerDeath() {};
-	void	placeBomb(entities::entityPosition, std::size_t);
 	void    checkBonusCollision(entities::Entity *, const entities::entityPosition &);
 	void	checkExplosionCollision(const entities::entityPosition &_pos);
-	std::vector<std::shared_ptr<entities::Entity>>	getModifiedEntities(void) const noexcept { return _modifiedEntities; }
-	std::vector<std::size_t>			getDeleteEntities() const noexcept { return _deletedEntities; }
-	std::vector<std::shared_ptr<entities::Entity>>	getAddedEntity() const noexcept { return _addedEntities; }
+	bool	verifPosition(entities::entityPosition &);
+	void    clean();
 	void	clearDeletedEntities() { _deletedEntities.clear(); }
 	void	clearAddedEntities() { _addedEntities.clear(); }
 	void	clearModifiedEntities() { _modifiedEntities.clear(); }
-	bool	verifPosition(entities::entityPosition &);
-	void    clean();
+	std::vector<std::shared_ptr<entities::Entity>>	getAddedEntity() const noexcept { return _addedEntities; }
+	std::vector<std::size_t>			getDeleteEntities() const noexcept { return _deletedEntities; }
+	std::vector<std::shared_ptr<entities::Entity>>	getModifiedEntities(void) const noexcept { return _modifiedEntities; }
+	std::shared_ptr<entities::Entity>		placeBomb(entities::entityPosition, std::size_t);
 private:
 	void	placeExplosion(std::vector<std::shared_ptr<entities::Entity>> &, std::shared_ptr<entities::Entity> &, entities::entityPosition pos);	
 	void	addModifiedEntity(const std::shared_ptr<entities::Entity> &entity);
@@ -41,12 +41,13 @@ private:
         void    addSpeed(entities::Entity *, const entities::entityPosition &pos);
         void    addFire(entities::Entity *, const entities::entityPosition &pos);
         void    allowWallpass(entities::Entity *, const entities::entityPosition &pos);
-	bool isWallHere(int first, int second);
+	bool	isWallHere(int first, int second);
+	
 	std::vector<std::shared_ptr<entities::Entity>> _modifiedEntities;
 	std::vector<std::shared_ptr<entities::Entity>> _addedEntities;
-	std::vector<std::size_t> _deletedEntities;
-	GameMap _map;
-	std::pair<int, int>	_mapPos;
+	std::vector<std::size_t>			_deletedEntities;
+	GameMap						_map;
+	std::pair<int, int>				_mapPos;
 };
 
 #endif /* !MAP_HPP_ */

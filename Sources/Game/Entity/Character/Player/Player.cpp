@@ -18,8 +18,8 @@ void	Player::update()
 			auto func = _foncter[index];
 			newPos = func(_map->get3dMap(), _pos);
 		}
-		else if (_lib->getEventManager()->IsKeyDown(event))
-			_map->placeBomb(_pos, _power);
+		else if (_lib->getEventManager()->IsKeyDown(event) && _playerBombs.size() <= _bombs)
+			_playerBombs.push_back(_map->placeBomb(_pos, _power));
 		++index;
 	}
 	if (timer.getChronoDuration(_chrono) < 0.1f) {
@@ -31,4 +31,5 @@ void	Player::update()
 		_pos = newPos;
 	}
 	timer.resetChrono(_chrono);
+	Character::deleteBombs();
 }

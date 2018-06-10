@@ -20,4 +20,5 @@ set(CHARACTER_INC
 
 set(CHARACTER_SRC
   ${IA_SRC}
-  ${PLAYER_SRC})
+  ${PLAYER_SRC}
+  ${CHARACTER_ROOT_DIR}/Character.cpp)

@@ -56,20 +56,14 @@ void	InterpreteGeneration::InitWallPass(SharedEntity &tempTab, std::size_t x, st
 
 void	InterpreteGeneration::InitIa(SharedEntity &tempTab, std::size_t x, std::size_t y)
 {
-	static	std::size_t	index = 1;
-
-	tempTab.push_back(std::make_shared<Ia>(std::make_pair(x,y), false, 0, "IA" + std::to_string(index)));
-	++index;
+	tempTab.push_back(std::make_shared<Ia>(std::make_pair(x,y), false, 0, "IA" + std::to_string(_nbia)));
+	++_nbia;
 }
 
 void	InterpreteGeneration::InitPlayer(SharedEntity &tempTab, std::size_t x, std::size_t y)
 {
-	static	std::size_t	index = 1;
-
-	tempTab.push_back(std::make_shared<Player>(std::make_pair(x,y), false, 0, _eventPlayer[index], "PLAYER" + std::to_string(index)));
-	++index;
-	//if (index == 2)
-	//	index = 1;
+	tempTab.push_back(std::make_shared<Player>(std::make_pair(x,y), false, 0, _eventPlayer[_nbplayer], "PLAYER" + std::to_string(_nbplayer)));
+	++_nbplayer;
 }
 
 void	InterpreteGeneration::InitSoloBombUp(SharedEntity &tempTab, std::size_t x, std::size_t y)
